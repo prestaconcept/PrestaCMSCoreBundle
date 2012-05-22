@@ -1,0 +1,19 @@
+
+#Administration
+presta_cms_website:
+    pattern:  /admin/cms/website
+    defaults: { _controller: PrestaCMSCoreBundle:Admin/Website:list, _sonata_admin: presta_cms.website.admin.website }
+presta_cms_page:
+    pattern:  /admin/cms/page
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:list}
+presta_cms_theme:
+    pattern:  /admin/cms/theme
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Theme:list}
+ 
+    
+#Front
+catchAll:
+    pattern:  /{_locale}/{path}
+    defaults: { _controller: PrestaCMSCoreBundle:Page:catchAll }
+    requirements:
+        path: .*

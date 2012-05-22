@@ -1,0 +1,228 @@
+<?php
+
+namespace PrestaCMS\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * PrestaCMS\CoreBundle\Entity\BaseThemeBlock
+ */
+class BaseThemeBlock
+{
+    /**
+     * @var integer $website_id
+     */
+    private $website_id;
+
+    /**
+     * @var string $theme
+     */
+    private $theme;
+
+    /**
+     * @var string $zone
+     */
+    private $zone;
+
+    /**
+     * @var integer $position
+     */
+    private $position;
+
+    /**
+     * @var boolean $is_active
+     */
+    private $is_active;
+
+    /**
+     * @var string $block_type
+     */
+    private $block_type;
+
+    /**
+     * @var text $content
+     */
+    private $content;
+
+
+    /**
+     * Set website_id
+     *
+     * @param integer $websiteId
+     * @return BaseThemeBlock
+     */
+    public function setWebsiteId($websiteId)
+    {
+        $this->website_id = $websiteId;
+        return $this;
+    }
+
+    /**
+     * Get website_id
+     *
+     * @return integer 
+     */
+    public function getWebsiteId()
+    {
+        return $this->website_id;
+    }
+
+    /**
+     * Set theme
+     *
+     * @param string $theme
+     * @return BaseThemeBlock
+     */
+    public function setTheme($theme)
+    {
+        $this->theme = $theme;
+        return $this;
+    }
+
+    /**
+     * Get theme
+     *
+     * @return string 
+     */
+    public function getTheme()
+    {
+        return $this->theme;
+    }
+
+    /**
+     * Set zone
+     *
+     * @param string $zone
+     * @return BaseThemeBlock
+     */
+    public function setZone($zone)
+    {
+        $this->zone = $zone;
+        return $this;
+    }
+
+    /**
+     * Get zone
+     *
+     * @return string 
+     */
+    public function getZone()
+    {
+        return $this->zone;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     * @return BaseThemeBlock
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer 
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * Set is_active
+     *
+     * @param boolean $isActive
+     * @return BaseThemeBlock
+     */
+    public function setIsActive($isActive)
+    {
+        $this->is_active = $isActive;
+        return $this;
+    }
+
+    /**
+     * Get is_active
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * Set block_type
+     *
+     * @param string $blockType
+     * @return BaseThemeBlock
+     */
+    public function setBlockType($blockType)
+    {
+        $this->block_type = $blockType;
+        return $this;
+    }
+
+    /**
+     * Get block_type
+     *
+     * @return string 
+     */
+    public function getBlockType()
+    {
+        return $this->block_type;
+    }
+
+    /**
+     * Set content
+     *
+     * @param text $content
+     * @return BaseThemeBlock
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return text 
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+    /**
+     * @var Application\PrestaCMS\CoreBundle\Entity\Website
+     */
+    private $website;
+
+
+    /**
+     * Set website
+     *
+     * @param Application\PrestaCMS\CoreBundle\Entity\Website $website
+     * @return BaseThemeBlock
+     */
+    public function setWebsite(\Application\PrestaCMS\CoreBundle\Entity\Website $website = null)
+    {
+        $this->website = $website;
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return Application\PrestaCMS\CoreBundle\Entity\Website 
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+}

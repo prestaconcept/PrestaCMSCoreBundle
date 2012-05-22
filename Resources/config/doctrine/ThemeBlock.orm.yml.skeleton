@@ -1,0 +1,9 @@
+# 
+Application\PrestaCMS\CoreBundle\Entity\ThemeBlock:
+  type: entity
+  table: prestacms_theme_block
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+    

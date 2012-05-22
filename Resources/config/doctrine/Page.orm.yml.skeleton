@@ -1,0 +1,49 @@
+# src/Acme/StoreBundle/Resources/config/doctrine/BaseWebsite.orm.yml
+Application\PrestaCMS\CoreBundle\Entity\Page:
+  type: entity
+  table: prestacms_page
+  gedmo:
+    tree:
+      type: nested
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:    
+    left:
+      type: integer
+      gedmo:
+        - treeLeft
+    rigth:
+      type: integer
+      gedmo:
+        - treeRight
+    root:
+      type: integer
+      nullable: true
+      gedmo:
+        - treeRoot
+    level:
+      type: integer
+      gedmo:
+        - treeLevel
+  oneToMany:
+    children:
+      targetEntity: Application\PrestaCMS\CoreBundle\Entity\Page
+      mappedBy: parent
+    revisions:
+      targetEntity: Application\PrestaCMS\CoreBundle\Entity\PageRevision
+      mappedBy: page
+    urlRewrites:
+      targetEntity: Application\PrestaCMS\CoreBundle\Entity\PageUrlRewrite
+      mappedBy: page
+  manyToOne:
+    parent:
+      targetEntity: Application\PrestaCMS\CoreBundle\Entity\Page
+      inversedBy: children
+      joinColumn:
+        name: parent_id
+        referencedColumnName: id
+        onDelete: SET NULL
+      gedmo:
+        - treeParent

@@ -1,0 +1,51 @@
+PrestaCMS\CoreBundle\Entity\BasePageRevision:
+  type: mappedSuperclass
+  gedmo:
+    translation:
+      locale: locale
+    
+  fields:
+    page_id:
+      type: integer
+    name:
+      type: string
+      length: 255
+      gedmo:
+        - translatable
+    template:
+      type: string
+      length: 64
+    title:
+      type: string
+      length: 64
+      gedmo:
+        - translatable
+    meta_keywords:
+      type: string
+      length: 255
+      gedmo:
+        - translatable
+    meta_description:
+      type: string
+      length: 255
+      gedmo:
+        - translatable
+    created:
+      type: date
+      gedmo:
+        timestampable:
+          on: create
+    updated:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  manyToOne:
+    page:
+      targetEntity: Application\PrestaCMS\CoreBundle\Entity\Page
+      inversedBy: revisions
+      joinColumn:
+        name: page_id
+        referencedColumnName: id   
+  
+  lifecycleCallbacks: {  }

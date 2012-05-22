@@ -1,0 +1,19 @@
+PrestaCMS\CoreBundle\Entity\BasePageUrlRewrite:
+  type: mappedSuperclass
+  gedmo:
+    translation:
+      locale: locale
+  fields:    
+    url:
+      type: string
+      length: 255
+      gedmo:
+        - translatable
+  manyToOne:
+    page:
+      targetEntity: Application\PrestaCMS\CoreBundle\Entity\Page
+      inversedBy: urlRewrites
+      joinColumn:
+        name: page_id
+        referencedColumnName: id    
+  lifecycleCallbacks: {  }

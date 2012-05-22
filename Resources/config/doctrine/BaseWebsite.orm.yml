@@ -1,0 +1,40 @@
+PrestaCMS\CoreBundle\Entity\BaseWebsite:
+  type: mappedSuperclass
+  gedmo:
+    translation:
+      locale: locale
+  fields:        
+    name:
+      type: string
+      length: 255
+    host:
+      type: string
+      length: 255
+      gedmo:
+        - translatable
+    is_active:
+      type: boolean
+      default: false
+    is_default:
+      type: boolean
+      default: false
+    default_locale:
+      type: string
+      length: 5
+    title:
+      type: string
+      length: 64
+      gedmo:
+        - translatable
+    meta_keywords:
+      type: string
+      length: 255
+      gedmo:
+        - translatable
+    meta_description:
+      type: string
+      length: 255
+      gedmo:
+        - translatable
+  
+  lifecycleCallbacks: {  }

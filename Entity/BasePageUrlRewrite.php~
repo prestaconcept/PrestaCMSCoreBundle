@@ -1,0 +1,66 @@
+<?php
+
+namespace PrestaCMS\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * PrestaCMS\CoreBundle\Entity\BasePageUrlRewrite
+ */
+class BasePageUrlRewrite
+{
+    /**
+     * @var string $url
+     */
+    private $url;
+
+    /**
+     * @var Application\PrestaCMS\CoreBundle\Entity\Page
+     */
+    private $page;
+
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return BasePageUrlRewrite
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set page
+     *
+     * @param Application\PrestaCMS\CoreBundle\Entity\Page $page
+     * @return BasePageUrlRewrite
+     */
+    public function setPage(\Application\PrestaCMS\CoreBundle\Entity\Page $page = null)
+    {
+        $this->page = $page;
+        return $this;
+    }
+
+    /**
+     * Get page
+     *
+     * @return Application\PrestaCMS\CoreBundle\Entity\Page 
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
+}

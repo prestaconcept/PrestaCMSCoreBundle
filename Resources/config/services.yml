@@ -1,0 +1,18 @@
+parameters:
+#    presta_cms_core.example.class: PrestaCMS\ThemeBundle\Example
+
+services:
+#    presta_cms_theme.example:
+#        class: %presta_cms_theme.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    presta_cms_core.configure_menu_listener:
+        class: PrestaCMS\CoreBundle\EventListener\ConfigureMenuListener
+        tags:
+          - { name: kernel.event_listener, event: presta_admin.menu_configure, method: onMenuConfigure }
+        
+    presta_cms.website.admin.website:
+      class: PrestaCMS\CoreBundle\Admin\WebsiteAdmin
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: cms, label: website }
+      arguments: [null, Application\PrestaCMS\CoreBundle\Entity\Website, PrestaCMSCoreBundle:Admin/Website]

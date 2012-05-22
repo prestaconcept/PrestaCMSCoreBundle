@@ -1,0 +1,15 @@
+# src/Acme/StoreBundle/Resources/config/doctrine/BaseWebsite.orm.yml
+Application\PrestaCMS\CoreBundle\Entity\Website:
+  type: entity
+  table: prestacms_website
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  oneToMany:
+    pages:
+      targetEntity: Application\PrestaCMS\CoreBundle\Entity\Page
+      mappedBy: website
+    themeBlocks:
+      targetEntity: Application\PrestaCMS\CoreBundle\Entity\ThemeBlock
+      mappedBy: website

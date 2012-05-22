@@ -1,0 +1,29 @@
+PrestaCMS\CoreBundle\Entity\BasePage:
+  type: mappedSuperclass
+  gedmo:
+    translation:
+      locale: locale
+    tree:
+      type: nested
+  fields:
+    is_active:
+      type: boolean
+      default: false
+      gedmo:
+        - translatable
+    url:
+      type: string
+      length: 255
+      gedmo:
+        - translatable
+    
+  manyToOne:
+    website:
+      targetEntity: Application\PrestaCMS\CoreBundle\Entity\Website
+      inversedBy: pages
+      joinColumn:
+        name: website_id
+        referencedColumnName: id
+    
+  
+  lifecycleCallbacks: {  }
