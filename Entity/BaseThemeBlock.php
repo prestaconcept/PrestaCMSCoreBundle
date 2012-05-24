@@ -56,6 +56,24 @@ abstract class BaseThemeBlock
     protected $content;
 
     /**
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    protected $locale;
+    
+    /**
+     * Set locale
+     *
+     * @param  string $locale
+     * @return BaseThemeBlock
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
+    }
+    
+    /**
      * Set website
      *
      * @param Application\PrestaCMS\CoreBundle\Entity\Website $website

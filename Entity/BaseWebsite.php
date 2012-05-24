@@ -75,6 +75,12 @@ abstract class BaseWebsite
      */
     protected $themeBlocks;
     
+    /**
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    protected $locale;
+    
     public function __construct()
     {
         $this->pages = new \Doctrine\Common\Collections\ArrayCollection();
@@ -177,6 +183,18 @@ abstract class BaseWebsite
     public function getIsDefault()
     {
         return $this->is_default;
+    }
+    
+    /**
+     * Set locale
+     *
+     * @param  string $locale
+     * @return BaseWebsite
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
     }
     
     /**

@@ -1,8 +1,8 @@
 <?php
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Presta Bundle project.
  *
- * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * (c) Nicolas Bastien nbastien@prestaconcept.net
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,7 +16,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
-
 
 /**
  * Admin definition for the Site class
@@ -59,7 +58,7 @@ class WebsiteAdmin extends Admin
 //            ->add('locale')
 //            ->add('enabledFrom')
 //            ->add('enabledTo')
-            ->add('create_snapshots', 'string', array('template' => 'SonataPageBundle:SiteAdmin:list_create_snapshots.html.twig'))
+//            ->add('create_snapshots', 'string', array('template' => 'SonataPageBundle:SiteAdmin:list_create_snapshots.html.twig'))
         ;
     }
 

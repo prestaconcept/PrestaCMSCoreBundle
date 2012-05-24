@@ -21,11 +21,6 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class BasePageBlock
 {
     /**
-     * @var integer $website_id
-     */
-    protected $website_id;
-
-    /**
      * @var integer $page_revision_id
      */
     protected $page_revision_id;
@@ -55,27 +50,22 @@ abstract class BasePageBlock
      */
     protected $content;
 
-
     /**
-     * Set website_id
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    protected $locale;
+    
+    /**
+     * Set locale
      *
-     * @param integer $websiteId
+     * @param  string $locale
      * @return BasePageBlock
      */
-    public function setWebsiteId($websiteId)
+    public function setLocale($locale)
     {
-        $this->website_id = $websiteId;
+        $this->locale = $locale;
         return $this;
-    }
-
-    /**
-     * Get website_id
-     *
-     * @return integer 
-     */
-    public function getWebsiteId()
-    {
-        return $this->website_id;
     }
 
     /**

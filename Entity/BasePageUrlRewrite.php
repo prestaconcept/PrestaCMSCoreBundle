@@ -30,7 +30,24 @@ abstract class BasePageUrlRewrite
      */
     protected $page;
 
-
+    /**
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    protected $locale;
+    
+    /**
+     * Set locale
+     *
+     * @param  string $locale
+     * @return BasePageUrlRewrite
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
+    }
+    
     /**
      * Set url
      *

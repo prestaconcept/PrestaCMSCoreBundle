@@ -5,7 +5,7 @@ presta_cms_website:
     defaults: { _controller: PrestaCMSCoreBundle:Admin/Website:list, _sonata_admin: presta_cms.website.admin.website }
 presta_cms_page:
     pattern:  /admin/cms/page
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:list}
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:index}
 presta_cms_theme:
     pattern:  /admin/cms/theme
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Theme:list}

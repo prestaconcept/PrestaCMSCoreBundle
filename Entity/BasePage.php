@@ -14,68 +14,86 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PrestaCMS\CoreBundle\Entity\BasePage
  */
-class BasePage
+abstract class BasePage
 {
     /**
      * @var boolean $is_active
      */
-    private $is_active;
+    protected $is_active;
 
     /**
      * @var string $url
      */
-    private $url;
+    protected $url;
 
     /**
      * @var integer $left
      */
-    private $left;
+    protected $left;
 
     /**
      * @var integer $rigth
      */
-    private $rigth;
+    protected $rigth;
 
     /**
      * @var integer $root
      */
-    private $root;
+    protected $root;
 
     /**
      * @var integer $level
      */
-    private $level;
+    protected $level;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
-    private $children;
+    protected $children;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
-    private $revisions;
+    protected $revisions;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
-    private $urlRewrites;
+    protected $urlRewrites;
 
     /**
      * @var Application\PrestaCMS\CoreBundle\Entity\Website
      */
-    private $website;
+    protected $website;
 
     /**
      * @var Application\PrestaCMS\CoreBundle\Entity\Page
      */
-    private $parent;
+    protected $parent;
 
+    /**
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    protected $locale;
+    
     public function __construct()
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->revisions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->urlRewrites = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Set locale
+     *
+     * @param  string $locale
+     * @return BasePage
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
     }
     
     /**

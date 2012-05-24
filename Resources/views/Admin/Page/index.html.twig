@@ -1,0 +1,392 @@
+{#
+/**
+ * This file is part of the Presta Bundle project.
+ *
+ * (c) Nicolas Bastien nbastien@prestaconcept.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+/**
+ * Page administration main screen 
+ */
+#}
+
+{% extends base_template %}
+
+{% block side_menu %}
+    {% include 'PrestaCMSCoreBundle:Admin/Page:_sidebar.html.twig' with {'pages': pages} %}
+{% endblock %}
+
+{% block title %}
+    Page title
+{% endblock %}
+{% block breadcrumb %}
+    ##breadcrumb##
+{% endblock %}
+
+{%block actions %}
+<div class="btn-group nav-pills">
+    <button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i>&nbsp;Delete</button>
+    <button class="btn" type="button"><i class="icon-screenshot "></i>&nbsp;Preview</button>
+    <button class="btn btn-success" type="button"><i class="icon-retweet icon-white"></i>&nbsp;Publish</button>
+    <button class="btn btn-primary" type="button"><i class="icon-ok icon-white"></i>&nbsp;Save</button>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="modal hide" id="add-block-modal">
+  <div class="modal-header">
+    <h3>Add new block</h3>
+  </div>
+  <div class="modal-body">
+      <fieldset>
+          <legend>Page</legend>
+          <div class="control-group">
+            <label class="radio inline">
+                <input type="radio" /> Editor
+            </label>
+              <label class="radio inline">
+                <input type="radio" /> Subpages
+            </label>
+        </div>
+      </fieldset>
+      <fieldset>
+          <legend>Media</legend>
+            <div class="control-group">
+                <label class="radio inline">
+                    <input type="radio" /> Image
+                </label>
+                <label class="radio inline">
+                    <input type="radio" /> Video
+                </label>
+            </div>
+      </fieldset>
+      <fieldset>
+          <legend>Content block</legend>
+            <div class="control-group">
+                <label class="radio inline">
+                    <input type="radio" /> block 1
+                </label>
+                <label class="radio inline">
+                    <input type="radio" /> block 2
+                </label>
+                <label class="radio inline">
+                    <input type="radio" /> block 3
+                </label>
+                <label class="radio inline">
+                    <input type="radio" /> block 4
+                </label>
+                <label class="radio inline">
+                    <input type="radio" /> block 5
+                </label>
+                <label class="radio inline">
+                    <input type="radio" /> block 6
+                </label>
+            </div>
+      </fieldset>
+      <fieldset>
+          <legend>Blog</legend>
+            <div class="control-group">
+                <label class="radio inline">
+                    <input type="radio" /> Categories
+                </label>
+                <label class="radio inline">
+                    <input type="radio" /> Lastest Articles
+                </label>
+            </div>
+      </fieldset>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-ok icon-remove"></i>&nbsp;Close</a>
+    <a href="#" class="btn btn-primary"><i class="icon-ok icon-white"></i>&nbsp;Save changes</a>
+  </div>
+</div>
+<div class="modal modal-large hide" id="edit-block-modal">
+  <div class="modal-header">
+    <h3>Edit block</h3>
+  </div>
+  <div class="modal-body">
+      <fieldset>
+          <legend>Content</legend>
+          <div class="control-group">
+              <textarea cols="80" id="ckeditor" name="block-content" rows="10">
+                Your block content here !
+              </textarea>
+          </div>
+      </fieldset>      
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-ok icon-remove"></i>&nbsp;Close</a>
+    <a href="#" class="btn btn-primary"><i class="icon-ok icon-white"></i>&nbsp;Save changes</a>
+  </div>
+</div>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#content" data-toggle="tab">Content</a></li>
+  <li><a href="#seo" data-toggle="tab">SEO</a></li>
+  <li><a href="#permission" data-toggle="tab">Permissions</a></li>
+  <li><a href="#history" data-toggle="tab">History</a></li>
+  <li><a href="#settings" data-toggle="tab">Settings</a></li> 
+</ul>
+<form class="form-horizontal">
+<div class="tab-content">
+  <div class="tab-pane active" id="content">
+        <fieldset>
+            <legend>Layout Settings</legend>
+            <div class="control-group">
+                <label class="control-label" for="input01">Template</label>
+                <div class="controls">
+                    <select id="s4fbcd63d1083d_templateCode" name="s4fbcd63d1083d[templateCode]" required="required" class="sonata-medium">
+                        <option value="default" selected="selected">default</option>
+                        <option>left sidebar</option>
+                    </select>
+                    <a class="btn" href="#"><i class="icon-refresh"></i>&nbsp;Reload</a>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Content</legend>
+            <div class="control-group">
+            <table class="table table-bordered page-content-admin" cellspacing="5">
+                <colgroup>
+                    <col width="25%" />
+                    <col width="25%" />
+                    <col width="25%" />
+                    <col width="25%" />
+                </colgroup>
+                <tr>
+                    <td rowspan="2" class="empty"></td>
+                    <td colspan="3">
+                        <div class="page-zone">
+                            <h3>Advertisement</h3>                            
+                            <div class="page-zone-block-container">
+                                <div class="page-zone-block">
+                                    <h4>Widget: Search form</h4>
+                                    <div class="block-actions">
+                                        <a data-toggle="modal" href="#edit-block-modal" class="action-edit">&nbsp;</a>
+                                        <a href="#" class="action-delete">&nbsp;</a>
+                                    </div>
+                                    <div class="block-description">Widget › Search › Search form</div>
+                                </div>
+                            </div>
+                            <div class="block-actions">
+                                <a class="btn btn-mini" data-toggle="modal" href="#add-block-modal"><i class="icon-add"></i>&nbsp;Add block</a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="page-zone">
+                            <h3>Sidebar</h3>
+                            <div class="page-zone-block-container">
+                                <div class="page-zone-block">
+                                    <h4>Widget: Subpages</h4>
+                                    <div class="block-actions">
+                                        <a data-toggle="modal" href="#edit-block-modal" class="action-edit">&nbsp;</a>
+                                        <a href="#" class="action-delete">&nbsp;</a>
+                                    </div>
+                                    <div class="block-description">Widget › Page › Subpages</div>
+                                </div>
+                                <div class="page-zone-block">
+                                    <h4>Widget: Latest News</h4>
+                                    <div class="block-actions">
+                                        <a data-toggle="modal" href="#edit-block-modal" class="action-edit">&nbsp;</a>
+                                        <a href="#" class="action-delete">&nbsp;</a>
+                                    </div>
+                                    <div class="block-description">Widget › Blog › Latest News</div>
+                                </div>
+                            </div>
+                            <div class="block-actions">
+                                <a class="btn btn-mini" data-toggle="modal" href="#add-block-modal"><i class="icon-add"></i>&nbsp;Add block</a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </td>
+                    <td colspan="3">
+                        <div class="page-zone">
+                            <h3>Sidebar</h3>
+                            <div class="page-zone-block-container">
+                                <div class="page-zone-block">
+                                    <h4>Editor</h4>
+                                    <div class="block-actions">
+                                        <a data-toggle="modal" href="#edit-block-modal" class="action-edit">&nbsp;</a>
+                                        <a href="#" class="action-delete">&nbsp;</a>
+                                    </div>
+                                    <div class="block-description">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis fermentum lorem in faucibus. 
+                                        Cras fringilla libero vitae urna elementum egestas.
+                                    </div>
+                                </div>
+                                <div class="page-zone-block">
+                                    <h4>Widget: Image</h4>
+                                    <div class="block-actions">
+                                        <a data-toggle="modal" href="#edit-block-modal" class="action-edit">&nbsp;</a>
+                                        <a href="#" class="action-delete">&nbsp;</a>
+                                    </div>
+                                    <div class="block-description">Widget › Media › Image : Image.jpg</div>
+                                </div>
+                                <div class="page-zone-block">
+                                    <h4>Editor</h4>
+                                    <div class="block-actions">
+                                        <a data-toggle="modal" href="#edit-block-modal" class="action-edit">&nbsp;</a>
+                                        <a href="#" class="action-delete">&nbsp;</a>
+                                    </div>
+                                    <div class="block-description">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis fermentum lorem in faucibus. 
+                                        Cras fringilla libero vitae urna elementum egestas.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-actions">
+                                <a class="btn btn-mini" data-toggle="modal" href="#add-block-modal"><i class="icon-add"></i>&nbsp;Add block</a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>    
+            </div>
+        </fieldset>
+  </div>
+  <div class="tab-pane form-horizontal" id="seo">
+      {% form_theme seo_form 'PrestaSonataAdminBundle:Form:form_admin_fields.html.twig' %}
+      
+      {% if seo_form.vars.errors|length > 0 %}
+        <div class="sonata-ba-form-error">
+            {{ form_errors(seo_form) }}
+        </div>
+      {% endif %}
+      <fieldset>
+          <legend>SEO</legend>
+          <div class="sonata-ba-collapsed-fields">
+            {% for field in seo_form %}
+                {{ form_row(field)}}
+            {% endfor %}
+        </div>
+      </fieldset>      
+      {{ form_rest(seo_form) }}      
+  </div>
+  <div class="tab-pane" id="permission">
+      <table class="table table-bordered table-striped"><thead><tr><th>Groupname</th><th>read</th><th>write</th><th>delete</th></tr></thead><tbody><tr><td>
+                    Kunstmaan
+                </td><td><input type="checkbox" name="permissions[3][read]" checked="checked"></td><td><input type="checkbox" name="permissions[3][write]" checked="checked"></td><td><input type="checkbox" name="permissions[3][delete]" checked="checked"></td></tr><tr><td>
+                    Administrators
+                </td><td><input type="checkbox" name="permissions[1][read]" checked="checked"></td><td><input type="checkbox" name="permissions[1][write]" checked="checked"></td><td><input type="checkbox" name="permissions[1][delete]" checked="checked"></td></tr><tr><td>
+                    Guests
+                </td><td><input type="checkbox" name="permissions[2][read]" checked="checked"></td><td><input type="checkbox" name="permissions[2][write]"></td><td><input type="checkbox" name="permissions[2][delete]"></td></tr></tbody></table>
+  </div>
+  <div class="tab-pane" id="history">
+      <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Last Modification</th>
+            <th>User</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Default</td>
+            <td>16 May 2012 08:43</td>
+            <td>Nicolas Bastien</td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-danger" href="#"><i class="icon-remove icon-white"></i></a>
+                    <a class="btn" href="#"><i class="icon-eye-open"></i></a>
+                    <a class="btn btn-success" href="#"><i class="icon-retweet icon-white"></i></a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Basic</td>
+            <td>16 May 2012 08:43</td>
+            <td>Nicolas Bastien</td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-danger" href="#"><i class="icon-remove icon-white"></i></a>
+                    <a class="btn" href="#"><i class="icon-eye-open"></i></a>
+                    <a class="btn btn-success" href="#"><i class="icon-retweet icon-white"></i></a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Bordered</td>
+            <td>16 May 2012 08:43</td>
+            <td>Nicolas Bastien</td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-danger" href="#"><i class="icon-remove icon-white"></i></a>
+                    <a class="btn" href="#"><i class="icon-eye-open"></i></a>
+                    <a class="btn btn-success" href="#"><i class="icon-retweet icon-white"></i></a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Zebra-stripe</td>
+            <td>16 May 2012 08:43</td>
+            <td>Nicolas Bastien</td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-danger" href="#"><i class="icon-remove icon-white"></i></a>
+                    <a class="btn" href="#"><i class="icon-eye-open"></i></a>
+                    <a class="btn btn-success" href="#"><i class="icon-retweet icon-white"></i></a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Condensed</td>
+            <td>16 May 2012 08:43</td>
+            <td>Nicolas Bastien</td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-danger" href="#"><i class="icon-remove icon-white"></i></a>
+                    <a class="btn" href="#"><i class="icon-eye-open"></i></a>
+                    <a class="btn btn-success" href="#"><i class="icon-retweet icon-white"></i></a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+  <div class="tab-pane" id="settings">
+      {% form_theme settings_form 'PrestaSonataAdminBundle:Form:form_admin_fields.html.twig' %}
+      
+      {% if settings_form.vars.errors|length > 0 %}
+        <div class="sonata-ba-form-error">
+            {{ form_errors(settings_form) }}
+        </div>
+      {% endif %}
+      <fieldset>
+          <legend>Settings</legend>
+          <div class="sonata-ba-collapsed-fields">
+            {% for field in settings_form %}
+                {{ form_row(field)}}
+            {% endfor %}
+        </div>
+      </fieldset>      
+      {{ form_rest(settings_form) }}
+  </div>
+</div>
+
+<div class="actions form-actions">
+    <input type="submit" class="btn btn-primary" name="btn_update_and_edit" value="Mettre à jour">
+    <input type="submit" class="btn" name="btn_update_and_list" value="Mettre à jour et fermer">
+    ou <a class="btn btn-danger" href="#">Supprimer</a>
+</div>
+</form>
+
+<script type="text/javascript">
+    //<![CDATA[
+    $('.page-zone-block-container').sortable({
+        connectWith: ".page-zone-block-container"
+    });
+    CKEDITOR.replace( 'ckeditor', {});
+</script>
+{% endblock %}
