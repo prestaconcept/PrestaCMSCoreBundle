@@ -40,28 +40,10 @@ class PrestaCMSCoreExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
         
-        //Initialisation of ThemeManager with all theme defined by configuration
-        $themeManager = $container->get('presta_cms.theme_manager');
+        //Initialisation of ThemeManager definition with all theme defined by configuration
+        $themeManager = $container->getDefinition('presta_cms.theme_manager');
         foreach ($config['themes'] as $themeConfiguration) {
-            $themeManager->addTheme($this->_buildTheme($themeConfiguration));
+            $themeManager->addMethodCall('addTheme', array($themeConfiguration));
         }
-    }
-    
-    /**
-     * Build Theme model from configuration
-     * 
-     * @param  array $configuration
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
-     */
-    protected function _buildTheme(array $configuration)
-    {
-        $theme = new Theme($configuration['name']);
-        $theme->setDescription($configuration['description']);
-        $theme->setLayout($configuration['layout']);
-        foreach ($configuration['page_template'] as $templateConfiguration) {
-            $template = new Template($templateConfiguration['name'], $templateConfiguration['path']);
-            $theme->addPageTemplate($template);
-        }        
-        return $theme;
     }
 }

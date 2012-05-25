@@ -61,11 +61,18 @@ class ThemeManager
     /**
      * Add a new theme
      * 
-     * @param  Theme $theme
+     * @param  array $configuration
      * @return \PrestaCMS\CoreBundle\Model\ThemeManager 
      */
-    public function addTheme(Theme $theme)
+    public function addTheme(array $configuration)
     {
+        $theme = new Theme($configuration['name']);
+        $theme->setDescription($configuration['description']);
+        $theme->setLayout($configuration['layout']);
+        foreach ($configuration['page_template'] as $templateConfiguration) {
+            $template = new Template($templateConfiguration['name'], $templateConfiguration['path']);
+            $theme->addPageTemplate($template);
+        }        
         $this->_themes[$theme->getName()] = $theme;
         return $this;
     }
