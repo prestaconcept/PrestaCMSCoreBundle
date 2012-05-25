@@ -29,12 +29,33 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('presta_cms');
+        $rootNode = $treeBuilder->root('presta_cms_core');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
-
+        //TODO : check hox to use the requiresAtLeastOneElement !
+        $rootNode
+            ->children()
+                ->arrayNode('themes')
+                        ->prototype('array')
+                            //->requiresAtLeastOneElement()                  
+                            ->children()
+                                ->scalarNode('name')->end()
+                                ->scalarNode('description')->end()
+                                ->scalarNode('layout')->end()
+                                ->arrayNode('page_template')
+                                    ->prototype('array')
+                                        //->requiresAtLeastOneElement()
+                                        ->children()
+                                            ->scalarNode('name')->end()
+                                            ->scalarNode('path')->end()
+                                        ->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+        
         return $treeBuilder;
     }
 }

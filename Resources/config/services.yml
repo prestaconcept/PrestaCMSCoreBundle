@@ -16,4 +16,9 @@ services:
       tags:
         - { name: sonata.admin, manager_type: orm, group: cms, label: website }
       arguments: [null, Application\PrestaCMS\CoreBundle\Entity\Website, PrestaCMSCoreBundle:Admin/Website]
+    
+    presta_cms.theme_manager:
+      class: PrestaCMS\CoreBundle\Model\ThemeManager
+      arguments: [@service_container]
+      
       

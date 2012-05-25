@@ -1,0 +1,14 @@
+
+presta_cms_core:
+  themes:
+    default:
+      name: default
+      description: Presta CMS default theme
+      layout: PrestaCMSCoreBundle:Theme/Default:layout.phtml
+      page_template:
+        default:
+          name: default
+          path: PrestaCMSCoreBundle:Theme/Default/Page:default.phtml
+        sidebar:
+          name: sidebar
+          path: PrestaCMSCoreBundle:Theme/Default/Page:sidebar.phtml

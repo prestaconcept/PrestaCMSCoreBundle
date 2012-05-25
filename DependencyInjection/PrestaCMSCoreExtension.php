@@ -15,6 +15,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
+use PrestaCMS\CoreBundle\Model\Theme;
+use PrestaCMS\CoreBundle\Model\Template;
 
 /**
  * This is the class that loads and manages your bundle configuration
@@ -34,11 +36,32 @@ class PrestaCMSCoreExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-
+            
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
         
-//        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-//        $loader->load('admin.xml');
+        //Initialisation of ThemeManager with all theme defined by configuration
+        $themeManager = $container->get('presta_cms.theme_manager');
+        foreach ($config['themes'] as $themeConfiguration) {
+            $themeManager->addTheme($this->_buildTheme($themeConfiguration));
+        }
+    }
+    
+    /**
+     * Build Theme model from configuration
+     * 
+     * @param  array $configuration
+     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     */
+    protected function _buildTheme(array $configuration)
+    {
+        $theme = new Theme($configuration['name']);
+        $theme->setDescription($configuration['description']);
+        $theme->setLayout($configuration['layout']);
+        foreach ($configuration['page_template'] as $templateConfiguration) {
+            $template = new Template($templateConfiguration['name'], $templateConfiguration['path']);
+            $theme->addPageTemplate($template);
+        }        
+        return $theme;
     }
 }
