@@ -5,10 +5,88 @@ presta_cms_core:
       name: default
       description: Presta CMS default theme
       layout: PrestaCMSCoreBundle:Theme/Default:layout.phtml
+      screenshot: 'bundles/prestacmscore/themes/default/screenshot.jpg'
+      zones:
+        top_left:
+          name: top_left
+          can_add_block: false
+          can_sort_block: false
+          blocks:
+            editor:
+              block_type: cms_core_editor
+              is_editable: true
+              is_deletable: false
+              is_sortable: false
+              position: 10
+        navigation:
+          name: navigation
+          can_add_block: false
+          can_sort_block: false
+        content:
+          name: content
+          can_add_block: false
+          can_sort_block: false
+        footer_left:
+          name: footer_left
+          can_add_block: false
+          can_sort_block: false
+          blocks:
+            editor:
+              block_type: cms_core_editor
+              is_editable: true
+              is_deletable: false
+              is_sortable: false
+              position: 10
+        footer_right:
+          name: footer_right
+          can_add_block: false
+          can_sort_block: false
+          blocks:
+            editor:
+              block_type: cms_core_editor
+              is_editable: true
+              is_deletable: false
+              is_sortable: false
+              position: 10
       page_template:
         default:
           name: default
           path: PrestaCMSCoreBundle:Theme/Default/Page:default.phtml
+          zones:
+            content:
+              name: content
+              can_add_block: false
+              can_sort_block: false
+              blocks:
+                editor:
+                  block_type: cms_core_editor
+                  is_editable: true
+                  is_deletable: false
+                  is_sortable: false
+                  position: 10
         sidebar:
           name: sidebar
           path: PrestaCMSCoreBundle:Theme/Default/Page:sidebar.phtml
+          zones:
+            left:
+              name: left
+              can_add_block: false
+              can_sort_block: false
+              blocks:
+                editor:
+                  block_type: cms_core_editor
+                  is_editable: true
+                  is_deletable: false
+                  is_sortable: false
+                  position: 10
+            content:
+              name: content
+              can_add_block: false
+              can_sort_block: false
+              blocks:
+                editor:
+                  block_type: cms_core_editor
+                  is_editable: true
+                  is_deletable: false
+                  is_sortable: false
+                  position: 10

@@ -1,5 +1,7 @@
 parameters:
-#    presta_cms_core.example.class: PrestaCMS\ThemeBundle\Example
+    cms_block_type:
+      cms_core_editor: PrestaCMS\CoreBundle\Block\EditorBlockService
+      cms_core_dummy: PrestaCMS\CoreBundle\Block\EditorBlockService
 
 services:
 #    presta_cms_theme.example:
@@ -19,6 +21,6 @@ services:
     
     presta_cms.theme_manager:
       class: PrestaCMS\CoreBundle\Model\ThemeManager
-      arguments: [@service_container]
+      arguments: [@service_container, %cms_block_type%]
       
       

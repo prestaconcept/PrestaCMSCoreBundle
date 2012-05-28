@@ -27,10 +27,16 @@ class ThemeManager
      * @var array 
      */
     protected $_themes;
+    
+    /**
+     * @var array 
+     */
+    protected $_blockTypes;
 
-    public function __construct( $container)
+    public function __construct($container, $blockTypes)
     {
-        $this->_container = $container;
+        $this->_container = $container;        
+        $this->_blockTypes = $blockTypes;
         $this->_themes = array();
     }
     
@@ -69,6 +75,11 @@ class ThemeManager
         $theme = new Theme($configuration['name']);
         $theme->setDescription($configuration['description']);
         $theme->setLayout($configuration['layout']);
+        $theme->setScreenshot($configuration['screenshot']);
+        foreach ($configuration['zones'] as $zoneConfiguration) {
+            $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration, $this->_container, $this->_blockTypes);
+            $theme->addZone($zone);
+        } 
         foreach ($configuration['page_template'] as $templateConfiguration) {
             $template = new Template($templateConfiguration['name'], $templateConfiguration['path']);
             $theme->addPageTemplate($template);

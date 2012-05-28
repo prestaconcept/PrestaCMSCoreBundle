@@ -1,0 +1,73 @@
+{#
+/**
+ * This file is part of the Presta Bundle project.
+ *
+ * (c) Nicolas Bastien nbastien@prestaconcept.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+/**
+ * Theme list
+ */
+#}
+
+{% extends base_template %}
+
+{% block title %}
+    Themes
+{% endblock %}
+{% block breadcrumb %}
+    ##breadcrumb##
+{% endblock %}
+
+{% block content %}
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr class="sonata-ba-list-field-header">
+            <th class="sonata-ba-list-field-header-text">
+                Screenshot
+            </th>
+            <th class="sonata-ba-list-field-header-text">
+                Name
+            </th>
+            <th class="sonata-ba-list-field-header-text">
+                Description
+            </th>
+            <th class="sonata-ba-list-field-header-text">
+                Zones
+            </th>
+            <th class="sonata-ba-list-field-header-text">
+                Page templates
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for theme in themes %}
+        <tr>
+            <td class="sonata-ba-list-field sonata-ba-list-field-screenshot">
+                <img src="{{ asset(theme.screenshot) }}" class="sonata-ba-img-box" />
+            </td>
+            <td class="sonata-ba-list-field sonata-ba-list-field-text">
+                <a href="{{ path('presta_cms_theme_edit', {name: theme.name}) }}">{{ theme.name }}</a>
+            </td>
+            <td class="sonata-ba-list-field sonata-ba-list-field-text">{{ theme.description }}</td>
+            <td class="sonata-ba-list-field sonata-ba-list-field-text">
+                <ul>
+                {% for zone in theme.zones %}
+                    <li><strong>{{ zone.name }}</strong></li>
+                {% endfor %}
+                </ul>
+            </td>
+            <td class="sonata-ba-list-field sonata-ba-list-field-text">
+                <ul>
+                {% for template in theme.pageTemplates %}
+                    <li><strong>{{ template.name }}</strong> : <p>{{ template.path }}</p></li>
+                {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>                
+{% endblock %}

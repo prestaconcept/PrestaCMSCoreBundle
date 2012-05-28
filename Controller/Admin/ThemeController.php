@@ -21,11 +21,38 @@ use PrestaSonata\AdminBundle\Controller\Admin\Controller as AdminController;
 class ThemeController extends AdminController
 {    
     /**
-     *
+     * Return Theme manager
+     * 
+     * @return PrestaCMS\CoreBundle\Model\ThemeManager 
+     */
+    public function getThemeManager()
+    {
+        return $this->get('presta_cms.theme_manager');
+    }
+    
+    /**
+     * Theme listing
+     * 
      * @return type 
      */
     public function listAction()
     {
-        return $this->render('PrestaCMSCoreBundle:Admin/Theme:list.html.twig', array());
+        return $this->_render('PrestaCMSCoreBundle:Admin/Theme:list.html.twig', array(
+            'themes' => $this->getThemeManager()->getAvailableThemes()
+        ));
+    }
+    
+    /**
+     * Theme administration
+     * 
+     * @return type 
+     */
+    public function editAction($name)
+    {
+        $theme = $this->getThemeManager()->getTheme($name);
+        
+        return $this->_render('PrestaCMSCoreBundle:Admin/Theme:edit.html.twig', array(
+            'theme' => $theme
+        ));
     }
 }
