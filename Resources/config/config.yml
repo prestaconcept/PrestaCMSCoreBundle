@@ -1,13 +1,26 @@
 
+sonata_block:
+  blocks:
+    cms_core_editor:
+    presta_cms.block.dashboard.cms:
+
+sonata_admin:
+  dashboard:
+      blocks:
+          - { position: right, type: presta_cms.block.dashboard.cms }
+  
 presta_cms_core:
   themes:
     default:
       name: default
       description: Presta CMS default theme
-      layout: PrestaCMSCoreBundle:Theme/Default:layout.phtml
+      template: PrestaCMSCoreBundle:Theme/Default:layout.phtml
       screenshot: 'bundles/prestacmscore/themes/default/screenshot.jpg'
+      cols: 4
       zones:
         top_left:
+          rows: 1
+          cols: 2
           name: top_left
           can_add_block: false
           can_sort_block: false
@@ -16,17 +29,25 @@ presta_cms_core:
               block_type: cms_core_editor
               is_editable: true
               is_deletable: false
-              is_sortable: false
               position: 10
+        empty:
+          rows: 1
+          cols: 2
         navigation:
+          rows: 1
+          cols: 4
           name: navigation
           can_add_block: false
           can_sort_block: false
         content:
+          rows: 4
+          cols: 4
           name: content
           can_add_block: false
           can_sort_block: false
         footer_left:
+          rows: 1
+          cols: 2
           name: footer_left
           can_add_block: false
           can_sort_block: false
@@ -35,9 +56,10 @@ presta_cms_core:
               block_type: cms_core_editor
               is_editable: true
               is_deletable: false
-              is_sortable: false
               position: 10
         footer_right:
+          rows: 1
+          cols: 2
           name: footer_right
           can_add_block: false
           can_sort_block: false
@@ -46,7 +68,6 @@ presta_cms_core:
               block_type: cms_core_editor
               is_editable: true
               is_deletable: false
-              is_sortable: false
               position: 10
       page_template:
         default:
@@ -62,7 +83,6 @@ presta_cms_core:
                   block_type: cms_core_editor
                   is_editable: true
                   is_deletable: false
-                  is_sortable: false
                   position: 10
         sidebar:
           name: sidebar
@@ -77,7 +97,6 @@ presta_cms_core:
                   block_type: cms_core_editor
                   is_editable: true
                   is_deletable: false
-                  is_sortable: false
                   position: 10
             content:
               name: content
@@ -88,5 +107,4 @@ presta_cms_core:
                   block_type: cms_core_editor
                   is_editable: true
                   is_deletable: false
-                  is_sortable: false
                   position: 10

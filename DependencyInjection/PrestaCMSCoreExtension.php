@@ -43,7 +43,7 @@ class PrestaCMSCoreExtension extends Extension
         //Initialisation of ThemeManager definition with all theme defined by configuration
         $themeManager = $container->getDefinition('presta_cms.theme_manager');
         foreach ($config['themes'] as $themeConfiguration) {
-            $themeManager->addMethodCall('addTheme', array($themeConfiguration));
+            $themeManager->addMethodCall('addThemeConfiguration', array($themeConfiguration));
         }
     }
 }
