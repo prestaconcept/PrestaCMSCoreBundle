@@ -29,12 +29,17 @@ class Theme
     /**
      * @var string 
      */
-    protected $_layout;
-    
+    protected $_template;
+        
     /**
      * @var string 
      */
     protected $_screenshot;
+    
+    /**
+     * @var integer 
+     */
+    protected $_cols;
     
     /**
      * @var array 
@@ -83,25 +88,25 @@ class Theme
     }
 
     /**
-     * Returns layout
+     * Returns template
      * 
      * @return string 
      */
-    public function getLayout() {
-        return $this->_layout;
+    public function getTemplate() {
+        return $this->_template;
     }
 
     /**
-     * Set layout
+     * Set template
      * 
-     * @param  string $layout
+     * @param  string $template
      * @return \PrestaCMS\CoreBundle\Model\Theme 
      */
-    public function setLayout($layout) {
-        $this->_layout = $layout;
+    public function setTemplate($template) {
+        $this->_template = $template;
         return $this;
     }
-
+        
     /**
      * Returns screenshot
      * 
@@ -119,6 +124,28 @@ class Theme
      */
     public function setScreenshot($screenshot) {
         $this->_screenshot = $screenshot;
+        return $this;
+    }
+    
+    /**
+     * Return the number of columns the layout is based on
+     * 
+     * @return integer 
+     */
+    public function getCols()
+    {
+        return $this->_cols;
+    }
+    
+    /**
+     * Set the number of columns the layout is based on
+     * 
+     * @param  integer $cols
+     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     */
+    public function setCols($cols)
+    {
+        $this->_cols = $cols;
         return $this;
     }
     

@@ -9,7 +9,7 @@
  */
 namespace PrestaCMS\CoreBundle\Model;
 
-use \PrestaCMS\CoreBundle\Block\BaseBlockService;
+use PrestaCMS\CoreBundle\Model\Block;
 
 /**
  * Zone Model
@@ -38,24 +38,21 @@ class Zone
      */
     protected $_blocks;
     
+    protected $_cols;
+    
+    protected $_rows; 
+    
     /**
      * @param string $name
-     * @param array  $configuration
+     * @param array  $blocks
      */
-    public function __construct($name, $configuration, $container, $blockTypes)
+    public function __construct($name, $configuration, $blocks)
     {
         $this->_name = $name;
-        $this->_blocks = array();
-        foreach ($configuration['blocks'] as $blockConfiguration) {
-            if (!isset($blockTypes[$blockConfiguration['block_type']])) {
-                throw new \RuntimeException('Block type : ' . $blockConfiguration['block_type'] . ' has to be defined!');
-            }
-            $blockClass = $blockTypes[$blockConfiguration['block_type']];
-            $block = new $blockClass($blockConfiguration['block_type'], $container->get('templating'));
-            $block->setIsEditable($blockConfiguration['is_editable']);
-            $block->setIsDeletable($blockConfiguration['is_deletable']);
-            $block->setIsSortable($blockConfiguration['is_sortable']);
-            $block->setPosition($blockConfiguration['position']);    
+        $this->_cols = $configuration['cols'];
+        $this->_rows = $configuration['rows'];
+        $this->_blocks = array();        
+        foreach ($blocks as $block) {  
             $this->addBlock($block);
         }
     }
@@ -129,12 +126,56 @@ class Zone
     /**
      * Add block
      * 
-     * @param  \PrestaCMS\CoreBundle\Block\BaseBlockService $block
+     * @param  \PrestaCMS\CoreBundle\Model\BaseBlock $block TODO create class!
      * @return \PrestaCMS\CoreBundle\Model\Zone 
      */
-    public function addBlock(BaseBlockService $block)
+    public function addBlock( $block)
     {
         $this->_blocks[$block->getPosition()] = $block;
+        return $this;
+    }
+    
+    /**
+     * Return the number of columns the layout is based on
+     * 
+     * @return integer 
+     */
+    public function getCols()
+    {
+        return $this->_cols;
+    }
+    
+    /**
+     * Set the number of columns the layout is based on
+     * 
+     * @param  integer $cols
+     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     */
+    public function setCols($cols)
+    {
+        $this->_cols = $cols;
+        return $this;
+    }
+    
+    /**
+     * Return the number of rows
+     * 
+     * @return integer 
+     */
+    public function getRows()
+    {
+        return $this->_rows;
+    }
+    
+    /**
+     * Set the number of rows
+     * 
+     * @param  integer $rows
+     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     */
+    public function setRows($rows)
+    {
+        $this->_rows = $rows;
         return $this;
     }
 }

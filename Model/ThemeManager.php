@@ -31,29 +31,32 @@ class ThemeManager
     /**
      * @var array 
      */
-    protected $_blockTypes;
-
-    public function __construct($container, $blockTypes)
-    {
-        $this->_container = $container;        
-        $this->_blockTypes = $blockTypes;
-        $this->_themes = array();
-    }
+    protected $_themesConfiguration;
     
     /**
-     * Return theme by name
-     * 
-     * @param  string $name
-     * @return Theme 
+     * @var array 
      */
-    public function getTheme($name)
-    {
-        if (!isset($this->_themes[$name])) {
-            return false;
-        }
-        return $this->_themes[$name];
-    }
+    protected $_blockTypes;
     
+    
+    protected $_repository;
+
+    public function __construct($container)
+    {
+        $this->_container = $container;
+        $this->_themes = null;
+        $this->_repository = null;
+        $this->_themesConfiguration = array();
+    }
+        
+    protected function _getRepository()
+    {
+        if ($this->_repository == null) {
+            $this->_repository =$this->_container->get('doctrine')->getEntityManager()
+                ->getRepository('Application\PrestaCMS\CoreBundle\Entity\ThemeBlock');
+        }
+        return $this->_repository;
+    }
     /**
      * Return all themes declared in configuration
      * 
@@ -61,7 +64,22 @@ class ThemeManager
      */
     public function getAvailableThemes()
     {
+        if (!is_array($this->_themes)) {
+            foreach ($this->_themesConfiguration as $configuration) {
+                $this->_themes[$configuration['name']] = $this->_buildTheme($configuration);
+            }
+        }
         return $this->_themes;
+    }
+    
+    /**
+     * Return all themes codes declared in configuration
+     * 
+     * @rturn array 
+     */
+    public function getAvailableThemeCodes()
+    {
+        return array_keys($this->_themesConfiguration);
     }
     
     /**
@@ -70,21 +88,60 @@ class ThemeManager
      * @param  array $configuration
      * @return \PrestaCMS\CoreBundle\Model\ThemeManager 
      */
-    public function addTheme(array $configuration)
+    protected function _buildTheme(array $configuration, $website = null)
     {
         $theme = new Theme($configuration['name']);
         $theme->setDescription($configuration['description']);
-        $theme->setLayout($configuration['layout']);
+        $theme->setTemplate($configuration['template']);
         $theme->setScreenshot($configuration['screenshot']);
+        $theme->setCols($configuration['cols']);//var_dump(serialize(array('content'=>'<p>hello</p>')));die;
+        //Voir pour les éventuels thèmes sans contenu editable!
+        $data = array();
+        if ($website != null) {
+            $data = $this->_getRepository()
+                ->getBlocksForWebsiteByZone($website);
+            if (count($data) == 0) {
+                //If there is no corresponding data, initialisation with default configuration
+                $data = $this->_getRepository()->initializeForWebsite($website, $configuration);
+            }
+        }
         foreach ($configuration['zones'] as $zoneConfiguration) {
-            $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration, $this->_container, $this->_blockTypes);
+            if (!isset($data[$zoneConfiguration['name']])) {
+                $data[$zoneConfiguration['name']] = array();
+            }
+            $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration, $data[$zoneConfiguration['name']]);
             $theme->addZone($zone);
         } 
         foreach ($configuration['page_template'] as $templateConfiguration) {
             $template = new Template($templateConfiguration['name'], $templateConfiguration['path']);
             $theme->addPageTemplate($template);
-        }        
-        $this->_themes[$theme->getName()] = $theme;
+        }
+        return $theme;
+    }
+    
+    /**
+     * Add a new theme configuration
+     * 
+     * @param  array $configuration
+     * @return \PrestaCMS\CoreBundle\Model\ThemeManager 
+     */
+    public function addThemeConfiguration(array $configuration)
+    {
+        $this->_themesConfiguration[$configuration['name']] = $configuration;
         return $this;
+    }
+    
+    /**
+     * Return theme by name
+     * 
+     * @param  string $name
+     * @return Theme 
+     */
+    public function getTheme($name, $website = null)
+    {
+        if (!isset($this->_themesConfiguration[$name])) {
+            return false;
+        }        
+        return $this->_buildTheme($this->_themesConfiguration[$name], $website);
     }
 }
