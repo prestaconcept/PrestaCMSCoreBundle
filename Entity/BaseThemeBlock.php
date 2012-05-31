@@ -11,6 +11,8 @@ namespace PrestaCMS\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use PrestaCMS\CoreBundle\Model\BaseBlock;
+
 /**
  * PrestaCMS\CoreBundle\Entity\BaseThemeBlock
  * 
@@ -18,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @subpackage CoreBundle
  * @author     Nicolas Bastien nbastien@prestaconcept.net
  */
-abstract class BaseThemeBlock
+abstract class BaseThemeBlock extends BaseBlock
 {
     /**
      * @var Application\PrestaCMS\CoreBundle\Entity\Website
@@ -35,25 +37,25 @@ abstract class BaseThemeBlock
      */
     protected $zone;
 
-    /**
-     * @var integer $position
-     */
-    protected $position;
+//    /**
+//     * @var integer $position
+//     */
+//    protected $position;
 
-    /**
-     * @var boolean $is_active
-     */
-    protected $is_active;
+//    /**
+//     * @var boolean $is_active
+//     */
+//    protected $is_active;
 
-    /**
-     * @var string $block_type
-     */
-    protected $block_type;
-
-    /**
-     * @var text $content
-     */
-    protected $content;
+//    /**
+//     * @var string
+//     */
+//    protected $type;
+//
+//    /**
+//     * @var text
+//     */
+//    protected $settings;
 
     /**
      * Used locale to override Translation listener`s locale
@@ -139,91 +141,85 @@ abstract class BaseThemeBlock
         return $this->zone;
     }
 
-    /**
-     * Set position
-     *
-     * @param integer $position
-     * @return BaseThemeBlock
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-        return $this;
-    }
+//    /**
+//     * Set position
+//     *
+//     * @param integer $position
+//     * @return BaseThemeBlock
+//     */
+//    public function setPosition($position)
+//    {
+//        $this->position = $position;
+//        return $this;
+//    }
+//
+//    /**
+//     * Get position
+//     *
+//     * @return integer 
+//     */
+//    public function getPosition()
+//    {
+//        return $this->position;
+//    }
 
-    /**
-     * Get position
-     *
-     * @return integer 
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
+    
 
-    /**
-     * Set is_active
-     *
-     * @param boolean $isActive
-     * @return BaseThemeBlock
-     */
-    public function setIsActive($isActive)
-    {
-        $this->is_active = $isActive;
-        return $this;
-    }
+//    /**
+//     * Set block_type
+//     *
+//     * @param string $type
+//     * @return BaseThemeBlock
+//     */
+//    public function setType($type)
+//    {
+//        $this->type = $type;
+//        return $this;
+//    }
+//
+//    /**
+//     * Get block_type
+//     *
+//     * @return string 
+//     */
+//    public function getType()
+//    {
+//        return $this->type;
+//    }
 
-    /**
-     * Get is_active
-     *
-     * @return boolean 
-     */
-    public function getIsActive()
-    {
-        return $this->is_active;
-    }
-
-    /**
-     * Set block_type
-     *
-     * @param string $blockType
-     * @return BaseThemeBlock
-     */
-    public function setBlockType($blockType)
-    {
-        $this->block_type = $blockType;
-        return $this;
-    }
-
-    /**
-     * Get block_type
-     *
-     * @return string 
-     */
-    public function getBlockType()
-    {
-        return $this->block_type;
-    }
-
-    /**
-     * Set content
-     *
-     * @param text $content
-     * @return BaseThemeBlock
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-        return $this;
-    }
-
-    /**
-     * Get content
-     *
-     * @return text 
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
+//    /**
+//     * Set content
+//     *
+//     * @param text $content
+//     * @return BaseThemeBlock
+//     */
+//    public function setSettings(array $settings = array())
+//    {
+//        $this->settings = $settings;
+//        return $this;
+//    }
+//
+//    /**
+//     * Get content
+//     *
+//     * @return text 
+//     */
+//    public function getSettings()
+//    {
+//        if (!is_array($this->settings)) {
+//            return array($this->settings);
+//        }
+//        return $this->settings;
+//    }
+//    
+//    public function prePersist()
+//    {var_dump('persist!');die;
+//        $this->settings = serialize($this->settings);
+//        var_dump($this);die;
+//    }
+//    
+//    public function postLoad()
+//    {
+//        $this->settings = unserialize($this->settings);
+//    }
 }
