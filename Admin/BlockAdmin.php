@@ -17,6 +17,9 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
+use Sonata\AdminBundle\Validator\ErrorElement;
+use Sonata\BlockBundle\Block\BlockServiceManagerInterface;
+
 /**
  * Admin definition for the Site class
  *
@@ -24,53 +27,26 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
  * @subpackage CoreBundle
  * @author     Nicolas Bastien nbastien@prestaconcept.net
  */
-class WebsiteAdmin extends Admin
+class BlockAdmin extends Admin
 {
+    
+    
     /**
-     * {@inheritdoc}
+     * @param \Sonata\BlockBundle\Block\BlockServiceManagerInterface $blockManager
      */
-    protected function configureShowFields(ShowMapper $showMapper)
+    public function setBlockManager(BlockServiceManagerInterface $blockManager)
     {
-        $showMapper
-            ->add('name')
-            ->add('host')
-            ->add('isDefault')
-            ->add('isActive')            
-            ->add('defaultLocale')
-            ->add('title')
-            ->add('metaDescription')
-            ->add('metaKeywords')
-        ;
+        $this->blockManager = $blockManager;
     }
     
     /**
      * {@inheritdoc}
      */
-    protected function configureListFields(ListMapper $listMapper)
+    public function generateUrl($name, array $parameters = array(), $absolute = false)
     {
-        $listMapper
-            ->addIdentifier('name')
-            ->add('host')
-            ->add('isDefault')
-            ->add('isActive')
-            
-            ->add('defaultLocale')
-//            ->add('locale')
-//            ->add('enabledFrom')
-//            ->add('enabledTo')
-//            ->add('create_snapshots', 'string', array('template' => 'SonataPageBundle:SiteAdmin:list_create_snapshots.html.twig'))
-        ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('name')
-            ->add('host')
-        ;
+//        $parameters['website_id'] = ;
+//        $parameters['locale'] = ;
+        return $this->routeGenerator->generateUrl($this, $name, $parameters, $absolute);
     }
 
     /**
@@ -78,26 +54,48 @@ class WebsiteAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper
-            ->with($this->trans('form_site.label_general'))
-                ->add('name')
-                ->add('host')
-                ->add('isDefault', 'checkbox', array('required' => false))
-                ->add('isActive', 'checkbox', array('required' => false))
-                
-                ->add('defaultLocale', 'text', array(
-                    'required' => false
-                ))
-//                ->add('relativePath', null, array('required' => false))
-//                ->add('enabledFrom')
-//                ->add('enabledTo')
-            ->end()
-            ->with($this->trans('form_site.label_seo'))
-                ->add('title', null, array('required' => false))
-                ->add('metaDescription', 'textarea', array('required' => false))
-                ->add('metaKeywords', 'textarea', array('required' => false))
-            ->end()
-        ;
+        $block = $this->getSubject();
+        
+        $service = $this->blockManager->get($block);
+
+        if ($block->getId() > 0) {
+            $service->buildEditForm($formMapper, $block);
+        } else {
+            $service->buildCreateForm($formMapper, $block);
+        }
+        
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function validate(ErrorElement $errorElement, $block)
+    {
+        if ($this->inValidate) {
+            return;
+        }
+
+        // As block can be nested, we only need to validate the main block, no the children
+        $this->inValidate = true;
+        $this->blockManager->validate($errorElement, $block);
+        $this->inValidate = false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getObject($id)
+    {
+        $subject = parent::getObject($id);
+
+        if ($subject) {
+            $service = $this->blockManager->get($subject);
+            $subject->setSettings(array_merge($service->getDefaultSettings(), $subject->getSettings()));
+
+            $service->load($subject);
+        }
+
+        return $subject;
     }
     
 }
