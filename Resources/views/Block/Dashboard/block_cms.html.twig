@@ -1,0 +1,41 @@
+{#
+  @package    PrestaCMS
+  @subpackage CoreBundle
+  @author     Nicolas Bastien nbastien@prestaconcept.net
+  
+  Dashboard CMS management block
+#}
+
+{% extends 'PrestaSonataAdminBundle:Block/Dashboard:block_base.html.twig' %}
+
+{% block block_title %} CMS {% endblock %}
+
+{% block block_content %}
+<div class="span3">
+    <div class="block-content-block block-content-block-website">
+        <h4>Websites</h4>
+        <a href="{{ websiteAdmin.generateUrl('create')}}" class="link link-add">
+            {%- trans from 'SonataAdminBundle' %}link_add{% endtrans -%}
+        </a>
+        <a href="{{ websiteAdmin.generateUrl('list')}}" class="link link-list">
+            {%- trans from 'SonataAdminBundle' %}link_list{% endtrans -%}
+        </a>
+    </div>
+</div>
+<div class="span3">
+    <div class="block-content-block block-content-block-theme">
+        <h4>Themes</h4>
+        <a href="{{ path('presta_cms_theme') }}" class="link link-list">
+            {%- trans from 'SonataAdminBundle' %}link_list{% endtrans -%}
+        </a>
+    </div>
+</div>
+<div class="span3">
+    <div class="block-content-block block-content-block-page">
+        <h4>Pages</h4>
+        <a href="{{ path('presta_cms_page') }}" class="link link-list">
+            {%- trans from 'SonataAdminBundle' %}link_list{% endtrans -%}
+        </a>
+    </div>
+</div>
+{% endblock %}
