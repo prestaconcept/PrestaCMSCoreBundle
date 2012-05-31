@@ -2,55 +2,50 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien nbastien@prestaconcept.net
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Block;
+namespace PrestaCMS\CoreBundle\Model;
 
-use Symfony\Component\HttpFoundation\Response;
 
-use Sonata\BlockBundle\Block\BaseBlockService as SonataBaseBlockService;
+use Sonata\BlockBundle\Model\BaseBlock as SonataBaseBlock;
 
 /**
- * Base Block Service
+ * BaseBlock Model
  *
  * @author Nicolas Bastien nbastien@prestaconcept.net
  */
-abstract class BaseBlockService extends SonataBaseBlockService
+abstract class BaseBlock extends SonataBaseBlock
 {    
     /**
      * @var boolean 
      */
-    protected $_isEditable;
+    protected $is_editable;
     
     /**
      * @var boolean 
      */
-    protected $_isDeletable;
-        
-    /**
-     * @var boolean 
-     */
-    protected $_isSortable;
+    protected $is_deletable;
+    
     
     /**
-     * @var integer 
+     * @var boolean $is_active
      */
-    protected $_position;
+    protected $is_active;
     
-    /**
-     * @var string 
-     */
-    protected $_baseTemplate = 'PrestaCMSCoreBundle:Block:base_block.html.twig';
+//    /**
+//     * @var integer 
+//     */
+//    protected $_position;
     
     /**
      * @return boolean 
      */
     public function isEditable()
     {
-        return $this->_isEditable;
+        return $this->is_editable;
     }
 
     /**
@@ -61,7 +56,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
      */
     public function setIsEditable($isEditable)
     {
-        $this->_isEditable = $isEditable;
+        $this->is_editable = $isEditable;
         return $this;
     }
 
@@ -70,7 +65,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
      */
     public function isDeletable() 
     {
-        return $this->_isDeletable;
+        return $this->is_deletable;
     }
 
     /**
@@ -81,68 +76,69 @@ abstract class BaseBlockService extends SonataBaseBlockService
      */
     public function setIsDeletable($isDeletable)
     {
-        $this->_isDeletable = $isDeletable;
+        $this->is_deletable = $isDeletable;
         return $this;
     }
 
-    /**
-     * @return boolean 
-     */
-    public function isSortable()
-    {
-        return $this->_isSortable;
-    }
-
-    /**
-     * Set if block is sortable 
-     * 
-     * @param  boolean $isSortable
-     * @return \PrestaCMS\CoreBundle\Block\BaseBlockService 
-     */
-    public function setIsSortable($isSortable)
-    {
-        $this->_isSortable = $isSortable;
-        return $this;
-    }
-
-    /**
-     * Set base block template (depends of context)
-     * 
-     * @param  string $baseTemplate
-     * @return \PrestaCMS\CoreBundle\Block\BaseBlockService 
-     */
-    public function setBaseTemplate($baseTemplate)
-    {
-        $this->_baseTemplate = $baseTemplate;
-        return $this;
-    }
+//    /**
+//     * @return boolean 
+//     */
+//    public function isSortable()
+//    {
+//        return $this->_isSortable;
+//    }
+//
+//    /**
+//     * Set if block is sortable 
+//     * 
+//     * @param  boolean $isSortable
+//     * @return \PrestaCMS\CoreBundle\Block\BaseBlockService 
+//     */
+//    public function setIsSortable($isSortable)
+//    {
+//        $this->_isSortable = $isSortable;
+//        return $this;
+//    }
     
     /**
-     * Returns block position
-     * 
-     * @return integer 
+     * Set is_active
+     *
+     * @param boolean $isActive
+     * @return BaseThemeBlock
      */
-    public function getPosition() {
-        return $this->_position;
-    }
-
-    /**
-     * Set block position
-     * 
-     * @param  integer $position
-     * @return \PrestaCMS\CoreBundle\Block\BaseBlockService 
-     */
-    public function setPosition($position) {
-        $this->_position = $position;
+    public function setIsActive($isActive)
+    {
+        $this->is_active = $isActive;
         return $this;
     }
 
     /**
-     * {@inheritdoc}
+     * Get is_active
+     *
+     * @return boolean 
      */
-    public function renderResponse($view, array $parameters = array(), Response $response = null)
+    public function getIsActive()
     {
-        $parameters['base_template'] = isset($parameters['base_template']) ? $parameters['base_template'] : $this->_baseTemplate;
-        return parent::renderResponse($view, $parameters, $response);
+        return $this->is_active;
     }
+    
+//    /**
+//     * Returns block position
+//     * 
+//     * @return integer 
+//     */
+//    public function getPosition() {
+//        return $this->_position;
+//    }
+//
+//    /**
+//     * Set block position
+//     * 
+//     * @param  integer $position
+//     * @return \PrestaCMS\CoreBundle\Block\BaseBlockService 
+//     */
+//    public function setPosition($position) {
+//        $this->_position = $position;
+//        return $this;
+//    }
 }

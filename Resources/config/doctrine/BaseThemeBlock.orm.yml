@@ -1,5 +1,6 @@
 PrestaCMS\CoreBundle\Entity\BaseThemeBlock:
   type: mappedSuperclass
+  repositoryClass: PrestaCMS\CoreBundle\Repository\ThemeBlockRepository
   gedmo:
     translation:
       locale: locale
@@ -21,13 +22,19 @@ PrestaCMS\CoreBundle\Entity\BaseThemeBlock:
       default: false
       gedmo:
         - translatable
-    block_type:
+    is_editable:
+      type: boolean
+      default: false
+    is_deletable:
+      type: boolean
+      default: false
+    type:
       type: string
       length: 128
-    content:
-      type: text
-      gedmo:
-        - translatable
+    settings:
+      type: array
+#      gedmo:
+#        - translatable
   manyToOne:
     website:
       targetEntity: Application\PrestaCMS\CoreBundle\Entity\Website
