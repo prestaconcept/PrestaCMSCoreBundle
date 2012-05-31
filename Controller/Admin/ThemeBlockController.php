@@ -10,7 +10,7 @@
 namespace PrestaCMS\CoreBundle\Controller\Admin;
 
 use PrestaSonata\AdminBundle\Controller\Admin\Controller as AdminController;
-
+use Sonata\AdminBundle\Controller\CRUDController;
 /**
  * Theme administration controller
  * 
@@ -18,7 +18,7 @@ use PrestaSonata\AdminBundle\Controller\Admin\Controller as AdminController;
  * @subpackage CoreBundle
  * @author     Nicolas Bastien nbastien@prestaconcept.net
  */
-class ThemeController extends AdminController
+class ThemeBlockController extends CRUDController
 {    
     /**
      * Return Theme manager
@@ -31,28 +31,18 @@ class ThemeController extends AdminController
     }
     
     /**
-     * Theme listing
+     * Render a block
      * 
+     * @param  integer $id
      * @return type 
      */
-    public function listAction()
+    public function renderAction($id)
     {
-        return $this->_render('PrestaCMSCoreBundle:Admin/Theme:list.html.twig', array(
-            'themes' => $this->getThemeManager()->getAvailableThemes()
+        $block = $this->admin->getObject($id);
+        
+        return $this->render('PrestaCMSCoreBundle:Admin/Theme:render_block.html.twig', array(
+            'block' => $block
         ));
     }
     
-    /**
-     * Theme administration
-     * 
-     * @return type 
-     */
-    public function editAction($name)
-    {
-        $theme = $this->getThemeManager()->getTheme($name);
-        
-        return $this->_render('PrestaCMSCoreBundle:Admin/Theme:edit.html.twig', array(
-            'theme' => $theme
-        ));
-    }
 }

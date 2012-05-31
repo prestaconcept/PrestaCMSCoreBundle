@@ -37,7 +37,7 @@ class ThemeController extends AdminController
      */
     public function listAction()
     {
-        return $this->_render('PrestaCMSCoreBundle:Admin/Theme:list.html.twig', array(
+        return $this->render('PrestaCMSCoreBundle:Admin/Theme:list.html.twig', array(
             'themes' => $this->getThemeManager()->getAvailableThemes()
         ));
     }
@@ -47,12 +47,33 @@ class ThemeController extends AdminController
      * 
      * @return type 
      */
-    public function editAction($name)
+    public function editAction($name, $website_id, $locale)
     {
-        $theme = $this->getThemeManager()->getTheme($name);
+        $website = $this->getDoctrine()->getEntityManager()->getRepository('Application\PrestaCMS\CoreBundle\Entity\Website')->find(1);
+        $website->setLocale('fr');
+        $theme = $this->getThemeManager()->getTheme($name, $website);
         
-        return $this->_render('PrestaCMSCoreBundle:Admin/Theme:edit.html.twig', array(
+        return $this->render('PrestaCMSCoreBundle:Admin/Theme:edit.html.twig', array(
             'theme' => $theme
         ));
+    }
+    
+    /**
+     * Ajax block edition
+     * 
+     * @param type $websiteId
+     * @param type $locale
+     * @param type $blockId 
+     */
+    public function editBlockAction($websiteId, $locale, $blockId)
+    {
+        return $this->forward('PrestaCMSCoreBundle:Admin/ThemeBlock:edit', array(
+            'id'  => $blockId,
+            '_sonata_admin' => 'presta_cms.theme.admin.bloc'
+        ));
+//        $block = $blockId;
+//        return $this->_render('PrestaCMSCoreBundle:Admin/Theme:edit_block.html.twig', array(
+//            'block' => $block
+//        ));
     }
 }
