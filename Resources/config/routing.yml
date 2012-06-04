@@ -25,7 +25,7 @@ presta_cms_theme_render_block:
         id: \d+
 #Front
 catchAll:
-    pattern:  /{_locale}/{path}
+    pattern:  /{path}
     defaults: { _controller: PrestaCMSCoreBundle:Page:catchAll }
     requirements:
         path: .*
