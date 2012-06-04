@@ -38,6 +38,11 @@ abstract class BaseWebsite extends TranslatableEntity
     protected $relative_path;
 
     /**
+     * @var string $theme
+     */
+    protected $theme;
+    
+    /**
      * @var string $name
      */
     protected $name;
@@ -138,6 +143,28 @@ abstract class BaseWebsite extends TranslatableEntity
     public function getRelativePath()
     {
         return $this->relative_path;
+    }
+    
+    /**
+     * Set theme
+     *
+     * @param  string $theme
+     * @return BaseWebsite  
+     */
+    public function setTheme($theme)
+    {
+        $this->theme = $theme;
+        return $this;
+    }
+
+    /**
+     * Get theme
+     *
+     * @return string 
+     */
+    public function getTheme()
+    {
+        return $this->theme;
     }
     
     /**

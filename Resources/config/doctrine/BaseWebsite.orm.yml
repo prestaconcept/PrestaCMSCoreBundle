@@ -19,6 +19,11 @@ PrestaCMS\CoreBundle\Entity\BaseWebsite:
       length: 255
       gedmo:
         - translatable
+    theme:
+      type: string
+      length: 25
+      gedmo:
+        - translatable
     is_active:
       type: boolean
       default: false
