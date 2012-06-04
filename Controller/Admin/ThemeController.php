@@ -62,6 +62,8 @@ class ThemeController extends AdminController
         $website = $this->getWebsiteManager()->getWebsite($website_id, $locale);
         $theme = $this->getThemeManager()->getTheme($name, $website);
         return $this->render('PrestaCMSCoreBundle:Admin/Theme:edit.html.twig', array(
+            'website_id' => $website_id,
+            'locale' => $locale,
             'website' => $website,
             'theme' => $theme
         ));
