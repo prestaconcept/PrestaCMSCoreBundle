@@ -15,7 +15,7 @@ presta_cms_core:
     default:
       name: default
       description: Presta CMS default theme
-      template: PrestaCMSCoreBundle:Theme/Default:layout.phtml
+      template: PrestaCMSCoreBundle:Theme/Default:layout.html.twig
       screenshot: 'bundles/prestacmscore/themes/default/screenshot.jpg'
       zones:
         top_left:
@@ -72,7 +72,7 @@ presta_cms_core:
       page_template:
         default:
           name: default
-          path: PrestaCMSCoreBundle:Theme/Default/Page:default.phtml
+          path: PrestaCMSCoreBundle:Theme/Default/Page:default.phtml.twig
           zones:
             content:
               name: content
@@ -86,7 +86,7 @@ presta_cms_core:
                   position: 10
         sidebar:
           name: sidebar
-          path: PrestaCMSCoreBundle:Theme/Default/Page:sidebar.phtml
+          path: PrestaCMSCoreBundle:Theme/Default/Page:sidebar.phtml.twig
           zones:
             left:
               name: left

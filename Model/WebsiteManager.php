@@ -9,6 +9,8 @@
  */
 namespace PrestaCMS\CoreBundle\Model;
 
+use Symfony\Component\HttpFoundation\Request;
+
 use Application\PrestaCMS\CoreBundle\Entity\Website;
 
 /**
@@ -99,5 +101,21 @@ class WebsiteManager
     public function getAvailableWebsites()
     {
         return $this->_getRepository()->getAvailableWebsites();
+    }
+    
+    /**
+     * @param Symfony\Component\HttpFoundation\Request $resquest
+     * @return \Application\PrestaCMS\CoreBundle\Entity\Website  
+     */
+    public function getWebsiteForRequest(Request $request)
+    {
+        $website = $this->_getRepository()->find(1);
+        $website->setLocale('fr');
+        
+        //TODO Alain
+        //ici il faut charger le site en fonction du host et du relative path
+        //pense à initialiser la locale
+        
+        return $website;
     }
 }

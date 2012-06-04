@@ -16,13 +16,38 @@ use Symfony\Component\HttpFoundation\Request;
 class PageController extends Controller
 {
     /**
+     * Return Website manager
+     * 
+     * @return PrestaCMS\CoreBundle\Model\WebsiteManager 
+     */
+    public function getWebsiteManager()
+    {
+        return $this->get('presta_cms.website_manager');
+    }
+    
+    /**
+     * Return Theme manager
+     * 
+     * @return PrestaCMS\CoreBundle\Model\ThemeManager 
+     */
+    public function getThemeManager()
+    {
+        return $this->get('presta_cms.theme_manager');
+    }
+    
+    /**
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \Symfony\Bundle\FrameworkBundle\Controller\Response
      */
-    public function catchAllAction(Request $request)
+    public function catchAllAction()
     {
-        $pathInfo = $request->getPathInfo();
+        $website = $this->getWebsiteManager()->getWebsiteForRequest($this->getRequest());        
+        $theme = $this->getThemeManager()->getTheme($website->getTheme(), $website);
         
-        var_dump($pathInfo);die;
+        return $this->render('PrestaCMSCoreBundle:Page:index.html.twig', array(
+            'base_template' => $theme->getTemplate(),
+            'website' => $website,
+            'theme' => $theme
+        ));
     }
 }
