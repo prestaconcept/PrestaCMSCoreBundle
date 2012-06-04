@@ -2,7 +2,7 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien nbastien@prestaconcept.net
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -34,7 +34,7 @@ class PageController extends AdminController
             'main' => array('Page 1', 'Page 2')
         );
         
-        return $this->_render('PrestaCMSCoreBundle:Admin/Page:index.html.twig', array(
+        return $this->render('PrestaCMSCoreBundle:Admin/Page:index.html.twig', array(
             'pages' => $pages,
             'seo_form' => $this->_getPageSEOForm(),
             'settings_form' => $this->_getSettingsForm()
@@ -43,9 +43,6 @@ class PageController extends AdminController
     
     protected function _getPageSEOForm()
     {
-        $adminClass = new WebsiteAdmin(null, 'Application\PrestaCMS\CoreBundle\Entity\Website', 'PrestaCMSCoreBundle:Admin/Website');
-//        var_dump(get_class($adminClass->getFormBuilder()), get_class($this->createFormBuilder()));die;
-        
         $form = $this->createFormBuilder()
             ->add('url')
             ->add('title')
@@ -53,9 +50,6 @@ class PageController extends AdminController
             ->add('description', 'text')
             ->getForm();
         $formView = $form->createView(); 
-        // set the theme for the current Admin Form
-        $this->get('twig')->getExtension('form')->setTheme($formView, $adminClass->getFormTheme());
-
         return $formView;
     }
     

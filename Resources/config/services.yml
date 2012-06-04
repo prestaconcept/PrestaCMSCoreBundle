@@ -2,6 +2,7 @@ parameters:
     cms_block_type:
       cms_core_editor: PrestaCMS\CoreBundle\Block\EditorBlockService
       cms_core_dummy: PrestaCMS\CoreBundle\Block\EditorBlockService
+    cms_locales: {fr: fr, en: en}
 
 services:
 #    presta_cms_theme.example:
@@ -20,6 +21,9 @@ services:
       tags:
         - { name: sonata.admin, manager_type: orm, group: cms, label: website }
       arguments: [null, Application\PrestaCMS\CoreBundle\Entity\Website, PrestaCMSCoreBundle:Admin/Website]
+      calls:
+        - [ setAvailableLocales, [ %cms_locales% ] ]
+    
     presta_cms.theme.admin.bloc:
       class: PrestaCMS\CoreBundle\Admin\BlockAdmin
       tags:
@@ -41,8 +45,16 @@ services:
       tags:
         - {name: sonata.block}
       arguments: [presta_cms.block.dashboard.cms, @templating, @sonata.admin.pool]
+    presta_cms.block.website.selector:
+      class: PrestaCMS\CoreBundle\Block\WebsiteSelectorService
+      tags:
+        - {name: sonata.block}
+      arguments: [presta_cms.block.website.selector, @templating, @presta_cms.website_manager]
       
     #Manager
+    presta_cms.website_manager:
+      class: PrestaCMS\CoreBundle\Model\WebsiteManager
+      arguments: [@service_container]
     presta_cms.theme_manager:
       class: PrestaCMS\CoreBundle\Model\ThemeManager
       arguments: [@service_container]

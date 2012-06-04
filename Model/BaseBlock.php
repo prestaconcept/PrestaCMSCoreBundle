@@ -9,7 +9,7 @@
  */
 namespace PrestaCMS\CoreBundle\Model;
 
-
+use Doctrine\Common\Collections\ArrayCollection;
 use Sonata\BlockBundle\Model\BaseBlock as SonataBaseBlock;
 
 /**
@@ -29,16 +29,10 @@ abstract class BaseBlock extends SonataBaseBlock
      */
     protected $is_deletable;
     
-    
     /**
      * @var boolean $is_active
      */
     protected $is_active;
-    
-//    /**
-//     * @var integer 
-//     */
-//    protected $_position;
     
     /**
      * @return boolean 
@@ -80,26 +74,18 @@ abstract class BaseBlock extends SonataBaseBlock
         return $this;
     }
 
-//    /**
-//     * @return boolean 
-//     */
-//    public function isSortable()
-//    {
-//        return $this->_isSortable;
-//    }
-//
-//    /**
-//     * Set if block is sortable 
-//     * 
-//     * @param  boolean $isSortable
-//     * @return \PrestaCMS\CoreBundle\Block\BaseBlockService 
-//     */
-//    public function setIsSortable($isSortable)
-//    {
-//        $this->_isSortable = $isSortable;
-//        return $this;
-//    }
-    
+    /**
+     * {@inheritdoc}
+     */
+    public function getSettings()
+    {
+        if (!is_array($this->settings)) {
+            //If translation is not created yet, Gedmo return an empty string
+            return array();
+        }
+        return $this->settings;
+    }
+        
     /**
      * Set is_active
      *
@@ -122,23 +108,69 @@ abstract class BaseBlock extends SonataBaseBlock
         return $this->is_active;
     }
     
-//    /**
-//     * Returns block position
-//     * 
-//     * @return integer 
-//     */
-//    public function getPosition() {
-//        return $this->_position;
-//    }
-//
-//    /**
-//     * Set block position
-//     * 
-//     * @param  integer $position
-//     * @return \PrestaCMS\CoreBundle\Block\BaseBlockService 
-//     */
-//    public function setPosition($position) {
-//        $this->_position = $position;
-//        return $this;
-//    }
+    /*** Translatable entity ***/
+    
+    /**
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    protected $locale;
+    
+    /**
+     * @var ArrayCollection 
+     */
+    protected $translations;
+        
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+    }
+    
+    /**
+     * Set current locale
+     *
+     * @param  string $locale
+     * @return TranslatableEntity
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
+    }
+    
+    /**
+     * Get current locale
+     * 
+     * @return string 
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+    
+    /**
+     * Returns translations
+     * 
+     * @return Doctrine\Common\Collections\ArrayCollection 
+     */
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    /**
+     * Add new translation
+     * 
+     * @param  AbstractPersonalTranslation $translation 
+     * @return TranslatableEntity
+     */
+    public function addTranslation(AbstractPersonalTranslation $translation)
+    {
+        if (!$this->translations->contains($translation)) {
+            $this->translations[] = $translation;
+            $translation->setObject($this);
+        }
+        return $this;
+    }
+    /*** End - Translatable entity ***/
 }

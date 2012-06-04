@@ -13,13 +13,13 @@ presta_cms_theme_edit:
     pattern:  /admin/cms/theme/edit/{name}/{website_id}/{locale}
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Theme:edit, website_id: '', locale: ''}
 presta_cms_theme_edit_block:
-    pattern:  /admin/cms/theme/edit/block/{website_id}/{locale}/{id}
+    pattern:  /admin/cms/theme/block-edit/{website_id}/{locale}/{id}
     defaults: {_controller: PrestaCMSCoreBundle:Admin/ThemeBlock:edit, id: '', _sonata_admin: 'presta_cms.theme.admin.bloc'}
     requirements:
         website_id:  \d+
         id: \d+
 presta_cms_theme_render_block:
-    pattern:  /admin/cms/theme/edit/block/render/{locale}/{id}
+    pattern:  /admin/cms/theme/block-render/{locale}/{id}
     defaults: {_controller: PrestaCMSCoreBundle:Admin/ThemeBlock:render, id: '', _sonata_admin: 'presta_cms.theme.admin.bloc'}
     requirements:
         id: \d+

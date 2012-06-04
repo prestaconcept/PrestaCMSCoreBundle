@@ -80,19 +80,11 @@
 </div>
 <div class="row-fluid">
     <div class="span12 form-horizontal">
-        <fieldset>
-            <legend>Website</legend>
-            <div class="control-group">
-                <label class="control-label" for="input01">Website</label>
-                <div class="controls">
-                    <select id="" name="" required="required" class="sonata-medium">
-                        <option value="default" selected="selected">default</option>
-                        <option>left sidebar</option>
-                    </select>
-                    <a class="btn" href="#"><i class="icon-refresh"></i>&nbsp;Reload</a>
-                </div>
-            </div>
-        </fieldset>
+        <script type="text/javascript"> </script>
+        {{ sonata_block_render({
+            'type': 'presta_cms.block.website.selector',
+            'settings': {}
+        }) }}        
         <fieldset>
             <legend>Content</legend>
             <div class="control-group">
@@ -152,13 +144,16 @@
      */
     #}
     function CMSContentInit() {
+        {% if (website) %}
         CMSContent.init(
-            "{{ path('presta_cms_theme_edit_block', { 'website_id': 1, 'locale': 'fr' }) }}",
-            "{{ path('presta_cms_theme_render_block', { 'locale': 'fr' }) }}"
+            "{{ path('presta_cms_theme_edit_block', { 'website_id': website.id, 'locale': website.locale }) }}",
+            "{{ path('presta_cms_theme_render_block', { 'locale': website.locale }) }}"
         );
+        {% endif %}
     }
     $(document).ready(function() {
         CMSContentInit();
     }); 
+    var website_selector_url = "{{ path('presta_cms_theme_edit', { 'name': 'default' }) }}";
 </script>
 {% endblock %}

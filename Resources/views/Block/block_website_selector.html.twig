@@ -1,0 +1,36 @@
+{#
+  @package    PrestaCMS
+  @subpackage CoreBundle
+  @author     Nicolas Bastien nbastien@prestaconcept.net
+  
+  Website Selector block
+  To work main view has to define a javascript variable : 'website_selector_url'
+#}
+ 
+<fieldset>
+    <legend>Website</legend>
+    <div class="control-group">
+        <label class="control-label" for="website_selector">Website</label>
+        <div class="controls">
+            <select id="website_selector" name="website_selector" required="required" class="sonata-medium"
+                onchange="return switchWebsite();">
+                <option></option>
+                {% for website in websites %}
+                <optgroup label="{{ website.name }}">
+                    {% for locale in website.availableLocales %}
+                        <option value="/{{ website.id }}/{{ locale }}">{{ locale }}</option>
+                    {% endfor %}
+                </optgroup>
+                {% endfor %}                
+            </select>
+        </div>
+    </div>
+</fieldset>
+<script>
+    function switchWebsite() {
+        if ($('#website_selector').val() == '') {
+            return;
+        }
+        window.location.href = website_selector_url + $('#website_selector').val();
+    }
+</script>

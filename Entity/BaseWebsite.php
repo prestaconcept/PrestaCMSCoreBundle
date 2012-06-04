@@ -2,7 +2,7 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien nbastien@prestaconcept.net
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,6 +11,8 @@ namespace PrestaCMS\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use PrestaCMS\CoreBundle\Model\TranslatableEntity;
+
 /**
  * PrestaCMS\CoreBundle\Entity\BaseWebsite
  *
@@ -18,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @subpackage CoreBundle
  * @author     Nicolas Bastien nbastien@prestaconcept.net
  */
-abstract class BaseWebsite
+abstract class BaseWebsite extends TranslatableEntity
 {
     /**
      * @var integer $id
@@ -29,6 +31,11 @@ abstract class BaseWebsite
      * @var string $host
      */
     protected $host;
+    
+    /**
+     * @var string relative path
+     */
+    protected $relative_path;
 
     /**
      * @var string $name
@@ -49,21 +56,11 @@ abstract class BaseWebsite
      * @var string $default_locale
      */
     protected $default_locale;
-
+    
     /**
-     * @var string $title
+     * @var array $available_locales
      */
-    protected $title;
-
-    /**
-     * @var string $meta_keywords
-     */
-    protected $meta_keywords;
-
-    /**
-     * @var string $meta_description
-     */
-    protected $meta_description;
+    protected $available_locales;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -74,17 +71,21 @@ abstract class BaseWebsite
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $themeBlocks;
-    
-    /**
-     * Used locale to override Translation listener`s locale
-     * this is not a mapped field of entity metadata, just a simple property
-     */
-    protected $locale;
-    
+        
     public function __construct()
     {
         $this->pages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->themeBlocks = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /** 
+     * Used by Admin edition
+     * 
+     * @return string 
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
     
     /**
@@ -119,6 +120,26 @@ abstract class BaseWebsite
         return $this->host;
     }
 
+    /**
+     * Set relative path
+     *
+     * @param string $relativePath 
+     */
+    public function setRelativePath($relativePath)
+    {
+        $this->relative_path = $relativePath;
+    }
+
+    /**
+     * Get relative path
+     *
+     * @return string 
+     */
+    public function getRelativePath()
+    {
+        return $this->relative_path;
+    }
+    
     /**
      * Set name
      *
@@ -186,18 +207,6 @@ abstract class BaseWebsite
     }
     
     /**
-     * Set locale
-     *
-     * @param  string $locale
-     * @return BaseWebsite
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-        return $this;
-    }
-    
-    /**
      * Set default_locale
      *
      * @param string $defaultLocale
@@ -217,6 +226,28 @@ abstract class BaseWebsite
     public function getDefaultLocale()
     {
         return $this->default_locale;
+    }
+    
+    /**
+     * Set available_locales
+     *
+     * @param  array $availableLocales
+     * @return BaseWebsite
+     */
+    public function setAvailableLocales($availableLocales)
+    {
+        $this->available_locales = $availableLocales;
+        return $this;
+    }
+
+    /**
+     * Get default_locale
+     *
+     * @return array 
+     */
+    public function getAvailableLocales()
+    {
+        return $this->available_locales;
     }
 
     /**
@@ -328,5 +359,4 @@ abstract class BaseWebsite
     {
         return $this->themeBlocks;
     }
-    
 }

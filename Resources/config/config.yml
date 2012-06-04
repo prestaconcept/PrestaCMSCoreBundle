@@ -3,6 +3,7 @@ sonata_block:
   blocks:
     cms_core_editor:
     presta_cms.block.dashboard.cms:
+    presta_cms.block.website.selector:
 
 sonata_admin:
   dashboard:
@@ -16,11 +17,10 @@ presta_cms_core:
       description: Presta CMS default theme
       template: PrestaCMSCoreBundle:Theme/Default:layout.phtml
       screenshot: 'bundles/prestacmscore/themes/default/screenshot.jpg'
-      cols: 4
       zones:
         top_left:
           rows: 1
-          cols: 2
+          cols: 6
           name: top_left
           can_add_block: false
           can_sort_block: false
@@ -32,22 +32,22 @@ presta_cms_core:
               position: 10
         empty:
           rows: 1
-          cols: 2
+          cols: 6
         navigation:
           rows: 1
-          cols: 4
+          cols: 12
           name: navigation
           can_add_block: false
           can_sort_block: false
         content:
           rows: 4
-          cols: 4
+          cols: 12
           name: content
           can_add_block: false
           can_sort_block: false
         footer_left:
           rows: 1
-          cols: 2
+          cols: 6
           name: footer_left
           can_add_block: false
           can_sort_block: false
@@ -59,7 +59,7 @@ presta_cms_core:
               position: 10
         footer_right:
           rows: 1
-          cols: 2
+          cols: 6
           name: footer_right
           can_add_block: false
           can_sort_block: false

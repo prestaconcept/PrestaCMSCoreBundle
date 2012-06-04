@@ -1,13 +1,20 @@
 PrestaCMS\CoreBundle\Entity\BaseWebsite:
   type: mappedSuperclass
+  repositoryClass: PrestaCMS\CoreBundle\Repository\WebsiteRepository
   gedmo:
     translation:
       locale: locale
+      entity: PrestaCMS\CoreBundle\Entity\WebsiteTranslation
   fields:        
     name:
       type: string
       length: 255
     host:
+      type: string
+      length: 255
+      gedmo:
+        - translatable
+    relative_path:
       type: string
       length: 255
       gedmo:
@@ -21,20 +28,7 @@ PrestaCMS\CoreBundle\Entity\BaseWebsite:
     default_locale:
       type: string
       length: 5
-    title:
-      type: string
-      length: 64
-      gedmo:
-        - translatable
-    meta_keywords:
-      type: string
-      length: 255
-      gedmo:
-        - translatable
-    meta_description:
-      type: string
-      length: 255
-      gedmo:
-        - translatable
-  
+    available_locales:
+      type: array
+    
   lifecycleCallbacks: {  }

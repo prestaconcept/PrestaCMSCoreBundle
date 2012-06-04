@@ -4,6 +4,7 @@ PrestaCMS\CoreBundle\Entity\BaseThemeBlock:
   gedmo:
     translation:
       locale: locale
+      entity: PrestaCMS\CoreBundle\Entity\ThemeBlockTranslation
   fields:
     theme:
       type: string
@@ -33,8 +34,8 @@ PrestaCMS\CoreBundle\Entity\BaseThemeBlock:
       length: 128
     settings:
       type: array
-#      gedmo:
-#        - translatable
+      gedmo:
+        - translatable
   manyToOne:
     website:
       targetEntity: Application\PrestaCMS\CoreBundle\Entity\Website

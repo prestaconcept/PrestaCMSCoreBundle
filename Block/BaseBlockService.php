@@ -2,7 +2,7 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien nbastien@prestaconcept.net
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Sonata\BlockBundle\Block\BaseBlockService as SonataBaseBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
+use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Validator\ErrorElement;
+
 
 /**
  * Base Block Service
@@ -30,5 +33,27 @@ abstract class BaseBlockService extends SonataBaseBlockService
             'type'       => $block->getType(),
             'block_id'   => $block->getId()
         );
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function validateBlock(ErrorElement $errorElement, BlockInterface $block)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
+    {
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getDefaultSettings()
+    {
+        return array();
     }
 }

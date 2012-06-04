@@ -24,14 +24,21 @@ class ThemeBlockRepository extends EntityRepository
      */
     public function getBlocksForWebsiteByZone(Website $website)
     {
-        $blocks = $this->createQueryBuilder('tb')
+        $query = $this->createQueryBuilder('tb')
             ->where('tb.theme = :theme and tb.website = :website')
             ->setParameters(array('theme'=> 'default', 'website' => $website))
             ->orderBy('tb.zone', 'ASC')
             ->getQuery()
-            ->execute();
+            ->setHint(
+                \Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
+                'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+            )->setHint(
+                \Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+                $website->getLocale()
+            );
+        
         $blockByZone = array();
-        foreach ($blocks as $block) {
+        foreach ($query->execute() as $block) {
             if (!isset($blockByZone[$block->getZone()])) {
                 $blockByZone[$block->getZone()] = array();
             }
@@ -64,6 +71,7 @@ class ThemeBlockRepository extends EntityRepository
                 $block->setIsDeletable($blockConfiguration['is_deletable']);
                 $block->setPosition($blockConfiguration['position']);   
                 $block->setIsActive(true);
+                $block->setSettings(array());
                 $this->_em->persist($block);
                 $blockByZone[$zone][$block->getPosition()] = $block;
             }

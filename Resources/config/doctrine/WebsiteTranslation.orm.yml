@@ -1,0 +1,25 @@
+PrestaCMS\CoreBundle\Entity\WebsiteTranslation:
+  type: entity
+  mappedSuperclass: Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation
+  table: prestacms_website_translation
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    locale:
+      type: string
+      length: 8
+    field:
+      type: string
+      length: 32
+    content:
+      type: text
+  manyToOne:
+    object:
+      targetEntity: Application\PrestaCMS\CoreBundle\Entity\Website
+      inversedBy: translations
+      joinColumn:
+        name: object_id
+        referencedColumnName: id
+        onDelete: CASCADE

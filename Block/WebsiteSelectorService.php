@@ -7,39 +7,38 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Block\Dashboard;
+namespace PrestaCMS\CoreBundle\Block;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
-use Sonata\AdminBundle\Admin\Pool;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Model\BlockInterface;
+
+use PrestaCMS\CoreBundle\Model\WebsiteManager;
 use PrestaCMS\CoreBundle\Block\BaseBlockService;
 
 /**
- * Dashboard CMS Management block
+ * Blok Website Selector
  * 
  * @author Nicolas Bastien nbastien@prestaconcept.net
  */
-class CmsBlockService extends BaseBlockService
+class WebsiteSelectorService extends BaseBlockService
 {
     /**
      * @var \Sonata\AdminBundle\Admin\Pool  
      */
-    protected $pool;
+    protected $_websiteManager;
     
     /**
      * @param string                                                     $name
      * @param \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface $templating
      * @param \Sonata\AdminBundle\Admin\Pool                             $pool
      */
-    public function __construct($name, EngineInterface $templating, Pool $pool)
+    public function __construct($name, EngineInterface $templating, WebsiteManager $websiteManager)
     {
         parent::__construct($name, $templating);
 
-        $this->pool = $pool;
+        $this->_websiteManager = $websiteManager;
     }
     
     /**
@@ -47,7 +46,7 @@ class CmsBlockService extends BaseBlockService
      */
     public function getName()
     {
-        return 'Dashboard CMS';
+        return 'Website Selector';
     }
     
     /**
@@ -57,10 +56,8 @@ class CmsBlockService extends BaseBlockService
     {
         $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
 
-        return $this->renderResponse('PrestaCMSCoreBundle:Block/Dashboard:block_cms.html.twig', array(
-            'block'     => $block,
-            'blockId'   => 'block-cmsr',
-            'websiteAdmin' => $this->pool->getAdminByAdminCode('presta_cms.website.admin.website'),
+        return $this->renderResponse('PrestaCMSCoreBundle:Block:block_website_selector.html.twig', array(
+            'websites'  => $this->_websiteManager->getAvailableWebsites(),
             'settings'  => $settings
         ), $response);
     }

@@ -42,7 +42,7 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('description')->end()
                             ->scalarNode('template')->end()
                             ->scalarNode('screenshot')->end()
-                            ->scalarNode('cols')->end()
+                            ->scalarNode('cols')->defaultValue(12)->end()
                             ->arrayNode('zones')
                                 ->prototype('array')
                                     ->children()

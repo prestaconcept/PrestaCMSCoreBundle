@@ -2,7 +2,7 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien nbastien@prestaconcept.net
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,30 +19,17 @@ use Sonata\AdminBundle\Controller\CRUDController;
  * @author     Nicolas Bastien nbastien@prestaconcept.net
  */
 class ThemeBlockController extends CRUDController
-{    
-    /**
-     * Return Theme manager
-     * 
-     * @return PrestaCMS\CoreBundle\Model\ThemeManager 
-     */
-    public function getThemeManager()
-    {
-        return $this->get('presta_cms.theme_manager');
-    }
-    
+{
     /**
      * Render a block
      * 
      * @param  integer $id
-     * @return type 
+     * @return Response 
      */
     public function renderAction($id)
     {
-        $block = $this->admin->getObject($id);
-        
         return $this->render('PrestaCMSCoreBundle:Admin/Theme:render_block.html.twig', array(
-            'block' => $block
+            'block' => $this->admin->getObject($id)
         ));
-    }
-    
+    }    
 }

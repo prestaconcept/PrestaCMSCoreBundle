@@ -2,7 +2,7 @@
 /*
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien nbastien@prestaconcept.net
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -27,6 +27,21 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 class WebsiteAdmin extends Admin
 {
     /**
+     * @var array 
+     */
+    protected $_availableLocales;
+    
+    /**
+     * Set available locales : called via DI
+     * 
+     * @param array $availableLocales 
+     */
+    public function setAvailableLocales($availableLocales)
+    {
+        $this->_availableLocales = $availableLocales;
+    }
+    
+    /**
      * {@inheritdoc}
      */
     protected function configureShowFields(ShowMapper $showMapper)
@@ -37,9 +52,6 @@ class WebsiteAdmin extends Admin
             ->add('isDefault')
             ->add('isActive')            
             ->add('defaultLocale')
-            ->add('title')
-            ->add('metaDescription')
-            ->add('metaKeywords')
         ;
     }
     
@@ -51,14 +63,11 @@ class WebsiteAdmin extends Admin
         $listMapper
             ->addIdentifier('name')
             ->add('host')
-            ->add('isDefault')
-            ->add('isActive')
-            
-            ->add('defaultLocale')
-//            ->add('locale')
-//            ->add('enabledFrom')
-//            ->add('enabledTo')
-//            ->add('create_snapshots', 'string', array('template' => 'SonataPageBundle:SiteAdmin:list_create_snapshots.html.twig'))
+            ->add('relativePath')
+            ->add('isDefault', 'boolean')
+            ->add('isActive', 'boolean')            
+            ->add('defaultLocale', 'locale', array('template' => 'PrestaSonataAdminBundle:CRUD:list_locale.html.twig'))
+            ->add('availableLocales', 'array', array('template' => 'PrestaSonataAdminBundle:CRUD:list_array_locale.html.twig'))
         ;
     }
 
@@ -82,22 +91,31 @@ class WebsiteAdmin extends Admin
             ->with($this->trans('form_site.label_general'))
                 ->add('name')
                 ->add('host')
+                ->add('relativePath', 'text', array('required' => false))
                 ->add('isDefault', 'checkbox', array('required' => false))
                 ->add('isActive', 'checkbox', array('required' => false))
                 
-                ->add('defaultLocale', 'text', array(
-                    'required' => false
+                ->add('defaultLocale', 'choice', array('choices' => $this->_availableLocales))
+                ->add('availableLocales', 'choice', array(
+                    'choices' => $this->_availableLocales,
+                    'expanded'=> true, 
+                    'multiple'=> true
                 ))
-//                ->add('relativePath', null, array('required' => false))
-//                ->add('enabledFrom')
-//                ->add('enabledTo')
-            ->end()
-            ->with($this->trans('form_site.label_seo'))
-                ->add('title', null, array('required' => false))
-                ->add('metaDescription', 'textarea', array('required' => false))
-                ->add('metaKeywords', 'textarea', array('required' => false))
-            ->end()
-        ;
+            ->end();
+        if (count($this->getSubject()->getAvailableLocales()) == 0) {
+            return;
+        }
+        foreach ($this->getSubject()->getAvailableLocales() as $locale) {
+            $formMapper->with($this->trans('form_site.label_locale_settings') . ' : ' . $locale)
+                    //Todo voir comment gérer les trad !
+                    //avec un __set __get ça me sort Notice: Indirect modification of overloaded property
+//                  ->add('translation_host_fr', 'text')
+//                  ->add('translation-relative_path-fr', 'text')
+//                ->add('title', null, array('required' => false))
+//                ->add('metaDescription', 'textarea', array('required' => false))
+//                ->add('metaKeywords', 'textarea', array('required' => false))
+            ->end();
+        }
     }
     
 }

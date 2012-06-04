@@ -2,7 +2,7 @@
 /*
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien nbastien@prestaconcept.net
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -29,8 +29,6 @@ use Sonata\BlockBundle\Block\BlockServiceManagerInterface;
  */
 class BlockAdmin extends Admin
 {
-    
-    
     /**
      * @param \Sonata\BlockBundle\Block\BlockServiceManagerInterface $blockManager
      */
@@ -44,8 +42,7 @@ class BlockAdmin extends Admin
      */
     public function generateUrl($name, array $parameters = array(), $absolute = false)
     {
-//        $parameters['website_id'] = ;
-//        $parameters['locale'] = ;
+        $parameters['locale'] = $this->getRequest()->get('locale');
         return $this->routeGenerator->generateUrl($this, $name, $parameters, $absolute);
     }
 
@@ -54,16 +51,14 @@ class BlockAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $block = $this->getSubject();
-        
+        $block = $this->getSubject();        
         $service = $this->blockManager->get($block);
 
         if ($block->getId() > 0) {
             $service->buildEditForm($formMapper, $block);
         } else {
             $service->buildCreateForm($formMapper, $block);
-        }
-        
+        }        
     }
     
     /**
@@ -88,14 +83,17 @@ class BlockAdmin extends Admin
     {
         $subject = parent::getObject($id);
 
+        //Set locale and get translated data
+        $subject->setLocale($this->getRequest()->get('locale'));
+        if ($subject->getTranslations()->count()) {
+            $this->getModelManager()->getEntityManager($this->getClass())->refresh($subject);
+        }        
+        
         if ($subject) {
             $service = $this->blockManager->get($subject);
             $subject->setSettings(array_merge($service->getDefaultSettings(), $subject->getSettings()));
-
             $service->load($subject);
         }
-
         return $subject;
-    }
-    
+    }    
 }

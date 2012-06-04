@@ -2,7 +2,7 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien nbastien@prestaconcept.net
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -21,6 +21,16 @@ use PrestaSonata\AdminBundle\Controller\Admin\Controller as AdminController;
 class ThemeController extends AdminController
 {    
     /**
+     * Return Website manager
+     * 
+     * @return PrestaCMS\CoreBundle\Model\WebsiteManager 
+     */
+    public function getWebsiteManager()
+    {
+        return $this->get('presta_cms.website_manager');
+    }
+    
+    /**
      * Return Theme manager
      * 
      * @return PrestaCMS\CoreBundle\Model\ThemeManager 
@@ -33,7 +43,7 @@ class ThemeController extends AdminController
     /**
      * Theme listing
      * 
-     * @return type 
+     * @return Response 
      */
     public function listAction()
     {
@@ -45,35 +55,15 @@ class ThemeController extends AdminController
     /**
      * Theme administration
      * 
-     * @return type 
+     * @return Response 
      */
     public function editAction($name, $website_id, $locale)
     {
-        $website = $this->getDoctrine()->getEntityManager()->getRepository('Application\PrestaCMS\CoreBundle\Entity\Website')->find(1);
-        $website->setLocale('fr');
+        $website = $this->getWebsiteManager()->getWebsite($website_id, $locale);
         $theme = $this->getThemeManager()->getTheme($name, $website);
-        
         return $this->render('PrestaCMSCoreBundle:Admin/Theme:edit.html.twig', array(
+            'website' => $website,
             'theme' => $theme
         ));
-    }
-    
-    /**
-     * Ajax block edition
-     * 
-     * @param type $websiteId
-     * @param type $locale
-     * @param type $blockId 
-     */
-    public function editBlockAction($websiteId, $locale, $blockId)
-    {
-        return $this->forward('PrestaCMSCoreBundle:Admin/ThemeBlock:edit', array(
-            'id'  => $blockId,
-            '_sonata_admin' => 'presta_cms.theme.admin.bloc'
-        ));
-//        $block = $blockId;
-//        return $this->_render('PrestaCMSCoreBundle:Admin/Theme:edit_block.html.twig', array(
-//            'block' => $block
-//        ));
     }
 }
