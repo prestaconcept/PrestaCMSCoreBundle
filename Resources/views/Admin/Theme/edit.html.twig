@@ -83,7 +83,7 @@
         <script type="text/javascript"> </script>
         {{ sonata_block_render({
             'type': 'presta_cms.block.website.selector',
-            'settings': {}
+            'settings': {'website_id' : website.id, 'locale' : website.locale}
         }) }}        
         <fieldset>
             <legend>Content</legend>

@@ -18,7 +18,7 @@
                 {% for website in websites %}
                 <optgroup label="{{ website.name }}">
                     {% for locale in website.availableLocales %}
-                        <option value="/{{ website.id }}/{{ locale }}">{{ locale }}</option>
+                        <option value="/{{ website.id }}/{{ locale }}" {% if (settings.website_id == website.id and settings.locale == locale) %} selected {% endif %}>{{ locale }}</option>
                     {% endfor %}
                 </optgroup>
                 {% endfor %}                
