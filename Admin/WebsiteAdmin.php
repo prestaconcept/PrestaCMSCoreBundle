@@ -76,10 +76,11 @@ class WebsiteAdmin extends Admin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper
-            ->add('name')
-            ->add('host')
-        ;
+        //SF forms update hasn't been changed in sonata yet !
+//        $datagridMapper
+//            ->add('name')
+//            ->add('host')
+//        ;
     }
 
     /**
