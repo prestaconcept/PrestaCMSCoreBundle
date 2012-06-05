@@ -3,9 +3,17 @@
 presta_cms_website:
     pattern:  /admin/cms/website
     defaults: { _controller: PrestaCMSCoreBundle:Admin/Website:list, _sonata_admin: presta_cms.website.admin.website }
+presta_cms_page_demo:
+    pattern:  /admin/cms/page/demo
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:demo}
+presta_cms_pages:
+    pattern:  /admin/cms/pages/{website_id}/{locale}
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:index, id: '',  website_id: '', locale: ''}
 presta_cms_page:
-    pattern:  /admin/cms/page
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:index}
+    pattern:  /admin/cms/page/{id}/{website_id}/{locale}
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:index, website_id: '', locale: ''}
+    requirements:
+        id: \d+
 presta_cms_theme:
     pattern:  /admin/cms/theme
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Theme:list}
