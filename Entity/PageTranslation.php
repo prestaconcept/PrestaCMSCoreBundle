@@ -14,13 +14,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
- * PrestaCMS\CoreBundle\Entity\WebsiteTranslation
+ * PrestaCMS\CoreBundle\Entity\PageTranslation
  *
  * @package    PrestaCMS
  * @subpackage CoreBundle
  * @author     Nicolas Bastien nbastien@prestaconcept.net
  */
-class WebsiteTranslation extends AbstractPersonalTranslation
+class PageTranslation extends AbstractPersonalTranslation
 {
     /**
      * Convinient constructor
@@ -35,5 +35,4 @@ class WebsiteTranslation extends AbstractPersonalTranslation
         $this->setField($field);
         $this->setContent($value);
     }
-
 }

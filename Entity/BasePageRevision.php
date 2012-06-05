@@ -26,26 +26,6 @@ abstract class BasePageRevision
     protected $page_id;
 
     /**
-     * @var string $name
-     */
-    protected $name;
-
-    /**
-     * @var string $title
-     */
-    protected $title;
-
-    /**
-     * @var string $meta_keywords
-     */
-    protected $meta_keywords;
-
-    /**
-     * @var string $meta_description
-     */
-    protected $meta_description;
-
-    /**
      * @var date $created
      */
     protected $created;
@@ -95,95 +75,7 @@ abstract class BasePageRevision
     public function getPageId()
     {
         return $this->page_id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return BasePageRevision
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return BasePageRevision
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string 
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set meta_keywords
-     *
-     * @param string $metaKeywords
-     * @return BasePageRevision
-     */
-    public function setMetaKeywords($metaKeywords)
-    {
-        $this->meta_keywords = $metaKeywords;
-        return $this;
-    }
-
-    /**
-     * Get meta_keywords
-     *
-     * @return string 
-     */
-    public function getMetaKeywords()
-    {
-        return $this->meta_keywords;
-    }
-
-    /**
-     * Set meta_description
-     *
-     * @param string $metaDescription
-     * @return BasePageRevision
-     */
-    public function setMetaDescription($metaDescription)
-    {
-        $this->meta_description = $metaDescription;
-        return $this;
-    }
-
-    /**
-     * Get meta_description
-     *
-     * @return string 
-     */
-    public function getMetaDescription()
-    {
-        return $this->meta_description;
-    }
+    }    
 
     /**
      * Add blocks

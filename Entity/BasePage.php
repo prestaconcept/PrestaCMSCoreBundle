@@ -11,11 +11,18 @@ namespace PrestaCMS\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use PrestaCMS\CoreBundle\Model\TranslatableEntity;
+
 /**
  * PrestaCMS\CoreBundle\Entity\BasePage
  */
-abstract class BasePage
+abstract class BasePage extends TranslatableEntity
 {
+    /**
+     * @var string $name
+     */
+    protected $name;
+    
     /**
      * @var boolean $is_active
      */
@@ -25,6 +32,26 @@ abstract class BasePage
      * @var string $url
      */
     protected $url;
+    
+    /**
+     * @var string $title
+     */
+    protected $title;
+
+    /**
+     * @var string $meta_keywords
+     */
+    protected $meta_keywords;
+
+    /**
+     * @var string $meta_description
+     */
+    protected $meta_description;
+
+    /**
+     * @var string $type
+     */
+    protected $type;
 
     /**
      * @var integer $left
@@ -70,30 +97,40 @@ abstract class BasePage
      * @var Application\PrestaCMS\CoreBundle\Entity\Page
      */
     protected $parent;
-
+    
     /**
-     * Used locale to override Translation listener`s locale
-     * this is not a mapped field of entity metadata, just a simple property
+     * @var text
      */
-    protected $locale;
+    protected $settings;
     
     public function __construct()
     {
+        parent::__construct();
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->revisions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->urlRewrites = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
-     * Set locale
+     * Set name
      *
-     * @param  string $locale
+     * @param string $name
      * @return BasePage
      */
-    public function setLocale($locale)
+    public function setName($name)
     {
-        $this->locale = $locale;
+        $this->name = $name;
         return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
     
     /**
@@ -140,6 +177,94 @@ abstract class BasePage
         return $this->url;
     }
 
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return BasePageRevision
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set meta_keywords
+     *
+     * @param string $metaKeywords
+     * @return BasePageRevision
+     */
+    public function setMetaKeywords($metaKeywords)
+    {
+        $this->meta_keywords = $metaKeywords;
+        return $this;
+    }
+
+    /**
+     * Get meta_keywords
+     *
+     * @return string 
+     */
+    public function getMetaKeywords()
+    {
+        return $this->meta_keywords;
+    }
+
+    /**
+     * Set meta_description
+     *
+     * @param string $metaDescription
+     * @return BasePageRevision
+     */
+    public function setMetaDescription($metaDescription)
+    {
+        $this->meta_description = $metaDescription;
+        return $this;
+    }
+
+    /**
+     * Get meta_description
+     *
+     * @return string 
+     */
+    public function getMetaDescription()
+    {
+        return $this->meta_description;
+    }
+    
+    /**
+     * Set type
+     *
+     * @param  string $type
+     * @return BasePage
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+    
     /**
      * Set left
      *
@@ -336,5 +461,41 @@ abstract class BasePage
     public function getParent()
     {
         return $this->parent;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getSettings()
+    {
+        if (!is_array($this->settings)) {
+            //If translation is not created yet, Gedmo return an empty string
+            return array();
+        }
+        return $this->settings;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function setSettings(array $settings = array())
+    {
+        $this->settings = $settings;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function setSetting($name, $value)
+    {
+        $this->settings[$name] = $value;
+    }
+    
+    public function getEditTabs()
+    {
+        //todo plug sur page type!
+        return array(
+            
+        );
     }
 }

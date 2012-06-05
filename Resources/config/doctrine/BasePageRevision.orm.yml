@@ -6,30 +6,10 @@ PrestaCMS\CoreBundle\Entity\BasePageRevision:
     
   fields:
     page_id:
-      type: integer
-    name:
-      type: string
-      length: 255
-      gedmo:
-        - translatable
+      type: integer    
     template:
       type: string
-      length: 64
-    title:
-      type: string
-      length: 64
-      gedmo:
-        - translatable
-    meta_keywords:
-      type: string
-      length: 255
-      gedmo:
-        - translatable
-    meta_description:
-      type: string
-      length: 255
-      gedmo:
-        - translatable
+      length: 64    
     created:
       type: date
       gedmo:

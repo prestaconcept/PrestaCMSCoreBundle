@@ -1,11 +1,18 @@
 PrestaCMS\CoreBundle\Entity\BasePage:
   type: mappedSuperclass
+  repositoryClass: PrestaCMS\CoreBundle\Repository\PageRepository
   gedmo:
     translation:
       locale: locale
+      entity: PrestaCMS\CoreBundle\Entity\PageTranslation
     tree:
       type: nested
   fields:
+    name:
+      type: string
+      length: 255
+      gedmo:
+        - translatable
     is_active:
       type: boolean
       default: false
@@ -16,7 +23,29 @@ PrestaCMS\CoreBundle\Entity\BasePage:
       length: 255
       gedmo:
         - translatable
-    
+    title:
+      type: string
+      length: 64
+      gedmo:
+        - translatable
+    meta_keywords:
+      type: string
+      length: 255
+      gedmo:
+        - translatable
+    meta_description:
+      type: string
+      length: 255
+      gedmo:
+        - translatable
+    type:
+      type: string
+      length: 25
+    settings:
+      type: array
+      gedmo:
+        - translatable
+        
   manyToOne:
     website:
       targetEntity: Application\PrestaCMS\CoreBundle\Entity\Website
