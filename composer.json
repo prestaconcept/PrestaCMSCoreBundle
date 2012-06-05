@@ -1,0 +1,22 @@
+{
+    "name": "presta/core-core-bundle",
+    "type": "symfony-bundle",
+    "description": "PrestaCMS Core bundle : handle website, theme and pages",
+    "keywords": ["PrestaCMS Core"],
+    "homepage": "http://www.gitorious.local/symfony2-bundles/prestacmscorebundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nicolas Bastien",
+            "email": "nbastien@prestaconcept.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "presta/sonata-admin-bundle": "dev-master",
+    },
+    "autoload": {
+        "psr-0": { "PrestaCMS\\CoreBundle": "" }
+    },
+    "target-dir": "PrestaCMS\\CoreBundle"
+}
