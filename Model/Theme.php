@@ -52,6 +52,11 @@ class Theme
     protected $_pageTemplates;
     
     /**
+     * @var array 
+     */
+    protected $_navigations;
+    
+    /**
      * @param string $name
      */
     public function __construct($name)
@@ -59,6 +64,7 @@ class Theme
         $this->_name  = $name;
         $this->_zones = array();
         $this->_pageTemplates = array();
+        $this->_navigations = array();
     }
 
     /**
@@ -210,6 +216,38 @@ class Theme
     public function addPageTemplate(Template $template)
     {
         $this->_pageTemplates[$template->getName()] = $template;
+        return $this;
+    }
+    
+    /**
+     * Returns navigations
+     * 
+     * @return array 
+     */
+    public function getNavigations() {
+        return $this->_navigations;
+    }
+
+    /**
+     * Set navigations
+     * 
+     * @param  array $navigations
+     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     */
+    public function setNavigations(array $navigations) {
+        $this->_navigations = $navigations;
+        return $this;
+    }
+    
+    /**
+     * Add a navigation
+     * 
+     * @param  string $navigation
+     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     */
+    public function addNavigation($navigation)
+    {
+        $this->_navigations[$navigation] = $navigation;
         return $this;
     }
 }
