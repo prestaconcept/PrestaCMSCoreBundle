@@ -13,6 +13,13 @@ use Doctrine\ORM\EntityRepository;
 
 use Application\PrestaCMS\CoreBundle\Entity\Website;
 
+/**
+ * Website Repository
+ * 
+ * @package    PrestaCMS
+ * @subpackage CoreBundle
+ * @author     Nicolas Bastien nbastien@prestaconcept.net
+ */
 class WebsiteRepository extends EntityRepository
 {
     public function getDefaultWebsite($locale)

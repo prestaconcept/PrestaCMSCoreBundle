@@ -11,88 +11,41 @@
  * Page Tree
  */
 #}
-<div id="website-selector">
-    <h4>Website</h4>
-    <select>
-        <option>Website 1</option>
-        <option>Website 2</option>
-    </select>
-</div>
-<div id="language-selector">
-    <h4>Language</h4>
-    <select>
-        <option>English</option>
-        <option>French</option>
-        <option>Deutch</option>
-    </select>
-</div>
-<div id="page-tree-container">
-    <h4>Main Navigation</h4>
-    <div id="jstree_1">
-        <ul>
-            <li id="page_1">
-                <a href="#">Home</a>                
-            </li>
-            <li id="page_2">
-                <a href="#">Presentation</a>
-                <ul>
-                    <li id="page_4">
-                        <a href="#">Child node 1</a>
-                    </li>
-                    <li id="page_4">
-                        <a href="#">Child node 2</a>
-                    </li>
-                </ul>
-            </li>
-            <li id="page_5">
-                <a href="#">Contact</a>                
-            </li>
-        </ul>
 
+{{ sonata_block_render({
+    'type': 'presta_cms.block.website.selector',
+    'settings': {'website_id' : website_id, 'locale' : locale}
+}) }}
+<script type="text/javascript"> 
+    {% if (id) %}
+        var website_selector_url = "{{ path('presta_cms_page', { 'id': id }) }}";    
+    {% else %}
+        var website_selector_url = "{{ path('presta_cms_pages', { 'id': id }) }}";    
+    {% endif %}
+</script>  
+<fieldset>
+    <legend>Pages</legend>
+    <div id="page-tree-container" class="control-group">
+        {% for key, navigation in navigations %}
+            <h4>{{ key }}</h4>
+            <div id="jstree_{{ key }}">{{ navigation|raw }}</div>        
+        {% endfor %}
     </div>
-
-
-    <h4>Single pages</h4>
-    <div id="jstree_2">
-        <ul>
-            <li id="page_10">
-                <a href="#">404</a>                
-            </li>
-            <li id="page_11">
-                <a href="#">Login</a>                
-            </li>
-            <li id="page_12">
-                <a href="#">Logout</a>                
-            </li>
-            <li id="page_13">
-                <a href="#">Register</a>                
-            </li>
-        </ul>
-    </div>
-</div>
-
-<script type="text/javascript">
-    $(document).ready(function() {        
-        // call `.jstree` with the options object
-        $("#jstree_1").jstree({
-            // the `plugins` array allows you to configure the active plugins on this instance
-            "plugins" : ["themes","html_data","ui"],
-            // each plugin you have included can have its own config object
-            "core" : { "initially_open" : [ "page_2" ] },
-            // it makes sense to configure a plugin only if overriding the defaults
-            "themes" : {
-                "theme" : "presta"
-            }
-        })
-        $("#jstree_2").jstree({
-            // the `plugins` array allows you to configure the active plugins on this instance
-            "plugins" : ["themes","html_data","ui"],
-            // each plugin you have included can have its own config object
-            "core" : {},
-            // it makes sense to configure a plugin only if overriding the defaults
-            "themes" : {
-                "theme" : "presta"
-            }
-        })
+</fieldset>
+<script type="text/javascript">    
+    $(document).ready(function() {      
+        {% for key, navigation in navigations %}
+            // call `.jstree` with the options object
+            $("#jstree_{{ key }}").jstree({
+                // the `plugins` array allows you to configure the active plugins on this instance
+                "plugins" : ["themes","html_data"],
+                // each plugin you have included can have its own config object
+                "core" : {  },
+                // it makes sense to configure a plugin only if overriding the defaults
+                "themes" : {
+                    "theme" : "presta"
+                }
+            });
+        {% endfor %}
     });
 </script>

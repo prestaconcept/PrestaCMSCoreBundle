@@ -14,13 +14,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Application\PrestaCMS\CoreBundle\Entity\Website;
 
 /**
- * Website Manager
+ * Page Manager
  * 
  * @package    PrestaCMS
  * @subpackage CoreBundle
  * @author     Nicolas Bastien nbastien@prestaconcept.net
  */
-class WebsiteManager
+class PageManager
 {
     /**
      * @var Symfony\Component\DependencyInjection\Container
@@ -28,12 +28,7 @@ class WebsiteManager
     protected $_container;
     
     /**
-     * @var array 
-     */
-    protected $_websites;
-    
-    /**
-     * @var PrestaCMS\CoreBundle\Repository\WebsiteRepository
+     * @var PrestaCMS\CoreBundle\Repository\PageRepository
      */
     protected $_repository;
 
@@ -47,75 +42,146 @@ class WebsiteManager
     /**
      * Return website repository
      * 
-     * @return PrestaCMS\CoreBundle\Repository\WebsiteRepository 
+     * @return PrestaCMS\CoreBundle\Repository\PageRepository 
      */
     protected function _getRepository()
     {
         if ($this->_repository == null) {
-            $this->_repository =$this->_container->get('doctrine')->getEntityManager()
-                ->getRepository('Application\PrestaCMS\CoreBundle\Entity\Website');
+            $this->_repository = $this->_container->get('doctrine')->getEntityManager()
+                ->getRepository('Application\PrestaCMS\CoreBundle\Entity\Page');
         }
         return $this->_repository;
     }
     
     /**
-     * Return default website
+     * Return page by id
      * 
-     * @param  string $locale
-     * @return \Application\PrestaCMS\CoreBundle\Entity\Website
-     * @throws \Exception 
+     * @param  Application\PrestaCMS\CoreBundle\Entity\Website $website
+     * @param  integer $id 
+     * @return Application\PrestaCMS\CoreBundle\Entity\Page 
      */
-    public function getDefaultWebsite($locale)
+    public function getPageById(Website $website, $id)
     {
-        $website = $this->_getRepository()->getDefaultWebsite($locale);
-        if (($website instanceof Website) == false) {
-            throw new \Exception('There is no default website defined!');
+        return $this->_getRepository()->getPageById($website, $id);
+    }
+    
+    /**
+     * Return page by id
+     * 
+     * @param  Application\PrestaCMS\CoreBundle\Entity\Website $website
+     * @param  string $url
+     * @return Application\PrestaCMS\CoreBundle\Entity\Page 
+     */
+    public function getPageByUrl(Website $website, $url)
+    {
+        //TODO        
+    }
+    
+    /**
+     * Update page 
+     * 
+     * @param Page $page 
+     */
+    public function update($page)
+    {
+        $this->_container->get('doctrine')->getEntityManager()->persist($page);
+        $this->_container->get('doctrine')->getEntityManager()->flush();
+    }
+    
+    /**
+     * Return root page node for a navigation
+     * 
+     * @param  Website $website
+     * @param  string $navigation
+     * @return Page 
+     */
+    public function getNavigationRoot(Website $website, $navigation)
+    {
+        return $this->_getRepository()->getNavigationRoot($website, $navigation);
+    }
+    
+    /**
+     * Return pages from navigation
+     * 
+     * @param  Application\PrestaCMS\CoreBundle\Entity\Website $website
+     * @param  string $navigation 
+     * @param  boolean $direct - true to take only direct children
+     * @return ArrayCollection
+     */
+    public function getNavigationPages(Website $website, $navigation, $direct = false)
+    {
+        $root = $this->getNavigationRoot($website, $navigation);
+        if ($root == null) {
+            //create it !
+        }       
+        
+        return $this->_getRepository()->getChildrenPages($website, $root, $direct);
+    }
+    
+    /**
+     * Return navigation tree HTML code
+     * 
+     * @param  Website $website
+     * @param  string $navigation
+     * @param  boolean $direct
+     * @return string 
+     */
+    public function getNavigationTree(Website $website, $navigation, $direct = false)
+    {
+        $nodes = $this->getNavigationPages($website, $navigation, $direct);
+        return $this->buildTree($nodes, $website);
+    }
+    
+    /**
+     * Return single pages
+     * 
+     * @param  Application\PrestaCMS\CoreBundle\Entity\Website $website
+     * @return ArrayCollection
+     */
+    public function getSinglePages(Website $website)
+    {
+        return $this->_getRepository()->getSinglePages($website);
+    }
+    
+    /**
+     * Return single pages tree HTML code
+     * 
+     * @param  Website $website
+     * @return string 
+     */
+    public function getSinglePagesTree(Website $website)
+    {
+        $nodes = $this->getSinglePages($website);
+        return $this->buildTree($nodes, $website);
+    }
+    
+    /**
+     * Return tree HTML code for a node list
+     * 
+     * @param  array $nodes
+     * @param  Website $website
+     * @return string 
+     */
+    public function buildTree(array $nodes, Website $website)
+    {
+        //Generate edit url foreach pages
+        foreach ($nodes as &$node) {
+            $node['edit_url'] = $this->_container->get('router')->generate('presta_cms_page', array(
+                'id' => $node['id'],
+                'website_id' => $website->getId(),
+                'locale' => $website->getLocale()
+            ));
         }
-        return $website;
-    }
-    
-    /**
-     * Get website
-     * 
-     * @param  integer $websiteId
-     * @param  string $locale
-     * @return \Application\PrestaCMS\CoreBundle\Entity\Website 
-     */
-    public function getWebsite($websiteId, $locale)
-    {
-        $website = $this->_getRepository()->find($websiteId);
-        if ($website instanceof Website) {
-            $website->setLocale($locale);
-        }
-        //locale ?
-        
-        
-        return $website;
-    }
-    
-    /**
-     * Return available websites
-     * 
-     * @return ArrayCollection 
-     */
-    public function getAvailableWebsites()
-    {
-        return $this->_getRepository()->getAvailableWebsites();
-    }
-    
-    /**
-     * @param Symfony\Component\HttpFoundation\Request $resquest
-     * @return \Application\PrestaCMS\CoreBundle\Entity\Website  
-     */
-    public function getWebsiteForRequest(Request $request)
-    {
-        $website = $this->_getRepository()->find(1);
-        $website->setLocale('fr');
-        
-        //TODO Alain
-        //ici il faut charger le site en fonction du host et du relative path
-        //pense à initialiser la locale
-        
-        return $website;
+        $options = array(
+            'decorate' => true,
+            'rootOpen' => '<ul>',
+            'rootClose' => '</ul>',
+            'childOpen' => '<li id="page_',
+            'childClose' => '</li>',
+            'nodeDecorator' => function($node) {
+                return $node['id'] . '"><a href="' . $node['edit_url'] . '">' . $node['name'] . '</a>';
+            }
+        );
+        return $this->_getRepository()->buildTree($nodes, $options);
     }
 }
