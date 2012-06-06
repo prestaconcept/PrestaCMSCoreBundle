@@ -1,5 +1,5 @@
 {
-    "name": "presta/core-core-bundle",
+    "name": "presta/cms-core-bundle",
     "type": "symfony-bundle",
     "description": "PrestaCMS Core bundle : handle website, theme and pages",
     "keywords": ["PrestaCMS Core"],
