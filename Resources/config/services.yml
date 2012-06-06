@@ -58,4 +58,7 @@ services:
     presta_cms.theme_manager:
       class: PrestaCMS\CoreBundle\Model\ThemeManager
       arguments: [@service_container]
+    presta_cms.page_manager:
+      class: PrestaCMS\CoreBundle\Model\PageManager
+      arguments: [@service_container]
       
