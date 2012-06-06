@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 use PrestaCMS\CoreBundle\Model\TranslatableEntity;
 
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints\NotBlank;
+
 /**
  * PrestaCMS\CoreBundle\Entity\BasePage
  */
@@ -111,6 +114,16 @@ abstract class BasePage extends TranslatableEntity
         $this->urlRewrites = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+    
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('url', new NotBlank());
+        $metadata->addPropertyConstraint('title', new NotBlank());
+        $metadata->addPropertyConstraint('meta_keywords', new NotBlank());
+        $metadata->addPropertyConstraint('meta_description', new NotBlank());
+        $metadata->addPropertyConstraint('name', new NotBlank());
+    }
+    
     /**
      * Set name
      *
@@ -139,7 +152,7 @@ abstract class BasePage extends TranslatableEntity
      * @param boolean $isActive
      * @return BasePage
      */
-    public function setIsActive($isActive)
+    public function setActive($isActive)
     {
         $this->is_active = $isActive;
         return $this;
@@ -150,7 +163,7 @@ abstract class BasePage extends TranslatableEntity
      *
      * @return boolean 
      */
-    public function getIsActive()
+    public function isActive()
     {
         return $this->is_active;
     }
@@ -478,7 +491,7 @@ abstract class BasePage extends TranslatableEntity
     /**
      * {@inheritdoc}
      */
-    public function setSettings(array $settings = array())
+    public function setSettings($settings = array())
     {
         $this->settings = $settings;
     }

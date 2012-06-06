@@ -1,0 +1,81 @@
+{#
+/**
+ * This file is part of the Presta Bundle project.
+ *
+ * (c) Nicolas Bastien nbastien@prestaconcept.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+/**
+ * Page administration main screen 
+ */
+#}
+
+{% extends base_template %}
+
+
+{% block side_menu %}
+    {% include 'PrestaCMSCoreBundle:Admin/Page:_sidebar.html.twig' %}
+{% endblock %}
+
+{% block title %}
+    {% if (page) %}
+        {{ page.name }}
+    {% endif %}
+{% endblock %}
+
+{%block actions %}
+    {% if (page) %}
+        <div class="btn-group nav-pills">
+            <a class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i>&nbsp;Delete</a>
+            {# <button class="btn" type="button"><i class="icon-screenshot "></i>&nbsp;Preview</button>
+            <button class="btn btn-success" type="button"><i class="icon-retweet icon-white"></i>&nbsp;Publish</button> #}
+            <a class="btn btn-primary" onclick="$('#edit_form').submit();"><i class="icon-ok icon-white"></i>&nbsp;Save</a>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if (page) %}
+        <ul class="nav nav-tabs">
+            {% for tab, content in page.getEditTabs %}
+                <li><a href="#tab" data-toggle="tab">tab</a></li>
+            {% endfor %}
+            <li><a href="#seo" data-toggle="tab">SEO</a></li>
+            <li><a href="#settings" data-toggle="tab">Settings</a></li> 
+        </ul>
+        <form id="edit_form" class="form-horizontal" method="POST">
+            {% form_theme form 'PrestaSonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+            <div class="tab-content">
+                {% for tab, content in page.getEditTabs %}
+                <div class="tab-pane form-horizontal" id="{{ tab }}">   
+                    {% render "{{ content }}" %}
+                </div>
+                {% endfor %}
+                <div class="tab-pane form-horizontal" id="seo">                    
+                    <fieldset>
+                        <legend>SEO</legend>
+                        <div class="sonata-ba-collapsed-fields">                            
+                            {{ form_row(form.url)}}
+                            {{ form_row(form.title)}}
+                            {{ form_row(form.meta_keywords)}}
+                            {{ form_row(form.meta_description)}}
+                        </div>
+                    </fieldset>                     
+                </div>
+                <div class="tab-pane form-horizontal" id="settings">   
+                    <fieldset>
+                        <legend>Settings</legend>
+                        {{ form_row(form.name)}}
+                        {{ form_row(form.active)}}
+                        {{ form_row(form.settings)}}
+                        {{ form_rest(form) }} 
+                    </fieldset>
+                </div>
+            </div>
+                
+        </form>
+    {% endif %}
+{% endblock %}
