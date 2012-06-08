@@ -23,6 +23,7 @@ services:
       arguments: [null, Application\PrestaCMS\CoreBundle\Entity\Website, PrestaCMSCoreBundle:Admin/Website]
       calls:
         - [ setAvailableLocales, [ %cms_locales% ] ]
+        - [ setThemeManager, [ @presta_cms.theme_manager ] ]
     
     presta_cms.theme.admin.bloc:
       class: PrestaCMS\CoreBundle\Admin\BlockAdmin

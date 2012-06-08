@@ -10,12 +10,17 @@
 
 namespace PrestaCMS\CoreBundle\Admin;
 
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Knp\Menu\MenuItem;
+
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use PrestaCMS\CoreBundle\Model\ThemeManager;
+
 
 /**
  * Admin definition for the Site class
@@ -26,11 +31,12 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
  */
 class WebsiteAdmin extends Admin
 {
-    /**
-     * @var array 
-     */
-    protected $_availableLocales;
+    protected
+        $_availableLocales,
+        $_themeManager
+    ;
     
+
     /**
      * Set available locales : called via DI
      * 
@@ -40,7 +46,34 @@ class WebsiteAdmin extends Admin
     {
         $this->_availableLocales = $availableLocales;
     }
-    
+
+
+    /**
+     * Setter for _themeManager
+     *
+     * @author Alain Flaus <aflaus@prestaconcept.net
+     */
+    public function setThemeManager(ThemeManager $themeManager)
+    {
+        $this->_themeManager = $themeManager;
+    }
+
+
+    /**
+     * Add culture param to edit url
+     *
+     * @author Alain Flaus <aflaus@prestaconcept.net
+     */
+    public function generateUrl($name, array $parameters = array(), $absolute = false)
+    {
+        if (!isset($parameters['locale']) && $this->hasSubject()) {
+            $parameters['locale'] = $this->getSubject()->getLocale();
+        }
+
+        return $this->routeGenerator->generateUrl($this, $name, $parameters, $absolute);
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -55,6 +88,7 @@ class WebsiteAdmin extends Admin
         ;
     }
     
+
     /**
      * {@inheritdoc}
      */
@@ -83,6 +117,7 @@ class WebsiteAdmin extends Admin
 //        ;
     }
 
+
     /**
      * {@inheritdoc}
      */
@@ -96,27 +131,59 @@ class WebsiteAdmin extends Admin
                 ->add('isDefault', 'checkbox', array('required' => false))
                 ->add('isActive', 'checkbox', array('required' => false))
                 
+                ->add('theme', 'choice', array('choices' => $this->_themeManager->getAvailableThemeCodes()))
                 ->add('defaultLocale', 'choice', array('choices' => $this->_availableLocales))
                 ->add('availableLocales', 'choice', array(
                     'choices' => $this->_availableLocales,
                     'expanded'=> true, 
                     'multiple'=> true
                 ))
-            ->end();
+            ->end()
+        ;
+
         if (count($this->getSubject()->getAvailableLocales()) == 0) {
             return;
         }
+    }
+
+
+    /**
+     * Allow to select locale to edit in side menu
+     *
+     * @author  Alain Flaus <aflaus@prestaconcept.net>
+     */
+    protected function configureSideMenu(MenuItemInterface $menu, $action, Admin $childAdmin = null)
+    {
+        if (!in_array($action, array('edit')) || is_null($this->getSubject()->getId())) {
+            return;
+        }
+
+        $id = $this->getSubject()->getId();
+
         foreach ($this->getSubject()->getAvailableLocales() as $locale) {
-            $formMapper->with($this->trans('form_site.label_locale_settings') . ' : ' . $locale)
-                    //Todo voir comment gérer les trad !
-                    //avec un __set __get ça me sort Notice: Indirect modification of overloaded property
-//                  ->add('translation_host_fr', 'text')
-//                  ->add('translation-relative_path-fr', 'text')
-//                ->add('title', null, array('required' => false))
-//                ->add('metaDescription', 'textarea', array('required' => false))
-//                ->add('metaKeywords', 'textarea', array('required' => false))
-            ->end();
+            $menu->addChild(
+                $locale,
+                array('uri' => $this->generateUrl('edit', array('id' => $id, 'locale' => $locale)))
+            );
         }
     }
-    
+
+
+    /**
+     * Refresh object to load locale get in param
+     *
+     * @author Alain Flaus <aflaus@prestaconcept.net
+     */
+    public function getObject($id)
+    {
+        $subject = parent::getObject($id);
+
+        //Set locale and get translated data
+        $subject->setLocale($this->getRequest()->get('locale'));
+        if ($subject->getTranslations()->count()) {
+            $this->getModelManager()->getEntityManager($this->getClass())->refresh($subject);
+        }        
+        
+        return $subject;
+    }    
 }
