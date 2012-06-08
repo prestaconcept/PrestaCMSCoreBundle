@@ -9,7 +9,9 @@
  */
 namespace PrestaCMS\CoreBundle\Repository;
 
+use Doctrine\ORM\Query;
 use Doctrine\ORM\EntityRepository;
+use Gedmo\Translatable\TranslatableListener;
 
 use Application\PrestaCMS\CoreBundle\Entity\Website;
 
@@ -27,9 +29,28 @@ class WebsiteRepository extends EntityRepository
         return $this->findOneBy(array('is_default' => true));
     }
     
+
     public function getAvailableWebsites()
     {
         return $this->findBy(array('is_active' => true));
+    }
+
+
+    /**
+     * Return an active website for current host
+     *
+     * @param   string $host
+     *
+     * @author  Alain Flaus <aflaus@prestaconcept.net>
+     *
+     * @return  Application\PrestaCMS\CoreBundle\Entity\Website
+     */
+    public function findAvailableByHost($host)
+    {
+        return $this->findOneBy(
+            array('is_active' => true),
+            array('host'      => $host)
+        );
     }
 }
 

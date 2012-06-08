@@ -103,19 +103,27 @@ class WebsiteManager
         return $this->_getRepository()->getAvailableWebsites();
     }
     
+
     /**
-     * @param Symfony\Component\HttpFoundation\Request $resquest
-     * @return \Application\PrestaCMS\CoreBundle\Entity\Website  
+     * @param   Symfony\Component\HttpFoundation\Request $resquest
+     *
+     * @author  Alain Flaus <aflaus@prestaconcept.net>
+     *
+     * @return  \Application\PrestaCMS\CoreBundle\Entity\Website  
      */
     public function getWebsiteForRequest(Request $request)
     {
-        $website = $this->_getRepository()->find(1);
-        $website->setLocale('fr');
-        
-        //TODO Alain
-        //ici il faut charger le site en fonction du host et du relative path
-        //pense à initialiser la locale
-        
+        // je n'ai pas réussi a récupérer la "current" locale du website a partir du host
+        $website = $this->_getRepository()->findAvailableByHost($request->getHost());
+
+        preg_match('/^([a-zA-Z]*)\./', $request->getHost(), $locale);
+        if (isset($locale[1]) && in_array($locale[1], $website->getAvailableLocales())) {
+            $website->setLocale($locale[1]);
+        } else {
+            //voir si on affiche la default culture ou une 404
+            $website->setLocale($website->getDefaultLocale());
+        }
+
         return $website;
     }
 }

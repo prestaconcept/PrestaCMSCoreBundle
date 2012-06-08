@@ -123,6 +123,9 @@ class WebsiteAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $themes         = $this->_themeManager->getAvailableThemeCodes();
+        $themesChoice   = array_combine($themes, $themes);
+
         $formMapper
             ->with($this->trans('form_site.label_general'))
                 ->add('name')
@@ -131,7 +134,7 @@ class WebsiteAdmin extends Admin
                 ->add('isDefault', 'checkbox', array('required' => false))
                 ->add('isActive', 'checkbox', array('required' => false))
                 
-                ->add('theme', 'choice', array('choices' => $this->_themeManager->getAvailableThemeCodes()))
+                ->add('theme', 'choice', array('choices' => $themesChoice))
                 ->add('defaultLocale', 'choice', array('choices' => $this->_availableLocales))
                 ->add('availableLocales', 'choice', array(
                     'choices' => $this->_availableLocales,
