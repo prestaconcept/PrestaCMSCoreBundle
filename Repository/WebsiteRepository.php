@@ -40,12 +40,9 @@ class WebsiteRepository extends EntityRepository
      * Return an active website for current host
      *
      * @param   string $host
-     *
-     * @author  Alain Flaus <aflaus@prestaconcept.net>
-     *
      * @return  Application\PrestaCMS\CoreBundle\Entity\Website
      */
-    public function findAvailableByHost($host)
+    public function findByHost($host)
     {
         return $this->findOneBy(
             array('is_active' => true),

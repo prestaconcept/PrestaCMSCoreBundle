@@ -105,16 +105,15 @@ class WebsiteManager
     
 
     /**
+     * Retrieve website for current host and locale
+     * 
      * @param   Symfony\Component\HttpFoundation\Request $resquest
-     *
-     * @author  Alain Flaus <aflaus@prestaconcept.net>
-     *
-     * @return  \Application\PrestaCMS\CoreBundle\Entity\Website  
+     * @return  \Application\PrestaCMS\CoreBundle\Entity\Website  $website
      */
     public function getWebsiteForRequest(Request $request)
     {
         // je n'ai pas réussi a récupérer la "current" locale du website a partir du host
-        $website = $this->_getRepository()->findAvailableByHost($request->getHost());
+        $website = $this->_getRepository()->findByHost($request->getHost());
 
         preg_match('/^([a-zA-Z]*)\./', $request->getHost(), $locale);
         if (isset($locale[1]) && in_array($locale[1], $website->getAvailableLocales())) {
