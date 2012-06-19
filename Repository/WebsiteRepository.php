@@ -44,10 +44,17 @@ class WebsiteRepository extends EntityRepository
      */
     public function findByHost($host)
     {
-        return $this->findOneBy(
-            array('is_active' => true),
-            array('host'      => $host)
-        );
+        $query = $this->createQueryBuilder('w')
+            ->where('w.host = :host and w.is_active = :is_active')
+            ->setParameters(array('host' => $host, 'is_active' => true))
+            ->getQuery()
+            ->setHint(
+                \Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
+                'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+            )
+        ;
+
+        return $query->getResult();
     }
 }
 
