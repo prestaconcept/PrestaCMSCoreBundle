@@ -13,6 +13,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
+/**
+ * 
+ * @package    PrestaCMS
+ * @subpackage CoreBundle
+ */
 class PageController extends Controller
 {
     /**

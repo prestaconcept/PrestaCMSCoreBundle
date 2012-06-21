@@ -13,3 +13,7 @@ Application\PrestaCMS\CoreBundle\Entity\Website:
     themeBlocks:
       targetEntity: Application\PrestaCMS\CoreBundle\Entity\ThemeBlock
       mappedBy: website
+    translations:
+      targetEntity: PrestaCMS\CoreBundle\Entity\WebsiteTranslation
+      mappedBy: object
+      cascade: ["persist", "remove"]

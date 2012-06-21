@@ -31,10 +31,16 @@ use PrestaCMS\CoreBundle\Model\ThemeManager;
  */
 class WebsiteAdmin extends Admin
 {
-    protected
-        $_availableLocales,
-        $_themeManager
-    ;
+    /**
+     * @var array
+     */
+    protected $_availableLocales;
+
+
+    /**
+     * @var PrestaCMS\CoreBundle\Model\ThemeManager
+     */
+    protected $_themeManager;
     
 
     /**
@@ -50,8 +56,9 @@ class WebsiteAdmin extends Admin
 
     /**
      * Setter for _themeManager
-     *
-     * @author Alain Flaus <aflaus@prestaconcept.net
+     * 
+     * @param   ThemeManager $themeManager 
+     * @return  void
      */
     public function setThemeManager(ThemeManager $themeManager)
     {
@@ -60,9 +67,12 @@ class WebsiteAdmin extends Admin
 
 
     /**
-     * Add culture param to edit url
-     *
-     * @author Alain Flaus <aflaus@prestaconcept.net
+     * Add locale param to edit url
+     * 
+     * @param   $name 
+     * @param   array $parameters 
+     * @param   bool $absolute
+     * @return  string
      */
     public function generateUrl($name, array $parameters = array(), $absolute = false)
     {
@@ -119,13 +129,13 @@ class WebsiteAdmin extends Admin
 
 
     /**
-     * {@inheritdoc}
+     * Configure form per locale
+     * 
+     * @param   Sonata\AdminBundle\Form\FormMapper $formMapper 
+     * @return  void
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $themes         = $this->_themeManager->getAvailableThemeCodes();
-        $themesChoice   = array_combine($themes, $themes);
-
         $formMapper
             ->with($this->trans('form_site.label_general'))
                 ->add('name')
@@ -134,7 +144,7 @@ class WebsiteAdmin extends Admin
                 ->add('isDefault', 'checkbox', array('required' => false))
                 ->add('isActive', 'checkbox', array('required' => false))
                 
-                ->add('theme', 'choice', array('choices' => $themesChoice))
+                ->add('theme', 'choice', array('choices' => $this->_themeManager->getAvailableThemeCodesForSelect()))
                 ->add('defaultLocale', 'choice', array('choices' => $this->_availableLocales))
                 ->add('availableLocales', 'choice', array(
                     'choices' => $this->_availableLocales,
@@ -152,8 +162,11 @@ class WebsiteAdmin extends Admin
 
     /**
      * Allow to select locale to edit in side menu
-     *
-     * @author  Alain Flaus <aflaus@prestaconcept.net>
+     * 
+     * @param   MenuItemInterface $menu 
+     * @param   $action 
+     * @param   Sonata\AdminBundle\Admin\Admin $childAdmin
+     * @return  void
      */
     protected function configureSideMenu(MenuItemInterface $menu, $action, Admin $childAdmin = null)
     {
@@ -174,8 +187,9 @@ class WebsiteAdmin extends Admin
 
     /**
      * Refresh object to load locale get in param
-     *
-     * @author Alain Flaus <aflaus@prestaconcept.net
+     * 
+     * @param   $id
+     * @return  $subject
      */
     public function getObject($id)
     {
