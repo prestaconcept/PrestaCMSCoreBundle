@@ -1,4 +1,12 @@
 
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    ApplicationPrestaCMSCoreBundle: ~
+                    PrestaCMSCoreBundle: ~
+
 sonata_block:
   blocks:
     cms_core_editor:
