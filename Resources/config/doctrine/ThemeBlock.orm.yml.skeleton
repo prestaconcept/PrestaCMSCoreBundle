@@ -6,4 +6,9 @@ Application\PrestaCMS\CoreBundle\Entity\ThemeBlock:
     id:
       type: integer
       generator: { strategy: AUTO }
+  oneToMany:
+    translations:
+      targetEntity: PrestaCMS\CoreBundle\Entity\ThemeBlockTranslation
+      mappedBy: object
+      cascade: ["persist", "remove"]
     
