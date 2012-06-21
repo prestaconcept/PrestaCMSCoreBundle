@@ -47,6 +47,11 @@ assetic:
             inputs:
                 - %kernel.root_dir%/../web/bundles/prestacmscore/js/cms.js
 
+        # admin_script:
+        #     inputs:
+        #         - %kernel.root_dir%/../web/bundles/prestacmscore/jstree/dist/jstree.min.js
+        #         - %kernel.root_dir%/../web/bundles/prestacmscore/js/cms.js
+
 presta_cms_core:
   themes:
     default:
