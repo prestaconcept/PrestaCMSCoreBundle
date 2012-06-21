@@ -57,6 +57,8 @@ class ThemeManager
         }
         return $this->_repository;
     }
+
+
     /**
      * Return all themes declared in configuration
      * 
@@ -71,6 +73,7 @@ class ThemeManager
         }
         return $this->_themes;
     }
+
     
     /**
      * Return all themes codes declared in configuration
@@ -81,7 +84,20 @@ class ThemeManager
     {
         return array_keys($this->_themesConfiguration);
     }
-    
+
+
+    /**
+     * Return all themes codes indexed by themes code for select
+     * 
+     * @return  array
+     */
+    public function getAvailableThemeCodesForSelect()
+    {
+        $themeCodes = $this->getAvailableThemeCodes();
+        return array_combine($themeCodes, $themeCodes);
+    }
+
+
     /**
      * Add a new theme
      * 

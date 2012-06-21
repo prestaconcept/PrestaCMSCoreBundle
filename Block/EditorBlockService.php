@@ -44,7 +44,7 @@ class EditorBlockService extends BaseBlockService
     {
         $formMapper->add('settings', 'sonata_type_immutable_array', array(
             'keys' => array(
-                array('content', 'textarea', array('attr' => array('class'=> 'ckeditor'))),
+                array('content', 'tinymce', array('attr' => array())),
             )
         ));
     }

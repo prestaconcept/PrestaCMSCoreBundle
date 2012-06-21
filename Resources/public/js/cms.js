@@ -47,19 +47,10 @@ var CMSContent = function() {
             $('#modal').modal('show');
             
             $('#modal-content').load(this._editBlocUrl + '/' + blockId, function() {
-                CMSContent.initCkEditor();
                 $('#modal-content div.form-actions').remove();
                 $('#modal-loader').hide();
                 $('#modal-content').show();
             });
-        },
-        /**
-         * Initialze CkEditor
-         */
-        initCkEditor : function () {
-            $('.ckeditor').each(function() {
-                CKEDITOR.replace($(this).attr('id'), {});
-            })
         },
         /**
          * Submit Modal Edition form and update content
@@ -67,10 +58,8 @@ var CMSContent = function() {
         submitModalForm : function () {
             $('#modal-content').hide();
             $('#modal-loader').show();
-            //update ckeditor content : inject from ckeditor to form input
-            for ( instance in CKEDITOR.instances ) {
-                CKEDITOR.instances[instance].updateElement();
-            }
+            // déclenche la sauvegarde du Tiny
+            tinymce.triggerSave();
             $.ajax({
                 url: $('#modal form').attr('action'),
                 type: "POST",
@@ -78,15 +67,6 @@ var CMSContent = function() {
             }).done(function( html ) {
                 //If succesfull we only get a return code in JSON
                 if (html.result != undefined) {                    
-                    var $editors = $("textarea.ckeditor");
-                    if ($editors.length) {
-                        $editors.each(function() {
-                            var instance = CKEDITOR.instances[$(this).attr("id")];
-                            if (instance) { 
-                                delete CKEDITOR.instances[$(this).attr("id")];
-                            }
-                        });
-                    }
                     $('#modal-content').html('');
                     $('#modal').modal('hide');
                     CMSContentInit();
