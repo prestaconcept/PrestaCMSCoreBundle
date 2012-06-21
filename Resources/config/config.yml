@@ -1,5 +1,5 @@
 imports:
-    - { resource: '@PrestaAssetTinymceBundle/Resources/config/config.yml' }
+    # - { resource: '@PrestaAssetTinymceBundle/Resources/config/config.yml' }
 
 doctrine:
     orm:
@@ -19,6 +19,56 @@ sonata_admin:
   dashboard:
       blocks:
           - { position: right, type: presta_cms.block.dashboard.cms }
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    read_from:      %kernel.root_dir%/../web
+    write_to:       %kernel.root_dir%/../web
+    bundles: []
+
+    #java: /usr/bin/java
+
+    filters:
+        cssrewrite: ~
+
+        # yui_css:
+        #     jar: "%kernel.root_dir%/resources/java/yuicompressor/build/yuicompressor.jar"
+        # yui_js:
+        #     jar: "%kernel.root_dir%/resources/java/yuicompressor/build/yuicompressor.jar"
+
+    assets:
+        admin_style:
+            inputs:
+                - %kernel.root_dir%/../web/bundles/sonatajquery/themes/flick/jquery-ui-1.8.16.custom.css
+                - %kernel.root_dir%/../web/bundles/sonataadmin/bootstrap/css/bootstrap.min.css
+                - %kernel.root_dir%/../web/bundles/sonataadmin/css/layout.css
+                - %kernel.root_dir%/../web/bundles/sonataadmin/css/colors.css
+                - %kernel.root_dir%/../web/bundles/prestasonataadmin/css/layout.css
+                - %kernel.root_dir%/../web/bundles/prestasonataadmin/css/colors.css
+
+        admin_script:
+            inputs:
+                - %kernel.root_dir%/../web/bundles/sonatajquery/jquery-1.7.1.js
+                - %kernel.root_dir%/../web/bundles/sonatajquery/jquery-ui-1.8.17.js
+                - %kernel.root_dir%/../web/bundles/sonatajquery/jquery-ui-i18n.js
+                - %kernel.root_dir%/../web/bundles/sonataadmin/bootstrap/js/bootstrap.min.js
+                - %kernel.root_dir%/../web/bundles/sonataadmin/qtip/jquery.qtip-1.0.0-rc3.min.js
+                - %kernel.root_dir%/../web/bundles/sonataadmin/jquery/jquery.form.js
+                - %kernel.root_dir%/../web/bundles/sonataadmin/base.js
+                - %kernel.root_dir%/../web/bundles/prestasonataadmin/ckeditor/ckeditor.js
+                - %kernel.root_dir%/../web/bundles/prestacmscore/jstree/dist/jstree.min.js
+                - %kernel.root_dir%/../web/bundles/prestacmscore/js/cms.js
+
+        theme_default_style:
+            inputs:
+                - %kernel.root_dir%/../web/bundles/prestacmscore/css/bootstrap.min.css
+                - %kernel.root_dir%/../web/bundles/prestacmscore/css/default.css
+
+        theme_default_script:
+            inputs:
+                - %kernel.root_dir%/../web/bundles/prestacmscore/js/cms.js
 
 presta_cms_core:
   themes:
