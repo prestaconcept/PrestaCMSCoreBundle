@@ -12,6 +12,7 @@ namespace PrestaCMS\CoreBundle\Model;
 use Symfony\Component\HttpFoundation\Request;
 
 use Application\PrestaCMS\CoreBundle\Entity\Website;
+use PrestaCMS\CoreBundle\Exception\Website\WebsiteNotFoundException;
 
 /**
  * Website Manager
@@ -105,25 +106,40 @@ class WebsiteManager
     
 
     /**
+     * Retrieve website for current host and locale
+     * 
      * @param   Symfony\Component\HttpFoundation\Request $resquest
-     *
-     * @author  Alain Flaus <aflaus@prestaconcept.net>
-     *
-     * @return  \Application\PrestaCMS\CoreBundle\Entity\Website  
+     * @return  \Application\PrestaCMS\CoreBundle\Entity\Website  $website
      */
     public function getWebsiteForRequest(Request $request)
     {
-        // je n'ai pas réussi a récupérer la "current" locale du website a partir du host
-        $website = $this->_getRepository()->findAvailableByHost($request->getHost());
+        $requestWebsite = null;
 
-        preg_match('/^([a-zA-Z]*)\./', $request->getHost(), $locale);
-        if (isset($locale[1]) && in_array($locale[1], $website->getAvailableLocales())) {
-            $website->setLocale($locale[1]);
-        } else {
-            //voir si on affiche la default culture ou une 404
-            $website->setLocale($website->getDefaultLocale());
+        $websites = $this->_getRepository()->findByHost($request->getHost());
+        if (empty($websites)) {
+            throw new WebsiteNotFoundException();
         }
 
-        return $website;
+        foreach ($websites as $website) {
+            foreach ($website->getTranslations() as $translation) {
+                if (in_array($translation->getLocale(), $website->getAvailableLocales())
+                    && $translation->getField() == 'relative_path'
+                    && $translation->getContent() == $request->getRequestUri()) {
+
+                    //if the current website match for the current locale stop search
+                    $requestWebsite = $website;
+                    $requestWebsite->setLocale($translation->getLocale());
+                    break 2;
+                }
+            }
+        }
+
+        if (is_null($requestWebsite))
+        {
+            $requestWebsite = $websites[0];
+            $requestWebsite->setLocale($requestWebsite->getDefaultLocale());
+        }
+
+        return $requestWebsite;
     }
 }
