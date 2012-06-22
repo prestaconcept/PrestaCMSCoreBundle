@@ -38,7 +38,14 @@ class ThemeManager
      */
     protected $_blockTypes;
     
+    /**
+     * @var \PrestaCMS\CoreBundle\Model\Theme 
+     */
+    protected $_currentTheme;
     
+    /**
+     * @var type 
+     */
     protected $_repository;
 
     public function __construct($container)
@@ -49,6 +56,11 @@ class ThemeManager
         $this->_themesConfiguration = array();
     }
         
+    /**
+     * Return Theme block repository
+     * 
+     * @return todo
+     */
     protected function _getRepository()
     {
         if ($this->_repository == null) {
@@ -57,7 +69,6 @@ class ThemeManager
         }
         return $this->_repository;
     }
-
 
     /**
      * Return all themes declared in configuration
@@ -74,7 +85,6 @@ class ThemeManager
         return $this->_themes;
     }
 
-    
     /**
      * Return all themes codes declared in configuration
      * 
@@ -84,7 +94,6 @@ class ThemeManager
     {
         return array_keys($this->_themesConfiguration);
     }
-
 
     /**
      * Return all themes codes indexed by themes code for select
@@ -97,12 +106,11 @@ class ThemeManager
         return array_combine($themeCodes, $themeCodes);
     }
 
-
     /**
-     * Add a new theme
+     * Build Theme model with data
      * 
      * @param  array $configuration
-     * @return \PrestaCMS\CoreBundle\Model\ThemeManager 
+     * @return \PrestaCMS\CoreBundle\Model\Theme
      */
     protected function _buildTheme(array $configuration, $website = null)
     {
@@ -128,8 +136,8 @@ class ThemeManager
             $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration, $data[$zoneConfiguration['name']]);
             $theme->addZone($zone);
         } 
-        foreach ($configuration['page_template'] as $templateConfiguration) {
-            $template = new Template($templateConfiguration['name'], $templateConfiguration['path']);
+        foreach ($configuration['page_template'] as $templateName => $templateConfiguration) {
+            $template = new Template($templateName, $templateConfiguration['path']);
             $theme->addPageTemplate($template);
         }
         return $theme;
@@ -157,7 +165,59 @@ class ThemeManager
     {
         if (!isset($this->_themesConfiguration[$name])) {
             return false;
-        }        
-        return $this->_buildTheme($this->_themesConfiguration[$name], $website);
+        }
+        $this->_currentTheme = $this->_buildTheme($this->_themesConfiguration[$name], $website);
+        return $this->_currentTheme;
+    }
+    
+    /**
+     * Returns page templates defined by a theme
+     * 
+     * @param  string $theme
+     * @return false|array 
+     */
+    public function getPageTemplates($theme)
+    {
+        if (!isset($this->_themesConfiguration[$theme])) {
+            return false;
+        }
+        return $this->_themesConfiguration[$theme]['page_template'];
+    }
+    
+    /**
+     * Return Template model initalised with $data
+     * 
+     * @param  string $template
+     * @param  array $data
+     * @return false|Template 
+     */
+    public function getPageTemplate($template, $data = null)
+    {
+        $theme = $this->_currentTheme->getName();
+        if (!isset($this->_themesConfiguration[$theme]['page_template'][$template])) {
+            return false;
+        }
+        return $this->_buildThemeTemplate($template, $this->_themesConfiguration[$theme]['page_template'][$template], $data);
+    }
+    
+    /**
+     * Build template model with data
+     * 
+     * @param  string $name
+     * @param  array $configuration
+     * @param  array $data
+     * @return \PrestaCMS\CoreBundle\Model\Template 
+     */
+    protected function _buildThemeTemplate($name, array $configuration, $data = null)
+    {
+        $template = new Template($name, $configuration['path']);
+        foreach ($configuration['zones'] as $zoneConfiguration) {
+            if (!isset($data[$zoneConfiguration['name']])) {
+                $data[$zoneConfiguration['name']] = array();
+            }
+            $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration, $data[$zoneConfiguration['name']]);
+            $template->addZone($zone);
+        } 
+        return $template;
     }
 }

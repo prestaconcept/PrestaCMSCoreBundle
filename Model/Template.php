@@ -25,6 +25,11 @@ class Template
      * @var string
      */
     protected $_name;
+    
+    /**
+     * @var array 
+     */
+    protected $_zones;
 
     /**
      * @param string $name
@@ -34,6 +39,7 @@ class Template
     {
         $this->_name = $name;
         $this->_path = $path;
+        $this->_zones = array();
     }
 
     /**
@@ -50,5 +56,37 @@ class Template
     public function getPath()
     {
         return $this->_path;
+    }
+    
+    /**
+     * Returns zones
+     * 
+     * @return array 
+     */
+    public function getZones() {
+        return $this->_zones;
+    }
+    
+    /**
+     * Set zones
+     * 
+     * @param  array $zones
+     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     */
+    public function setZones(array $zones) {
+        $this->_zones = $zones;
+        return $this;
+    }
+    
+    /**
+     * Add a zone
+     * 
+     * @param  Zone $zone
+     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     */
+    public function addZone(Zone $zone)
+    {
+        $this->_zones[$zone->getName()] = $zone;
+        return $this;
     }
 }
