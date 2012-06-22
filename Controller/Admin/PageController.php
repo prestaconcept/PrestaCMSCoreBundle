@@ -10,6 +10,7 @@
 namespace PrestaCMS\CoreBundle\Controller\Admin;
 
 use PrestaSonata\AdminBundle\Controller\Admin\Controller as AdminController;
+use PrestaCMS\CoreBundle\Form\PageType;
 
 use Application\PrestaCMS\CoreBundle\Entity\Page;
 
@@ -78,63 +79,22 @@ class PageController extends AdminController
         if ($id) {
             $page = $this->getPageManager()->getPageById($website, $id);
             
-            $seoForm = $this->_getPageSEOForm($page);
+            $form = $this->createForm(new PageType(), $page);
             if ($this->get('request')->getMethod() == 'POST') {
-                $seoForm->bindRequest($this->get('request'));            
-            }
-            $this->getPageManager()->update($page);
+                $form->bindRequest($this->get('request'));
+                
+                if ($form->isValid()) {
+                    $this->getPageManager()->update($page);
+                    $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
+                } else {
+                    $this->get('session')->setFlash('sonata_flash_error', 'flash_edit_error');
+                }
+            }            
             
             $viewParams['page'] = $page; 
-            $viewParams['seo_form'] = $seoForm->createView();
+            $viewParams['form'] = $form->createView();
         }
         
         return $this->render('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
-    }
-    
-    /**
-     * Page administration main screen 
-     */
-    public function demoAction()
-    {
-        //get website
-        
-        //getcurrent page orhomepage
-        
-        //get page list
-        $pages = array(
-            'main' => array('Page 1', 'Page 2')
-        );
-        
-        return $this->render('PrestaCMSCoreBundle:Admin/Page:demo.html.twig', array(
-            'pages' => $pages,
-            'seo_form' => $this->_getPageSEOForm(),
-            'settings_form' => $this->_getSettingsForm()
-        ));
-    }
-    
-    protected function _getPageSEOForm($page)
-    {
-        $form = $this->createFormBuilder($page)
-            ->add('url')
-            ->add('title')
-            ->add('meta_keywords')
-            ->add('meta_description', 'textarea')
-            ->getForm();
-        $formView = $form->createView(); 
-        return $form;
-    }
-    
-    protected function _getSettingsForm()
-    {
-        $form = $this->createFormBuilder()
-            ->add('breadcrumb-title')
-            ->add('active', 'choice', array(
-                'choices'   => array('m' => 'Yes', 'f' => 'No'),
-                'required'  => false)
-            )
-            ->getForm();
-        $formView = $form->createView(); 
-        
-        return $formView;
-    }
+    }    
 }
