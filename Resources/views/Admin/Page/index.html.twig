@@ -39,8 +39,8 @@
 {% block content %}
     {% if (page) %}
         <ul class="nav nav-tabs">
-            {% for tab, content in page.getEditTabs %}
-                <li><a href="#tab" data-toggle="tab">tab</a></li>
+            {% for type, tab in pageEditTabs %}
+                <li><a href="#{{ [type, '-', tab]|join }}" data-toggle="tab">{{ [type, '-', tab]|join }}</a></li>
             {% endfor %}
             <li><a href="#seo" data-toggle="tab">SEO</a></li>
             <li><a href="#settings" data-toggle="tab">Settings</a></li> 
@@ -49,9 +49,9 @@
             {% form_theme form 'PrestaSonataAdminBundle:Form:form_admin_fields.html.twig' %}
 
             <div class="tab-content">
-                {% for tab, content in page.getEditTabs %}
-                <div class="tab-pane form-horizontal" id="{{ tab }}">   
-                    {% render "{{ content }}" %}
+                {% for type, tab in pageEditTabs %}
+                <div class="tab-pane form-horizontal" id="{{ [type, '-', tab]|join }}">   
+                    {% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'type': type, 'tab': tab, 'page': page} %}
                 </div>
                 {% endfor %}
                 <div class="tab-pane form-horizontal" id="seo">                    

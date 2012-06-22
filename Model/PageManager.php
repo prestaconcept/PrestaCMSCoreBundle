@@ -31,12 +31,21 @@ class PageManager
      * @var PrestaCMS\CoreBundle\Repository\PageRepository
      */
     protected $_repository;
+    
+    /**
+     * @var array 
+     */
+    protected $_types;
 
     public function __construct($container)
     {
         $this->_container = $container;
         $this->_websites = null;
         $this->_repository = null;
+        $this->_types = array(
+            //todo inject via config
+            'cms_page' => 'presta_cms.page_type.cms_page',
+        );
     }
         
     /**
@@ -183,5 +192,32 @@ class PageManager
             }
         );
         return $this->_getRepository()->buildTree($nodes, $options);
+    }
+    
+    /**
+     * Reference a new page type service
+     * 
+     * @param  string $idType
+     * @param  string $typeServiceId 
+     * @return \PrestaCMS\CoreBundle\Model\PageManager 
+     */
+    public function addType($idType, $typeServiceId)
+    {
+        $this->_types[$idType] = $typeServiceId;
+        return $this;
+    }
+    
+    /**
+     * Return correspondign page type service
+     * 
+     * @param  string $idType
+     * @return false|PrestaCMS\CoreBundle\Model\PagePageTypeInterface 
+     */
+    public function getType($idType)
+    {
+        if (isset($this->_types[$idType])) {
+            return $this->_container->get($this->_types[$idType]);
+        }
+        return false;  
     }
 }

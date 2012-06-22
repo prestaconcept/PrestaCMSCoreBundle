@@ -2,7 +2,7 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,7 +19,7 @@ use Application\PrestaCMS\CoreBundle\Entity\Page;
  * 
  * @package    PrestaCMS
  * @subpackage CoreBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class PageController extends AdminController
 {
@@ -72,12 +72,13 @@ class PageController extends AdminController
             }
             $navigations['single_pages'] = $this->getPageManager()->getSinglePagesTree($website);
             $viewParams['theme'] = $theme;
-            $viewParams['navigations'] = $navigations;
-            $viewParams['page'] = $this->getPageManager()->getPageById($website, $id);            
+            $viewParams['navigations'] = $navigations;           
         }
         
         if ($id) {
             $page = $this->getPageManager()->getPageById($website, $id);
+            
+            $viewParams['pageEditTabs'] = $this->getPageManager()->getType($page->getType())->getEditTabs();
             
             $form = $this->createForm(new PageType(), $page);
             if ($this->get('request')->getMethod() == 'POST') {
@@ -97,4 +98,21 @@ class PageController extends AdminController
         
         return $this->render('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
     }    
+    
+    /**
+     * Return a specific page edit tab
+     * 
+     * Action rendered in main edit template
+     * 
+     * @param  string $type
+     * @param  string $tab
+     * @param  Page $page
+     * @return Response 
+     */
+    public function renderEditTabAction($type, $tab, $page)
+    {
+        $pageType   = $this->getPageManager()->getType($type);
+        $viewParams = $pageType->getEditTabData($tab, $page);
+        return $this->render($pageType->getEditTabTemplate($tab), $viewParams);
+    }
 }
