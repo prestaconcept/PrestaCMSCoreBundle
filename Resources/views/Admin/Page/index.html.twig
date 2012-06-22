@@ -15,6 +15,18 @@
 {% extends base_template %}
 
 
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts filter='yui_js'
+        '@PrestaCMSCoreBundle/Resources/public/jstree/dist/jstree.min.js'
+        '@PrestaCMSCoreBundle/Resources/public/js/cms.js'
+    %}
+
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+
 {% block side_menu %}
     {% include 'PrestaCMSCoreBundle:Admin/Page:_sidebar.html.twig' %}
 {% endblock %}
