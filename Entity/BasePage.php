@@ -493,6 +493,10 @@ abstract class BasePage extends TranslatableEntity
      */
     public function setSettings($settings = array())
     {
+        if (!is_array($this->settings)) {
+            //If translation is not created yet, Gedmo return an empty string
+            $settings = array();
+        }
         $this->settings = $settings;
     }
     
@@ -502,13 +506,5 @@ abstract class BasePage extends TranslatableEntity
     public function setSetting($name, $value)
     {
         $this->settings[$name] = $value;
-    }
-    
-    public function getEditTabs()
-    {
-        //todo plug sur page type!
-        return array(
-            
-        );
     }
 }
