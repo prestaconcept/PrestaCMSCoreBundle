@@ -125,6 +125,8 @@ presta_cms_core:
           path: PrestaCMSCoreBundle:Theme/Default/Page:default.phtml.twig
           zones:
             content:
+              rows: 1
+              cols: 12
               name: content
               can_add_block: false
               can_sort_block: false
@@ -139,6 +141,8 @@ presta_cms_core:
           path: PrestaCMSCoreBundle:Theme/Default/Page:sidebar.phtml.twig
           zones:
             left:
+              rows: 1
+              cols: 2
               name: left
               can_add_block: false
               can_sort_block: false
@@ -149,6 +153,8 @@ presta_cms_core:
                   is_deletable: false
                   position: 10
             content:
+              rows: 1
+              cols: 10
               name: content
               can_add_block: false
               can_sort_block: false
