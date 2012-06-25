@@ -1,8 +1,10 @@
 PrestaCMS\CoreBundle\Entity\BasePageBlock:
   type: mappedSuperclass
+  repositoryClass: PrestaCMS\CoreBundle\Repository\PageBlockRepository
   gedmo:
     translation:
       locale: locale
+      entity: PrestaCMS\CoreBundle\Entity\PageBlockTranslation
   fields:
     zone:
       type: string

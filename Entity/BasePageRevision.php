@@ -39,6 +39,11 @@ abstract class BasePageRevision
      * @var string $template
      */
     protected $template;
+    
+    /**
+     * @var string $status
+     */
+    protected $status;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -185,5 +190,27 @@ abstract class BasePageRevision
     public function getTemplate()
     {
         return $this->template;
+    }
+    
+    /**
+     * Set status
+     *
+     * @param  string $status
+     * @return BasePageRevision
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }
