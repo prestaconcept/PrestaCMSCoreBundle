@@ -63,3 +63,8 @@ services:
       class: PrestaCMS\CoreBundle\Model\PageManager
       arguments: [@service_container]
       
+    #Page Types
+    presta_cms.page_type.cms_page:
+      class: PrestaCMS\CoreBundle\Model\Page\PageTypeCMSPage
+      arguments: [@service_container, @presta_cms.theme_manager]
+      

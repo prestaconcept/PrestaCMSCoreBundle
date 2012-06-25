@@ -219,12 +219,16 @@ abstract class BasePageRevision extends TranslatableEntity
         return $this->status;
     }
     
-    
+    /**
+     * Return block organized by zone
+     * 
+     * @return array 
+     */
     public function getBlocksByZone()
     {
         $blockByZone = array();
         foreach ($this->getBlocks() as $block) {
-            $block->setLocale($this->getLocale());
+            $block->setLocale($this->getLocale()); //Todo vérifier que le contenu est traduit !
             if (!isset($blockByZone[$block->getZone()])) {
                 $blockByZone[$block->getZone()] = array();
             }

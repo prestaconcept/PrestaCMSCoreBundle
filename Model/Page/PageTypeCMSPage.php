@@ -18,14 +18,22 @@ namespace PrestaCMS\CoreBundle\Model\Page;
  */
 class PageTypeCMSPage implements PageTypeInterface
 {
+    const TAB_CONTENT = 'content';
+    
+    /**
+     * @var Symfony\Component\DependencyInjection\Container
+     */
+    protected $container;
+    
     /**
      * @var PrestaCMS\CoreBundle\Model\ThemeManager 
      */
-    protected $_themeManager;
+    protected $themeManager;
     
-    public function __construct($themeManager)
+    public function __construct($container, $themeManager)
     {
-        $this->_themeManager = $themeManager;
+        $this->container = $container;
+        $this->themeManager = $themeManager;
     }
     
     /**
@@ -58,13 +66,22 @@ class PageTypeCMSPage implements PageTypeInterface
      */
     public function getEditTabData($tab, $page)
     {
-        //un seul tab : content
-        //todo !
-        $data = array();
-        $template = 'default';
-        return array(
-            'template' => $this->_themeManager->getPageTemplate($template, $data)
-        );
+        switch ($tab) {
+            case self::TAB_CONTENT:
+                //Récupération de la révision draft!
+                $repository = $this->container->get('doctrine')->getEntityManager()
+                    ->getRepository('Application\PrestaCMS\CoreBundle\Entity\PageRevision');
+                $draft = $repository->getDraftForPage($page);   
+
+                return array(
+                    'page' => $draft,
+                    'template' => $this->themeManager->getPageTemplate($draft->getTemplate(), $draft->getBlocksByZone())
+                );
+                break;
+            default:
+                break;
+        }
+        return array();
     }
     
     /**
