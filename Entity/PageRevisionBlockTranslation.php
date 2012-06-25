@@ -14,13 +14,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
- * PrestaCMS\CoreBundle\Entity\PageBlockTranslation
+ * PrestaCMS\CoreBundle\Entity\PageRevisionBlockTranslation
  *
  * @package    PrestaCMS
  * @subpackage CoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class PageBlockTranslation extends AbstractPersonalTranslation
+class PageRevisionBlockTranslation extends AbstractPersonalTranslation
 {
     /**
      * Convinient constructor

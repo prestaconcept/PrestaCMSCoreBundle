@@ -2,7 +2,7 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * (c) Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,15 +11,20 @@ namespace PrestaCMS\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use PrestaCMS\CoreBundle\Model\TranslatableEntity;
+
 /**
  * PrestaCMS\CoreBundle\Entity\BasePageRevision
  * 
  * @package    PrestaCMS
  * @subpackage CoreBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
-abstract class BasePageRevision
+abstract class BasePageRevision extends TranslatableEntity
 {   
+    const STATUS_DRAFT      = 'draft';
+    const STATUS_PUBLISHED  = 'published';
+    const STATUS_ARCHIVE    = 'archive';
     /**
      * @var integer $page_id
      */
@@ -85,10 +90,10 @@ abstract class BasePageRevision
     /**
      * Add blocks
      *
-     * @param Application\PrestaCMS\CoreBundle\Entity\PageBlock $blocks
+     * @param Application\PrestaCMS\CoreBundle\Entity\PageRevisionBlock $blocks
      * @return BasePageRevision
      */
-    public function addPageBlock(\Application\PrestaCMS\CoreBundle\Entity\PageBlock $blocks)
+    public function addBlock(\Application\PrestaCMS\CoreBundle\Entity\PageRevisionBlock $blocks)
     {
         $this->blocks[] = $blocks;
         return $this;
@@ -212,5 +217,19 @@ abstract class BasePageRevision
     public function getStatus()
     {
         return $this->status;
+    }
+    
+    
+    public function getBlocksByZone()
+    {
+        $blockByZone = array();
+        foreach ($this->getBlocks() as $block) {
+            $block->setLocale($this->getLocale());
+            if (!isset($blockByZone[$block->getZone()])) {
+                $blockByZone[$block->getZone()] = array();
+            }
+            $blockByZone[$block->getZone()][$block->getPosition()] = $block;
+        }
+        return $blockByZone;
     }
 }

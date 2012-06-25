@@ -8,5 +8,5 @@ Application\PrestaCMS\CoreBundle\Entity\PageRevision:
       generator: { strategy: AUTO }
   oneToMany:
     blocks:
-      targetEntity: Application\PrestaCMS\CoreBundle\Entity\PageBlock
+      targetEntity: Application\PrestaCMS\CoreBundle\Entity\PageRevisionBlock
       mappedBy: pageRevision  

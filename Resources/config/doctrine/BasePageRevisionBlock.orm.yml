@@ -1,10 +1,10 @@
-PrestaCMS\CoreBundle\Entity\BasePageBlock:
+PrestaCMS\CoreBundle\Entity\BasePageRevisionBlock:
   type: mappedSuperclass
-  repositoryClass: PrestaCMS\CoreBundle\Repository\PageBlockRepository
+  repositoryClass: PrestaCMS\CoreBundle\Repository\PageRevisionBlockRepository
   gedmo:
     translation:
       locale: locale
-      entity: PrestaCMS\CoreBundle\Entity\PageBlockTranslation
+      entity: PrestaCMS\CoreBundle\Entity\PageRevisionBlockTranslation
   fields:
     zone:
       type: string
@@ -20,11 +20,17 @@ PrestaCMS\CoreBundle\Entity\BasePageBlock:
       default: false
       gedmo:
         - translatable
-    block_type:
+    is_editable:
+      type: boolean
+      default: false
+    is_deletable:
+      type: boolean
+      default: false
+    type:
       type: string
       length: 128
-    content:
-      type: text
+    settings:
+      type: array
       gedmo:
         - translatable
   manyToOne:

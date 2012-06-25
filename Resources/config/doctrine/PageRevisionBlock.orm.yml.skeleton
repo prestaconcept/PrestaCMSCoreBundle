@@ -1,7 +1,7 @@
 # src/Acme/StoreBundle/Resources/config/doctrine/BaseWebsite.orm.yml
-Application\PrestaCMS\CoreBundle\Entity\PageBlock:
+Application\PrestaCMS\CoreBundle\Entity\PageRevisionBlock:
   type: entity
-  table: prestacms_page_block
+  table: prestacms_page_revision_block
   id:
     id:
       type: integer
