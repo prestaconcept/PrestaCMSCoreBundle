@@ -64,7 +64,7 @@ class Theme
         $this->_name  = $name;
         $this->_zones = array();
         $this->_pageTemplates = array();
-        $this->_navigations = array();
+        $this->_navigations = array('main');
     }
 
     /**
