@@ -28,38 +28,6 @@ sonata_admin:
       blocks:
           - { position: right, type: presta_cms.block.dashboard.cms }
 
-# Assetic Configuration
-assetic:
-    debug:          %kernel.debug%
-    use_controller: false
-    read_from:      %kernel.root_dir%/../web
-    write_to:       %kernel.root_dir%/../web
-
-    #java: /usr/bin/java
-
-    filters:
-        cssrewrite: ~
-
-        # yui_css:
-        #     jar: "%kernel.root_dir%/resources/java/yuicompressor/build/yuicompressor.jar"
-        # yui_js:
-        #     jar: "%kernel.root_dir%/resources/java/yuicompressor/build/yuicompressor.jar"
-
-    assets:
-        theme_default_style:
-            inputs:
-                - %kernel.root_dir%/../web/bundles/prestacmscore/css/bootstrap.min.css
-                - %kernel.root_dir%/../web/bundles/prestacmscore/css/default.css
-
-        theme_default_script:
-            inputs:
-                - %kernel.root_dir%/../web/bundles/prestacmscore/js/cms.js
-
-        # admin_script:
-        #     inputs:
-        #         - %kernel.root_dir%/../web/bundles/prestacmscore/jstree/dist/jstree.min.js
-        #         - %kernel.root_dir%/../web/bundles/prestacmscore/js/cms.js
-
 presta_cms_core:
   themes:
     default:
