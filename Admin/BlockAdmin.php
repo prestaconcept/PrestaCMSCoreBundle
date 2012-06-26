@@ -66,6 +66,8 @@ class BlockAdmin extends Admin
      */
     public function validate(ErrorElement $errorElement, $block)
     {
+        return $this->blockManager->validate($errorElement, $block);
+        //Sonata code todo remove ? !
         if ($this->inValidate) {
             return;
         }
@@ -85,9 +87,7 @@ class BlockAdmin extends Admin
 
         //Set locale and get translated data
         $subject->setLocale($this->getRequest()->get('locale'));
-        if ($subject->getTranslations()->count()) {
-            $this->getModelManager()->getEntityManager($this->getClass())->refresh($subject);
-        }        
+        $this->getModelManager()->getEntityManager($this->getClass())->refresh($subject);
         
         if ($subject) {
             $service = $this->blockManager->get($subject);

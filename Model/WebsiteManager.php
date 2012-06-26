@@ -34,6 +34,11 @@ class WebsiteManager
     protected $_websites;
     
     /**
+     * @var \Application\PrestaCMS\CoreBundle\Entity\Website  
+     */
+    protected $currentWebsite;
+    
+    /**
      * @var PrestaCMS\CoreBundle\Repository\WebsiteRepository
      */
     protected $_repository;
@@ -42,6 +47,7 @@ class WebsiteManager
     {
         $this->_container = $container;
         $this->_websites = null;
+        $this->currentWebsite = null;
         $this->_repository = null;
     }
         
@@ -76,6 +82,16 @@ class WebsiteManager
     }
     
     /**
+     * Return current website
+     * 
+     * @return \Application\PrestaCMS\CoreBundle\Entity\Website  
+     */
+    public function getCurrentWebsite()
+    {
+        return $this->currentWebsite;
+    }
+    
+    /**
      * Get website
      * 
      * @param  integer $websiteId
@@ -88,9 +104,7 @@ class WebsiteManager
         if ($website instanceof Website) {
             $website->setLocale($locale);
         }
-        //locale ?
-        
-        
+        $this->currentWebsite = $website;
         return $website;
     }
     

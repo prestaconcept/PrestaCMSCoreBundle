@@ -175,7 +175,7 @@ class PageManager
     {
         //Generate edit url foreach pages
         foreach ($nodes as &$node) {
-            $node['edit_url'] = $this->_container->get('router')->generate('presta_cms_page', array(
+            $node['edit_url'] = $this->_container->get('router')->generate('presta_cms_page_edit', array(
                 'id' => $node['id'],
                 'website_id' => $website->getId(),
                 'locale' => $website->getLocale()

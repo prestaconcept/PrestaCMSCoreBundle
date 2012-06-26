@@ -26,14 +26,20 @@ class PageTypeCMSPage implements PageTypeInterface
     protected $container;
     
     /**
+     * @var PrestaCMS\CoreBundle\Model\WebsiteManager 
+     */
+    protected $websiteManager;
+    
+    /**
      * @var PrestaCMS\CoreBundle\Model\ThemeManager 
      */
     protected $themeManager;
     
-    public function __construct($container, $themeManager)
+    public function __construct($container, $websiteManager, $themeManager)
     {
         $this->container = $container;
-        $this->themeManager = $themeManager;
+        $this->websiteManager = $websiteManager;
+        $this->themeManager   = $themeManager;
     }
     
     /**
@@ -75,6 +81,7 @@ class PageTypeCMSPage implements PageTypeInterface
 
                 return array(
                     'page' => $draft,
+                    'website' => $this->websiteManager->getCurrentWebsite(),
                     'template' => $this->themeManager->getPageTemplate($draft->getTemplate(), $draft->getBlocksByZone())
                 );
                 break;

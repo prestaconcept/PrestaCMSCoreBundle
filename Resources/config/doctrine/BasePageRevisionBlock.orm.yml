@@ -1,6 +1,6 @@
 PrestaCMS\CoreBundle\Entity\BasePageRevisionBlock:
   type: mappedSuperclass
-  repositoryClass: PrestaCMS\CoreBundle\Repository\PageRevisionBlockRepository
+#  repositoryClass: PrestaCMS\CoreBundle\Repository\PageRevisionBlockRepository todo voir si on peut avoir les trad sans specific repo!
   gedmo:
     translation:
       locale: locale

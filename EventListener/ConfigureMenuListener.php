@@ -36,7 +36,7 @@ class ConfigureMenuListener
         $cmsMenuItem->setChildrenAttribute('class', 'dropdown-menu');
                 
         $cmsMenuItem->addChild('Websites', array('route' => 'presta_cms_website'));
-        $cmsMenuItem->addChild('Pages', array('route' => 'presta_cms_pages'));
+        $cmsMenuItem->addChild('Pages', array('route' => 'presta_cms_page'));
         $cmsMenuItem->addChild('Themes', array('route' => 'presta_cms_theme'));
     }
 }

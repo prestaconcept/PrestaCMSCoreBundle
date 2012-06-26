@@ -18,9 +18,9 @@
 }) }}
 <script type="text/javascript"> 
     {% if (id) %}
-        var website_selector_url = "{{ path('presta_cms_page', { 'id': id }) }}";    
+        var website_selector_url = "{{ path('presta_cms_page_edit', { 'id': id }) }}";    
     {% else %}
-        var website_selector_url = "{{ path('presta_cms_pages', { 'id': id }) }}";    
+        var website_selector_url = "{{ path('presta_cms_page', { 'id': id }) }}";    
     {% endif %}
 </script>  
 <fieldset>
