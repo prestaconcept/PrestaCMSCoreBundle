@@ -20,10 +20,10 @@
     {% javascripts filter='?yui_js'
         '@PrestaCMSCoreBundle/Resources/public/jstree/dist/jstree.min.js'
         '@PrestaCMSCoreBundle/Resources/public/js/cms.js'
-        '@PrestaAssetTinymceBundle/Resources/public/js/tiny_mce/tiny_mce.js'
     %}
 
     <script type="text/javascript" src="{{ asset_url }}"></script>
+     <script type="text/javascript" src="{{ asset('bundles/prestaassettinymce/js/tiny_mce/tiny_mce.js') }}"></script>
     {% endjavascripts %}
 {% endblock %}
 
