@@ -17,7 +17,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts filter='yui_js'
+    {% javascripts filter='?yui_js'
         '@PrestaCMSCoreBundle/Resources/public/jstree/dist/jstree.min.js'
         '@PrestaCMSCoreBundle/Resources/public/js/cms.js'
     %}

@@ -5,10 +5,10 @@
         <title></title>
 
         {% block stylesheets %}
-            {% stylesheets filter='cssrewrite' filter='yui_css'
+            {% stylesheets filter='cssrewrite' filter='?yui_css'
                 '@PrestaCMSCoreBundle/Resources/public/css/bootstrap.min.css'
                 '@PrestaCMSCoreBundle/Resources/public/css/default.css'
-                '@PrestaCMSCoreBundle/Resources/public/themes/default/css/*'
+                '@PrestaCMSCoreBundle/Resources/public/themes/default/css/main.css'
             %}
 
             <link rel="stylesheet" href="{{ asset_url }}" />
@@ -18,8 +18,8 @@
 
 
         {% block javascripts %}
-            {% javascripts filter='yui_js'
-                '@PrestaCMSCoreBundle/Resources/public/themes/default/js/*'
+            {% javascripts filter='?yui_js'
+                '@PrestaCMSCoreBundle/Resources/public/themes/default/js/main.js'
             %}
 
             <script type="text/javascript" src="{{ asset_url }}"></script>
