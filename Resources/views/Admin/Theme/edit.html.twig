@@ -14,6 +14,17 @@
 
 {% extends base_template %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts filter='?yui_js'
+        '@PrestaCMSCoreBundle/Resources/public/js/cms.js'
+        '@PrestaAssetTinymceBundle/Resources/public/js/tiny_mce/tiny_mce.js'
+    %}
+
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
 {% block title %}
     Theme - {{ theme.name }}
 {% endblock %}
