@@ -17,6 +17,11 @@ doctrine:
                     ApplicationPrestaCMSCoreBundle: ~
                     PrestaCMSCoreBundle: ~
 
+# Assetic Configuration
+assetic:
+    bundles:
+        - PrestaCMSCoreBundle
+
 sonata_block:
   blocks:
     cms_core_editor:
