@@ -5,13 +5,13 @@
  */
 
 .jstree-presta li, 
-.jstree-presta ins { background-image:url("d.png"); background-repeat:no-repeat; background-color:transparent; }
+.jstree-presta ins { background-image:url("../../bundles/prestacmscore/jstree/dist/themes/presta/d.png"); background-repeat:no-repeat; background-color:transparent; }
 .jstree-presta li { background-position:-90px 0; background-repeat:repeat-y; }
 .jstree-presta li.jstree-last { background:transparent; }
 .jstree-presta .jstree-open > .jstree-ocl { background-position:-72px 0; }
 .jstree-presta .jstree-closed > .jstree-ocl { background-position:-54px 0; }
 .jstree-presta .jstree-leaf > .jstree-ocl { background-position:-36px 0; }
-.jstree-presta .jstree-loading > .jstree-ocl { background:url("throbber.gif") center center no-repeat !important; }
+.jstree-presta .jstree-loading > .jstree-ocl { background:url("../../bundles/prestacmscore/jstree/dist/themes/presta/throbber.gif") center center no-repeat !important; }
 
 .jstree-presta .jstree-hovered { background:#FFF; }
 .jstree-presta .jstree-clicked { background:#f9efd6; }
@@ -47,8 +47,8 @@
 .jstree-presta a:hover .jstree-undetermined { background-position:-20px -37px; }
 
 #jstree-dnd.jstree-presta ins { background:transparent; }
-#jstree-dnd.jstree-presta .jstree-ok { background:url("d.png") -2px -53px no-repeat; }
-#jstree-dnd.jstree-presta .jstree-er { background:url("d.png") -18px -53px no-repeat; }
+#jstree-dnd.jstree-presta .jstree-ok { background:url("../../bundles/prestacmscore/jstree/dist/themes/presta/d.png") -2px -53px no-repeat; }
+#jstree-dnd.jstree-presta .jstree-er { background:url("../../bundles/prestacmscore/jstree/dist/themes/presta/d.png") -18px -53px no-repeat; }
 /*#jstree-marker.jstree-presta { background:url("d.png") -41px -57px no-repeat !important; text-indent:-100px; }*/
 
 .jstree-presta .jstree-locked a { color:silver; cursor:default; }
@@ -71,11 +71,11 @@
 .jstree-presta ins,
 #vakata-dragged.jstree-presta .jstree-invalid, 
 #vakata-dragged.jstree-presta .jstree-ok, 
-#jstree-marker.jstree-presta { _background-image:url("d.gif"); }
+#jstree-marker.jstree-presta { _background-image:url("../../bundles/prestacmscore/jstree/dist/themes/presta/d.gif"); }
 .jstree-presta .jstree-open .jstree-ocl { _background-position:-72px 0; }
 .jstree-presta .jstree-closed .jstree-ocl { _background-position:-54px 0; }
 .jstree-presta .jstree-leaf .jstree-ocl { _background-position:-36px 0; }
-.jstree-presta .jstree-loading .jstree-ocl { _background:url("throbber.gif") center center no-repeat !important; }
+.jstree-presta .jstree-loading .jstree-ocl { _background:url("../../bundles/prestacmscore/jstree/dist/themes/presta/throbber.gif") center center no-repeat !important; }
 .jstree-presta a ins.jstree-themeicon { _background-position:-56px -19px; }
 /*
 #vakata-contextmenu.jstree-presta-context ins { _display:none; }
