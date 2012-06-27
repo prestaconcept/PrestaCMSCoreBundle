@@ -15,15 +15,27 @@
 {% extends base_template %}
 
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+        '@PrestaCMSCoreBundle/Resources/public/jstree/dist/themes/presta/style.css'
+    %}
+
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+{% endblock %}
+
+        
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts filter='?yui_js'
+    {% javascripts
         '@PrestaCMSCoreBundle/Resources/public/jstree/dist/jstree.min.js'
         '@PrestaCMSCoreBundle/Resources/public/js/cms.js'
     %}
 
     <script type="text/javascript" src="{{ asset_url }}"></script>
-     <script type="text/javascript" src="{{ asset('bundles/prestaassettinymce/js/tiny_mce/tiny_mce.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/prestaassettinymce/js/tiny_mce/tiny_mce.js') }}"></script>
     {% endjavascripts %}
 {% endblock %}
 

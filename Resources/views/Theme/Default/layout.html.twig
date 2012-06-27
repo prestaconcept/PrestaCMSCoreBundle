@@ -5,7 +5,7 @@
         <title></title>
 
         {% block stylesheets %}
-            {% stylesheets filter='cssrewrite' filter='?yui_css'
+            {% stylesheets
                 '@PrestaCMSCoreBundle/Resources/public/css/bootstrap.min.css'
                 '@PrestaCMSCoreBundle/Resources/public/css/default.css'
                 '@PrestaCMSCoreBundle/Resources/public/themes/default/css/main.css'
@@ -18,7 +18,7 @@
 
 
         {% block javascripts %}
-            {% javascripts filter='?yui_js'
+            {% javascripts
                 '@PrestaCMSCoreBundle/Resources/public/themes/default/js/main.js'
             %}
 
