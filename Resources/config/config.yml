@@ -1,6 +1,7 @@
 imports:
      - { resource: '@PrestaAssetTinymceBundle/Resources/config/config.yml' }
 
+
 doctrine:
     orm:
         entity_managers:
