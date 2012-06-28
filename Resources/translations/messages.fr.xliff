@@ -2,14 +2,14 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
-
-            <!-- Admin label -->
-
+            
+            <!-- Admin title -->
             <trans-unit id="form_site.label_general">
                 <source>form_site.label_general</source>
                 <target>Général</target>
             </trans-unit>
 
+            <!-- Admin label -->
             <trans-unit id="admin.name">
                 <source>admin.name</source>
                 <target>Nom</target>
@@ -44,7 +44,6 @@
             </trans-unit>
 
             <!-- Locale -->
-
             <trans-unit id="en">
                 <source>en</source>
                 <target>Anglais</target>
