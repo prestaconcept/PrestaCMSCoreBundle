@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+
+            <!-- Admin title -->
+            <trans-unit id="form_site.label_general">
+                <source>form_site.label_general</source>
+                <target>General</target>
+            </trans-unit>
+
+            <!-- Admin label -->
+            <trans-unit id="admin.name">
+                <source>admin.name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="admin.host">
+                <source>admin.host</source>
+                <target>Host</target>
+            </trans-unit>
+            <trans-unit id="admin.relativePath">
+                <source>admin.relativePath</source>
+                <target>Relative path</target>
+            </trans-unit>
+            <trans-unit id="admin.isDefault">
+                <source>admin.isDefault</source>
+                <target>Is default</target>
+            </trans-unit>
+            <trans-unit id="admin.isActive">
+                <source>admin.isActive</source>
+                <target>Is active</target>
+            </trans-unit>
+            <trans-unit id="admin.theme">
+                <source>admin.theme</source>
+                <target>Theme</target>
+            </trans-unit>
+            <trans-unit id="admin.defaultLocale">
+                <source>admin.defaultLocale</source>
+                <target>Default locale</target>
+            </trans-unit>
+            <trans-unit id="admin.availableLocales">
+                <source>admin.availableLocales</source>
+                <target>Available locales</target>
+            </trans-unit>
+
+            <!-- Locale -->
+            <trans-unit id="en">
+                <source>en</source>
+                <target>English</target>
+            </trans-unit>
+            <trans-unit id="fr">
+                <source>fr</source>
+                <target>French</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
