@@ -9,14 +9,8 @@ doctrine:
                 mappings:
                     ApplicationPrestaCMSCoreBundle: ~
                     PrestaCMSCoreBundle: ~
+                    SonataMediaBundle: ~
 
-doctrine:
-    orm:
-        entity_managers:
-            default:
-                mappings:
-                    ApplicationPrestaCMSCoreBundle: ~
-                    PrestaCMSCoreBundle: ~
 
 # Assetic Configuration
 assetic:
@@ -28,9 +22,139 @@ sonata_block:
     cms_core_editor:
     presta_cms.block.dashboard.cms:
     presta_cms.block.website.selector:
+    sonata.media.block.media:
 
 sonata_admin:
   dashboard:
       blocks:
           - { position: right, type: presta_cms.block.dashboard.cms }
 
+sonata_media:
+    default_context: default
+    db_driver: doctrine_orm # or doctrine_mongodb
+    contexts:
+        default:  # the default context is mandatory
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+
+            formats:
+                small: { width: 100 , quality: 70}
+                big:   { width: 500 , quality: 70}
+
+    cdn:
+        server:
+            path: /uploads/media # http://media.sonata-project.org/
+
+    filesystem:
+        local:
+            directory:  %kernel.root_dir%/../web/uploads/media
+            create:     false
+
+
+presta_cms_core:
+  themes:
+    default:
+      name: default
+      description: Presta CMS default theme
+      template: PrestaCMSCoreBundle:Theme/Default:layout.html.twig
+      screenshot: 'bundles/prestacmscore/themes/default/screenshot.jpg'
+      zones:
+        top_left:
+          rows: 1
+          cols: 6
+          name: top_left
+          can_add_block: false
+          can_sort_block: false
+          blocks:
+            editor:
+              block_type: cms_core_editor
+              is_editable: true
+              is_deletable: false
+              position: 10
+        empty:
+          rows: 1
+          cols: 6
+        navigation:
+          rows: 1
+          cols: 12
+          name: navigation
+          can_add_block: false
+          can_sort_block: false
+        content:
+          rows: 4
+          cols: 12
+          name: content
+          can_add_block: false
+          can_sort_block: false
+        footer_left:
+          rows: 1
+          cols: 6
+          name: footer_left
+          can_add_block: false
+          can_sort_block: false
+          blocks:
+            editor:
+              block_type: cms_core_editor
+              is_editable: true
+              is_deletable: false
+              position: 10
+        footer_right:
+          rows: 1
+          cols: 6
+          name: footer_right
+          can_add_block: false
+          can_sort_block: false
+          blocks:
+            editor:
+              block_type: cms_core_editor
+              is_editable: true
+              is_deletable: false
+              position: 10
+      page_template:
+        default:
+          name: default
+          path: PrestaCMSCoreBundle:Theme/Default/Page:default.phtml.twig
+          zones:
+            content:
+              rows: 1
+              cols: 12
+              name: content
+              can_add_block: false
+              can_sort_block: false
+              blocks:
+                editor:
+                  block_type: cms_core_editor
+                  is_editable: true
+                  is_deletable: false
+                  position: 10
+        sidebar:
+          name: sidebar
+          path: PrestaCMSCoreBundle:Theme/Default/Page:sidebar.phtml.twig
+          zones:
+            left:
+              rows: 1
+              cols: 2
+              name: left
+              can_add_block: false
+              can_sort_block: false
+              blocks:
+                editor:
+                  block_type: cms_core_editor
+                  is_editable: true
+                  is_deletable: false
+                  position: 10
+            content:
+              rows: 1
+              cols: 10
+              name: content
+              can_add_block: false
+              can_sort_block: false
+              blocks:
+                editor:
+                  block_type: cms_core_editor
+                  is_editable: true
+                  is_deletable: false
+                  position: 10
