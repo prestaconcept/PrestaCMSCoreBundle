@@ -21,13 +21,14 @@ sonata_block:
     cms_core_editor:
     presta_cms.block.dashboard.cms:
     presta_cms.block.website.selector:
+    sonata.media.block.media:
 
 sonata_admin:
   dashboard:
       blocks:
           - { position: right, type: presta_cms.block.dashboard.cms }
 
-          
+
 sonata_media:
     default_context: default
     db_driver: doctrine_orm # or doctrine_mongodb
