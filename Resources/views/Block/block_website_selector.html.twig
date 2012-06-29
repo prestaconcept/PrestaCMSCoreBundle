@@ -6,9 +6,10 @@
   Website Selector block
   To work main view has to define a javascript variable : 'website_selector_url'
 #}
- 
+{% if (settings.with_fieldset) %}
 <fieldset class="website-selector">
     <legend>Website</legend>
+{% endif %}
     <div class="control-group">
         <label class="control-label" for="website_selector">Website</label>
         <div class="controls">
@@ -25,7 +26,9 @@
             </select>
         </div>
     </div>
+{% if (settings.with_fieldset) %}
 </fieldset>
+{% endif %}
 <script>
     function switchWebsite() {
         if ($('#website_selector').val() == '') {

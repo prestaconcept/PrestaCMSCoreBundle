@@ -37,6 +37,23 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/prestaassettinymce/js/tiny_mce/tiny_mce.js') }}"></script>
     {% endjavascripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            {% for key, navigation in navigations %}
+            // call `.jstree` with the options object
+            $("#jstree_{{ key }}").jstree({
+                // the `plugins` array allows you to configure the active plugins on this instance
+                "plugins" : ["themes","html_data"],
+                // each plugin you have included can have its own config object
+                "core" : {  },
+                // it makes sense to configure a plugin only if overriding the defaults
+                "themes" : {
+                    "theme" : "presta"
+                }
+            });
+            {% endfor %}
+        });
+    </script>
 {% endblock %}
 
 
@@ -75,32 +92,32 @@
 
             <div class="tab-content">
                 {% for type, tab in pageEditTabs %}
-                <div class="tab-pane form-horizontal" id="{{ [type, '-', tab]|join }}">   
+                <div class="tab-pane form-horizontal" id="{{ [type, '-', tab]|join }}">
                     {% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'type': type, 'tab': tab, 'page': page} %}
                 </div>
                 {% endfor %}
-                <div class="tab-pane form-horizontal" id="seo">                    
+                <div class="tab-pane form-horizontal" id="seo">
                     <fieldset>
                         <legend>SEO</legend>
-                        <div class="sonata-ba-collapsed-fields">                            
+                        <div class="sonata-ba-collapsed-fields">
                             {{ form_row(form.url)}}
                             {{ form_row(form.title)}}
                             {{ form_row(form.meta_keywords)}}
                             {{ form_row(form.meta_description)}}
                         </div>
-                    </fieldset>                     
+                    </fieldset>
                 </div>
-                <div class="tab-pane form-horizontal" id="settings">   
+                <div class="tab-pane form-horizontal" id="settings">
                     <fieldset>
                         <legend>Settings</legend>
                         {{ form_row(form.name)}}
                         {{ form_row(form.active)}}
                         {{ form_row(form.settings)}}
-                        {{ form_rest(form) }} 
+                        {{ form_rest(form) }}
                     </fieldset>
                 </div>
             </div>
-                
+
         </form>
     {% endif %}
 {% endblock %}

@@ -48,7 +48,15 @@ class WebsiteSelectorService extends BaseBlockService
     {
         return 'Website Selector';
     }
-    
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getDefaultSettings()
+	{
+		return array('with_fieldset' => true);
+	}
+
     /**
      * {@inheritdoc}
      */
