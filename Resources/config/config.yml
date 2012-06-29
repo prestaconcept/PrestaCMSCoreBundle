@@ -9,7 +9,6 @@ doctrine:
                 mappings:
                     ApplicationPrestaCMSCoreBundle: ~
                     PrestaCMSCoreBundle: ~
-                    SonataMediaBundle: ~
 
 
 # Assetic Configuration
@@ -22,36 +21,11 @@ sonata_block:
     cms_core_editor:
     presta_cms.block.dashboard.cms:
     presta_cms.block.website.selector:
-    sonata.media.block.media:
 
 sonata_admin:
   dashboard:
       blocks:
           - { position: right, type: presta_cms.block.dashboard.cms }
-
-sonata_media:
-    default_context: default
-    db_driver: doctrine_orm # or doctrine_mongodb
-    contexts:
-        default:  # the default context is mandatory
-            providers:
-                - sonata.media.provider.dailymotion
-                - sonata.media.provider.youtube
-                - sonata.media.provider.image
-                - sonata.media.provider.file
-
-            formats:
-                small: { width: 100 , quality: 70}
-                big:   { width: 500 , quality: 70}
-
-    cdn:
-        server:
-            path: /uploads/media # http://media.sonata-project.org/
-
-    filesystem:
-        local:
-            directory:  %kernel.root_dir%/../web/uploads/media
-            create:     false
 
 
 presta_cms_core:
