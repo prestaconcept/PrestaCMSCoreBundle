@@ -1,5 +1,6 @@
 imports:
-    - { resource: '@PrestaAssetTinymceBundle/Resources/config/config.yml' }
+     - { resource: '@PrestaAssetTinymceBundle/Resources/config/config.yml' }
+
 
 doctrine:
     orm:
@@ -27,7 +28,6 @@ sonata_admin:
   dashboard:
       blocks:
           - { position: right, type: presta_cms.block.dashboard.cms }
-
 
 sonata_media:
     default_context: default

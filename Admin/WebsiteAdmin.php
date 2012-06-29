@@ -90,11 +90,11 @@ class WebsiteAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('name')
-            ->add('host')
-            ->add('isDefault')
-            ->add('isActive')            
-            ->add('defaultLocale')
+            ->add('name', null, array('label' => 'admin.name'))
+            ->add('host', null, array('label' => 'admin.host'))
+            ->add('isDefault', 'boolean', array('label' => 'admin.isDefault'))
+            ->add('isActive', 'boolean', array('label' => 'admin.isActive'))    
+            ->add('defaultLocale', null, array('label' => 'admin.defaultLocale'))
         ;
     }
     
@@ -105,13 +105,13 @@ class WebsiteAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('name')
-            ->add('host')
-            ->add('relativePath')
-            ->add('isDefault', 'boolean')
-            ->add('isActive', 'boolean')            
-            ->add('defaultLocale', 'locale', array('template' => 'PrestaSonataAdminBundle:CRUD:list_locale.html.twig'))
-            ->add('availableLocales', 'array', array('template' => 'PrestaSonataAdminBundle:CRUD:list_array_locale.html.twig'))
+            ->addIdentifier('name', null, array('label' => 'admin.name'))
+            ->add('host', null, array('label' => 'admin.host'))
+            ->add('relativePath', null, array('label' => 'admin.relativePath'))
+            ->add('isDefault', 'boolean', array('label' => 'admin.isDefault'))
+            ->add('isActive', 'boolean', array('label' => 'admin.isActive'))        
+            ->add('defaultLocale', 'locale', array('label' => 'admin.defaultLocale', 'template' => 'PrestaSonataAdminBundle:CRUD:list_locale.html.twig'))
+            ->add('availableLocales', 'array', array('label' => 'admin.availableLocales', 'template' => 'PrestaSonataAdminBundle:CRUD:list_array_locale.html.twig'))
         ;
     }
 
@@ -121,10 +121,10 @@ class WebsiteAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         //SF forms update hasn't been changed in sonata yet !
-//        $datagridMapper
-//            ->add('name')
-//            ->add('host')
-//        ;
+       // $datagridMapper
+       //     ->add('name')
+       //     ->add('host')
+       // ;
     }
 
 
@@ -138,18 +138,19 @@ class WebsiteAdmin extends Admin
     {
         $formMapper
             ->with($this->trans('form_site.label_general'))
-                ->add('name')
-                ->add('host')
-                ->add('relativePath', 'text', array('required' => false))
-                ->add('isDefault', 'checkbox', array('required' => false))
-                ->add('isActive', 'checkbox', array('required' => false))
+                ->add('name', null, array('label' => 'admin.name'))
+                ->add('host', null, array('label' => 'admin.host'))
+                ->add('relativePath', 'text', array('label' => 'admin.relativePath', 'required' => false))
+                ->add('isDefault', 'checkbox', array('label' => 'admin.isDefault', 'required' => false))
+                ->add('isActive', 'checkbox', array('label' => 'admin.isActive', 'required' => false))
                 
-                ->add('theme', 'choice', array('choices' => $this->_themeManager->getAvailableThemeCodesForSelect()))
-                ->add('defaultLocale', 'choice', array('choices' => $this->_availableLocales))
+                ->add('theme', 'choice', array('label' => 'admin.theme', 'choices' => $this->_themeManager->getAvailableThemeCodesForSelect()))
+                ->add('defaultLocale', 'choice', array('label' => 'admin.defaultLocale', 'choices' => $this->_availableLocales))
                 ->add('availableLocales', 'choice', array(
-                    'choices' => $this->_availableLocales,
-                    'expanded'=> true, 
-                    'multiple'=> true
+                    'label'     => 'admin.availableLocales',
+                    'choices'   => $this->_availableLocales,
+                    'expanded'  => true, 
+                    'multiple'  => true
                 ))
             ->end()
         ;
@@ -178,9 +179,14 @@ class WebsiteAdmin extends Admin
 
         foreach ($this->getSubject()->getAvailableLocales() as $locale) {
             $menu->addChild(
-                $locale,
+                $this->trans($locale),
                 array('uri' => $this->generateUrl('edit', array('id' => $id, 'locale' => $locale)))
             );
+
+            // select current edited locale item in menu 
+            if ($this->getSubject()->getLocale() == $locale) {
+                $menu->setCurrentUri($this->generateUrl('edit', array('id' => $id, 'locale' => $locale)));
+            }
         }
     }
 
@@ -195,12 +201,18 @@ class WebsiteAdmin extends Admin
     {
         $subject = parent::getObject($id);
 
-        //Set locale and get translated data
-        $subject->setLocale($this->getRequest()->get('locale'));
+        // Get local in param then get current website default
+        if (!is_null($this->getRequest()->get('locale'))) {
+            $subject->setLocale($this->getRequest()->get('locale'));
+        } else {
+            $subject->setLocale($subject->getDefaultLocale());
+        }
+        
+        // Reload website data for selected locale
         if ($subject->getTranslations()->count()) {
             $this->getModelManager()->getEntityManager($this->getClass())->refresh($subject);
-        }        
-        
+        }
+
         return $subject;
     }    
 }
