@@ -301,9 +301,9 @@ abstract class BasePage extends TranslatableEntity
     }
 
     /**
-     * Set rigth
+     * Set right
      *
-     * @param integer $rigth
+     * @param integer $right
      * @return BasePage
      */
     public function setRight($right)
@@ -313,7 +313,7 @@ abstract class BasePage extends TranslatableEntity
     }
 
     /**
-     * Get rigth
+     * Get right
      *
      * @return integer 
      */
