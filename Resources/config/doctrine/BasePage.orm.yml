@@ -13,8 +13,9 @@ PrestaCMS\CoreBundle\Entity\BasePage:
       length: 255
       gedmo:
         - translatable
-    is_active:
+    isActive:
       type: boolean
+      column: is_active
       default: false
       gedmo:
         - translatable
@@ -28,13 +29,15 @@ PrestaCMS\CoreBundle\Entity\BasePage:
       length: 64
       gedmo:
         - translatable
-    meta_keywords:
+    metaKeywords:
       type: string
+      column: meta_keywords
       length: 255
       gedmo:
         - translatable
-    meta_description:
+    metaDescription:
       type: string
+      column: meta_description
       length: 255
       gedmo:
         - translatable
