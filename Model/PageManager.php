@@ -121,9 +121,8 @@ class PageManager
     {
         $root = $this->getNavigationRoot($website, $navigation);
         if ($root == null) {
-            //create it !
-        }       
-        
+			return array();
+        }
         return $this->_getRepository()->getChildrenPages($website, $root, $direct);
     }
     
