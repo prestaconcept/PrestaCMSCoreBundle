@@ -34,7 +34,7 @@ class PageRepository extends NestedTreeRepository
     public function getNavigationRoot(Website $website, $navigation)
     {
         return $this->findOneBy(array(
-            'is_active' => true, 
+            'isActive' => true, 
             'website' => $website,
             'type' => 'nav_root',
             'name' => $navigation

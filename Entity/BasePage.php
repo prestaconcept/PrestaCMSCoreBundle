@@ -27,9 +27,9 @@ abstract class BasePage extends TranslatableEntity
     protected $name;
     
     /**
-     * @var boolean $is_active
+     * @var boolean $isActive
      */
-    protected $is_active;
+    protected $isActive;
 
     /**
      * @var string $url
@@ -42,14 +42,14 @@ abstract class BasePage extends TranslatableEntity
     protected $title;
 
     /**
-     * @var string $meta_keywords
+     * @var string $metaKeywords
      */
-    protected $meta_keywords;
+    protected $metaKeywords;
 
     /**
-     * @var string $meta_description
+     * @var string $metaDescription
      */
-    protected $meta_description;
+    protected $metaDescription;
 
     /**
      * @var string $type
@@ -62,9 +62,9 @@ abstract class BasePage extends TranslatableEntity
     protected $left;
 
     /**
-     * @var integer $rigth
+     * @var integer $right
      */
-    protected $rigth;
+    protected $right;
 
     /**
      * @var integer $root
@@ -119,8 +119,8 @@ abstract class BasePage extends TranslatableEntity
     {
         $metadata->addPropertyConstraint('url', new NotBlank());
         $metadata->addPropertyConstraint('title', new NotBlank());
-        $metadata->addPropertyConstraint('meta_keywords', new NotBlank());
-        $metadata->addPropertyConstraint('meta_description', new NotBlank());
+        $metadata->addPropertyConstraint('metaKeywords', new NotBlank());
+        $metadata->addPropertyConstraint('metaDescription', new NotBlank());
         $metadata->addPropertyConstraint('name', new NotBlank());
     }
     
@@ -147,25 +147,25 @@ abstract class BasePage extends TranslatableEntity
     }
     
     /**
-     * Set is_active
+     * Set isActive
      *
      * @param boolean $isActive
      * @return BasePage
      */
     public function setActive($isActive)
     {
-        $this->is_active = $isActive;
+        $this->isActive = $isActive;
         return $this;
     }
 
     /**
-     * Get is_active
+     * Get isActive
      *
      * @return boolean 
      */
     public function isActive()
     {
-        return $this->is_active;
+        return $this->isActive;
     }
 
     /**
@@ -213,47 +213,47 @@ abstract class BasePage extends TranslatableEntity
     }
 
     /**
-     * Set meta_keywords
+     * Set metaKeywords
      *
      * @param string $metaKeywords
      * @return BasePageRevision
      */
     public function setMetaKeywords($metaKeywords)
     {
-        $this->meta_keywords = $metaKeywords;
+        $this->metaKeywords = $metaKeywords;
         return $this;
     }
 
     /**
-     * Get meta_keywords
+     * Get metaKeywords
      *
      * @return string 
      */
     public function getMetaKeywords()
     {
-        return $this->meta_keywords;
+        return $this->metaKeywords;
     }
 
     /**
-     * Set meta_description
+     * Set metaDescription
      *
      * @param string $metaDescription
      * @return BasePageRevision
      */
     public function setMetaDescription($metaDescription)
     {
-        $this->meta_description = $metaDescription;
+        $this->metaDescription = $metaDescription;
         return $this;
     }
 
     /**
-     * Get meta_description
+     * Get metaDescription
      *
      * @return string 
      */
     public function getMetaDescription()
     {
-        return $this->meta_description;
+        return $this->metaDescription;
     }
     
     /**
@@ -301,25 +301,25 @@ abstract class BasePage extends TranslatableEntity
     }
 
     /**
-     * Set rigth
+     * Set right
      *
-     * @param integer $rigth
+     * @param integer $right
      * @return BasePage
      */
-    public function setRigth($rigth)
+    public function setRight($right)
     {
-        $this->rigth = $rigth;
+        $this->right = $right;
         return $this;
     }
 
     /**
-     * Get rigth
+     * Get right
      *
      * @return integer 
      */
-    public function getRigth()
+    public function getRight()
     {
-        return $this->rigth;
+        return $this->right;
     }
 
     /**
