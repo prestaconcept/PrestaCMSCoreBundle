@@ -12,10 +12,12 @@ Application\PrestaCMS\CoreBundle\Entity\Page:
   fields:    
     left:
       type: integer
+      column: lft
       gedmo:
         - treeLeft
-    rigth:
+    right:
       type: integer
+      column: rgt
       gedmo:
         - treeRight
     root:

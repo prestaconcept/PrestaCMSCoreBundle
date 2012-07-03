@@ -23,7 +23,7 @@
         var website_selector_url = "{{ path('presta_cms_page', { 'id': id }) }}";    
     {% endif %}
 </script>  
-<fieldset>
+<fieldset class="cms_page_tree">
     <legend>Pages</legend>
     <div id="page-tree-container" class="control-group">
         {% for key, navigation in navigations %}
@@ -32,20 +32,3 @@
         {% endfor %}
     </div>
 </fieldset>
-<script type="text/javascript">    
-    $(document).ready(function() {      
-        {% for key, navigation in navigations %}
-            // call `.jstree` with the options object
-            $("#jstree_{{ key }}").jstree({
-                // the `plugins` array allows you to configure the active plugins on this instance
-                "plugins" : ["themes","html_data"],
-                // each plugin you have included can have its own config object
-                "core" : {  },
-                // it makes sense to configure a plugin only if overriding the defaults
-                "themes" : {
-                    "theme" : "presta"
-                }
-            });
-        {% endfor %}
-    });
-</script>

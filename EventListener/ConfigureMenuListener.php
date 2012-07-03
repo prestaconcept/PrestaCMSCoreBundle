@@ -31,12 +31,23 @@ class ConfigureMenuListener
         $cmsMenuItem->setAttribute('class', 'dropdown');
         $cmsMenuItem->setLabel('CMS <span class="caret"></span>');
         $cmsMenuItem->setExtra('safe_label', true);
-        $cmsMenuItem->setLinkAttribute('class', 'dropdown-toggle');
+        $cmsMenuItem->setLinkAttribute('class', 'dropdown-toggle  nav-menu nav-menu-cms');
         $cmsMenuItem->setLinkAttribute('data-toggle', 'dropdown');
         $cmsMenuItem->setChildrenAttribute('class', 'dropdown-menu');
                 
-        $cmsMenuItem->addChild('Websites', array('route' => 'presta_cms_website'));
-        $cmsMenuItem->addChild('Pages', array('route' => 'presta_cms_page'));
-        $cmsMenuItem->addChild('Themes', array('route' => 'presta_cms_theme'));
+        $websiteItem = $cmsMenuItem->addChild('Websites', array('route' => 'presta_cms_website'));
+		$websiteItem->setExtra('safe_label', true);
+		$websiteItem->setLabel('Websites <p>Lorem ipsum websites</p>');
+		$websiteItem->setLinkAttribute('class', 'nav-submenu nav-submenu-cms-websites');
+
+		$pageItem = $cmsMenuItem->addChild('Pages', array('route' => 'presta_cms_page'));
+		$pageItem->setExtra('safe_label', true);
+		$pageItem->setLabel('Pages <p>Lorem ipsum pages</p>');
+		$pageItem->setLinkAttribute('class', 'nav-submenu nav-submenu-cms-pages');
+
+        $themeItem = $cmsMenuItem->addChild('Themes', array('route' => 'presta_cms_theme'));
+		$themeItem->setExtra('safe_label', true);
+		$themeItem->setLabel('Themes <p>Lorem ipsum themes</p>');
+		$themeItem->setLinkAttribute('class', 'nav-submenu nav-submenu-cms-themes');
     }
 }

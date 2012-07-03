@@ -10,7 +10,6 @@ doctrine:
                 mappings:
                     ApplicationPrestaCMSCoreBundle: ~
                     PrestaCMSCoreBundle: ~
-                    SonataMediaBundle: ~
 
 
 # Assetic Configuration
@@ -23,12 +22,12 @@ sonata_block:
     cms_core_editor:
     presta_cms.block.dashboard.cms:
     presta_cms.block.website.selector:
-    sonata.media.block.media:
 
 sonata_admin:
   dashboard:
       blocks:
           - { position: right, type: presta_cms.block.dashboard.cms }
+
 
 presta_cms_core:
   themes:

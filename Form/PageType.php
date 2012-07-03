@@ -40,8 +40,8 @@ class PageType extends AbstractType
         //SEO
             ->add('url')
             ->add('title')
-            ->add('meta_keywords')
-            ->add('meta_description', 'textarea')
+            ->add('metaKeywords')
+            ->add('metaDescription', 'textarea')
         //Settings
             ->add('name')
             ->add('active', 'choice', array(

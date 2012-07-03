@@ -118,6 +118,7 @@ class ThemeManager
         $theme->setDescription($configuration['description']);
         $theme->setTemplate($configuration['template']);
         $theme->setScreenshot($configuration['screenshot']);
+		$theme->setAdminStyle($configuration['admin_style']);
         $theme->setCols($configuration['cols']);//var_dump(serialize(array('content'=>'<p>hello</p>')));die;
         //Voir pour les éventuels thèmes sans contenu editable!
         $data = array();
@@ -129,6 +130,9 @@ class ThemeManager
                 $data = $this->_getRepository()->initializeForWebsite($website, $configuration);
             }
         }
+		foreach ($configuration['navigations'] as $navigation) {
+			$theme->addNavigation($navigation['name']);
+		}
         foreach ($configuration['zones'] as $zoneConfiguration) {
             if (!isset($data[$zoneConfiguration['name']])) {
                 $data[$zoneConfiguration['name']] = array();
