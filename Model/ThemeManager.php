@@ -118,6 +118,7 @@ class ThemeManager
         $theme->setDescription($configuration['description']);
         $theme->setTemplate($configuration['template']);
         $theme->setScreenshot($configuration['screenshot']);
+		$theme->setAdminStyle($configuration['admin_style']);
         $theme->setCols($configuration['cols']);//var_dump(serialize(array('content'=>'<p>hello</p>')));die;
         //Voir pour les éventuels thèmes sans contenu editable!
         $data = array();

@@ -35,7 +35,12 @@ class Theme
      * @var string 
      */
     protected $_screenshot;
-    
+
+	/**
+	 * @var string
+	 */
+	protected $adminStyle;
+
     /**
      * @var integer 
      */
@@ -250,4 +255,20 @@ class Theme
         $this->_navigations[$navigation] = $navigation;
         return $this;
     }
+
+	/**
+	 * @param string $adminStyle
+	 */
+	public function setAdminStyle($adminStyle)
+	{
+		$this->adminStyle = $adminStyle;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAdminStyle()
+	{
+		return $this->adminStyle;
+	}
 }
