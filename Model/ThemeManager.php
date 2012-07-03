@@ -130,6 +130,9 @@ class ThemeManager
                 $data = $this->_getRepository()->initializeForWebsite($website, $configuration);
             }
         }
+		foreach ($configuration['navigations'] as $navigation) {
+			$theme->addNavigation($navigation['name']);
+		}
         foreach ($configuration['zones'] as $zoneConfiguration) {
             if (!isset($data[$zoneConfiguration['name']])) {
                 $data[$zoneConfiguration['name']] = array();
