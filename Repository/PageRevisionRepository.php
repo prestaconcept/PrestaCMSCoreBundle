@@ -14,6 +14,8 @@ use Doctrine\ORM\EntityRepository;
 
 use Application\PrestaCMS\CoreBundle\Entity\Page;
 use Application\PrestaCMS\CoreBundle\Entity\PageRevision;
+use Application\PrestaCMS\CoreBundle\Entity\PageRevisionBlock;
+use PrestaCMS\CoreBundle\Model\Template;
 
 /**
  * Page Revision Repository
@@ -39,5 +41,29 @@ class PageRevisionRepository extends EntityRepository
         $draft->setLocale($page->getLocale());
         return $draft;
     }
+
+	public function createBlockRevisionForTemplate(PageRevision $draft, array $configuration)
+	{
+		$blockByZone = array();
+		foreach ($configuration['zones'] as $zoneConfiguration) {
+			$zone = $zoneConfiguration['name'];
+			$blockByZone[$zone] = array();
+			foreach ($zoneConfiguration['blocks'] as $blockConfiguration) {
+				$block = new PageRevisionBlock();
+				$block->setPageRevision($draft);
+				$block->setZone($zone);
+				$block->setType($blockConfiguration['block_type']);
+				$block->setIsEditable($blockConfiguration['is_editable']);
+				$block->setIsDeletable($blockConfiguration['is_deletable']);
+				$block->setPosition($blockConfiguration['position']);
+				$block->setIsActive(true);
+				$block->setSettings(array());
+				$this->_em->persist($block);
+				$blockByZone[$zone][$block->getPosition()] = $block;
+			}
+		}
+		$this->_em->flush();
+		return $blockByZone;
+	}
 }
 

@@ -52,6 +52,16 @@
                 <source>fr</source>
                 <target>Français</target>
             </trans-unit>
+
+            <!-- Block -->
+            <trans-unit id="block.label.title">
+                <source>block.label.title</source>
+                <target>Titre</target>
+            </trans-unit>
+            <trans-unit id="block.label.content">
+                <source>block.label.content</source>
+                <target>Contenu</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
