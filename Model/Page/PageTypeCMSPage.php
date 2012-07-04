@@ -74,15 +74,22 @@ class PageTypeCMSPage implements PageTypeInterface
     {
         switch ($tab) {
             case self::TAB_CONTENT:
-                //Récupération de la révision draft!
+                //Working with draft version on edition
                 $repository = $this->container->get('doctrine')->getEntityManager()
                     ->getRepository('Application\PrestaCMS\CoreBundle\Entity\PageRevision');
-                $draft = $repository->getDraftForPage($page);   
+                $draft = $repository->getDraftForPage($page);
+				$data = $draft->getBlocksByZone();
+				if (count($data) == 0) {
+					// Todo améliorer ça !
+					// + prendre en compte le changement de template!
 
+					//If there is no corresponding data, initialisation with default configuration
+					$data = $repository->createBlockRevisionForTemplate($draft, $this->themeManager->getPageTemplateConfiguration($draft->getTemplate()));
+				}
                 return array(
-                    'page' => $draft,
-                    'website' => $this->websiteManager->getCurrentWebsite(),
-                    'template' => $this->themeManager->getPageTemplate($draft->getTemplate(), $draft->getBlocksByZone())
+                    'page' 	   => $draft,
+                    'website'  => $this->websiteManager->getCurrentWebsite(),
+                    'template' => $this->themeManager->getPageTemplate($draft->getTemplate(), $data)
                 );
                 break;
             default:

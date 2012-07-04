@@ -70,6 +70,14 @@ class ThemeManager
         return $this->_repository;
     }
 
+	/**
+	 * @return \PrestaCMS\CoreBundle\Model\Theme
+	 */
+	public function getCurrentTheme()
+	{
+		return $this->_currentTheme;
+	}
+
     /**
      * Return all themes declared in configuration
      * 
@@ -203,6 +211,22 @@ class ThemeManager
         }
         return $this->_buildThemeTemplate($template, $this->_themesConfiguration[$theme]['page_template'][$template], $data);
     }
+
+	/**
+	 * Return Template configuration
+	 *
+	 * @param  string $template
+	 * @param  array $data
+	 * @return false|array
+	 */
+	public function getPageTemplateConfiguration($template)
+	{
+		$theme = $this->_currentTheme->getName();
+		if (!isset($this->_themesConfiguration[$theme]['page_template'][$template])) {
+			return false;
+		}
+		return $this->_themesConfiguration[$theme]['page_template'][$template];
+	}
     
     /**
      * Build template model with data
