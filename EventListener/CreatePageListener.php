@@ -34,13 +34,11 @@ class CreatePageListener
 
         if ($entity instanceof Page && $entity->getType() == 'cms_page') {
 
-            $template = ($entity->getName() == 'Accueil' || $entity->getName() == 'Homepage') ? 'homepage' : 'default';
-
             $page_draft_revision = new PageRevision();
             $page_draft_revision->setLocale('fr');
             $page_draft_revision
                 ->setPage($entity)
-                ->setTemplate($template)
+                ->setTemplate('default')
                 ->setStatus(PageRevision::STATUS_DRAFT)
             ;
 
@@ -49,7 +47,7 @@ class CreatePageListener
 
             $page_draft_revision->setLocale('en');
             $page_draft_revision
-                ->setTemplate($template)
+                ->setTemplate('default')
                 ->setStatus(PageRevision::STATUS_DRAFT)
             ;
 
