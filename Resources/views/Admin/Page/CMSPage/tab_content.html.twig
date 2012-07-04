@@ -47,14 +47,14 @@
                         {% else %}
                             {% set currentCol = currentCol + zone.cols %}
                         {% endif %}
-                        <td colspan="{{ zone.cols }}" rowspan="" class="">
+                        <td colspan="{{ zone.cols }}" class="col{{ zone.cols }}">
                             {% if (zone.name) %}
-                                <div class="page-zone {% if (zone.blocks|length == 0 and zone.canAddBlock == false) %}page-zone-disabled{% endif %}">
+                                <div id="{{ zone.name}}" class="page-zone {% if (zone.blocks|length == 0 and zone.canAddBlock == false) %}page-zone-disabled{% endif %}">
                                     <h3>{{ ['zone.name.', zone.name]|join|trans }}</h3>
                                     {% if (zone.blocks) %}
                                         <div class="page-zone-block-container">
                                         {% for block in zone.blocks %}
-                                            <div class="page-zone-block">
+                                            <div class="page-zone-block {{ block.type }}">
                                                 <h4>{{ ['block.title.', block.type]|join|trans }}</h4>
                                                 <div class="block-actions">
                                                     {% if (block.isEditable) %}
