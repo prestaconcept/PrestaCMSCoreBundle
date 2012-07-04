@@ -62,6 +62,39 @@
                 <source>block.label.content</source>
                 <target>Contenu</target>
             </trans-unit>
+
+            <!-- Page Edition  -->
+            <trans-unit id="modal.edit.block.title">
+                <source>modal.edit.block.title</source>
+                <target>Edit block</target>
+            </trans-unit>
+            <trans-unit id="cms_page.content.title">
+                <source>cms_page.content.title</source>
+                <target>Content</target>
+            </trans-unit>
+            <trans-unit id="page_cms.seo.title">
+                <source>page_cms.seo.title</source>
+                <target>SEO</target>
+            </trans-unit>
+            <trans-unit id="page_cms.settings.title">
+                <source>page_cms.settings.title</source>
+                <target>Settings</target>
+            </trans-unit>
+
+            <trans-unit id="presta_cms.block.website.selector.title">
+                <source>presta_cms.block.website.selector.title</source>
+                <target>Website</target>
+            </trans-unit>
+            <trans-unit id="cms_page_tree.title">
+                <source>cms_page_tree.title</source>
+                <target>Pages</target>
+            </trans-unit>
+
+            <trans-unit id="navigation.single_pages.title">
+                <source>navigation.single_pages.title</source>
+                <target>Single pages</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

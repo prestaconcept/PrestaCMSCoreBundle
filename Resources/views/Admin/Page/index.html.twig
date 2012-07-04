@@ -73,10 +73,10 @@
 {%block actions %}
     {% if (page) %}
         <div class="btn-group nav-pills">
-            <a class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i>&nbsp;Delete</a>
+            <a class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i>&nbsp;{{ 'button.delete'|trans }}</a>
             {# <button class="btn" type="button"><i class="icon-screenshot "></i>&nbsp;Preview</button>
             <button class="btn btn-success" type="button"><i class="icon-retweet icon-white"></i>&nbsp;Publish</button> #}
-            <a class="btn btn-primary" onclick="$('#edit_form').submit();"><i class="icon-ok icon-white"></i>&nbsp;Save</a>
+            <a class="btn btn-primary" onclick="$('#edit_form').submit();"><i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans }}</a>
         </div>
     {% endif %}
 {% endblock %}
@@ -85,23 +85,23 @@
     {% if (page) %}
         <ul class="nav nav-tabs">
             {% for type, tab in pageEditTabs %}
-                <li><a href="#{{ [type, '-', tab]|join }}" data-toggle="tab">{{ [type, '-', tab]|join }}</a></li>
+                <li class="{% if (loop.index == 1) %}active{% endif %}"><a href="#{{ [type, '-', tab]|join }}" data-toggle="tab">{{ [type, '.', tab, '.title']|join|trans }}</a></li>
             {% endfor %}
-            <li><a href="#seo" data-toggle="tab">SEO</a></li>
-            <li><a href="#settings" data-toggle="tab">Settings</a></li> 
+            <li><a href="#seo" data-toggle="tab">{{ 'page_cms.seo.title'|trans }}</a></li>
+            <li><a href="#settings" data-toggle="tab">{{ 'page_cms.settings.title'|trans }}</a></li>
         </ul>
         <form id="edit_form" class="form-horizontal" method="POST">
             {% form_theme form 'PrestaSonataAdminBundle:Form:form_admin_fields.html.twig' %}
 
             <div class="tab-content">
                 {% for type, tab in pageEditTabs %}
-                <div class="tab-pane form-horizontal" id="{{ [type, '-', tab]|join }}">
+                <div class="tab-pane form-horizontal {% if (loop.index == 1) %}active{% endif %}" id="{{ [type, '-', tab]|join }}">
                     {% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'type': type, 'tab': tab, 'page': page} %}
                 </div>
                 {% endfor %}
                 <div class="tab-pane form-horizontal" id="seo">
                     <fieldset>
-                        <legend>SEO</legend>
+                        <legend>{{ 'page_cms.seo.title'|trans }}</legend>
                         <div class="sonata-ba-collapsed-fields">
                             {{ form_row(form.url)}}
                             {{ form_row(form.title)}}
@@ -112,7 +112,7 @@
                 </div>
                 <div class="tab-pane form-horizontal" id="settings">
                     <fieldset>
-                        <legend>Settings</legend>
+                        <legend>{{ 'page_cms.settings.title'|trans }}</legend>
                         {{ form_row(form.name)}}
                         {{ form_row(form.active)}}
                         {{ form_row(form.settings)}}

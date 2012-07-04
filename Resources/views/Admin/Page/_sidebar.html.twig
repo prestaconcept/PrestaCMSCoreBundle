@@ -24,10 +24,10 @@
     {% endif %}
 </script>  
 <fieldset class="cms_page_tree">
-    <legend>Pages</legend>
+    <legend>{{ 'cms_page_tree.title'|trans }}</legend>
     <div id="page-tree-container" class="control-group">
         {% for key, navigation in navigations %}
-            <h4>{{ key }}</h4>
+            <h4>{{ ['navigation.', key, '.title']|join|trans }}</h4>
             <div id="jstree_{{ key }}">{{ navigation|raw }}</div>        
         {% endfor %}
     </div>
