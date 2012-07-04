@@ -31,7 +31,7 @@ abstract class BaseWebsite extends TranslatableEntity
      * @var string $host
      */
     protected $host;
-    
+
     /**
      * @var string relative path
      */
@@ -41,7 +41,7 @@ abstract class BaseWebsite extends TranslatableEntity
      * @var string $theme
      */
     protected $theme;
-    
+
     /**
      * @var string $name
      */
@@ -61,7 +61,7 @@ abstract class BaseWebsite extends TranslatableEntity
      * @var string $default_locale
      */
     protected $default_locale;
-    
+
     /**
      * @var array $available_locales
      */
@@ -71,32 +71,32 @@ abstract class BaseWebsite extends TranslatableEntity
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $pages;
-    
+
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $themeBlocks;
-        
+
     public function __construct()
     {
         $this->pages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->themeBlocks = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
-    /** 
+
+    /**
      * Used by Admin edition
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function __toString()
     {
         return $this->getName();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -111,14 +111,21 @@ abstract class BaseWebsite extends TranslatableEntity
      */
     public function setHost($host)
     {
-        $this->host = $host;
+        // Clean the host
+        if (strpos($host, 'http://') === 0) {
+            $parsedUrl = parse_url($host);
+            $this->host = $parsedUrl['host'];
+        }
+        else {
+            $this->host = $host;
+        }
         return $this;
     }
 
     /**
      * Get host
      *
-     * @return string 
+     * @return string
      */
     public function getHost()
     {
@@ -128,7 +135,7 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Set relative path
      *
-     * @param string $relativePath 
+     * @param string $relativePath
      */
     public function setRelativePath($relativePath)
     {
@@ -138,18 +145,18 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Get relative path
      *
-     * @return string 
+     * @return string
      */
     public function getRelativePath()
     {
         return $this->relative_path;
     }
-    
+
     /**
      * Set theme
      *
      * @param  string $theme
-     * @return BaseWebsite  
+     * @return BaseWebsite
      */
     public function setTheme($theme)
     {
@@ -160,13 +167,13 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Get theme
      *
-     * @return string 
+     * @return string
      */
     public function getTheme()
     {
         return $this->theme;
     }
-    
+
     /**
      * Set name
      *
@@ -182,7 +189,7 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -204,7 +211,7 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Get is_active
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsActive()
     {
@@ -226,13 +233,13 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Get is_default
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsDefault()
     {
         return $this->is_default;
     }
-    
+
     /**
      * Set default_locale
      *
@@ -248,13 +255,13 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Get default_locale
      *
-     * @return string 
+     * @return string
      */
     public function getDefaultLocale()
     {
         return $this->default_locale;
     }
-    
+
     /**
      * Set available_locales
      *
@@ -270,7 +277,7 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Get default_locale
      *
-     * @return array 
+     * @return array
      */
     public function getAvailableLocales()
     {
@@ -292,7 +299,7 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -314,7 +321,7 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Get meta_keywords
      *
-     * @return string 
+     * @return string
      */
     public function getMetaKeywords()
     {
@@ -336,12 +343,12 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Get meta_description
      *
-     * @return string 
+     * @return string
      */
     public function getMetaDescription()
     {
         return $this->meta_description;
-    }    
+    }
 
     /**
      * Add pages
@@ -358,13 +365,13 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Get pages
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getPages()
     {
         return $this->pages;
     }
-    
+
     /**
      * Add themeBlocks
      *
@@ -380,7 +387,7 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Get themeBlocks
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getThemeBlocks()
     {

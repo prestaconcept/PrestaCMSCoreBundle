@@ -74,4 +74,8 @@ services:
     presta_cms.page_type.cms_page:
       class: PrestaCMS\CoreBundle\Model\Page\PageTypeCMSPage
       arguments: [@service_container, @presta_cms.website_manager, @presta_cms.theme_manager]
-      
+
+    presta_cms.listener.create_page:
+        class: PrestaCMS\CoreBundle\EventListener\CreatePageListener
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
