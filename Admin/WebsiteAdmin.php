@@ -139,13 +139,13 @@ class WebsiteAdmin extends Admin
         $formMapper
             ->with($this->trans('form_site.label_general'))
                 ->add('name', null, array('help' => 'Vix te omnium sententiae.', 'label' => 'admin.name'))
-                ->add('host', null, array('help' => 'Vero verear sapientem has at.', 'label' => 'admin.host'))
-                ->add('relativePath', 'text', array('help' => 'Lorem ipsum dolor sit amet', 'label' => 'admin.relativePath', 'required' => false))
-                ->add('isDefault', 'checkbox', array('help' => 'Lorem ipsum dolor sit amet', 'label' => 'admin.isDefault', 'required' => false))
-                ->add('isActive', 'checkbox', array('help' => 'Lorem ipsum dolor sit amet', 'label' => 'admin.isActive', 'required' => false))
+                ->add('host', null, array('label' => 'admin.host'))
+                ->add('relativePath', 'text', array('help' => 'Vero verear sapientem has at.', 'label' => 'admin.relativePath', 'required' => false))
+                ->add('isDefault', 'checkbox', array('label' => 'admin.isDefault', 'required' => false))
+                ->add('isActive', 'checkbox', array('label' => 'admin.isActive', 'required' => false))
                 
-                ->add('theme', 'choice', array('help' => 'Lorem ipsum dolor sit amet', 'label' => 'admin.theme', 'choices' => $this->_themeManager->getAvailableThemeCodesForSelect()))
-                ->add('defaultLocale', 'choice', array('help' => 'Lorem ipsum dolor sit amet', 'label' => 'admin.defaultLocale', 'choices' => $this->_availableLocales))
+                ->add('theme', 'choice', array('label' => 'admin.theme', 'choices' => $this->_themeManager->getAvailableThemeCodesForSelect()))
+                ->add('defaultLocale', 'choice', array('label' => 'admin.defaultLocale', 'choices' => $this->_availableLocales))
                 ->add('availableLocales', 'choice', array(
                     'label'     => 'admin.availableLocales',
                     'choices'   => $this->_availableLocales,
