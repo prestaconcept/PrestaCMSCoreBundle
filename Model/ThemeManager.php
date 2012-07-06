@@ -232,13 +232,13 @@ class ThemeManager
 	 *
 	 * @param  string $template
 	 * @param  array $data
-	 * @return false|array
+	 * @return array
 	 */
 	public function getPageTemplateConfiguration($template)
 	{
 		$theme = $this->_currentTheme->getName();
 		if (!isset($this->_themesConfiguration[$theme]['page_template'][$template])) {
-			return false;
+			return array();
 		}
 		return $this->_themesConfiguration[$theme]['page_template'][$template];
 	}
