@@ -18,7 +18,7 @@
     Themes
 {% endblock %}
 {% block breadcrumb %}
-    ##breadcrumb##
+    CMS > Gestion des themes
 {% endblock %}
 
 {% block content %}
@@ -62,7 +62,7 @@
             <td class="sonata-ba-list-field sonata-ba-list-field-text">
                 <ul>
                 {% for template in theme.pageTemplates %}
-                    <li><strong>{{ template.name }}</strong> : <p>{{ template.path }}</p></li>
+                    <li><strong>{{ template.name }}</strong> {#: <p>{{ template.path }}</p>#}</li>
                 {% endfor %}
                 </ul>
             </td>
