@@ -197,7 +197,7 @@ class ThemeManager
     }
     
     /**
-     * Return Template model initalised with $data
+     * Return Template model initialised with $data
      * 
      * @param  string $template
      * @param  array $data
@@ -211,6 +211,21 @@ class ThemeManager
         }
         return $this->_buildThemeTemplate($template, $this->_themesConfiguration[$theme]['page_template'][$template], $data);
     }
+
+	/**
+	 * Return Template file
+	 *
+	 * @param  string $templateName
+	 * @return false|string
+	 */
+	public function getPageTemplateFile($templateName)
+	{
+		$theme = $this->_currentTheme->getName();
+		if (!isset($this->_themesConfiguration[$theme]['page_template'][$templateName])) {
+			return false;
+		}
+		return $this->_themesConfiguration[$theme]['page_template'][$templateName]['path'];
+	}
 
 	/**
 	 * Return Template configuration
