@@ -23,4 +23,9 @@ file that was distributed with this source code.
         </tr>
     {% endfor %}
     </table>
+    {% if (settingsRoute is defined) %}
+    <div class="block-settings">
+        <a href="{{ url(settingsRoute)}}" target="_blank" class="module-settings">{{ 'block.module.settings.link'|trans}}</a>
+    </div>
+    {% endif %}
 {% endblock %}

@@ -68,7 +68,7 @@ class PageController extends AdminController
 
             $navigations = array();
             foreach ($theme->getNavigations() as $navigation) {
-                $navigations[$navigation] = $this->getPageManager()->getNavigationTree($website, $navigation, true);
+                $navigations[$navigation] = $this->getPageManager()->getNavigationTree($website, $navigation);
             }
             $navigations['single_pages'] = $this->getPageManager()->getSinglePagesTree($website);
             $viewParams['theme'] = $theme;

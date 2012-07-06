@@ -138,9 +138,9 @@ class WebsiteAdmin extends Admin
     {
         $formMapper
             ->with($this->trans('form_site.label_general'))
-                ->add('name', null, array('label' => 'admin.name'))
+                ->add('name', null, array('help' => 'Vix te omnium sententiae.', 'label' => 'admin.name'))
                 ->add('host', null, array('label' => 'admin.host'))
-                ->add('relativePath', 'text', array('label' => 'admin.relativePath', 'required' => false))
+                ->add('relativePath', 'text', array('help' => 'Vero verear sapientem has at.', 'label' => 'admin.relativePath', 'required' => false))
                 ->add('isDefault', 'checkbox', array('label' => 'admin.isDefault', 'required' => false))
                 ->add('isActive', 'checkbox', array('label' => 'admin.isActive', 'required' => false))
                 
