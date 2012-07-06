@@ -52,9 +52,6 @@
                 }
             });
             {% endfor %}
-
-            //CMS todo dynamic!
-            CMSContentInit();
         });
     </script>
 {% endblock %}
@@ -89,6 +86,10 @@
             {% endfor %}
             <li><a href="#seo" data-toggle="tab">{{ 'page_cms.seo.title'|trans }}</a></li>
             <li><a href="#settings" data-toggle="tab">{{ 'page_cms.settings.title'|trans }}</a></li>
+	        {# tmp demo st gobain #}
+			<li><a href="#permission" data-toggle="tab">Permissions</a></li>
+	        <li><a href="#history" data-toggle="tab">History</a></li>
+	        {# end - tmp demo st gobain #}
         </ul>
         <form id="edit_form" class="form-horizontal" method="POST">
             {% form_theme form 'PrestaSonataAdminBundle:Form:form_admin_fields.html.twig' %}
@@ -119,8 +120,113 @@
                         {{ form_rest(form) }}
                     </fieldset>
                 </div>
+	            {# tmp demo st gobain #}
+				<div class="tab-pane" id="permission">
+	            <table class="table table-bordered table-striped">
+		            <thead>
+		            <tr>
+			            <th>Groupname</th>
+			            <th>Permission</th>
+		            </tr>
+		            </thead>
+		            <tbody>
+		            <tr>
+			            <td>
+				            <span style="font-weight: bold;">Novice - Aguerris</span>
+			            </td>
+			            <td><input type="checkbox" name="permissions[3][read]" checked="checked"></td>
+		            </tr>
+		            <tr>
+			            <td>
+				            <span style="font-weight: bold;">Prospect - Visiteur</span>
+			            </td>
+			            <td><input type="checkbox" name="permissions[1][read]" checked="checked"></td>
+		            </tr>
+		            <tr>
+			            <td>
+				            <span style="font-weight: bold;">Institutionnel</span>
+			            </td>
+			            <td><input type="checkbox" name="permissions[2][read]" checked="checked"></td>
+		            </tr>
+		            </tbody>
+	            </table>
             </div>
-
+	            <div class="tab-pane" id="history">
+		            <table class="table table-bordered table-striped">
+			            <thead>
+			            <tr>
+				            <th>Title</th>
+				            <th>Last Modification</th>
+				            <th>User</th>
+				            <th style="width: 110px;">Actions</th>
+			            </tr>
+			            </thead>
+			            <tbody>
+			            <tr>
+				            <td><span style="font-weight: bold;">Default</span></td>
+				            <td>16 May 2012 08:43</td>
+				            <td>Nicolas Bastien</td>
+				            <td>
+					            <div class="btn-group">
+						            <a class="btn btn-danger" href="#"><i class="icon-remove icon-white"></i></a>
+						            <a class="btn" href="#"><i class="icon-eye-open"></i></a>
+						            <a class="btn btn-success" href="#"><i class="icon-retweet icon-white"></i></a>
+					            </div>
+				            </td>
+			            </tr>
+			            <tr>
+				            <td><span style="font-weight: bold;">Basic</span></td>
+				            <td>16 May 2012 08:43</td>
+				            <td>Nicolas Bastien</td>
+				            <td>
+					            <div class="btn-group">
+						            <a class="btn btn-danger" href="#"><i class="icon-remove icon-white"></i></a>
+						            <a class="btn" href="#"><i class="icon-eye-open"></i></a>
+						            <a class="btn btn-success" href="#"><i class="icon-retweet icon-white"></i></a>
+					            </div>
+				            </td>
+			            </tr>
+			            <tr>
+				            <td><span style="font-weight: bold;">Bordered</span></td>
+				            <td>16 May 2012 08:43</td>
+				            <td>Nicolas Bastien</td>
+				            <td>
+					            <div class="btn-group">
+						            <a class="btn btn-danger" href="#"><i class="icon-remove icon-white"></i></a>
+						            <a class="btn" href="#"><i class="icon-eye-open"></i></a>
+						            <a class="btn btn-success" href="#"><i class="icon-retweet icon-white"></i></a>
+					            </div>
+				            </td>
+			            </tr>
+			            <tr>
+				            <td><span style="font-weight: bold;">Zebra-stripe</span></td>
+				            <td>16 May 2012 08:43</td>
+				            <td>Nicolas Bastien</td>
+				            <td>
+					            <div class="btn-group">
+						            <a class="btn btn-danger" href="#"><i class="icon-remove icon-white"></i></a>
+						            <a class="btn" href="#"><i class="icon-eye-open"></i></a>
+						            <a class="btn btn-success" href="#"><i class="icon-retweet icon-white"></i></a>
+					            </div>
+				            </td>
+			            </tr>
+			            <tr>
+				            <td><span style="font-weight: bold;">Condensed</span></td>
+				            <td>16 May 2012 08:43</td>
+				            <td>Nicolas Bastien</td>
+				            <td>
+					            <div class="btn-group">
+						            <a class="btn btn-danger" href="#"><i class="icon-remove icon-white"></i></a>
+						            <a class="btn" href="#"><i class="icon-eye-open"></i></a>
+						            <a class="btn btn-success" href="#"><i class="icon-retweet icon-white"></i></a>
+					            </div>
+				            </td>
+			            </tr>
+			            </tbody>
+		            </table>
+	            </div>
+	            {# end - tmp demo st gobain #}
+            </div>
         </form>
     {% endif %}
 {% endblock %}
