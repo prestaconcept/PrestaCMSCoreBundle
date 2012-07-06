@@ -65,6 +65,7 @@
                                                     {% endif %}
                                                 </div>
                                                 <div id="block-content-{{ block.id }}" class="block-content">
+                                                    {{ block.setAdminMode }}
                                                     {{ sonata_block_render(block) }}
                                                 </div>
                                             </div>
@@ -85,16 +86,15 @@
             * Specific function so it can be called asynchrone
             */
             #}
-
             function CMSContentInit() {
                 CMSContent.init(
                     "{{ path('presta_cms_page_revision_edit_block', { 'website_id': website.id, 'locale': website.locale }) }}",
                     "{{ path('presta_cms_page_revision_render_block', { 'locale': website.locale }) }}"
                 );
             }
-//            $(document).ready(function() {
-//                CMSContentInit();
-//            });
+            $(document).ready(function() {
+                CMSContentInit();
+            });
         </script>        
     </div>
 </div>
