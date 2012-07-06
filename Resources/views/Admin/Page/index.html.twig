@@ -82,6 +82,22 @@
 
 {% block content %}
     {% if (page) %}
+		{# todo refactor modal : dans layout + js #}
+		<div id="modal" class="modal modal-large hide">
+			<div class="modal-header">
+				<h3 id="modal-title">{{ 'modal.edit.block.title'|trans }}</h3>
+			</div>
+			<div id="modal-body" class="modal-body">
+				<div id="modal-loader">
+					<img src="{{ asset('bundles/prestasonataadmin/img/loader.gif') }}" />
+				</div>
+				<div id="modal-content"></div>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal"><i class="icon-ok icon-remove"></i>&nbsp;{{ 'button.close'|trans }}</a>
+				<a href="#" class="btn btn-primary" onclick="CMSContent.submitModalForm();"><i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans }}</a>
+			</div>
+		</div>
         <ul class="nav nav-tabs">
             {% for type, tab in pageEditTabs %}
                 <li class="{% if (loop.index == 1) %}active{% endif %}"><a href="#{{ [type, '-', tab]|join }}" data-toggle="tab">{{ [type, '.', tab, '.title']|join|trans }}</a></li>

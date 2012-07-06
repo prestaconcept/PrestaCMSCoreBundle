@@ -9,7 +9,6 @@
  */
 namespace PrestaCMS\CoreBundle\Controller\Admin;
 
-use PrestaSonata\AdminBundle\Controller\Admin\Controller as AdminController;
 use Sonata\AdminBundle\Controller\CRUDController;
 /**
  * Theme administration controller

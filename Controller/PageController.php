@@ -71,15 +71,15 @@ class PageController extends Controller
 		$page = $this->getPageManager()->getPageByUrl($website, $pathInfo);
 		$pageType = $this->getPageManager()->getType($page->getType());
 
-		$viewParams = array_merge(
-			array(
-				'base_template' => $theme->getTemplate(),
-				'website' => $website,
-				'theme' => $theme,
-				'page'  => $page
-			),
-			$pageType->getData($page)
+		$viewParams = array(
+			'base_template' => $theme->getTemplate(),
+			'website' => $website,
+			'theme' => $theme,
+			'page'  => $page
 		);
+		if ($pageType != null) {
+			$viewParams = array_merge($viewParams, $pageType->getData($page));
+		}
         return $this->render('PrestaCMSCoreBundle:Page:index.html.twig', $viewParams);
     }
 }

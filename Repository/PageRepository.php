@@ -116,10 +116,13 @@ class PageRepository extends NestedTreeRepository
 	 */
 	public function getPageByUrl(Website $website, $url)
 	{
-		$page = $this->findOneBy(array(
-			'website' => $website,
-			'url' => $url
-		));
+		$query = $this->createQueryBuilder('p')
+			->where('p.website = :website and p.url = :url and p.type != :type')
+			->setParameters(array('website' => $website, 'url' => $url, 'type' => 'nav_root'))
+			->getQuery()
+		;
+		$page = $query->getSingleResult();
+
 		if ($page != null) {
 			$page->setLocale($website->getLocale());
 			$this->_em->refresh($page);

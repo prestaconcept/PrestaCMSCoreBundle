@@ -9,7 +9,6 @@
  */
 namespace PrestaCMS\CoreBundle\Controller\Admin;
 
-use PrestaSonata\AdminBundle\Controller\Admin\Controller as AdminController;
 use Sonata\AdminBundle\Controller\CRUDController;
 
 /**
@@ -29,8 +28,10 @@ class PageRevisionBlockController extends CRUDController
      */
     public function renderAction($id)
     {
+		$block = $this->admin->getObject($id);
+		$block->setAdminMode();
         return $this->render('PrestaCMSCoreBundle:Admin/PageRevision:render_block.html.twig', array(
-            'block' => $this->admin->getObject($id)
+            'block' => $block
         ));
     }    
 }

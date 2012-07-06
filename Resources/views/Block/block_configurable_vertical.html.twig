@@ -1,0 +1,33 @@
+{#
+
+This file is part of the Presta Bundle project.
+
+@author Nicolas Bastien nbastien@prestaconcept.net
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
+
+{#
+	basic for admin : todo front ?
+#}
+{% block block %}
+	<table class="form_view  form_view_vertical">
+		{% for key, setting in settings %}
+		<tr>
+			<th>{{ ['block.label.', key]|join|trans }}</th>
+		</tr>
+		<tr>
+			<td>{{ setting|raw }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% if (settingsRoute is defined) %}
+		<div class="block-settings">
+			<a href="{{ url(settingsRoute)}}" target="_blank" class="module-settings">{{ 'block.module.settings.link'|trans}}</a>
+		</div>
+	{% endif %}
+{% endblock %}
