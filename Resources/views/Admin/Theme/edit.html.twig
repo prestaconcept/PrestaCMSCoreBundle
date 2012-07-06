@@ -16,12 +16,32 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts filter='?yui_js'
+    {% javascripts
         '@PrestaCMSCoreBundle/Resources/public/js/cms.js'
     %}
 
     <script type="text/javascript" src="{{ asset('bundles/prestaassettinymce/js/tiny_mce/tiny_mce.js') }}"></script>
     <script type="text/javascript" src="{{ asset_url }}"></script>
+    <script type="text/javascript">
+        {#
+        /**
+         * Initialize CMSContent
+         * Specific function so it can be called asynchrone
+         */
+        #}
+        function CMSContentInit() {
+        {% if (website) %}
+            CMSContent.init(
+                "{{ path('presta_cms_theme_edit_block', { 'website_id': website.id, 'locale': website.locale }) }}",
+                "{{ path('presta_cms_theme_render_block', { 'locale': website.locale }) }}"
+            );
+        {% endif %}
+        }
+        $(document).ready(function() {
+            CMSContentInit();
+        });
+        var website_selector_url = "{{ path('presta_cms_theme_edit', { 'name': theme.name }) }}";
+    </script>
     {% endjavascripts %}
 {% endblock %}
 
@@ -34,7 +54,7 @@
     Theme - {{ theme.name }}
 {% endblock %}
 {% block breadcrumb %}
-    ##breadcrumb##
+    CMS > Gestion des themes > {{ theme.name }}
 {% endblock %}
 
 {% block content %}
@@ -109,11 +129,6 @@
                     'settings': {'website_id' : website_id, 'locale' : locale, 'with_fieldset' : false}
                 }) }}
                 <table class="table table-bordered page-content-admin" cellspacing="5">
-                    <colgroup>
-                        {% for i in range(1, theme.cols) %}
-                            <col width="{{ 100 / theme.cols }} %" />
-                        {% endfor %}
-                    </colgroup>
                     <tr>
                         {% set currentCol = 0 %}
                         {% for zone in theme.zones %}
@@ -157,24 +172,4 @@
         </fieldset>
     </div>
 </div>
- <script type="text/javascript"> 
-    {#
-    /**
-     * Initialize CMSContent
-     * Specific function so it can be called asynchrone
-     */
-    #}
-    function CMSContentInit() {
-        {% if (website) %}
-        CMSContent.init(
-            "{{ path('presta_cms_theme_edit_block', { 'website_id': website.id, 'locale': website.locale }) }}",
-            "{{ path('presta_cms_theme_render_block', { 'locale': website.locale }) }}"
-        );
-        {% endif %}
-    }
-    $(document).ready(function() {
-        CMSContentInit();
-    });
-    var website_selector_url = "{{ path('presta_cms_theme_edit', { 'name': 'default' }) }}";
-</script>
 {% endblock %}
