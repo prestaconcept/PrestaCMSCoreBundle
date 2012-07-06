@@ -33,8 +33,13 @@ abstract class BaseBlock extends SonataBaseBlock
      * @var boolean $is_active
      */
     protected $is_active;
-    
-    /**
+
+	/**
+	 * @var bool
+	 */
+	protected $isAdminMode = false;
+
+	/**
      * @return boolean 
      */
     public function isEditable()
@@ -107,7 +112,24 @@ abstract class BaseBlock extends SonataBaseBlock
     {
         return $this->is_active;
     }
-    
+
+
+	/**
+	 * Set admin mode
+	 */
+	public function setAdminMode()
+	{
+		$this->isAdminMode = true;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isAdminMode()
+	{
+		return $this->isAdminMode;
+	}
+
     /*** Translatable entity ***/
     
     /**
