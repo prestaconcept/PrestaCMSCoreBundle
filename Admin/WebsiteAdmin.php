@@ -106,12 +106,10 @@ class WebsiteAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('name', null, array('label' => 'admin.name'))
-            ->add('host', null, array('label' => 'admin.host'))
-            ->add('relativePath', null, array('label' => 'admin.relativePath'))
-            ->add('isDefault', 'boolean', array('label' => 'admin.isDefault'))
-            ->add('isActive', 'boolean', array('label' => 'admin.isActive'))        
             ->add('defaultLocale', 'locale', array('label' => 'admin.defaultLocale', 'template' => 'PrestaSonataAdminBundle:CRUD:list_locale.html.twig'))
             ->add('availableLocales', 'array', array('label' => 'admin.availableLocales', 'template' => 'PrestaSonataAdminBundle:CRUD:list_array_locale.html.twig'))
+            ->add('isActive', 'boolean', array('label' => 'admin.isActive'))
+            ->add('isDefault', 'boolean', array('label' => 'admin.isDefault'))
         ;
     }
 
@@ -121,10 +119,10 @@ class WebsiteAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         //SF forms update hasn't been changed in sonata yet !
-       // $datagridMapper
-       //     ->add('name')
-       //     ->add('host')
-       // ;
+//        $datagridMapper
+//            ->add('name')
+//            ->add('host')
+//        ;
     }
 
 
@@ -214,5 +212,5 @@ class WebsiteAdmin extends Admin
         }
 
         return $subject;
-    }    
+    }
 }
