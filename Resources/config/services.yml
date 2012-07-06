@@ -12,9 +12,10 @@ services:
     #Configuration Menu
     presta_cms_core.configure_menu_listener:
         class: PrestaCMS\CoreBundle\EventListener\ConfigureMenuListener
+        arguments: [@service_container]
         tags:
           - { name: kernel.event_listener, event: presta_admin.menu_configure, method: onMenuConfigure }
-    
+
     #Admin class
     presta_cms.website.admin.website:
       class: PrestaCMS\CoreBundle\Admin\WebsiteAdmin
@@ -24,7 +25,7 @@ services:
       calls:
         - [ setAvailableLocales, [ %cms_locales% ] ]
         - [ setThemeManager, [ @presta_cms.theme_manager ] ]
-    
+
     presta_cms.theme.admin.bloc:
       class: PrestaCMS\CoreBundle\Admin\BlockAdmin
       tags:
@@ -39,14 +40,14 @@ services:
       arguments: [null, Application\PrestaCMS\CoreBundle\Entity\PageRevisionBlock, PrestaCMSCoreBundle:Admin/PageRevisionBlock]
       calls:
         - [ setBlockManager, [ @sonata.block.manager ] ]
-        
+
     #CMS Block service
     cms_core_editor:
       class: PrestaCMS\CoreBundle\Block\EditorBlockService
       tags:
         - {name: sonata.block}
       arguments: [cms_core_editor, @templating]
-    
+
     #Block service
     presta_cms.block.dashboard.cms:
       class: PrestaCMS\CoreBundle\Block\Dashboard\CmsBlockService
@@ -58,7 +59,7 @@ services:
       tags:
         - {name: sonata.block}
       arguments: [presta_cms.block.website.selector, @templating, @presta_cms.website_manager]
-      
+
     #Manager
     presta_cms.website_manager:
       class: PrestaCMS\CoreBundle\Model\WebsiteManager
@@ -69,7 +70,7 @@ services:
     presta_cms.page_manager:
       class: PrestaCMS\CoreBundle\Model\PageManager
       arguments: [@service_container]
-      
+
     #Page Types
     presta_cms.page_type.cms_page:
       class: PrestaCMS\CoreBundle\Model\Page\PageTypeCMSPage

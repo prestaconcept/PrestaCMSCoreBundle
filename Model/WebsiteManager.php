@@ -16,7 +16,7 @@ use PrestaCMS\CoreBundle\Exception\Website\WebsiteNotFoundException;
 
 /**
  * Website Manager
- * 
+ *
  * @package    PrestaCMS
  * @subpackage CoreBundle
  * @author     Nicolas Bastien nbastien@prestaconcept.net
@@ -27,17 +27,17 @@ class WebsiteManager
      * @var Symfony\Component\DependencyInjection\Container
      */
     protected $_container;
-    
+
     /**
-     * @var array 
+     * @var array
      */
     protected $_websites;
-    
+
     /**
-     * @var \Application\PrestaCMS\CoreBundle\Entity\Website  
+     * @var \Application\PrestaCMS\CoreBundle\Entity\Website
      */
     protected $currentWebsite;
-    
+
     /**
      * @var PrestaCMS\CoreBundle\Repository\WebsiteRepository
      */
@@ -50,11 +50,11 @@ class WebsiteManager
         $this->currentWebsite = null;
         $this->_repository = null;
     }
-        
+
     /**
      * Return website repository
-     * 
-     * @return PrestaCMS\CoreBundle\Repository\WebsiteRepository 
+     *
+     * @return PrestaCMS\CoreBundle\Repository\WebsiteRepository
      */
     protected function _getRepository()
     {
@@ -64,13 +64,13 @@ class WebsiteManager
         }
         return $this->_repository;
     }
-    
+
     /**
      * Return default website
-     * 
+     *
      * @param  string $locale
      * @return \Application\PrestaCMS\CoreBundle\Entity\Website
-     * @throws \Exception 
+     * @throws \Exception
      */
     public function getDefaultWebsite($locale)
     {
@@ -80,23 +80,23 @@ class WebsiteManager
         }
         return $website;
     }
-    
+
     /**
      * Return current website
-     * 
-     * @return \Application\PrestaCMS\CoreBundle\Entity\Website  
+     *
+     * @return \Application\PrestaCMS\CoreBundle\Entity\Website
      */
     public function getCurrentWebsite()
     {
         return $this->currentWebsite;
     }
-    
+
     /**
      * Get website
-     * 
+     *
      * @param  integer $websiteId
      * @param  string $locale
-     * @return \Application\PrestaCMS\CoreBundle\Entity\Website 
+     * @return \Application\PrestaCMS\CoreBundle\Entity\Website
      */
     public function getWebsite($websiteId, $locale)
     {
@@ -107,21 +107,21 @@ class WebsiteManager
         $this->currentWebsite = $website;
         return $website;
     }
-    
+
     /**
      * Return available websites
-     * 
-     * @return ArrayCollection 
+     *
+     * @return ArrayCollection
      */
     public function getAvailableWebsites()
     {
         return $this->_getRepository()->getAvailableWebsites();
     }
-    
+
 
     /**
      * Retrieve website for current host and locale
-     * 
+     *
      * @param   Symfony\Component\HttpFoundation\Request $resquest
      * @return  \Application\PrestaCMS\CoreBundle\Entity\Website  $website
      */
@@ -134,17 +134,25 @@ class WebsiteManager
             throw new WebsiteNotFoundException();
         }
 
+        // Closure telling if a given uri matches a path
+        $uriMatchesPath = function ($uri, $path) {
+            $uri = preg_replace('/^\/app_[a-z]+.php/', '', $uri);
+            return strpos($uri, $path) === 0;
+        };
+
         foreach ($websites as $website) {
             foreach ($website->getTranslations() as $translation) {
+
                 if (in_array($translation->getLocale(), $website->getAvailableLocales())
                     && $translation->getField() == 'relative_path'
-                    && $translation->getContent() == $request->getRequestUri()) {
+                    && $uriMatchesPath($request->getRequestUri(), $translation->getContent())) {
 
                     //if the current website match for the current locale stop search
                     $requestWebsite = $website;
                     $requestWebsite->setLocale($translation->getLocale());
                     break 2;
                 }
+
             }
         }
 
