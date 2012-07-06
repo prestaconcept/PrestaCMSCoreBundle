@@ -153,6 +153,16 @@ abstract class BaseWebsite extends TranslatableEntity
     }
 
     /**
+     * Return website complete url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->getHost() . $this->getRelativePath();
+    }
+
+    /**
      * Set theme
      *
      * @param  string $theme
