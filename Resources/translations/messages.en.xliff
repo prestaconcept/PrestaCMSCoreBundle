@@ -86,11 +86,11 @@
             <!-- Block -->
             <trans-unit id="block.label.title">
                 <source>block.label.title</source>
-                <target>Titre</target>
+                <target>Title</target>
             </trans-unit>
             <trans-unit id="block.label.content">
                 <source>block.label.content</source>
-                <target>Contenu</target>
+                <target>Content</target>
             </trans-unit>
 
             <!-- Page Edition  -->
