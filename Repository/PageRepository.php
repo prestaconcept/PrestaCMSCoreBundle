@@ -105,6 +105,26 @@ class PageRepository extends NestedTreeRepository
             $this->_em->refresh($page);
         }
         return $page;
-    }    
+    }
+
+	/**
+	 * Get page by url
+	 *
+	 * @param  Website $website
+	 * @param  string  $url
+	 * @return Page
+	 */
+	public function getPageByUrl(Website $website, $url)
+	{
+		$page = $this->findOneBy(array(
+			'website' => $website,
+			'url' => $url
+		));
+		if ($page != null) {
+			$page->setLocale($website->getLocale());
+			$this->_em->refresh($page);
+		}
+		return $page;
+	}
 }
 

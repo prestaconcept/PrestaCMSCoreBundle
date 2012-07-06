@@ -83,7 +83,11 @@ class PageManager
      */
     public function getPageByUrl(Website $website, $url)
     {
-        //TODO        
+		//todo handle first '/' ?
+		if (strpos($url, '/') === 0) {
+			$url = substr($url, 1);
+		}
+		return $this->_getRepository()->getPageByUrl($website, $url);
     }
     
     /**

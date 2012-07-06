@@ -39,20 +39,47 @@ class PageController extends Controller
     {
         return $this->get('presta_cms.theme_manager');
     }
-    
+
+	/**
+	 * Return Page manager
+	 *
+	 * @return PrestaCMS\CoreBundle\Model\PageManager
+	 */
+	public function getPageManager()
+	{
+		return $this->get('presta_cms.page_manager');
+	}
+
     /**
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \Symfony\Bundle\FrameworkBundle\Controller\Response
      */
-    public function catchAllAction()
+    public function catchAllAction(Request $request)
     {
-        $website = $this->getWebsiteManager()->getWebsiteForRequest($this->getRequest());        
+        $website = $this->getWebsiteManager()->getWebsiteForRequest($this->getRequest());
+		$pathInfo = $request->getPathInfo();
+
+		//Relative path control
+		if (strpos($pathInfo, $website->getRelativePath()) !== 0) {
+			return $this->redirect($website->getUrl());
+		}
+		//Load theme data
         $theme = $this->getThemeManager()->getTheme($website->getTheme(), $website);
-        
-        return $this->render('PrestaCMSCoreBundle:Page:index.html.twig', array(
-            'base_template' => $theme->getTemplate(),
-            'website' => $website,
-            'theme' => $theme
-        ));
+
+		$pathInfo = (string)substr($request->getPathInfo(), strlen($website->getRelativePath()));
+
+		$page = $this->getPageManager()->getPageByUrl($website, $pathInfo);
+		$pageType = $this->getPageManager()->getType($page->getType());
+
+		$viewParams = array_merge(
+			array(
+				'base_template' => $theme->getTemplate(),
+				'website' => $website,
+				'theme' => $theme,
+				'page'  => $page
+			),
+			$pageType->getData($page)
+		);
+        return $this->render('PrestaCMSCoreBundle:Page:index.html.twig', $viewParams);
     }
 }

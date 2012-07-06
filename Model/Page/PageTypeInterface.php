@@ -53,4 +53,14 @@ interface PageTypeInterface
      * @return string
      */    
     public function getEditTabTemplate($tab);
+
+	/**
+	 * Return type specific data for page rendering
+	 * 
+	 * @param  $page
+	 * @return array
+	 */
+	public function getData($page);
+
+
 }

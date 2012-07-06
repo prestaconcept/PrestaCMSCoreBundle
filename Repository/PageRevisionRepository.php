@@ -42,6 +42,23 @@ class PageRevisionRepository extends EntityRepository
         return $draft;
     }
 
+	/**
+	 * Return published version of a page
+	 *
+	 * @param  Page $page
+	 * @return PageRevision
+	 */
+	public function getPublishedRevisionForPage(Page $page)
+	{
+		$revision = $this->findOneBy(array(
+			'page_id' => $page->getId(),
+			'status' => PageRevision::STATUS_PUBLISHED
+		));
+		$revision->setLocale($page->getLocale());
+		return $revision;
+	}
+
+
 	public function createBlockRevisionForTemplate(PageRevision $draft, array $configuration)
 	{
 		$blockByZone = array();

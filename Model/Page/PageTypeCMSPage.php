@@ -105,4 +105,22 @@ class PageTypeCMSPage implements PageTypeInterface
     {
         return 'PrestaCMSCoreBundle:Admin/Page/CMSPage:tab_content.html.twig';
     }
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getData($page)
+	{
+		$repository = $this->container->get('doctrine')->getEntityManager()
+			->getRepository('Application\PrestaCMS\CoreBundle\Entity\PageRevision');
+
+		//$publishedRevision = $repository->getPublishedRevisionForPage($page);
+		//tmp waiting for publication to be implemented
+		$publishedRevision = $repository->getDraftForPage($page);
+
+		return array(
+			'revision' => $publishedRevision,
+			'template' => $this->themeManager->getPageTemplateFile($publishedRevision->getTemplate())
+		);
+	}
 }
