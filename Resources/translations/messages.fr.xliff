@@ -42,6 +42,22 @@
                 <source>admin.availableLocales</source>
                 <target>Langue autorisées</target>
             </trans-unit>
+            <trans-unit id="admin.url">
+                <source>admin.url</source>
+                <target>Url</target>
+            </trans-unit>
+            <trans-unit id="admin.metaKeywords">
+                <source>admin.metaKeywords</source>
+                <target>Meta keywords</target>
+            </trans-unit>
+            <trans-unit id="admin.metaDescription">
+                <source>admin.metaDescription</source>
+                <target>Meta description</target>
+            </trans-unit>
+            <trans-unit id="admin.active">
+                <source>admin.active</source>
+                <target>Actif</target>
+            </trans-unit>
 
             <!-- Admin menu -->
             <trans-unit id="admin.cms">
