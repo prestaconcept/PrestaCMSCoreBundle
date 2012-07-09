@@ -1,6 +1,6 @@
 imports:
      - { resource: '@PrestaAssetTinymceBundle/Resources/config/config.yml' }
-     - { resource: '@PrestaSonataMediaBundle/Resources/config/config.yml' }
+#     - { resource: '@PrestaSonataMediaBundle/Resources/config/config.yml' }
 
 
 doctrine:

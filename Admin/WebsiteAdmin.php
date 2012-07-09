@@ -176,10 +176,11 @@ class WebsiteAdmin extends Admin
         $id = $this->getSubject()->getId();
 
         foreach ($this->getSubject()->getAvailableLocales() as $locale) {
-            $menu->addChild(
+            $menuItem = $menu->addChild(
                 $this->trans($locale),
                 array('uri' => $this->generateUrl('edit', array('id' => $id, 'locale' => $locale)))
             );
+			$menuItem->setAttribute('class', 'locale-' . $locale);
 
             // select current edited locale item in menu 
             if ($this->getSubject()->getLocale() == $locale) {

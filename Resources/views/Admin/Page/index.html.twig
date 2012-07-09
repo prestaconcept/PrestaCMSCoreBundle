@@ -71,12 +71,14 @@
 
 {%block actions %}
     {% if (page) %}
-        <div class="btn-group nav-pills">
+    <div class="sonata-actions subnav">
+        <div class="">
             <a class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i>&nbsp;{{ 'button.delete'|trans }}</a>
-            {# <button class="btn" type="button"><i class="icon-screenshot "></i>&nbsp;Preview</button>
-            <button class="btn btn-success" type="button"><i class="icon-retweet icon-white"></i>&nbsp;Publish</button> #}
+            <button class="btn" type="button"><i class=" icon-eye-open "></i>&nbsp;{{ 'button.preview'|trans }}</button>
+            <button class="btn btn-success" type="button"><i class="icon-retweet icon-white"></i>&nbsp;{{ 'button.publish'|trans }}</button>
             <a class="btn btn-primary" onclick="$('#edit_form').submit();"><i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans }}</a>
         </div>
+    </div>
     {% endif %}
 {% endblock %}
 
