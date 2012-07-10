@@ -38,15 +38,16 @@ class PageType extends AbstractType
     {
         $builder
         //SEO
-            ->add('url')
-            ->add('title')
-            ->add('metaKeywords')
-            ->add('metaDescription', 'textarea')
+            ->add('url', null, array('label' => 'admin.url'))
+            ->add('title', null, array('label' => 'admin.title'))
+            ->add('metaKeywords', null, array('label' => 'admin.metaKeywords'))
+            ->add('metaDescription', 'textarea', array('label' => 'admin.metaDescription'))
         //Settings
-            ->add('name')
+            ->add('name', null, array('label' => 'admin.name'))
             ->add('active', 'choice', array(
                 'choices'   => array(true => 'Yes', false => 'No'),
-                'required'  => true
+                'required'  => true,
+                'label'     => 'admin.active'
             ))
             ->add('settings', 'sonata_type_immutable_array', array(
                 'keys' => array(
