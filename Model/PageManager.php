@@ -135,13 +135,13 @@ class PageManager
      * 
      * @param  Website $website
      * @param  string $navigation
-     * @param  boolean $direct
+	 * @param  boolean $withCheckboxes
      * @return string 
      */
-    public function getNavigationTree(Website $website, $navigation, $direct = false)
+    public function getNavigationTree(Website $website, $navigation, $withCheckboxes = false)
     {
-        $nodes = $this->getNavigationPages($website, $navigation, $direct);
-        return $this->buildTree($nodes, $website);
+        $nodes = $this->getNavigationPages($website, $navigation);
+        return $this->buildTree($nodes, $website, $withCheckboxes);
     }
     
     /**
@@ -159,12 +159,13 @@ class PageManager
      * Return single pages tree HTML code
      * 
      * @param  Website $website
+	 * @param  boolean $withCheckboxes
      * @return string 
      */
-    public function getSinglePagesTree(Website $website)
+    public function getSinglePagesTree(Website $website, $withCheckboxes = false)
     {
         $nodes = $this->getSinglePages($website);
-        return $this->buildTree($nodes, $website);
+        return $this->buildTree($nodes, $website, $withCheckboxes);
     }
     
     /**
@@ -172,9 +173,10 @@ class PageManager
      * 
      * @param  array $nodes
      * @param  Website $website
+	 * @param  boolean $withCheckboxes
      * @return string 
      */
-    public function buildTree(array $nodes, Website $website)
+    public function buildTree(array $nodes, Website $website, $withCheckboxes = false)
     {
         //Generate edit url foreach pages
         foreach ($nodes as &$node) {
@@ -183,6 +185,7 @@ class PageManager
                 'website_id' => $website->getId(),
                 'locale' => $website->getLocale()
             ));
+			$node['withCheckboxes'] = $withCheckboxes;
         }
         $options = array(
             'decorate' => true,
@@ -191,9 +194,13 @@ class PageManager
             'childOpen' => '<li id="page_',
             'childClose' => '</li>',
             'nodeDecorator' => function($node) {
+				if ($node['withCheckboxes']) {
+					return $node['id'] . '"><input type="checkbox" name="cms_page_tree" value="' . $node['id'] . '"/>' . $node['name'] . '';
+				}
                 return $node['id'] . '"><a href="' . $node['edit_url'] . '">' . $node['name'] . '</a>';
             }
         );
+
         return $this->_getRepository()->buildTree($nodes, $options);
     }
     

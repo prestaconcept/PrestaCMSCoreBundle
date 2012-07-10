@@ -72,6 +72,14 @@
                 <source>admin.themes.description</source>
                 <target>Manage themes</target>
             </trans-unit>
+            <trans-unit id="admin.data">
+                <source>admin.data</source>
+                <target>Import / Export</target>
+            </trans-unit>
+            <trans-unit id="admin.data.description">
+                <source>admin.data.description</source>
+                <target>Manage your content translation</target>
+            </trans-unit>
 
             <!-- Locale -->
             <trans-unit id="en">

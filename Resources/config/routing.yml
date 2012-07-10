@@ -44,6 +44,12 @@ presta_cms_page_revision_render_block:
     defaults: {_controller: PrestaCMSCoreBundle:Admin/PageRevisionBlock:render, id: '', _sonata_admin: 'presta_cms.page.admin.bloc'}
     requirements:
         id: \d+
+
+#Administration - Import / Export
+presta_cms_data:
+    pattern:  /admin/cms/data/{website_id}/{locale}
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Data:index, website_id: '', locale: ''}
+
 #Front
 catchAll:
     pattern:  /{path}

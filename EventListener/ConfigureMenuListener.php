@@ -60,5 +60,10 @@ class ConfigureMenuListener
 		$themeItem->setExtra('safe_label', true);
         $themeItem->setLabel(sprintf('%s <p>%s</p>', $translator->trans('admin.themes'), $translator->trans('admin.themes.description')));
 		$themeItem->setLinkAttribute('class', 'nav-submenu nav-submenu-cms-themes');
+
+		$dataItem = $cmsMenuItem->addChild('data', array('route' => 'presta_cms_data'));
+		$dataItem->setExtra('safe_label', true);
+		$dataItem->setLabel(sprintf('%s <p>%s</p>', $translator->trans('admin.data'), $translator->trans('admin.data.description')));
+		$dataItem->setLinkAttribute('class', 'nav-submenu nav-submenu-cms-data');
     }
 }
