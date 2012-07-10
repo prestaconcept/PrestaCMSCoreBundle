@@ -115,4 +115,31 @@ class PageController extends AdminController
         $viewParams = $pageType->getEditTabData($tab, $page);
         return $this->render($pageType->getEditTabTemplate($tab), $viewParams);
     }
+
+	/**
+	 * Display page selector for tyniMCE link
+	 *
+	 * @param $website_id
+	 * @param $locale
+	 * @return Response
+	 */
+	public function selectorAction($website_id, $locale)
+	{
+		$viewParams = array('website_id' => $website_id, 'locale' => $locale);
+
+		//todo refactor chargement des pages
+		$website = $this->getWebsiteManager()->getWebsite($website_id, $locale);
+		if ($website != null) {
+			$theme = $this->getThemeManager()->getTheme($website->getTheme());
+
+			$navigations = array();
+			foreach ($theme->getNavigations() as $navigation) {
+				$navigations[$navigation] = $this->getPageManager()->getNavigationTree($website, $navigation);
+			}
+			$navigations['single_pages'] = $this->getPageManager()->getSinglePagesTree($website);
+			$viewParams['theme'] = $theme;
+			$viewParams['navigations'] = $navigations;
+		}
+		return $this->render('PrestaCMSCoreBundle:Admin/Page:selector.html.twig', $viewParams);
+	}
 }

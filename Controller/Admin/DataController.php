@@ -76,8 +76,6 @@ class DataController extends AdminController
 			$viewParams['navigations'] = $navigations;
 		}
 
-
-
 		return $this->render('PrestaCMSCoreBundle:Admin/Data:index.html.twig', $viewParams);
 	}
 }

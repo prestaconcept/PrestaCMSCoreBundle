@@ -46,6 +46,11 @@ presta_cms_page_revision_render_block:
         id: \d+
 
 #Administration - Import / Export
+presta_cms_page_selector:
+    pattern:  /admin/cms/page-selector/{website_id}/{locale}
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:selector, website_id: '', locale: ''}
+
+#Administration - Import / Export
 presta_cms_data:
     pattern:  /admin/cms/data/{website_id}/{locale}
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Data:index, website_id: '', locale: ''}

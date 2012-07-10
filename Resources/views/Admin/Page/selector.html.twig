@@ -1,0 +1,94 @@
+{#
+/**
+ * This file is part of the Presta Bundle project.
+ *
+ * (c) Nicolas Bastien nbastien@prestaconcept.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+/**
+ * CMS Page selector for Wysiwyg
+ */
+#}
+<html class="no-js">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/bootstrap/css/bootstrap.min.css') }}" />
+    {% stylesheets
+                '@SonatajQueryBundle/Resources/public/themes/flick/jquery-ui-1.8.16.custom.css'
+
+                '@SonataAdminBundle/Resources/public/css/layout.css'
+                '@SonataAdminBundle/Resources/public/css/colors.css'
+                '@PrestaSonataAdminBundle/Resources/public/css/colors_extends.css'
+                '@PrestaSonataAdminBundle/Resources/public/css/layout_extends.css'
+                '@PrestaCMSDemoStGobainBundle/Resources/public/admin/css/theme_st_gobain.css'
+                '@PrestaCMSCoreBundle/Resources/public/jstree/dist/themes/presta/style.css'
+            %}
+
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    {% endblock %}
+
+    {% block javascripts %}
+    {% javascripts
+                '@SonatajQueryBundle/Resources/public/jquery-1.7.1.js'
+                '@SonatajQueryBundle/Resources/public/jquery-ui-1.8.17.js'
+                '@SonatajQueryBundle/Resources/public/jquery-ui-i18n.js'
+                '@SonataAdminBundle/Resources/public/bootstrap/js/bootstrap.min.js'
+                '@SonataAdminBundle/Resources/public/qtip/jquery.qtip-1.0.0-rc3.min.js'
+                '@SonataAdminBundle/Resources/public/jquery/jquery.form.js'
+                '@SonataAdminBundle/Resources/public/base.js'
+                '@PrestaCMSCoreBundle/Resources/public/jstree/dist/jstree.min.js'
+            %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% if (navigations is defined)%}
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    {% for key, navigation in navigations %}
+                    // call `.jstree` with the options object
+                    $("#jstree_{{ key }}").jstree({
+                        // the `plugins` array allows you to configure the active plugins on this instance
+                        "plugins" : ["themes","html_data"],
+                        // each plugin you have included can have its own config object
+                        "core" : {  },
+                        // it makes sense to configure a plugin only if overriding the defaults
+                        "themes" : {
+                            "theme" : "presta"
+                        }
+                    });
+                    {% endfor %}
+                });
+            </script>
+        {% endif %}
+
+    {% endjavascripts %}
+
+    {% endblock %}
+
+    <title></title>
+</head>
+<body class="sonata-bc">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="sonata-ba-form">
+                <div class="form-horizontal">
+                    {% if (navigations is defined)%}
+                        <div class="control-group">
+                            <label class="control-label">{{ 'cms_page_tree.title'|trans }}</label>
+                            <div id="page-tree-container" class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+                                {% for key, navigation in navigations %}
+                                <h4>{{ ['navigation.', key, '.title']|join|trans }}</h4>
+                                <div id="jstree_{{ key }}">{{ navigation|raw }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
