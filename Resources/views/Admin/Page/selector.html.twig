@@ -34,7 +34,7 @@
     {% endblock %}
 
     {% block javascripts %}
-    {% javascripts
+        {% javascripts
                 '@SonatajQueryBundle/Resources/public/jquery-1.7.1.js'
                 '@SonatajQueryBundle/Resources/public/jquery-ui-1.8.17.js'
                 '@SonatajQueryBundle/Resources/public/jquery-ui-i18n.js'
@@ -43,29 +43,31 @@
                 '@SonataAdminBundle/Resources/public/jquery/jquery.form.js'
                 '@SonataAdminBundle/Resources/public/base.js'
                 '@PrestaCMSCoreBundle/Resources/public/jstree/dist/jstree.min.js'
-            %}
+        %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% if (navigations is defined)%}
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    {% for key, navigation in navigations %}
-                    // call `.jstree` with the options object
-                    $("#jstree_{{ key }}").jstree({
-                        // the `plugins` array allows you to configure the active plugins on this instance
-                        "plugins" : ["themes","html_data"],
-                        // each plugin you have included can have its own config object
-                        "core" : {  },
-                        // it makes sense to configure a plugin only if overriding the defaults
-                        "themes" : {
-                            "theme" : "presta"
-                        }
-                    });
-                    {% endfor %}
-                });
-            </script>
-        {% endif %}
-
     {% endjavascripts %}
+
+    {% if (navigations is defined)%}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            {% for key, navigation in navigations %}
+            //todo mat here!
+
+            // call `.jstree` with the options object
+            $("#jstree_{{ key }}").jstree({
+                // the `plugins` array allows you to configure the active plugins on this instance
+                "plugins" : ["themes","html_data"],
+                // each plugin you have included can have its own config object
+                "core" : {  },
+                // it makes sense to configure a plugin only if overriding the defaults
+                "themes" : {
+                    "theme" : "presta"
+                }
+            });
+            {% endfor %}
+        });
+    </script>
+    {% endif %}
 
     {% endblock %}
 
