@@ -1,0 +1,15 @@
+<div class="locale_switcher clearfix">
+    <span>{% trans %}Select language:{% endtrans %}</span>
+    <ul>
+        <li>
+            <a href="{{ path('_change_language', { 'locale': 'fr' }) }}">
+                <img src="{{ asset('bundles/prestasonataadmin/img/icons/locale/locale-fr-16.png') }}" alt="french" />
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('_change_language', { 'locale': 'en' }) }}">
+                <img src="{{ asset('bundles/prestasonataadmin/img/icons/locale/locale-en-16.png') }}" " alt="english" />
+            </a>
+        </li>
+    </ul>
+</div>
