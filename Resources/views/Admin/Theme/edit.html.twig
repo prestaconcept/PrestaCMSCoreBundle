@@ -75,50 +75,53 @@
 </div>
 
 <div class="sonata-ba-form">
-    <fieldset>
-        <legend>General Informations</legend>
-        <div class="row-fluid sonata-ba-collapsed-fields">
-            <div class="span5 center">
-                <img src="{{ asset(theme.screenshot) }}" class="sonata-ba-img-box" />
+    <div class="form-horizontal">
+        <fieldset>
+            <legend>General Informations</legend>
+            <div class="row-fluid sonata-ba-collapsed-fields">
+                <div class="span5 center">
+                    <img src="{{ asset(theme.screenshot) }}" class="sonata-ba-img-box" />
+                </div>
+                <div class="span7">
+                    <table class="table ">
+                        <tbody>
+                            <tr>
+                                <th><label>Name</label></th><td>{{ theme.name }}</td>
+                            </tr>
+                            <tr>
+                                <th><label>Description</label></th><td>{{ theme.description }}</td>
+                            </tr>
+                            <tr>
+                                <th><label>Zones</label></th>
+                                <td>
+                                    <ul>
+                                    {% for zone in theme.zones %}
+                                        {% if (zone.name) %}<li><strong>{{ zone.name }}</strong></li>{% endif %}
+                                    {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><label>Page templates</label></th>
+                                <td>
+                                    <ul>
+                                    {% for template in theme.pageTemplates %}
+                                        <li><strong>{{ template.name }}</strong>{# : <p>{{ template.path }}</p> #}</li>
+                                    {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="span7">
-                <table class="table ">
-                    <tbody>
-                        <tr>
-                            <th><label>Name</label></th><td>{{ theme.name }}</td>
-                        </tr>
-                        <tr>
-                            <th><label>Description</label></th><td>{{ theme.description }}</td>
-                        </tr>
-                        <tr>
-                            <th><label>Zones</label></th>
-                            <td>
-                                <ul>
-                                {% for zone in theme.zones %}
-                                    {% if (zone.name) %}<li><strong>{{ zone.name }}</strong></li>{% endif %}
-                                {% endfor %}
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><label>Page templates</label></th>
-                            <td>
-                                <ul>
-                                {% for template in theme.pageTemplates %}
-                                    <li><strong>{{ template.name }}</strong>{# : <p>{{ template.path }}</p> #}</li>
-                                {% endfor %}
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </fieldset>
+        </fieldset>
+    </div>
 </div>
+
 <div class="sonata-ba-form">
     <div class="form-horizontal">
         <fieldset>
