@@ -43,6 +43,7 @@
                 '@SonataAdminBundle/Resources/public/jquery/jquery.form.js'
                 '@SonataAdminBundle/Resources/public/base.js'
                 '@PrestaCMSCoreBundle/Resources/public/jstree/dist/jstree.min.js'
+                '@PrestaAssetTinymceBundle/Resources/public/js/tiny_mce/tiny_mce_popup.js'
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -51,7 +52,10 @@
     <script type="text/javascript">
         $(document).ready(function() {
             {% for key, navigation in navigations %}
-            //todo mat here!
+            $("#jstree_{{ key }}").find('li').find('a').each(function(index) {
+                $(this).attr('href', '#');
+                $(this).attr('onClick', "FileBrowserDialogue.prestaSubmit($(this).parent().attr('id'));");
+            });
 
             // call `.jstree` with the options object
             $("#jstree_{{ key }}").jstree({
@@ -67,13 +71,39 @@
             {% endfor %}
         });
     </script>
+    <script type="text/javascript">
+        var FileBrowserDialogue = {
+            init : function () {
+            },    
+            prestaSubmit : function (url) {
+                var URL = url;
+                var win = tinyMCEPopup.getWindowArg("window");
+                // insert information now
+                win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = URL;
+                // are we an image browser
+                if (typeof(win.ImageDialog) != "undefined") {
+                    // we are, so update image dimensions...
+                    if (win.ImageDialog.getImageData)
+                        win.ImageDialog.getImageData();
+
+                    // ... and preview if necessary
+                    if (win.ImageDialog.showPreviewImage)
+                        win.ImageDialog.showPreviewImage(URL);
+                }
+
+                // close popup window
+                tinyMCEPopup.close();
+            }
+        }
+        tinyMCEPopup.onInit.add(FileBrowserDialogue.init, FileBrowserDialogue);
+    </script>
     {% endif %}
 
     {% endblock %}
 
     <title></title>
 </head>
-<body class="sonata-bc">
+<body class="sonata-bc" onload="tinyMCEPopup.executeOnLoad('init();')">
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="sonata-ba-form">
