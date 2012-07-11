@@ -55,9 +55,3 @@ presta_cms_data:
     pattern:  /admin/cms/data/{website_id}/{locale}
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Data:index, website_id: '', locale: ''}
 
-#Front
-catchAll:
-    pattern:  /{path}
-    defaults: { _controller: PrestaCMSCoreBundle:Page:catchAll }
-    requirements:
-        path: .*
