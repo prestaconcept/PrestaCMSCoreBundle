@@ -157,10 +157,10 @@ abstract class BaseWebsite extends TranslatableEntity
      *
      * @return string
      */
-    public function getUrl()
+    public function getUrl($baseUrl = false)
     {
 		//On pourra améliorer ça avec un getProtocole()!
-        return 'http://' . $this->getHost() . $this->getRelativePath();
+        return 'http://' . $this->getHost() . $baseUrl . $this->getRelativePath();
     }
 
     /**

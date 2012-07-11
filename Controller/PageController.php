@@ -9,6 +9,8 @@
  */
 namespace PrestaCMS\CoreBundle\Controller;
 
+use Doctrine\ORM\NoResultException;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -61,14 +63,19 @@ class PageController extends Controller
 
 		//Relative path control
 		if (strpos($pathInfo, $website->getRelativePath()) !== 0) {
-			return $this->redirect($website->getUrl());
+			return $this->redirect($website->getUrl($request->getBaseUrl()));
 		}
 		//Load theme data
         $theme = $this->getThemeManager()->getTheme($website->getTheme(), $website);
 
 		$pathInfo = (string)substr($request->getPathInfo(), strlen($website->getRelativePath()));
 
-		$page = $this->getPageManager()->getPageByUrl($website, $pathInfo);
+		try {
+			$page = $this->getPageManager()->getPageByUrl($website, $pathInfo);
+		} catch (NoResultException $e) {
+			throw $this->createNotFoundException('Page not found');
+		}
+
 		$pageType = $this->getPageManager()->getType($page->getType());
 
 		$viewParams = array(

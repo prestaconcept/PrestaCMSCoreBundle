@@ -113,6 +113,7 @@ class PageRepository extends NestedTreeRepository
 	 * @param  Website $website
 	 * @param  string  $url
 	 * @return Page
+	 * @throws NoResultException If the query returned no result.
 	 */
 	public function getPageByUrl(Website $website, $url)
 	{
