@@ -134,6 +134,14 @@
                 <source>page_cms.settings.title</source>
                 <target>Settings</target>
             </trans-unit>
+            <trans-unit id="button.preview">
+                <source>button.preview</source>
+                <target>Preview</target>
+            </trans-unit>
+            <trans-unit id="button.publish">
+                <source>button.publish</source>
+                <target>Publish</target>
+            </trans-unit>
 
             <trans-unit id="presta_cms.block.website.selector.title">
                 <source>presta_cms.block.website.selector.title</source>
