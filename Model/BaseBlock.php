@@ -11,6 +11,7 @@ namespace PrestaCMS\CoreBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Sonata\BlockBundle\Model\BaseBlock as SonataBaseBlock;
+use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
  * BaseBlock Model
