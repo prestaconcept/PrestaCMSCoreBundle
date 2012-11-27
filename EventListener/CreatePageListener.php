@@ -2,16 +2,16 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * (c) Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\EventListener;
+namespace Presta\CMSCoreBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Application\PrestaCMS\CoreBundle\Entity\Page;
-use Application\PrestaCMS\CoreBundle\Entity\PageRevision;
+use Application\Presta\CMSCoreBundle\Entity\Page;
+use Application\Presta\CMSCoreBundle\Entity\PageRevision;
 
 /**
  * Event listener for page creation

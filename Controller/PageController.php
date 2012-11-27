@@ -2,12 +2,12 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * (c) Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Controller;
+namespace Presta\CMSCoreBundle\Controller;
 
 use Doctrine\ORM\NoResultException;
 
@@ -25,7 +25,7 @@ class PageController extends Controller
     /**
      * Return Website manager
      * 
-     * @return PrestaCMS\CoreBundle\Model\WebsiteManager 
+     * @return Presta\CMSCoreBundle\Model\WebsiteManager
      */
     public function getWebsiteManager()
     {
@@ -35,7 +35,7 @@ class PageController extends Controller
     /**
      * Return Theme manager
      * 
-     * @return PrestaCMS\CoreBundle\Model\ThemeManager 
+     * @return Presta\CMSCoreBundle\Model\ThemeManager
      */
     public function getThemeManager()
     {
@@ -45,7 +45,7 @@ class PageController extends Controller
 	/**
 	 * Return Page manager
 	 *
-	 * @return PrestaCMS\CoreBundle\Model\PageManager
+	 * @return Presta\CMSCoreBundle\Model\PageManager
 	 */
 	public function getPageManager()
 	{

@@ -1,5 +1,5 @@
 # src/Acme/StoreBundle/Resources/config/doctrine/BaseWebsite.orm.yml
-Application\PrestaCMS\CoreBundle\Entity\PageRevision:
+Application\Presta\CMSCoreBundle\Entity\PageRevision:
   type: entity
   table: prestacms_page_revision
   id:
@@ -8,5 +8,5 @@ Application\PrestaCMS\CoreBundle\Entity\PageRevision:
       generator: { strategy: AUTO }
   oneToMany:
     blocks:
-      targetEntity: Application\PrestaCMS\CoreBundle\Entity\PageRevisionBlock
+      targetEntity: Application\Presta\CMSCoreBundle\Entity\PageRevisionBlock
       mappedBy: pageRevision  

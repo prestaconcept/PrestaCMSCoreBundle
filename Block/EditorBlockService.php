@@ -2,12 +2,12 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Block;
+namespace Presta\CMSCoreBundle\Block;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,12 +15,12 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Model\BlockInterface;
 
-use PrestaCMS\CoreBundle\Block\BaseBlockService;
+use Presta\CMSCoreBundle\Block\BaseBlockService;
 
 /**
  * Block Editor
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class EditorBlockService extends BaseBlockService
 {

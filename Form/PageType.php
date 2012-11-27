@@ -2,12 +2,12 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Form;
+namespace Presta\CMSCoreBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  *
  * @package    PrestaCMS
  * @subpackage CoreBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class PageType extends AbstractType
 {
@@ -30,7 +30,7 @@ class PageType extends AbstractType
     public function getDefaultOptions()
     {
         return array(
-            'data_class' => 'Application\PrestaCMS\CoreBundle\Entity\Page',
+            'data_class' => 'Application\Presta\CMSCoreBundle\Entity\Page',
         );
     }    
     

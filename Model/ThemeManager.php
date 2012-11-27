@@ -2,19 +2,19 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * (c) Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Model;
+namespace Presta\CMSCoreBundle\Model;
 
 /**
  * Theme Manager
  * 
  * @package    PrestaCMS
  * @subpackage CoreBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class ThemeManager
 {
@@ -39,7 +39,7 @@ class ThemeManager
     protected $_blockTypes;
     
     /**
-     * @var \PrestaCMS\CoreBundle\Model\Theme 
+     * @var \Presta\CMSCoreBundle\Model\Theme
      */
     protected $_currentTheme;
     
@@ -65,13 +65,13 @@ class ThemeManager
     {
         if ($this->_repository == null) {
             $this->_repository =$this->_container->get('doctrine')->getEntityManager()
-                ->getRepository('Application\PrestaCMS\CoreBundle\Entity\ThemeBlock');
+                ->getRepository('Application\Presta\CMSCoreBundle\Entity\ThemeBlock');
         }
         return $this->_repository;
     }
 
 	/**
-	 * @return \PrestaCMS\CoreBundle\Model\Theme
+	 * @return \Presta\CMSCoreBundle\Model\Theme
 	 */
 	public function getCurrentTheme()
 	{
@@ -118,7 +118,7 @@ class ThemeManager
      * Build Theme model with data
      * 
      * @param  array $configuration
-     * @return \PrestaCMS\CoreBundle\Model\Theme
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     protected function _buildTheme(array $configuration, $website = null)
     {
@@ -159,7 +159,7 @@ class ThemeManager
      * Add a new theme configuration
      * 
      * @param  array $configuration
-     * @return \PrestaCMS\CoreBundle\Model\ThemeManager 
+     * @return \Presta\CMSCoreBundle\Model\ThemeManager
      */
     public function addThemeConfiguration(array $configuration)
     {
@@ -249,7 +249,7 @@ class ThemeManager
      * @param  string $name
      * @param  array $configuration
      * @param  array $data
-     * @return \PrestaCMS\CoreBundle\Model\Template 
+     * @return \Presta\CMSCoreBundle\Model\Template
      */
     protected function _buildThemeTemplate($name, array $configuration, $data = null)
     {

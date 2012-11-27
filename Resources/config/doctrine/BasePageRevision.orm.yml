@@ -1,10 +1,10 @@
-PrestaCMS\CoreBundle\Entity\BasePageRevision:
+Presta\CMSCoreBundle\Entity\BasePageRevision:
   type: mappedSuperclass
-  repositoryClass: PrestaCMS\CoreBundle\Repository\PageRevisionRepository
+  repositoryClass: Presta\CMSCoreBundle\Repository\PageRevisionRepository
   gedmo:
     translation:
       locale: locale
-      entity: PrestaCMS\CoreBundle\Entity\PageRevisionTranslation
+      entity: Presta\CMSCoreBundle\Entity\PageRevisionTranslation
   fields:
     page_id:
       type: integer    
@@ -28,7 +28,7 @@ PrestaCMS\CoreBundle\Entity\BasePageRevision:
         - translatable
   manyToOne:
     page:
-      targetEntity: Application\PrestaCMS\CoreBundle\Entity\Page
+      targetEntity: Application\Presta\CMSCoreBundle\Entity\Page
       inversedBy: revisions
       joinColumn:
         name: page_id

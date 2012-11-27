@@ -7,15 +7,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Repository;
+namespace Presta\CMSCoreBundle\Repository;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\EntityRepository;
 
-use Application\PrestaCMS\CoreBundle\Entity\Page;
-use Application\PrestaCMS\CoreBundle\Entity\PageRevision;
-use Application\PrestaCMS\CoreBundle\Entity\PageRevisionBlock;
-use PrestaCMS\CoreBundle\Model\Template;
+use Application\Presta\CMSCoreBundle\Entity\Page;
+use Application\Presta\CMSCoreBundle\Entity\PageRevision;
+use Application\Presta\CMSCoreBundle\Entity\PageRevisionBlock;
+use Presta\CMSCoreBundle\Model\Template;
 
 /**
  * Page Revision Repository

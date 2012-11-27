@@ -2,12 +2,12 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * (c) Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\EventListener;
+namespace Presta\CMSCoreBundle\EventListener;
 
 use PrestaSonata\AdminBundle\Event\ConfigureMenuEvent;
 
@@ -16,7 +16,7 @@ use PrestaSonata\AdminBundle\Event\ConfigureMenuEvent;
  *
  * @package    PrestaSonata
  * @subpackage AdminBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class ConfigureMenuListener
 {

@@ -1,10 +1,10 @@
-PrestaCMS\CoreBundle\Entity\BaseWebsite:
+Presta\CMSCoreBundle\Entity\BaseWebsite:
   type: mappedSuperclass
-  repositoryClass: PrestaCMS\CoreBundle\Repository\WebsiteRepository
+  repositoryClass: Presta\CMSCoreBundle\Repository\WebsiteRepository
   gedmo:
     translation:
       locale: locale
-      entity: PrestaCMS\CoreBundle\Entity\WebsiteTranslation
+      entity: Presta\CMSCoreBundle\Entity\WebsiteTranslation
   fields:        
     name:
       type: string

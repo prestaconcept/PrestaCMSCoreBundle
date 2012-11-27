@@ -2,24 +2,24 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Repository;
+namespace Presta\CMSCoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-use Application\PrestaCMS\CoreBundle\Entity\Website;
-use Application\PrestaCMS\CoreBundle\Entity\ThemeBlock;
+use Application\Presta\CMSCoreBundle\Entity\Website;
+use Application\Presta\CMSCoreBundle\Entity\ThemeBlock;
 
 class ThemeBlockRepository extends EntityRepository
 {
     /**
      * Return theme content for website ordered by zone
      * 
-     * @param  Application\PrestaCMS\CoreBundle\Entity\Website $website
+     * @param  Application\Presta\CMSCoreBundle\Entity\Website $website
      * @return type 
      */
     public function getBlocksForWebsiteByZone(Website $website)
@@ -50,7 +50,7 @@ class ThemeBlockRepository extends EntityRepository
     /**
      * Initialize data for a website
      * 
-     * @param  Application\PrestaCMS\CoreBundle\Entity\Website $website
+     * @param  Application\Presta\CMSCoreBundle\Entity\Website $website
      * @param  array $configuration 
      * @return 
      */

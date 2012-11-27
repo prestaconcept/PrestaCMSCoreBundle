@@ -2,24 +2,24 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Model;
+namespace Presta\CMSCoreBundle\Model;
 
 use Symfony\Component\HttpFoundation\Request;
 
-use Application\PrestaCMS\CoreBundle\Entity\Website;
-use PrestaCMS\CoreBundle\Exception\Website\WebsiteNotFoundException;
+use Application\Presta\CMSCoreBundle\Entity\Website;
+use Presta\CMSCoreBundle\Exception\Website\WebsiteNotFoundException;
 
 /**
  * Website Manager
  *
  * @package    PrestaCMS
  * @subpackage CoreBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class WebsiteManager
 {
@@ -34,12 +34,12 @@ class WebsiteManager
     protected $_websites;
 
     /**
-     * @var \Application\PrestaCMS\CoreBundle\Entity\Website
+     * @var \Application\Presta\CMSCoreBundle\Entity\Website
      */
     protected $currentWebsite;
 
     /**
-     * @var PrestaCMS\CoreBundle\Repository\WebsiteRepository
+     * @var Presta\CMSCoreBundle\Repository\WebsiteRepository
      */
     protected $_repository;
 
@@ -54,13 +54,13 @@ class WebsiteManager
     /**
      * Return website repository
      *
-     * @return PrestaCMS\CoreBundle\Repository\WebsiteRepository
+     * @return Presta\CMSCoreBundle\Repository\WebsiteRepository
      */
     protected function _getRepository()
     {
         if ($this->_repository == null) {
             $this->_repository =$this->_container->get('doctrine')->getEntityManager()
-                ->getRepository('Application\PrestaCMS\CoreBundle\Entity\Website');
+                ->getRepository('Application\Presta\CMSCoreBundle\Entity\Website');
         }
         return $this->_repository;
     }
@@ -69,7 +69,7 @@ class WebsiteManager
      * Return default website
      *
      * @param  string $locale
-     * @return \Application\PrestaCMS\CoreBundle\Entity\Website
+     * @return \Application\Presta\CMSCoreBundle\Entity\Website
      * @throws \Exception
      */
     public function getDefaultWebsite($locale)
@@ -84,7 +84,7 @@ class WebsiteManager
     /**
      * Return current website
      *
-     * @return \Application\PrestaCMS\CoreBundle\Entity\Website
+     * @return \Application\Presta\CMSCoreBundle\Entity\Website
      */
     public function getCurrentWebsite()
     {
@@ -96,7 +96,7 @@ class WebsiteManager
      *
      * @param  integer $websiteId
      * @param  string $locale
-     * @return \Application\PrestaCMS\CoreBundle\Entity\Website
+     * @return \Application\Presta\CMSCoreBundle\Entity\Website
      */
     public function getWebsite($websiteId, $locale)
     {
@@ -123,7 +123,7 @@ class WebsiteManager
      * Retrieve website for current host and locale
      *
      * @param   Symfony\Component\HttpFoundation\Request $resquest
-     * @return  \Application\PrestaCMS\CoreBundle\Entity\Website  $website
+     * @return  \Application\Presta\CMSCoreBundle\Entity\Website  $website
      */
     public function getWebsiteForRequest(Request $request)
     {

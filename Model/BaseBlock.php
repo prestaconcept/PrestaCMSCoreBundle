@@ -2,12 +2,12 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Model;
+namespace Presta\CMSCoreBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Sonata\BlockBundle\Model\BaseBlock as SonataBaseBlock;
@@ -16,7 +16,7 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 /**
  * BaseBlock Model
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 abstract class BaseBlock extends SonataBaseBlock
 {    
@@ -52,7 +52,7 @@ abstract class BaseBlock extends SonataBaseBlock
      * Set if block is editable 
      * 
      * @param  boolean $isEditable
-     * @return \PrestaCMS\CoreBundle\Block\BaseBlockService 
+     * @return \Presta\CMSCoreBundle\Block\BaseBlockService
      */
     public function setIsEditable($isEditable)
     {
@@ -72,7 +72,7 @@ abstract class BaseBlock extends SonataBaseBlock
      * Set if block is delitable 
      * 
      * @param  boolean $isDeletable
-     * @return \PrestaCMS\CoreBundle\Block\BaseBlockService 
+     * @return \Presta\CMSCoreBundle\Block\BaseBlockService
      */
     public function setIsDeletable($isDeletable)
     {

@@ -2,12 +2,12 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Controller\Admin;
+namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use PrestaSonata\AdminBundle\Controller\Admin\Controller as AdminController;
 
@@ -16,14 +16,14 @@ use PrestaSonata\AdminBundle\Controller\Admin\Controller as AdminController;
  * 
  * @package    PrestaCMS
  * @subpackage CoreBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class ThemeController extends AdminController
 {    
     /**
      * Return Website manager
      * 
-     * @return PrestaCMS\CoreBundle\Model\WebsiteManager 
+     * @return Presta\CMSCoreBundle\Model\WebsiteManager
      */
     public function getWebsiteManager()
     {
@@ -33,7 +33,7 @@ class ThemeController extends AdminController
     /**
      * Return Theme manager
      * 
-     * @return PrestaCMS\CoreBundle\Model\ThemeManager 
+     * @return Presta\CMSCoreBundle\Model\ThemeManager
      */
     public function getThemeManager()
     {

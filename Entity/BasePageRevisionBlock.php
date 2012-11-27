@@ -7,14 +7,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Entity;
+namespace Presta\CMSCoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use PrestaCMS\CoreBundle\Model\BaseBlock;
+use Presta\CMSCoreBundle\Model\BaseBlock;
 
 /**
- * PrestaCMS\CoreBundle\Entity\BasePageBlock
+ * Presta\CMSCoreBundle\Entity\BasePageBlock
  * 
  * @package    PrestaCMS
  * @subpackage CoreBundle
@@ -187,7 +187,7 @@ abstract class BasePageRevisionBlock  extends BaseBlock
 //        return $this->content;
 //    }
     /**
-     * @var Application\PrestaCMS\CoreBundle\Entity\PageRevision
+     * @var Application\Presta\CMSCoreBundle\Entity\PageRevision
      */
     protected $pageRevision;
 
@@ -195,10 +195,10 @@ abstract class BasePageRevisionBlock  extends BaseBlock
     /**
      * Set pageRevision
      *
-     * @param Application\PrestaCMS\CoreBundle\Entity\PageRevision $pageRevision
+     * @param Application\Presta\CMSCoreBundle\Entity\PageRevision $pageRevision
      * @return BasePageBlock
      */
-    public function setPageRevision(\Application\PrestaCMS\CoreBundle\Entity\PageRevision $pageRevision = null)
+    public function setPageRevision(\Application\Presta\CMSCoreBundle\Entity\PageRevision $pageRevision = null)
     {
         $this->pageRevision = $pageRevision;
         return $this;
@@ -207,7 +207,7 @@ abstract class BasePageRevisionBlock  extends BaseBlock
     /**
      * Get pageRevision
      *
-     * @return Application\PrestaCMS\CoreBundle\Entity\PageRevision 
+     * @return Application\Presta\CMSCoreBundle\Entity\PageRevision
      */
     public function getPageRevision()
     {

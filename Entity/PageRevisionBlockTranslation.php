@@ -7,14 +7,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Entity;
+namespace Presta\CMSCoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
- * PrestaCMS\CoreBundle\Entity\PageRevisionBlockTranslation
+ * Presta\CMSCoreBundle\Entity\PageRevisionBlockTranslation
  *
  * @package    PrestaCMS
  * @subpackage CoreBundle

@@ -2,13 +2,13 @@
 /*
  * This file is part of the Presta Bundle project.
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace PrestaCMS\CoreBundle\Admin;
+namespace Presta\CMSCoreBundle\Admin;
 
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Knp\Menu\MenuItem;
@@ -19,7 +19,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use PrestaCMS\CoreBundle\Model\ThemeManager;
+use Presta\CMSCoreBundle\Model\ThemeManager;
 
 
 /**
@@ -27,7 +27,7 @@ use PrestaCMS\CoreBundle\Model\ThemeManager;
  *
  * @package    PrestaCMS
  * @subpackage CoreBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class WebsiteAdmin extends Admin
 {
@@ -38,7 +38,7 @@ class WebsiteAdmin extends Admin
 
 
     /**
-     * @var PrestaCMS\CoreBundle\Model\ThemeManager
+     * @var Presta\CMSCoreBundle\Model\ThemeManager
      */
     protected $_themeManager;
     

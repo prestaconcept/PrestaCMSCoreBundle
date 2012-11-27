@@ -1,5 +1,5 @@
 # src/Acme/StoreBundle/Resources/config/doctrine/BaseWebsite.orm.yml
-Application\PrestaCMS\CoreBundle\Entity\Page:
+Application\Presta\CMSCoreBundle\Entity\Page:
   type: entity
   table: prestacms_page
   gedmo:
@@ -31,17 +31,17 @@ Application\PrestaCMS\CoreBundle\Entity\Page:
         - treeLevel
   oneToMany:
     children:
-      targetEntity: Application\PrestaCMS\CoreBundle\Entity\Page
+      targetEntity: Application\Presta\CMSCoreBundle\Entity\Page
       mappedBy: parent
     revisions:
-      targetEntity: Application\PrestaCMS\CoreBundle\Entity\PageRevision
+      targetEntity: Application\Presta\CMSCoreBundle\Entity\PageRevision
       mappedBy: page
     urlRewrites:
-      targetEntity: Application\PrestaCMS\CoreBundle\Entity\PageUrlRewrite
+      targetEntity: Application\Presta\CMSCoreBundle\Entity\PageUrlRewrite
       mappedBy: page
   manyToOne:
     parent:
-      targetEntity: Application\PrestaCMS\CoreBundle\Entity\Page
+      targetEntity: Application\Presta\CMSCoreBundle\Entity\Page
       inversedBy: children
       joinColumn:
         name: parent_id

@@ -1,4 +1,4 @@
-PrestaCMS\CoreBundle\Entity\PageTranslation:
+Presta\CMSCoreBundle\Entity\PageTranslation:
   type: entity
   mappedSuperclass: Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation
   table: prestacms_page_translation
@@ -17,7 +17,7 @@ PrestaCMS\CoreBundle\Entity\PageTranslation:
       type: text
   manyToOne:
     object:
-      targetEntity: Application\PrestaCMS\CoreBundle\Entity\Page
+      targetEntity: Application\Presta\CMSCoreBundle\Entity\Page
       inversedBy: translations
       joinColumn:
         name: object_id

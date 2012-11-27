@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Model\Page;
+namespace Presta\CMSCoreBundle\Model\Page;
 
 /**
  * Base page type
@@ -26,12 +26,12 @@ class PageTypeCMSPage implements PageTypeInterface
     protected $container;
     
     /**
-     * @var PrestaCMS\CoreBundle\Model\WebsiteManager 
+     * @var Presta\CMSCoreBundle\Model\WebsiteManager
      */
     protected $websiteManager;
     
     /**
-     * @var PrestaCMS\CoreBundle\Model\ThemeManager 
+     * @var Presta\CMSCoreBundle\Model\ThemeManager
      */
     protected $themeManager;
     
@@ -76,7 +76,7 @@ class PageTypeCMSPage implements PageTypeInterface
             case self::TAB_CONTENT:
                 //Working with draft version on edition
                 $repository = $this->container->get('doctrine')->getEntityManager()
-                    ->getRepository('Application\PrestaCMS\CoreBundle\Entity\PageRevision');
+                    ->getRepository('Application\Presta\CMSCoreBundle\Entity\PageRevision');
                 $draft = $repository->getDraftForPage($page);
 				$data = $draft->getBlocksByZone();
 				if (count($data) == 0) {
@@ -112,7 +112,7 @@ class PageTypeCMSPage implements PageTypeInterface
 	public function getData($page)
 	{
 		$repository = $this->container->get('doctrine')->getEntityManager()
-			->getRepository('Application\PrestaCMS\CoreBundle\Entity\PageRevision');
+			->getRepository('Application\Presta\CMSCoreBundle\Entity\PageRevision');
 
 		//$publishedRevision = $repository->getPublishedRevisionForPage($page);
 		//tmp waiting for publication to be implemented

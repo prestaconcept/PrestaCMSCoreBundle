@@ -2,28 +2,28 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * (c) Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Entity;
+namespace Presta\CMSCoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use PrestaCMS\CoreBundle\Model\BaseBlock;
+use Presta\CMSCoreBundle\Model\BaseBlock;
 
 /**
- * PrestaCMS\CoreBundle\Entity\BaseThemeBlock
+ * Presta\CMSCoreBundle\Entity\BaseThemeBlock
  * 
  * @package    PrestaCMS
  * @subpackage CoreBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 abstract class BaseThemeBlock extends BaseBlock
 {
     /**
-     * @var Application\PrestaCMS\CoreBundle\Entity\Website
+     * @var Application\Presta\CMSCoreBundle\Entity\Website
      */
     protected $website;
 
@@ -58,10 +58,10 @@ abstract class BaseThemeBlock extends BaseBlock
     /**
      * Set website
      *
-     * @param Application\PrestaCMS\CoreBundle\Entity\Website $website
+     * @param Application\Presta\CMSCoreBundle\Entity\Website $website
      * @return BaseThemeBlock
      */
-    public function setWebsite(\Application\PrestaCMS\CoreBundle\Entity\Website $website = null)
+    public function setWebsite(\Application\Presta\CMSCoreBundle\Entity\Website $website = null)
     {
         $this->website = $website;
         return $this;
@@ -70,7 +70,7 @@ abstract class BaseThemeBlock extends BaseBlock
     /**
      * Get website
      *
-     * @return Application\PrestaCMS\CoreBundle\Entity\Website 
+     * @return Application\Presta\CMSCoreBundle\Entity\Website
      */
     public function getWebsite()
     {

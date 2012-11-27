@@ -1,4 +1,4 @@
-PrestaCMS\CoreBundle\Entity\BasePageUrlRewrite:
+Presta\CMSCoreBundle\Entity\BasePageUrlRewrite:
   type: mappedSuperclass
   gedmo:
     translation:
@@ -11,7 +11,7 @@ PrestaCMS\CoreBundle\Entity\BasePageUrlRewrite:
         - translatable
   manyToOne:
     page:
-      targetEntity: Application\PrestaCMS\CoreBundle\Entity\Page
+      targetEntity: Application\Presta\CMSCoreBundle\Entity\Page
       inversedBy: urlRewrites
       joinColumn:
         name: page_id

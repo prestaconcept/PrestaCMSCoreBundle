@@ -7,14 +7,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Entity;
+namespace Presta\CMSCoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use PrestaCMS\CoreBundle\Model\TranslatableEntity;
+use Presta\CMSCoreBundle\Model\TranslatableEntity;
 
 /**
- * PrestaCMS\CoreBundle\Entity\BasePageRevision
+ * Presta\CMSCoreBundle\Entity\BasePageRevision
  * 
  * @package    PrestaCMS
  * @subpackage CoreBundle
@@ -56,7 +56,7 @@ abstract class BasePageRevision extends TranslatableEntity
     protected $blocks;
 
     /**
-     * @var Application\PrestaCMS\CoreBundle\Entity\Page
+     * @var Application\Presta\CMSCoreBundle\Entity\Page
      */
     protected $page;
 
@@ -90,10 +90,10 @@ abstract class BasePageRevision extends TranslatableEntity
     /**
      * Add blocks
      *
-     * @param Application\PrestaCMS\CoreBundle\Entity\PageRevisionBlock $blocks
+     * @param Application\Presta\CMSCoreBundle\Entity\PageRevisionBlock $blocks
      * @return BasePageRevision
      */
-    public function addBlock(\Application\PrestaCMS\CoreBundle\Entity\PageRevisionBlock $blocks)
+    public function addBlock(\Application\Presta\CMSCoreBundle\Entity\PageRevisionBlock $blocks)
     {
         $this->blocks[] = $blocks;
         return $this;
@@ -112,10 +112,10 @@ abstract class BasePageRevision extends TranslatableEntity
     /**
      * Set page
      *
-     * @param Application\PrestaCMS\CoreBundle\Entity\Page $page
+     * @param Application\Presta\CMSCoreBundle\Entity\Page $page
      * @return BasePageRevision
      */
-    public function setPage(\Application\PrestaCMS\CoreBundle\Entity\Page $page = null)
+    public function setPage(\Application\Presta\CMSCoreBundle\Entity\Page $page = null)
     {
         $this->page = $page;
         return $this;
@@ -124,7 +124,7 @@ abstract class BasePageRevision extends TranslatableEntity
     /**
      * Get page
      *
-     * @return Application\PrestaCMS\CoreBundle\Entity\Page 
+     * @return Application\Presta\CMSCoreBundle\Entity\Page
      */
     public function getPage()
     {

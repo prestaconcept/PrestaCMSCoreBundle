@@ -2,25 +2,25 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Repository;
+namespace Presta\CMSCoreBundle\Repository;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\EntityRepository;
 use Gedmo\Translatable\TranslatableListener;
 
-use Application\PrestaCMS\CoreBundle\Entity\Website;
+use Application\Presta\CMSCoreBundle\Entity\Website;
 
 /**
  * Website Repository
  * 
  * @package    PrestaCMS
  * @subpackage CoreBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class WebsiteRepository extends EntityRepository
 {
@@ -40,7 +40,7 @@ class WebsiteRepository extends EntityRepository
      * Return an active website for current host
      *
      * @param   string $host
-     * @return  Application\PrestaCMS\CoreBundle\Entity\Website
+     * @return  Application\Presta\CMSCoreBundle\Entity\Website
      */
     public function findByHost($host)
     {

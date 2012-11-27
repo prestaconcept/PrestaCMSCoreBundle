@@ -7,17 +7,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Entity;
+namespace Presta\CMSCoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use PrestaCMS\CoreBundle\Model\TranslatableEntity;
+use Presta\CMSCoreBundle\Model\TranslatableEntity;
 
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * PrestaCMS\CoreBundle\Entity\BasePage
+ * Presta\CMSCoreBundle\Entity\BasePage
  */
 abstract class BasePage extends TranslatableEntity
 {
@@ -92,12 +92,12 @@ abstract class BasePage extends TranslatableEntity
     protected $urlRewrites;
 
     /**
-     * @var Application\PrestaCMS\CoreBundle\Entity\Website
+     * @var Application\Presta\CMSCoreBundle\Entity\Website
      */
     protected $website;
 
     /**
-     * @var Application\PrestaCMS\CoreBundle\Entity\Page
+     * @var Application\Presta\CMSCoreBundle\Entity\Page
      */
     protected $parent;
     
@@ -369,10 +369,10 @@ abstract class BasePage extends TranslatableEntity
     /**
      * Add children
      *
-     * @param Application\PrestaCMS\CoreBundle\Entity\Page $children
+     * @param Application\Presta\CMSCoreBundle\Entity\Page $children
      * @return BasePage
      */
-    public function addPage(\Application\PrestaCMS\CoreBundle\Entity\Page $children)
+    public function addPage(\Application\Presta\CMSCoreBundle\Entity\Page $children)
     {
         $this->children[] = $children;
         return $this;
@@ -391,10 +391,10 @@ abstract class BasePage extends TranslatableEntity
     /**
      * Add revisions
      *
-     * @param Application\PrestaCMS\CoreBundle\Entity\PageRevision $revisions
+     * @param Application\Presta\CMSCoreBundle\Entity\PageRevision $revisions
      * @return BasePage
      */
-    public function addPageRevision(\Application\PrestaCMS\CoreBundle\Entity\PageRevision $revisions)
+    public function addPageRevision(\Application\Presta\CMSCoreBundle\Entity\PageRevision $revisions)
     {
         $this->revisions[] = $revisions;
         return $this;
@@ -413,10 +413,10 @@ abstract class BasePage extends TranslatableEntity
     /**
      * Add urlRewrites
      *
-     * @param Application\PrestaCMS\CoreBundle\Entity\PageUrlRewrite $urlRewrites
+     * @param Application\Presta\CMSCoreBundle\Entity\PageUrlRewrite $urlRewrites
      * @return BasePage
      */
-    public function addPageUrlRewrite(\Application\PrestaCMS\CoreBundle\Entity\PageUrlRewrite $urlRewrites)
+    public function addPageUrlRewrite(\Application\Presta\CMSCoreBundle\Entity\PageUrlRewrite $urlRewrites)
     {
         $this->urlRewrites[] = $urlRewrites;
         return $this;
@@ -435,10 +435,10 @@ abstract class BasePage extends TranslatableEntity
     /**
      * Set website
      *
-     * @param Application\PrestaCMS\CoreBundle\Entity\Website $website
+     * @param Application\Presta\CMSCoreBundle\Entity\Website $website
      * @return BasePage
      */
-    public function setWebsite(\Application\PrestaCMS\CoreBundle\Entity\Website $website = null)
+    public function setWebsite(\Application\Presta\CMSCoreBundle\Entity\Website $website = null)
     {
         $this->website = $website;
         return $this;
@@ -447,7 +447,7 @@ abstract class BasePage extends TranslatableEntity
     /**
      * Get website
      *
-     * @return Application\PrestaCMS\CoreBundle\Entity\Website 
+     * @return Application\Presta\CMSCoreBundle\Entity\Website
      */
     public function getWebsite()
     {
@@ -457,10 +457,10 @@ abstract class BasePage extends TranslatableEntity
     /**
      * Set parent
      *
-     * @param Application\PrestaCMS\CoreBundle\Entity\Page $parent
+     * @param Application\Presta\CMSCoreBundle\Entity\Page $parent
      * @return BasePage
      */
-    public function setParent(\Application\PrestaCMS\CoreBundle\Entity\Page $parent = null)
+    public function setParent(\Application\Presta\CMSCoreBundle\Entity\Page $parent = null)
     {
         $this->parent = $parent;
         return $this;
@@ -469,7 +469,7 @@ abstract class BasePage extends TranslatableEntity
     /**
      * Get parent
      *
-     * @return Application\PrestaCMS\CoreBundle\Entity\Page 
+     * @return Application\Presta\CMSCoreBundle\Entity\Page
      */
     public function getParent()
     {

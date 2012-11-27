@@ -2,17 +2,17 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * (c) Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Model;
+namespace Presta\CMSCoreBundle\Model;
 
 /**
  * Theme Model
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class Theme
 {
@@ -91,7 +91,7 @@ class Theme
      * Returns description
      * 
      * @param  string $description
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function setDescription($description) {
         $this->_description = $description;
@@ -111,7 +111,7 @@ class Theme
      * Set template
      * 
      * @param  string $template
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function setTemplate($template) {
         $this->_template = $template;
@@ -131,7 +131,7 @@ class Theme
      * Set screenshot
      * 
      * @param  string $screenshot
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function setScreenshot($screenshot) {
         $this->_screenshot = $screenshot;
@@ -152,7 +152,7 @@ class Theme
      * Set the number of columns the layout is based on
      * 
      * @param  integer $cols
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function setCols($cols)
     {
@@ -173,7 +173,7 @@ class Theme
      * Set zones
      * 
      * @param  array $zones
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function setZones(array $zones) {
         $this->_zones = $zones;
@@ -184,7 +184,7 @@ class Theme
      * Add a zone
      * 
      * @param  Zone $zone
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function addZone(Zone $zone)
     {
@@ -205,7 +205,7 @@ class Theme
      * Set pages templates
      * 
      * @param  array $pageTemplates
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function setPageTemplates(array $pageTemplates) {
         $this->_pageTemplates = $pageTemplates;
@@ -216,7 +216,7 @@ class Theme
      * Add a page template
      * 
      * @param  Template $template
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function addPageTemplate(Template $template)
     {
@@ -237,7 +237,7 @@ class Theme
      * Set navigations
      * 
      * @param  array $navigations
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function setNavigations(array $navigations) {
         $this->_navigations = $navigations;
@@ -248,7 +248,7 @@ class Theme
      * Add a navigation
      * 
      * @param  string $navigation
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function addNavigation($navigation)
     {

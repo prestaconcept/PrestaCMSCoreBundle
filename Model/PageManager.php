@@ -2,23 +2,23 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Model;
+namespace Presta\CMSCoreBundle\Model;
 
 use Symfony\Component\HttpFoundation\Request;
 
-use Application\PrestaCMS\CoreBundle\Entity\Website;
+use Application\Presta\CMSCoreBundle\Entity\Website;
 
 /**
  * Page Manager
  * 
  * @package    PrestaCMS
  * @subpackage CoreBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class PageManager
 {
@@ -28,7 +28,7 @@ class PageManager
     protected $_container;
     
     /**
-     * @var PrestaCMS\CoreBundle\Repository\PageRepository
+     * @var Presta\CMSCoreBundle\Repository\PageRepository
      */
     protected $_repository;
     
@@ -51,13 +51,13 @@ class PageManager
     /**
      * Return website repository
      * 
-     * @return PrestaCMS\CoreBundle\Repository\PageRepository 
+     * @return Presta\CMSCoreBundle\Repository\PageRepository
      */
     protected function _getRepository()
     {
         if ($this->_repository == null) {
             $this->_repository = $this->_container->get('doctrine')->getEntityManager()
-                ->getRepository('Application\PrestaCMS\CoreBundle\Entity\Page');
+                ->getRepository('Application\Presta\CMSCoreBundle\Entity\Page');
         }
         return $this->_repository;
     }
@@ -65,9 +65,9 @@ class PageManager
     /**
      * Return page by id
      * 
-     * @param  Application\PrestaCMS\CoreBundle\Entity\Website $website
+     * @param  Application\Presta\CMSCoreBundle\Entity\Website $website
      * @param  integer $id 
-     * @return Application\PrestaCMS\CoreBundle\Entity\Page 
+     * @return Application\Presta\CMSCoreBundle\Entity\Page
      */
     public function getPageById(Website $website, $id)
     {
@@ -77,9 +77,9 @@ class PageManager
     /**
      * Return page by id
      * 
-     * @param  Application\PrestaCMS\CoreBundle\Entity\Website $website
+     * @param  Application\Presta\CMSCoreBundle\Entity\Website $website
      * @param  string $url
-     * @return Application\PrestaCMS\CoreBundle\Entity\Page 
+     * @return Application\Presta\CMSCoreBundle\Entity\Page
      */
     public function getPageByUrl(Website $website, $url)
     {
@@ -116,7 +116,7 @@ class PageManager
     /**
      * Return pages from navigation
      * 
-     * @param  Application\PrestaCMS\CoreBundle\Entity\Website $website
+     * @param  Application\Presta\CMSCoreBundle\Entity\Website $website
      * @param  string $navigation 
      * @param  boolean $direct - true to take only direct children
      * @return ArrayCollection
@@ -147,7 +147,7 @@ class PageManager
     /**
      * Return single pages
      * 
-     * @param  Application\PrestaCMS\CoreBundle\Entity\Website $website
+     * @param  Application\Presta\CMSCoreBundle\Entity\Website $website
      * @return ArrayCollection
      */
     public function getSinglePages(Website $website)
@@ -209,7 +209,7 @@ class PageManager
      * 
      * @param  string $idType
      * @param  string $typeServiceId 
-     * @return \PrestaCMS\CoreBundle\Model\PageManager 
+     * @return \Presta\CMSCoreBundle\Model\PageManager
      */
     public function addType($idType, $typeServiceId)
     {
@@ -221,7 +221,7 @@ class PageManager
      * Return correspondign page type service
      * 
      * @param  string $idType
-     * @return false|PrestaCMS\CoreBundle\Model\PagePageTypeInterface 
+     * @return false|Presta\CMSCoreBundle\Model\PagePageTypeInterface
      */
     public function getType($idType)
     {

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace PrestaCMS\CoreBundle\Exception\Website;
+namespace Presta\CMSCoreBundle\Exception\Website;
 
 /**
  * Thrown when an error occurred on the website

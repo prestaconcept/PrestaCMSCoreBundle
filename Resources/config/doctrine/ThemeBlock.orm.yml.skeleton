@@ -1,5 +1,5 @@
 # 
-Application\PrestaCMS\CoreBundle\Entity\ThemeBlock:
+Application\Presta\CMSCoreBundle\Entity\ThemeBlock:
   type: entity
   table: prestacms_theme_block
   id:
@@ -8,7 +8,7 @@ Application\PrestaCMS\CoreBundle\Entity\ThemeBlock:
       generator: { strategy: AUTO }
   oneToMany:
     translations:
-      targetEntity: PrestaCMS\CoreBundle\Entity\ThemeBlockTranslation
+      targetEntity: Presta\CMSCoreBundle\Entity\ThemeBlockTranslation
       mappedBy: object
       cascade: ["persist", "remove"]
     

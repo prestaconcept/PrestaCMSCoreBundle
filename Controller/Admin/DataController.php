@@ -7,12 +7,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Controller\Admin;
+namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use PrestaSonata\AdminBundle\Controller\Admin\Controller as AdminController;
-use PrestaCMS\CoreBundle\Form\PageType;
+use Presta\CMSCoreBundle\Form\PageType;
 
-use Application\PrestaCMS\CoreBundle\Entity\Page;
+use Application\Presta\CMSCoreBundle\Entity\Page;
 
 /**
  * Data import / export controller
@@ -28,7 +28,7 @@ class DataController extends AdminController
 	/**
 	 * Return Website manager
 	 *
-	 * @return PrestaCMS\CoreBundle\Model\WebsiteManager
+	 * @return Presta\CMSCoreBundle\Model\WebsiteManager
 	 */
 	public function getWebsiteManager()
 	{
@@ -38,7 +38,7 @@ class DataController extends AdminController
 	/**
 	 * Return Theme manager
 	 *
-	 * @return PrestaCMS\CoreBundle\Model\ThemeManager
+	 * @return Presta\CMSCoreBundle\Model\ThemeManager
 	 */
 	public function getThemeManager()
 	{
@@ -48,7 +48,7 @@ class DataController extends AdminController
 	/**
 	 * Return Page manager
 	 *
-	 * @return PrestaCMS\CoreBundle\Model\PageManager
+	 * @return Presta\CMSCoreBundle\Model\PageManager
 	 */
 	public function getPageManager()
 	{

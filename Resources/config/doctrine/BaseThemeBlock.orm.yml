@@ -1,10 +1,10 @@
-PrestaCMS\CoreBundle\Entity\BaseThemeBlock:
+Presta\CMSCoreBundle\Entity\BaseThemeBlock:
   type: mappedSuperclass
-  repositoryClass: PrestaCMS\CoreBundle\Repository\ThemeBlockRepository
+  repositoryClass: Presta\CMSCoreBundle\Repository\ThemeBlockRepository
   gedmo:
     translation:
       locale: locale
-      entity: PrestaCMS\CoreBundle\Entity\ThemeBlockTranslation
+      entity: Presta\CMSCoreBundle\Entity\ThemeBlockTranslation
   fields:
     theme:
       type: string
@@ -38,7 +38,7 @@ PrestaCMS\CoreBundle\Entity\BaseThemeBlock:
         - translatable
   manyToOne:
     website:
-      targetEntity: Application\PrestaCMS\CoreBundle\Entity\Website
+      targetEntity: Application\Presta\CMSCoreBundle\Entity\Website
       inversedBy: themeBlocks
       joinColumn:
         name: website_id

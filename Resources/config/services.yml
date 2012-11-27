@@ -1,7 +1,7 @@
 parameters:
     cms_block_type:
-      cms_core_editor: PrestaCMS\CoreBundle\Block\EditorBlockService
-      cms_core_dummy: PrestaCMS\CoreBundle\Block\EditorBlockService
+      cms_core_editor: Presta\CMSCoreBundle\Block\EditorBlockService
+      cms_core_dummy: Presta\CMSCoreBundle\Block\EditorBlockService
     cms_locales: {fr: fr, en: en}
 
 services:
@@ -11,72 +11,72 @@ services:
 
     #Configuration Menu
     presta_cms_core.configure_menu_listener:
-        class: PrestaCMS\CoreBundle\EventListener\ConfigureMenuListener
+        class: Presta\CMSCoreBundle\EventListener\ConfigureMenuListener
         arguments: [@service_container]
         tags:
           - { name: kernel.event_listener, event: presta_admin.menu_configure, method: onMenuConfigure }
 
     #Admin class
     presta_cms.website.admin.website:
-      class: PrestaCMS\CoreBundle\Admin\WebsiteAdmin
+      class: Presta\CMSCoreBundle\Admin\WebsiteAdmin
       tags:
         - { name: sonata.admin, manager_type: orm, group: cms, label: website }
-      arguments: [null, Application\PrestaCMS\CoreBundle\Entity\Website, PrestaCMSCoreBundle:Admin/Website]
+      arguments: [null, Application\Presta\CMSCoreBundle\Entity\Website, PrestaCMSCoreBundle:Admin/Website]
       calls:
         - [ setAvailableLocales, [ %cms_locales% ] ]
         - [ setThemeManager, [ @presta_cms.theme_manager ] ]
 
     presta_cms.theme.admin.bloc:
-      class: PrestaCMS\CoreBundle\Admin\BlockAdmin
+      class: Presta\CMSCoreBundle\Admin\BlockAdmin
       tags:
         - { name: sonata.admin, manager_type: orm, group: cms, label: theme block }
-      arguments: [null, Application\PrestaCMS\CoreBundle\Entity\ThemeBlock, PrestaCMSCoreBundle:Admin/ThemeBlock]
+      arguments: [null, Application\Presta\CMSCoreBundle\Entity\ThemeBlock, PrestaCMSCoreBundle:Admin/ThemeBlock]
       calls:
         - [ setBlockManager, [ @sonata.block.manager ] ]
     presta_cms.page.admin.bloc:
-      class: PrestaCMS\CoreBundle\Admin\BlockAdmin
+      class: Presta\CMSCoreBundle\Admin\BlockAdmin
       tags:
         - { name: sonata.admin, manager_type: orm, group: cms, label: page revision block }
-      arguments: [null, Application\PrestaCMS\CoreBundle\Entity\PageRevisionBlock, PrestaCMSCoreBundle:Admin/PageRevisionBlock]
+      arguments: [null, Application\Presta\CMSCoreBundle\Entity\PageRevisionBlock, PrestaCMSCoreBundle:Admin/PageRevisionBlock]
       calls:
         - [ setBlockManager, [ @sonata.block.manager ] ]
 
     #CMS Block service
     cms_core_editor:
-      class: PrestaCMS\CoreBundle\Block\EditorBlockService
+      class: Presta\CMSCoreBundle\Block\EditorBlockService
       tags:
         - {name: sonata.block}
       arguments: [cms_core_editor, @templating]
 
     #Block service
     presta_cms.block.dashboard.cms:
-      class: PrestaCMS\CoreBundle\Block\Dashboard\CmsBlockService
+      class: Presta\CMSCoreBundle\Block\Dashboard\CmsBlockService
       tags:
         - {name: sonata.block}
       arguments: [presta_cms.block.dashboard.cms, @templating, @sonata.admin.pool]
     presta_cms.block.website.selector:
-      class: PrestaCMS\CoreBundle\Block\WebsiteSelectorService
+      class: Presta\CMSCoreBundle\Block\WebsiteSelectorService
       tags:
         - {name: sonata.block}
       arguments: [presta_cms.block.website.selector, @templating, @presta_cms.website_manager]
 
     #Manager
     presta_cms.website_manager:
-      class: PrestaCMS\CoreBundle\Model\WebsiteManager
+      class: Presta\CMSCoreBundle\Model\WebsiteManager
       arguments: [@service_container]
     presta_cms.theme_manager:
-      class: PrestaCMS\CoreBundle\Model\ThemeManager
+      class: Presta\CMSCoreBundle\Model\ThemeManager
       arguments: [@service_container]
     presta_cms.page_manager:
-      class: PrestaCMS\CoreBundle\Model\PageManager
+      class: Presta\CMSCoreBundle\Model\PageManager
       arguments: [@service_container]
 
     #Page Types
     presta_cms.page_type.cms_page:
-      class: PrestaCMS\CoreBundle\Model\Page\PageTypeCMSPage
+      class: Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage
       arguments: [@service_container, @presta_cms.website_manager, @presta_cms.theme_manager]
 
     presta_cms.listener.create_page:
-        class: PrestaCMS\CoreBundle\EventListener\CreatePageListener
+        class: Presta\CMSCoreBundle\EventListener\CreatePageListener
         tags:
             - { name: doctrine.event_listener, event: postPersist }

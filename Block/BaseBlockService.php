@@ -2,12 +2,12 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Block;
+namespace Presta\CMSCoreBundle\Block;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,7 +20,7 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 /**
  * Base Block Service
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 abstract class BaseBlockService extends SonataBaseBlockService
 {    

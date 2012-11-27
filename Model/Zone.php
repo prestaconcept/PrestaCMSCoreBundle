@@ -2,19 +2,19 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * (c) Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Model;
+namespace Presta\CMSCoreBundle\Model;
 
-use PrestaCMS\CoreBundle\Model\Block;
+use Presta\CMSCoreBundle\Model\Block;
 
 /**
  * Zone Model
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class Zone
 {
@@ -76,7 +76,7 @@ class Zone
      * Set if block can be added to the zone
      * 
      * @param  boolean $canAddBlock
-     * @return \PrestaCMS\CoreBundle\Model\Zone 
+     * @return \Presta\CMSCoreBundle\Model\Zone
      */
     public function setCanAddBlock($canAddBlock)
     {
@@ -95,7 +95,7 @@ class Zone
      * Set if block can be sorted in the zone
      * 
      * @param  boolean $canSortBlock
-     * @return \PrestaCMS\CoreBundle\Model\Zone 
+     * @return \Presta\CMSCoreBundle\Model\Zone
      */
     public function setCanSortBlock($canSortBlock)
     {
@@ -116,7 +116,7 @@ class Zone
      * Set blocks
      * 
      * @param  array $blocks
-     * @return \PrestaCMS\CoreBundle\Model\Zone 
+     * @return \Presta\CMSCoreBundle\Model\Zone
      */
     public function setBlocks(array $blocks) {
         $this->_blocks = $blocks;
@@ -126,8 +126,8 @@ class Zone
     /**
      * Add block
      * 
-     * @param  \PrestaCMS\CoreBundle\Model\BaseBlock $block TODO create class!
-     * @return \PrestaCMS\CoreBundle\Model\Zone 
+     * @param  \Presta\CMSCoreBundle\Model\BaseBlock $block TODO create class!
+     * @return \Presta\CMSCoreBundle\Model\Zone
      */
     public function addBlock( $block)
     {
@@ -149,7 +149,7 @@ class Zone
      * Set the number of columns the layout is based on
      * 
      * @param  integer $cols
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function setCols($cols)
     {
@@ -171,7 +171,7 @@ class Zone
      * Set the number of rows
      * 
      * @param  integer $rows
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function setRows($rows)
     {

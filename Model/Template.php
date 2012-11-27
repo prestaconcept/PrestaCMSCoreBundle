@@ -2,17 +2,17 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * (c) Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Model;
+namespace Presta\CMSCoreBundle\Model;
 
 /**
  * Template Model
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class Template
 {
@@ -71,7 +71,7 @@ class Template
      * Set zones
      * 
      * @param  array $zones
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function setZones(array $zones) {
         $this->_zones = $zones;
@@ -82,7 +82,7 @@ class Template
      * Add a zone
      * 
      * @param  Zone $zone
-     * @return \PrestaCMS\CoreBundle\Model\Theme 
+     * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function addZone(Zone $zone)
     {

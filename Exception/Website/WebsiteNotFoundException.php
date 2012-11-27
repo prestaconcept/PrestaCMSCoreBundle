@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace PrestaCMS\CoreBundle\Exception\Website;
+namespace Presta\CMSCoreBundle\Exception\Website;
 
 /**
  * Thrown when a user try to access to a disabled or unexistant website

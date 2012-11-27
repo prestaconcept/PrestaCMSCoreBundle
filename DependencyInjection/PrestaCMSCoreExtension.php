@@ -2,12 +2,12 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\DependencyInjection;
+namespace Presta\CMSCoreBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -15,8 +15,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-use PrestaCMS\CoreBundle\Model\Theme;
-use PrestaCMS\CoreBundle\Model\Template;
+use Presta\CMSCoreBundle\Model\Theme;
+use Presta\CMSCoreBundle\Model\Template;
 
 /**
  * This is the class that loads and manages your bundle configuration
@@ -25,7 +25,7 @@ use PrestaCMS\CoreBundle\Model\Template;
  * 
  * @package    PrestaCMS
  * @subpackage CoreBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class PrestaCMSCoreExtension extends Extension
 {

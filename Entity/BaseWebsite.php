@@ -2,23 +2,23 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * @author Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PrestaCMS\CoreBundle\Entity;
+namespace Presta\CMSCoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use PrestaCMS\CoreBundle\Model\TranslatableEntity;
+use Presta\CMSCoreBundle\Model\TranslatableEntity;
 
 /**
- * PrestaCMS\CoreBundle\Entity\BaseWebsite
+ * Presta\CMSCoreBundle\Entity\BaseWebsite
  *
  * @package    PrestaCMS
  * @subpackage CoreBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 abstract class BaseWebsite extends TranslatableEntity
 {
@@ -364,10 +364,10 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Add pages
      *
-     * @param Application\PrestaCMS\CoreBundle\Entity\Page $pages
+     * @param Application\Presta\CMSCoreBundle\Entity\Page $pages
      * @return BaseWebsite
      */
-    public function addPage(\Application\PrestaCMS\CoreBundle\Entity\Page $pages)
+    public function addPage(\Application\Presta\CMSCoreBundle\Entity\Page $pages)
     {
         $this->pages[] = $pages;
         return $this;
@@ -386,10 +386,10 @@ abstract class BaseWebsite extends TranslatableEntity
     /**
      * Add themeBlocks
      *
-     * @param Application\PrestaCMS\CoreBundle\Entity\ThemeBlock $themeBlocks
+     * @param Application\Presta\CMSCoreBundle\Entity\ThemeBlock $themeBlocks
      * @return BaseWebsite
      */
-    public function addThemeBlock(\Application\PrestaCMS\CoreBundle\Entity\ThemeBlock $themeBlocks)
+    public function addThemeBlock(\Application\Presta\CMSCoreBundle\Entity\ThemeBlock $themeBlocks)
     {
         $this->themeBlocks[] = $themeBlocks;
         return $this;

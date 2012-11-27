@@ -18,7 +18,7 @@
         "presta/asset-tinymce-bundle": "dev-master"
     },
     "autoload": {
-        "psr-0": { "PrestaCMS\\CoreBundle": "" }
+        "psr-0": { "Presta\\CMSCoreBundle": "" }
     },
-    "target-dir": "PrestaCMS/CoreBundle"
+    "target-dir": "Presta/CMSCoreBundle"
 }

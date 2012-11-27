@@ -1,4 +1,4 @@
-PrestaCMS\CoreBundle\Entity\PageRevisionBlockTranslation:
+Presta\CMSCoreBundle\Entity\PageRevisionBlockTranslation:
   type: entity
   mappedSuperclass: Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation
   table: prestacms_page_revision_block_translation
@@ -17,7 +17,7 @@ PrestaCMS\CoreBundle\Entity\PageRevisionBlockTranslation:
       type: text
   manyToOne:
     object:
-      targetEntity: Application\PrestaCMS\CoreBundle\Entity\PageRevisionBlock
+      targetEntity: Application\Presta\CMSCoreBundle\Entity\PageRevisionBlock
       inversedBy: translations
       joinColumn:
         name: object_id

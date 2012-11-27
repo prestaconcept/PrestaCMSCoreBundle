@@ -1,5 +1,5 @@
 # src/Acme/StoreBundle/Resources/config/doctrine/BaseWebsite.orm.yml
-Application\PrestaCMS\CoreBundle\Entity\PageUrlRewrite:
+Application\Presta\CMSCoreBundle\Entity\PageUrlRewrite:
   type: entity
   table: prestacms_page_url_rewrite
   id:
