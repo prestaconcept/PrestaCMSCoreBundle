@@ -20,11 +20,13 @@ services:
     presta_cms.website.admin.website:
       class: Presta\CMSCoreBundle\Admin\WebsiteAdmin
       tags:
-        - { name: sonata.admin, manager_type: orm, group: cms, label: website }
-      arguments: [null, Application\Presta\CMSCoreBundle\Entity\Website, PrestaCMSCoreBundle:Admin/Website]
+        - { name: sonata.admin, manager_type: doctrine_phpcr, group: cms, label: website }
+      arguments: [null, Presta\CMSCoreBundle\Document\Website, PrestaCMSCoreBundle:Admin/Website]
       calls:
         - [ setAvailableLocales, [ %cms_locales% ] ]
         - [ setThemeManager, [ @presta_cms.theme_manager ] ]
+        - [ setRouteBuilder, [ @sonata.admin.route.path_info_slashes ] ]
+
 
     presta_cms.theme.admin.bloc:
       class: Presta\CMSCoreBundle\Admin\BlockAdmin
