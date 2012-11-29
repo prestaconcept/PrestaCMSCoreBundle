@@ -30,9 +30,9 @@ class WebsiteSelectorService extends BaseBlockService
     protected $_websiteManager;
     
     /**
-     * @param string                                                     $name
-     * @param \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface $templating
-     * @param \Sonata\AdminBundle\Admin\Pool                             $pool
+     * @param string $name
+     * @param EngineInterface $templating
+     * @param WebsiteManager $websiteManager
      */
     public function __construct($name, EngineInterface $templating, WebsiteManager $websiteManager)
     {

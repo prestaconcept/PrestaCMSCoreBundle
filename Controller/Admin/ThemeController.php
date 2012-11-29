@@ -9,7 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
-use PrestaSonata\AdminBundle\Controller\Admin\Controller as AdminController;
+use Presta\SonataAdminBundle\Controller\Admin\BaseController as AdminController;
 
 /**
  * Theme administration controller
@@ -57,15 +57,19 @@ class ThemeController extends AdminController
      * 
      * @return Response 
      */
-    public function editAction($name, $website_id, $locale)
+    public function editAction($name, $websiteId = null, $locale = null)
     {
-        $website = $this->getWebsiteManager()->getWebsite($website_id, $locale);
+        $website = null;
+        if ($websiteId != null) {
+            $websiteId = '/website/' . $websiteId; //le slash ne passant pas au routing on rajoute le basePath
+            $website = $this->getWebsiteManager()->getWebsite($websiteId, $locale);
+        }
         $theme = $this->getThemeManager()->getTheme($name, $website);
         return $this->render('PrestaCMSCoreBundle:Admin/Theme:edit.html.twig', array(
-            'website_id' => $website_id,
-            'locale' => $locale,
-            'website' => $website,
-            'theme' => $theme
+            'websiteId' => $websiteId,
+            'locale'    => $locale,
+            'website'   => $website,
+            'theme'     => $theme
         ));
     }
 }

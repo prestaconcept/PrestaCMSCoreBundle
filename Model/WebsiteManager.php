@@ -34,12 +34,12 @@ class WebsiteManager
     protected $_websites;
 
     /**
-     * @var \Application\Presta\CMSCoreBundle\Entity\Website
+     * @var \Presta\CMSCoreBundle\Document\Website
      */
     protected $currentWebsite;
 
     /**
-     * @var Presta\CMSCoreBundle\Repository\WebsiteRepository
+     * @var Presta\CMSCoreBundle\Document\WebsiteRepository
      */
     protected $_repository;
 
@@ -59,48 +59,50 @@ class WebsiteManager
     protected function _getRepository()
     {
         if ($this->_repository == null) {
-            $this->_repository =$this->_container->get('doctrine')->getEntityManager()
-                ->getRepository('Application\Presta\CMSCoreBundle\Entity\Website');
+            $this->_repository =$this->_container->get('doctrine_phpcr.odm.default_document_manager')
+                ->getRepository('Presta\CMSCoreBundle\Document\Website');
         }
         return $this->_repository;
     }
-
-    /**
-     * Return default website
-     *
-     * @param  string $locale
-     * @return \Application\Presta\CMSCoreBundle\Entity\Website
-     * @throws \Exception
-     */
-    public function getDefaultWebsite($locale)
-    {
-        $website = $this->_getRepository()->getDefaultWebsite($locale);
-        if (($website instanceof Website) == false) {
-            throw new \Exception('There is no default website defined!');
-        }
-        return $website;
-    }
-
-    /**
-     * Return current website
-     *
-     * @return \Application\Presta\CMSCoreBundle\Entity\Website
-     */
-    public function getCurrentWebsite()
-    {
-        return $this->currentWebsite;
-    }
-
+//
+//    /**
+//     * Return default website
+//     *
+//     * @param  string $locale
+//     * @return \Application\Presta\CMSCoreBundle\Entity\Website
+//     * @throws \Exception
+//     */
+//    public function getDefaultWebsite($locale)
+//    {
+//        $website = $this->_getRepository()->getDefaultWebsite($locale);
+//        if (($website instanceof Website) == false) {
+//            throw new \Exception('There is no default website defined!');
+//        }
+//        return $website;
+//    }
+//
+//    /**
+//     * Return current website
+//     *
+//     * @return \Application\Presta\CMSCoreBundle\Entity\Website
+//     */
+//    public function getCurrentWebsite()
+//    {
+//        return $this->currentWebsite;
+//    }
+//
     /**
      * Get website
      *
      * @param  integer $websiteId
      * @param  string $locale
-     * @return \Application\Presta\CMSCoreBundle\Entity\Website
+     * @return \Presta\CMSCoreBundle\Document\Website
      */
     public function getWebsite($websiteId, $locale)
     {
-        $website = $this->_getRepository()->find($websiteId);
+        //$website = $this->_getRepository()->find($websiteId);
+        $dm = $this->_container->get('doctrine_phpcr.odm.default_document_manager');
+        $website = $dm->findTranslation(null, $websiteId, $locale);
         if ($website instanceof Website) {
             $website->setLocale($locale);
         }
@@ -117,51 +119,51 @@ class WebsiteManager
     {
         return $this->_getRepository()->getAvailableWebsites();
     }
-
-
-    /**
-     * Retrieve website for current host and locale
-     *
-     * @param   Symfony\Component\HttpFoundation\Request $resquest
-     * @return  \Application\Presta\CMSCoreBundle\Entity\Website  $website
-     */
-    public function getWebsiteForRequest(Request $request)
-    {
-        $requestWebsite = null;
-
-        $websites = $this->_getRepository()->findByHost($request->getHost());
-        if (empty($websites)) {
-            throw new WebsiteNotFoundException();
-        }
-
-        // Closure telling if a given uri matches a path
-        $uriMatchesPath = function ($uri, $path) {
-            $uri = preg_replace('/^\/app_[a-z]+.php/', '', $uri);
-            return strpos($uri, $path) === 0;
-        };
-
-        foreach ($websites as $website) {
-            foreach ($website->getTranslations() as $translation) {
-
-                if (in_array($translation->getLocale(), $website->getAvailableLocales())
-                    && $translation->getField() == 'relative_path'
-                    && $uriMatchesPath($request->getRequestUri(), $translation->getContent())) {
-
-                    //if the current website match for the current locale stop search
-                    $requestWebsite = $website;
-                    $requestWebsite->setLocale($translation->getLocale());
-                    break 2;
-                }
-
-            }
-        }
-
-        if (is_null($requestWebsite))
-        {
-            $requestWebsite = $websites[0];
-            $requestWebsite->setLocale($requestWebsite->getDefaultLocale());
-        }
-
-        return $requestWebsite;
-    }
+//
+//
+//    /**
+//     * Retrieve website for current host and locale
+//     *
+//     * @param   Symfony\Component\HttpFoundation\Request $resquest
+//     * @return  \Application\Presta\CMSCoreBundle\Entity\Website  $website
+//     */
+//    public function getWebsiteForRequest(Request $request)
+//    {
+//        $requestWebsite = null;
+//
+//        $websites = $this->_getRepository()->findByHost($request->getHost());
+//        if (empty($websites)) {
+//            throw new WebsiteNotFoundException();
+//        }
+//
+//        // Closure telling if a given uri matches a path
+//        $uriMatchesPath = function ($uri, $path) {
+//            $uri = preg_replace('/^\/app_[a-z]+.php/', '', $uri);
+//            return strpos($uri, $path) === 0;
+//        };
+//
+//        foreach ($websites as $website) {
+//            foreach ($website->getTranslations() as $translation) {
+//
+//                if (in_array($translation->getLocale(), $website->getAvailableLocales())
+//                    && $translation->getField() == 'relative_path'
+//                    && $uriMatchesPath($request->getRequestUri(), $translation->getContent())) {
+//
+//                    //if the current website match for the current locale stop search
+//                    $requestWebsite = $website;
+//                    $requestWebsite->setLocale($translation->getLocale());
+//                    break 2;
+//                }
+//
+//            }
+//        }
+//
+//        if (is_null($requestWebsite))
+//        {
+//            $requestWebsite = $websites[0];
+//            $requestWebsite->setLocale($requestWebsite->getDefaultLocale());
+//        }
+//
+//        return $requestWebsite;
+//    }
 }

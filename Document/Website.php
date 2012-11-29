@@ -21,7 +21,7 @@ use Presta\Common\Doctrine\Document\BaseTranslatableDocument;
  * @subpackage CMSCoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  *
- * @PHPCRODM\Document(translator="attribute")
+ * @PHPCRODM\Document(referenceable=true, translator="attribute", repositoryClass="Presta\CMSCoreBundle\Document\Website\Repository")
  */
 class Website extends BaseTranslatableDocument
 {
@@ -91,7 +91,10 @@ class Website extends BaseTranslatableDocument
         return $this->getName();
     }
 
-
+    public function getId()
+    {
+        return $this->getPath();
+    }
 
     /**
      * @param array $available_locales
@@ -216,21 +219,7 @@ class Website extends BaseTranslatableDocument
         return $this->path;
     }
 
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
 
 

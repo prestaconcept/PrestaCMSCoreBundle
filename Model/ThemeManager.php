@@ -130,14 +130,14 @@ class ThemeManager
         $theme->setCols($configuration['cols']);//var_dump(serialize(array('content'=>'<p>hello</p>')));die;
         //Voir pour les éventuels thèmes sans contenu editable!
         $data = array();
-        if ($website != null) {
-            $data = $this->_getRepository()
-                ->getBlocksForWebsiteByZone($website);
-            if (count($data) == 0) {
-                //If there is no corresponding data, initialisation with default configuration
-                $data = $this->_getRepository()->initializeForWebsite($website, $configuration);
-            }
-        }
+//        if ($website != null) {
+//            $data = $this->_getRepository()
+//                ->getBlocksForWebsiteByZone($website);
+//            if (count($data) == 0) {
+//                //If there is no corresponding data, initialisation with default configuration
+//                $data = $this->_getRepository()->initializeForWebsite($website, $configuration);
+//            }
+//        }
 		foreach ($configuration['navigations'] as $navigation) {
 			$theme->addNavigation($navigation['name']);
 		}

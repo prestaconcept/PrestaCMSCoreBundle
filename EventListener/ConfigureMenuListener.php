@@ -9,7 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\EventListener;
 
-use PrestaSonata\AdminBundle\Event\ConfigureMenuEvent;
+use Presta\SonataAdminBundle\Event\ConfigureMenuEvent;
 
 /**
  * Event listener for Administration main navigation construction
@@ -31,7 +31,7 @@ class ConfigureMenuListener
     }
 
     /**
-     * @param \PrestaSonata\AdminBundle\Event\ConfigureMenuEvent $event
+     * @param \Presta\SonataAdminBundle\Event\ConfigureMenuEvent $event
      */
     public function onMenuConfigure(ConfigureMenuEvent $event)
     {

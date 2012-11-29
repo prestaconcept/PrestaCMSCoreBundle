@@ -31,10 +31,10 @@
         #}
         function CMSContentInit() {
         {% if (website) %}
-            CMSContent.init(
-                "{{ path('presta_cms_theme_edit_block', { 'website_id': website.id, 'locale': website.locale }) }}",
-                "{{ path('presta_cms_theme_render_block', { 'locale': website.locale }) }}"
-            );
+            {#CMSContent.init(#}
+                {#"{{ path('presta_cms_theme_edit_block', { 'website_id': website.id, 'locale': website.locale }) }}",#}
+                {#"{{ path('presta_cms_theme_render_block', { 'locale': website.locale }) }}"#}
+            {#);#}
         {% endif %}
         }
         $(document).ready(function() {
@@ -129,7 +129,7 @@
             <div class="sonata-ba-collapsed-fields">
                 {{ sonata_block_render({
                     'type': 'presta_cms.block.website.selector',
-                    'settings': {'website_id' : website_id, 'locale' : locale, 'with_fieldset' : false}
+                    'settings': {'website_id' : websiteId, 'locale' : locale, 'with_fieldset' : false}
                 }) }}
                 <table class="table table-bordered page-content-admin" cellspacing="5">
                     <tr>
