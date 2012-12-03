@@ -17,7 +17,7 @@ use Sonata\AdminBundle\Controller\CRUDController;
  * @subpackage CoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class ThemeBlockController extends CRUDController
+class BlockController extends CRUDController
 {
     /**
      * Render a block
@@ -25,9 +25,11 @@ class ThemeBlockController extends CRUDController
      * @param  integer $id
      * @return Response 
      */
-    public function renderAction($id)
+    public function renderAction()
     {
-        return $this->render('PrestaCMSCoreBundle:Admin/Theme:render_block.html.twig', array(
+        $id = $this->getRequest()->get('id');
+
+        return $this->render('PrestaCMSCoreBundle:Admin/Block:render_block.html.twig', array(
             'block' => $this->admin->getObject($id)
         ));
     }    

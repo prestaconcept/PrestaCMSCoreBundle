@@ -22,7 +22,7 @@ use Presta\CMSCoreBundle\Block\BaseBlockService;
  *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class EditorBlockService extends BaseBlockService
+class SimpleBlockService extends BaseBlockService
 {
     /**
      * {@inheritdoc}
@@ -30,8 +30,8 @@ class EditorBlockService extends BaseBlockService
     public function execute(BlockInterface $block, Response $response = null)
     {
         $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
-        
-        return $this->renderResponse('PrestaCMSCoreBundle:Block:block_editor.html.twig', array(
+
+        return $this->renderResponse('PrestaCMSCoreBundle:Block:block_simple.html.twig', array(
             'block'     => $block,
             'settings'  => $settings
         ), $response);
@@ -42,11 +42,14 @@ class EditorBlockService extends BaseBlockService
      */
     public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $formMapper->add('settings', 'sonata_type_immutable_array', array(
-            'keys' => array(
-                array('content', 'tinymce', array('attr' => array())),
-            )
-        ));
+//        $formMapper->add('settings', 'sonata_type_immutable_array', array(
+//            'keys' => array(
+//                array('content', 'text', array('attr' => array())),
+//            )
+//        ));
+        $formMapper
+            ->add('title', 'text', array('required' => false))
+            ->add('content', 'textarea', array('required' => false));
     }
 
     /**
@@ -63,6 +66,7 @@ class EditorBlockService extends BaseBlockService
     function getDefaultSettings()
     {
         return array(
+            'title' => 'default tile example',
             'content' => 'Insert your custom content here',
         );
     }
