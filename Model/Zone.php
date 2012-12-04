@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Presta\CMSCoreBundle\Model\Block;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Zone Model
@@ -34,7 +35,7 @@ class Zone
     protected $_canSortBlock;
         
     /**
-     * @var array 
+     * @var ArrayCollection
      */
     protected $_blocks;
     
@@ -46,16 +47,13 @@ class Zone
      * @param string $name
      * @param array  $blocks
      */
-    public function __construct($name, $configuration, $blocks)
+    public function __construct($name, $configuration)
     {
         $this->_name = $name;
         $this->_cols = $configuration['cols'];
         $this->_rows = $configuration['rows'];
-        $this->_blocks = array();        
-        foreach ($blocks as $block) {  
-            $this->addBlock($block);
-        }
     }
+
 
     /**
      * @return string
@@ -106,7 +104,7 @@ class Zone
     /**
      * Returns blocks
      * 
-     * @return array 
+     * @return Collection
      */
     public function getBlocks() {
         return $this->_blocks;
@@ -115,10 +113,10 @@ class Zone
     /**
      * Set blocks
      * 
-     * @param  array $blocks
+     * @param  Collection $blocks
      * @return \Presta\CMSCoreBundle\Model\Zone
      */
-    public function setBlocks(array $blocks) {
+    public function setBlocks(Collection $blocks) {
         $this->_blocks = $blocks;
         return $this;
     }

@@ -59,7 +59,7 @@ class CmsBlockService extends BaseBlockService
 
         return $this->renderResponse('PrestaCMSCoreBundle:Block/Dashboard:block_cms.html.twig', array(
             'block'     => $block,
-            'blockId'   => 'block-cmsr',
+            'blockId'   => 'block-cms',
             'websiteAdmin' => $this->pool->getAdminByAdminCode('presta_cms.website.admin.website'),
             'settings'  => $settings
         ), $response);

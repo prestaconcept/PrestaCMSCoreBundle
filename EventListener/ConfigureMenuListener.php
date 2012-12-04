@@ -38,7 +38,7 @@ class ConfigureMenuListener
         $translator = $this->container->get('translator');
         $menu = $event->getMenu();
 
-        $cmsMenuItem = $menu->addChild('CMS', array('route' => 'presta_cms_website'));
+        $cmsMenuItem = $menu->addChild('CMS', array('route' => 'admin_presta_cmscore_website_list'));
         $cmsMenuItem->setAttribute('class', 'dropdown');
         $cmsMenuItem->setLabel($translator->trans('admin.cms').'<span class="caret"></span>');
         $cmsMenuItem->setExtra('safe_label', true);
@@ -46,7 +46,7 @@ class ConfigureMenuListener
         $cmsMenuItem->setLinkAttribute('data-toggle', 'dropdown');
         $cmsMenuItem->setChildrenAttribute('class', 'dropdown-menu');
 
-        $websiteItem = $cmsMenuItem->addChild('Websites', array('route' => 'presta_cms_website'));
+        $websiteItem = $cmsMenuItem->addChild('Websites', array('route' => 'admin_presta_cmscore_website_list'));
 		$websiteItem->setExtra('safe_label', true);
 		$websiteItem->setLabel(sprintf('%s <p>%s</p>', $translator->trans('admin.websites'), $translator->trans('admin.websites.description')));
 		$websiteItem->setLinkAttribute('class', 'nav-submenu nav-submenu-cms-websites');

@@ -3,7 +3,7 @@
 presta_cms_website:
     pattern:  /cms/website
     defaults: { _controller: PrestaCMSCoreBundle:Admin/Website:list, _sonata_admin: presta_cms.website.admin.website }
-    
+
 #Administration - themes
 presta_cms_theme:
     pattern:  /cms/theme
@@ -15,17 +15,13 @@ presta_cms_theme_website_edit:
     pattern:  /cms/theme/edit/{name}/website/{websiteId}/{locale}
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Theme:edit}
 
-presta_cms_theme_edit_block:
-    pattern:  /cms/theme/block-edit/{websiteId}/{locale}/{id}
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/ThemeBlock:edit, id: '', _sonata_admin: 'presta_cms.theme.admin.bloc'}
-    requirements:
-        websiteId:  \d+
-        id: \d+
-presta_cms_theme_render_block:
-    pattern:  /cms/theme/block-render/{locale}/{id}
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/ThemeBlock:render, id: '', _sonata_admin: 'presta_cms.theme.admin.bloc'}
-    requirements:
-        id: \d+
+presta_cms_block_edit:
+    pattern:  /cms/block/edit/{locale}
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:edit, _sonata_admin: presta_cms.admin.bloc}
+
+presta_cms_block_render:
+    pattern:  /cms/block/render/{locale}
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:render, _sonata_admin: presta_cms.admin.bloc}
         
 #Administration - pages
 presta_cms_page:

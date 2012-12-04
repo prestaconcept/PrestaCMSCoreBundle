@@ -20,6 +20,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Block\BlockServiceManagerInterface;
 
+use Presta\SonataAdminBundle\Admin\PHPCR\BaseAdmin;
+
 /**
  * Admin definition for the Site class
  *
@@ -27,7 +29,7 @@ use Sonata\BlockBundle\Block\BlockServiceManagerInterface;
  * @subpackage CoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class BlockAdmin extends Admin
+class BlockAdmin extends BaseAdmin
 {
     /**
      * @param \Sonata\BlockBundle\Block\BlockServiceManagerInterface $blockManager
@@ -35,15 +37,6 @@ class BlockAdmin extends Admin
     public function setBlockManager(BlockServiceManagerInterface $blockManager)
     {
         $this->blockManager = $blockManager;
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function generateUrl($name, array $parameters = array(), $absolute = false)
-    {
-        $parameters['locale'] = $this->getRequest()->get('locale');
-        return $this->routeGenerator->generateUrl($this, $name, $parameters, $absolute);
     }
 
     /**
@@ -78,22 +71,22 @@ class BlockAdmin extends Admin
         $this->inValidate = false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getObject($id)
-    {
-        $subject = parent::getObject($id);
-
-        //Set locale and get translated data
-        $subject->setLocale($this->getRequest()->get('locale'));
-        $this->getModelManager()->getEntityManager($this->getClass())->refresh($subject);
-        
-        if ($subject) {
-            $service = $this->blockManager->get($subject);
-            $subject->setSettings(array_merge($service->getDefaultSettings(), $subject->getSettings()));
-            $service->load($subject);
-        }
-        return $subject;
-    }    
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function getObject($id)
+//    {
+//        $subject = parent::getObject($id);
+//
+//        //Set locale and get translated data
+//        $subject->setLocale($this->getRequest()->get('locale'));
+//        $this->getModelManager()->getEntityManager($this->getClass())->refresh($subject);
+//
+//        if ($subject) {
+//            $service = $this->blockManager->get($subject);
+//            $subject->setSettings(array_merge($service->getDefaultSettings(), $subject->getSettings()));
+//            $service->load($subject);
+//        }
+//        return $subject;
+//    }
 }

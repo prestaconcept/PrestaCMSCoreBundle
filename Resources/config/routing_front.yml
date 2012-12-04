@@ -1,7 +1,7 @@
 # IMPORTANT /!\ keep to the end (include a catch all)
 #Front
-catchAll:
-    pattern:  /{path}
-    defaults: { _controller: PrestaCMSCoreBundle:Page:catchAll }
-    requirements:
-        path: .*
+#catchAll:
+#    pattern:  /{path}
+#    defaults: { _controller: PrestaCMSCoreBundle:Page:catchAll }
+#    requirements:
+#        path: .*

@@ -53,40 +53,67 @@ class PageController extends Controller
 	}
 
     /**
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @return \Symfony\Bundle\FrameworkBundle\Controller\Response
+     * Render a CMS page
+     * Action that is mapped in the controller_by_class map
+     *
+     * @param $page
+     * @throws NotFoundHttpException
      */
-    public function catchAllAction(Request $request)
+    public function renderAction($contentDocument)
     {
-        $website = $this->getWebsiteManager()->getWebsiteForRequest($this->getRequest());
-		$pathInfo = $request->getPathInfo();
+        if (!$contentDocument) {
+            throw new NotFoundHttpException('Content not found');
+        }
 
-		//Relative path control
-		if (strpos($pathInfo, $website->getRelativePath()) !== 0) {
-			return $this->redirect($website->getUrl($request->getBaseUrl()));
-		}
-		//Load theme data
+        $website = $this->getWebsiteManager()->getWebsite('/website/prestaconcept', 'en');
+
         $theme = $this->getThemeManager()->getTheme($website->getTheme(), $website);
 
-		$pathInfo = (string)substr($request->getPathInfo(), strlen($website->getRelativePath()));
-
-		try {
-			$page = $this->getPageManager()->getPageByUrl($website, $pathInfo);
-		} catch (NoResultException $e) {
-			throw $this->createNotFoundException('Page not found');
-		}
-
-		$pageType = $this->getPageManager()->getType($page->getType());
-
-		$viewParams = array(
+        $viewParams = array(
 			'base_template' => $theme->getTemplate(),
 			'website' => $website,
 			'theme' => $theme,
-			'page'  => $page
+			'page'  => $contentDocument
 		);
-		if ($pageType != null) {
-			$viewParams = array_merge($viewParams, $pageType->getData($page));
-		}
+
         return $this->render('PrestaCMSCoreBundle:Page:index.html.twig', $viewParams);
     }
+
+//    /**
+//     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+//     * @return \Symfony\Bundle\FrameworkBundle\Controller\Response
+//     */
+//    public function catchAllAction(Request $request)
+//    {
+//        $website = $this->getWebsiteManager()->getWebsiteForRequest($this->getRequest());
+//		$pathInfo = $request->getPathInfo();
+//
+//		//Relative path control
+//		if (strpos($pathInfo, $website->getRelativePath()) !== 0) {
+//			return $this->redirect($website->getUrl($request->getBaseUrl()));
+//		}
+//		//Load theme data
+//        $theme = $this->getThemeManager()->getTheme($website->getTheme(), $website);
+//
+//		$pathInfo = (string)substr($request->getPathInfo(), strlen($website->getRelativePath()));
+//
+//		try {
+//			$page = $this->getPageManager()->getPageByUrl($website, $pathInfo);
+//		} catch (NoResultException $e) {
+//			throw $this->createNotFoundException('Page not found');
+//		}
+//
+//		$pageType = $this->getPageManager()->getType($page->getType());
+//
+//		$viewParams = array(
+//			'base_template' => $theme->getTemplate(),
+//			'website' => $website,
+//			'theme' => $theme,
+//			'page'  => $page
+//		);
+//		if ($pageType != null) {
+//			$viewParams = array_merge($viewParams, $pageType->getData($page));
+//		}
+//        return $this->render('PrestaCMSCoreBundle:Page:index.html.twig', $viewParams);
+//    }
 }

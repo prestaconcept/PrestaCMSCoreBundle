@@ -171,9 +171,6 @@ class WebsiteAdmin extends BaseAdmin
             ->end()
         ;
 
-        if (count($this->getSubject()->getAvailableLocales()) == 0) {
-            return;
-        }
     }
 
 

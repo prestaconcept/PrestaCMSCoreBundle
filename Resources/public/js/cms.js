@@ -33,8 +33,8 @@ var CMSContent = function() {
         /**
          * Return url for block rendering
          */
-        getRenderBlocUrl : function () {
-            return this._renderBlockUrl;
+        getRenderBlocUrl : function (blockId) {
+            return this._renderBlockUrl + '?id=' + blockId;
         },
         /**
          * Handle block edit button click
@@ -46,7 +46,7 @@ var CMSContent = function() {
             $('#modal-content').hide();
             $('#modal').modal('show');
             
-            $('#modal-content').load(this._editBlocUrl + '/' + blockId, function() {
+            $('#modal-content').load(this._editBlocUrl + '?id=' + blockId, function() {
                 $('#modal-content div.form-actions').remove();
                 $('#modal-loader').hide();
                 $('#modal-content').show();
@@ -59,19 +59,20 @@ var CMSContent = function() {
             $('#modal-content').hide();
             $('#modal-loader').show();
             // déclenche la sauvegarde du Tiny
-            tinymce.triggerSave();
+            //tinymce.triggerSave();
             $.ajax({
                 url: $('#modal form').attr('action'),
                 type: "POST",
                 data: $('#modal form').serialize()
             }).done(function( html ) {
                 //If succesfull we only get a return code in JSON
-                if (html.result != undefined) {                    
+                if (html.result != undefined) {
                     $('#modal-content').html('');
                     $('#modal').modal('hide');
                     CMSContentInit();
-                    $('#block-content-' + html.objectId).load(CMSContent.getRenderBlocUrl() + '/' + html.objectId, function() {
-                        $('#block-content-' + html.objectId).effect("highlight", {}, 3000);
+                    var blockContainerId = '#block-content-' + html.objectId.replace(/\//g, '-');
+                    $(blockContainerId).load(CMSContent.getRenderBlocUrl(html.objectId), function() {
+                        $(blockContainerId).effect("highlight", {}, 3000);
                     });
                 } else {
                     //If an error occurs, we rediplay the form

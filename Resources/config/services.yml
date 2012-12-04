@@ -1,6 +1,6 @@
 parameters:
     cms_block_type:
-      cms_core_editor: Presta\CMSCoreBundle\Block\EditorBlockService
+      presta_cms.block.simple: Presta\CMSCoreBundle\Block\SimpleBlockService
       cms_core_dummy: Presta\CMSCoreBundle\Block\EditorBlockService
     cms_locales: {fr: fr, en: en}
 
@@ -8,6 +8,11 @@ services:
 #    presta_cms_theme.example:
 #        class: %presta_cms_theme.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+    presta_cms.page.controller:
+        class: Presta\CMSCoreBundle\Controller\PageController
+        calls:
+            - [ setContainer, [@service_container] ]
 
     #Configuration Menu
     presta_cms_core.configure_menu_listener:
@@ -28,24 +33,25 @@ services:
         - [ setRouteBuilder, [ @sonata.admin.route.path_info_slashes ] ]
 
 
-    presta_cms.theme.admin.bloc:
+    presta_cms.admin.bloc:
       class: Presta\CMSCoreBundle\Admin\BlockAdmin
       tags:
-        - { name: sonata.admin, manager_type: orm, group: cms, label: theme block }
-      arguments: [null, Application\Presta\CMSCoreBundle\Entity\ThemeBlock, PrestaCMSCoreBundle:Admin/ThemeBlock]
+        - { name: sonata.admin, manager_type: doctrine_phpcr, group: cms, label: theme block }
+      arguments: [null, Presta\CMSCoreBundle\Document\Block\SimpleBlock, PrestaCMSCoreBundle:Admin/Block]
       calls:
         - [ setBlockManager, [ @sonata.block.manager ] ]
-    presta_cms.page.admin.bloc:
-      class: Presta\CMSCoreBundle\Admin\BlockAdmin
-      tags:
-        - { name: sonata.admin, manager_type: orm, group: cms, label: page revision block }
-      arguments: [null, Application\Presta\CMSCoreBundle\Entity\PageRevisionBlock, PrestaCMSCoreBundle:Admin/PageRevisionBlock]
-      calls:
-        - [ setBlockManager, [ @sonata.block.manager ] ]
+        - [ setRouteBuilder, [ @sonata.admin.route.path_info_slashes ] ]
+#    presta_cms.page.admin.bloc:
+#      class: Presta\CMSCoreBundle\Admin\BlockAdmin
+#      tags:
+#        - { name: sonata.admin, manager_type: orm, group: cms, label: page revision block }
+#      arguments: [null, Application\Presta\CMSCoreBundle\Entity\PageRevisionBlock, PrestaCMSCoreBundle:Admin/PageRevisionBlock]
+#      calls:
+#        - [ setBlockManager, [ @sonata.block.manager ] ]
 
     #CMS Block service
-    cms_core_editor:
-      class: Presta\CMSCoreBundle\Block\EditorBlockService
+    presta_cms.block.simple:
+      class: Presta\CMSCoreBundle\Block\SimpleBlockService
       tags:
         - {name: sonata.block}
       arguments: [cms_core_editor, @templating]
@@ -69,16 +75,16 @@ services:
     presta_cms.theme_manager:
       class: Presta\CMSCoreBundle\Model\ThemeManager
       arguments: [@service_container]
-    presta_cms.page_manager:
-      class: Presta\CMSCoreBundle\Model\PageManager
-      arguments: [@service_container]
+#    presta_cms.page_manager:
+#      class: Presta\CMSCoreBundle\Model\PageManager
+#      arguments: [@service_container]
 
     #Page Types
-    presta_cms.page_type.cms_page:
-      class: Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage
-      arguments: [@service_container, @presta_cms.website_manager, @presta_cms.theme_manager]
-
-    presta_cms.listener.create_page:
-        class: Presta\CMSCoreBundle\EventListener\CreatePageListener
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }
+#    presta_cms.page_type.cms_page:
+#      class: Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage
+#      arguments: [@service_container, @presta_cms.website_manager, @presta_cms.theme_manager]
+#
+#    presta_cms.listener.create_page:
+#        class: Presta\CMSCoreBundle\EventListener\CreatePageListener
+#        tags:
+#            - { name: doctrine.event_listener, event: postPersist }

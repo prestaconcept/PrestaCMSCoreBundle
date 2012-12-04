@@ -31,10 +31,10 @@
         #}
         function CMSContentInit() {
         {% if (website) %}
-            {#CMSContent.init(#}
-                {#"{{ path('presta_cms_theme_edit_block', { 'website_id': website.id, 'locale': website.locale }) }}",#}
-                {#"{{ path('presta_cms_theme_render_block', { 'locale': website.locale }) }}"#}
-            {#);#}
+            CMSContent.init(
+                "{{ path('presta_cms_block_edit', { 'locale': website.locale }) }}",
+                "{{ path('presta_cms_block_render', { 'locale': website.locale }) }}"
+            );
         {% endif %}
         }
         $(document).ready(function() {
@@ -158,7 +158,7 @@
                                                             <a href="#" class="action-delete">&nbsp;</a>
                                                         {% endif %}
                                                     </div>
-                                                    <div id="block-content-{{ block.id }}" class="block-content">
+                                                    <div id="block-content-{{ block.htmlId }}" class="block-content">
                                                         {{ sonata_block_render(block) }}
                                                     </div>
                                                 </div>

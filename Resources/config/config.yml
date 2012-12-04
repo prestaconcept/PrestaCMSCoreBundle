@@ -18,16 +18,39 @@ assetic:
         - PrestaCMSCoreBundle
 
 sonata_block:
-  blocks:
-    cms_core_editor:
-    presta_cms.block.dashboard.cms:
-    presta_cms.block.website.selector:
+    blocks:
+        presta_cms.block.dashboard.cms:
+        presta_cms.block.website.selector:
 
 sonata_admin:
   dashboard:
       blocks:
           - { position: right, type: presta_cms.block.dashboard.cms }
 
+symfony_cmf_routing_extra:
+    chain:
+        routers_by_id:
+            symfony_cmf_routing_extra.dynamic_router: 20
+            router.default: 100
+    dynamic:
+        enabled: true
+        controllers_by_alias:
+            demo_alias: presta_cms.page.controller:aliasAction
+        controllers_by_class:
+            Presta\CMSCoreBundle\Document\Page: presta_cms.page.controller:renderAction
+            Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute:  symfony_cmf_routing_extra.redirect_controller:redirectAction
+#        templates_by_class:
+#            Symfony\Cmf\Bundle\ContentBundle\Document\MultilangStaticContent: PrestaCMSCoreBundle:Page:index.html.twig
+
+        routing_repositoryroot: /website/prestaconcept/route
+
+knp_menu:
+    twig: true
+
+symfony_cmf_menu:
+    menu_basepath: /website/prestaconcept/menu
+    multilang:
+      locales: %presta_admin.front.locales%
 
 presta_cms_core:
   themes:
@@ -45,7 +68,7 @@ presta_cms_core:
           can_sort_block: false
           blocks:
             editor:
-              block_type: cms_core_editor
+              block_type: Presta\CMSCoreBundle\Document\Block\SimpleBlock
               is_editable: true
               is_deletable: false
               position: 10
@@ -72,7 +95,7 @@ presta_cms_core:
           can_sort_block: false
           blocks:
             editor:
-              block_type: cms_core_editor
+              block_type: Presta\CMSCoreBundle\Document\Block\SimpleBlock
               is_editable: true
               is_deletable: false
               position: 10
@@ -84,7 +107,7 @@ presta_cms_core:
           can_sort_block: false
           blocks:
             editor:
-              block_type: cms_core_editor
+              block_type: Presta\CMSCoreBundle\Document\Block\SimpleBlock
               is_editable: true
               is_deletable: false
               position: 10
@@ -101,7 +124,7 @@ presta_cms_core:
               can_sort_block: false
               blocks:
                 editor:
-                  block_type: cms_core_editor
+                  block_type: Presta\CMSCoreBundle\Document\Block\SimpleBlock
                   is_editable: true
                   is_deletable: false
                   position: 10
@@ -117,7 +140,7 @@ presta_cms_core:
               can_sort_block: false
               blocks:
                 editor:
-                  block_type: cms_core_editor
+                  block_type: Presta\CMSCoreBundle\Document\Block\SimpleBlock
                   is_editable: true
                   is_deletable: false
                   position: 10
@@ -129,7 +152,39 @@ presta_cms_core:
               can_sort_block: false
               blocks:
                 editor:
-                  block_type: cms_core_editor
+                  block_type: Presta\CMSCoreBundle\Document\Block\SimpleBlock
                   is_editable: true
                   is_deletable: false
                   position: 10
+
+
+# CMF
+#symfony_cmf_core:
+#    document_manager: default
+#    role``: IS_AUTHENTICATED_ANONYMOUSLY # used by the publish workflow checker
+
+# app/config/config.yml
+#symfony_cmf_content:
+#    static_basepath: /content
+
+
+sonata_doctrine_phpcr_admin:
+    document_tree:
+        Doctrine\PHPCR\Odm\Document\Generic:
+            valid_children:
+                - all
+        Symfony\Cmf\Bundle\ContentBundle\Document\MultilangStaticContent: ~
+        Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route:
+            valid_children:
+                - Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route
+                - Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute
+        Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute:
+            valid_children: []
+        Symfony\Cmf\Bundle\MenuItem\Document\MenuItem:
+            valid_children:
+                - Symfony\Cmf\Bundle\MenuItem\Document\MenuItem
+                - Symfony\Cmf\Bundle\ContentBundle\Document\MultilangMenuItem
+        Symfony\Cmf\Bundle\ContentBundle\Document\MultilangMenuItem:
+            valid_children:
+                - Symfony\Cmf\Bundle\MenuItem\Document\MenuItem
+                - Symfony\Cmf\Bundle\ContentBundle\Document\MultilangMenuItem

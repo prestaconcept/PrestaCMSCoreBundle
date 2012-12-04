@@ -64,8 +64,8 @@ class ThemeManager
     protected function _getRepository()
     {
         if ($this->_repository == null) {
-            $this->_repository =$this->_container->get('doctrine')->getEntityManager()
-                ->getRepository('Application\Presta\CMSCoreBundle\Entity\ThemeBlock');
+            $this->_repository =$this->_container->get('doctrine_phpcr.odm.default_document_manager')
+                ->getRepository('Presta\CMSCoreBundle\Document\Website\Theme');
         }
         return $this->_repository;
     }
@@ -130,22 +130,25 @@ class ThemeManager
         $theme->setCols($configuration['cols']);//var_dump(serialize(array('content'=>'<p>hello</p>')));die;
         //Voir pour les éventuels thèmes sans contenu editable!
         $data = array();
-//        if ($website != null) {
-//            $data = $this->_getRepository()
-//                ->getBlocksForWebsiteByZone($website);
-//            if (count($data) == 0) {
-//                //If there is no corresponding data, initialisation with default configuration
-//                $data = $this->_getRepository()->initializeForWebsite($website, $configuration);
-//            }
-//        }
+        if ($website != null) {
+            $zones = $this->_getRepository()->getZones($configuration['name'], $website);
+            if (count($zones) == 0) {
+                //If there is no corresponding data, initialisation with default configuration
+                $data = $this->_getRepository()->initializeForWebsite($website, $configuration);
+            }
+        }
 		foreach ($configuration['navigations'] as $navigation) {
 			$theme->addNavigation($navigation['name']);
 		}
+
         foreach ($configuration['zones'] as $zoneConfiguration) {
             if (!isset($data[$zoneConfiguration['name']])) {
                 $data[$zoneConfiguration['name']] = array();
             }
-            $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration, $data[$zoneConfiguration['name']]);
+            $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration);
+            if (isset($zones[$zoneConfiguration['name']])) {
+                $zone->setBlocks($zones[$zoneConfiguration['name']]->getBlocks());
+            }
             $theme->addZone($zone);
         } 
         foreach ($configuration['page_template'] as $templateName => $templateConfiguration) {

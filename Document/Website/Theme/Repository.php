@@ -11,10 +11,12 @@ namespace Presta\CMSCoreBundle\Document\Website\Theme;
 
 use Doctrine\ODM\PHPCR\DocumentRepository as BaseDocumentRepository;
 
+use PHPCR\Util\NodeHelper;
+
 use Presta\CMSCoreBundle\Document\Website;
 use Presta\CMSCoreBundle\Document\Website\Theme;
 use Presta\CMSCoreBundle\Document\Website\Theme\Zone;
-use Presta\CMSCoreBundle\Document\Block\SimpleBlock;
+
 
 /**
  * Website Theme Repository
@@ -27,7 +29,7 @@ class Repository extends BaseDocumentRepository
 {
     public function getZones($themeName, $website)
     {
-        $websiteTheme = $this->getDocumentManager()->find('Presta\CMSCoreBundle\Document\Website\Theme', $website->getId() . '/' . $themeName);
+        $websiteTheme = $this->getDocumentManager()->find('Presta\CMSCoreBundle\Document\Website\Theme', $website->getId() . '/theme/' . $themeName);
         if ($websiteTheme != null) {
             return $websiteTheme->getZones();
         }
@@ -44,10 +46,13 @@ class Repository extends BaseDocumentRepository
      */
     public function initializeForWebsite(Website $website, array $configuration)
     {
+        $session = $this->getDocumentManager()->getPhpcrSession();
+        NodeHelper::createPath($session, $website->getPath() . '/theme');
+
         //Create website theme default association
         $websiteTheme = new Theme();
         $websiteTheme->setParent($website);
-        $websiteTheme->setName($configuration['name']);
+        $websiteTheme->setName('theme/' . $configuration['name']);
         $this->getDocumentManager()->persist($websiteTheme);
 
 

@@ -9,43 +9,70 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
+use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sonata\BlockBundle\Model\BaseBlock as SonataBaseBlock;
+use Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock as CmfBaseBlock;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
  * BaseBlock Model
  *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ *
+ * @PHPCRODM\Document(translator="attribute")
  */
-abstract class BaseBlock extends SonataBaseBlock
+abstract class BaseBlock extends CmfBaseBlock
 {    
     /**
-     * @var boolean 
+     * @var boolean
+     * @PHPCRODM\Boolean(translated=true)
      */
-    protected $is_editable;
+    protected $isEditable;
     
     /**
-     * @var boolean 
+     * @var boolean
+     * @PHPCRODM\Boolean(translated=true)
      */
-    protected $is_deletable;
+    protected $isDeletable;
     
     /**
      * @var boolean $is_active
+     * @PHPCRODM\Boolean(translated=true)
      */
-    protected $is_active;
+    protected $isActive;
 
 	/**
 	 * @var bool
 	 */
 	protected $isAdminMode = false;
 
+    /**
+     * @PHPCRODM\String(multivalue=true)
+     */
+    protected $settings;
+
+    /**
+     * @PHPCRODM\Locale
+     */
+    protected $locale;
+
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
 	/**
      * @return boolean 
      */
     public function isEditable()
     {
-        return $this->is_editable;
+        return $this->isEditable;
     }
 
     /**
@@ -56,7 +83,7 @@ abstract class BaseBlock extends SonataBaseBlock
      */
     public function setIsEditable($isEditable)
     {
-        $this->is_editable = $isEditable;
+        $this->isEditable = $isEditable;
         return $this;
     }
 
@@ -65,7 +92,7 @@ abstract class BaseBlock extends SonataBaseBlock
      */
     public function isDeletable() 
     {
-        return $this->is_deletable;
+        return $this->isDeletable;
     }
 
     /**
@@ -76,7 +103,7 @@ abstract class BaseBlock extends SonataBaseBlock
      */
     public function setIsDeletable($isDeletable)
     {
-        $this->is_deletable = $isDeletable;
+        $this->isDeletable = $isDeletable;
         return $this;
     }
 
@@ -100,7 +127,7 @@ abstract class BaseBlock extends SonataBaseBlock
      */
     public function setIsActive($isActive)
     {
-        $this->is_active = $isActive;
+        $this->isActive = $isActive;
         return $this;
     }
 
@@ -111,7 +138,7 @@ abstract class BaseBlock extends SonataBaseBlock
      */
     public function getIsActive()
     {
-        return $this->is_active;
+        return $this->isActive;
     }
 
 
@@ -130,70 +157,70 @@ abstract class BaseBlock extends SonataBaseBlock
 	{
 		return $this->isAdminMode;
 	}
-
-    /*** Translatable entity ***/
-    
-    /**
-     * Used locale to override Translation listener`s locale
-     * this is not a mapped field of entity metadata, just a simple property
-     */
-    protected $locale;
-    
-    /**
-     * @var ArrayCollection 
-     */
-    protected $translations;
-        
-    public function __construct()
-    {
-        $this->translations = new ArrayCollection();
-    }
-    
-    /**
-     * Set current locale
-     *
-     * @param  string $locale
-     * @return TranslatableEntity
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-        return $this;
-    }
-    
-    /**
-     * Get current locale
-     * 
-     * @return string 
-     */
-    public function getLocale()
-    {
-        return $this->locale;
-    }
-    
-    /**
-     * Returns translations
-     * 
-     * @return Doctrine\Common\Collections\ArrayCollection 
-     */
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
-
-    /**
-     * Add new translation
-     * 
-     * @param  AbstractPersonalTranslation $translation 
-     * @return TranslatableEntity
-     */
-    public function addTranslation(AbstractPersonalTranslation $translation)
-    {
-        if (!$this->translations->contains($translation)) {
-            $this->translations[] = $translation;
-            $translation->setObject($this);
-        }
-        return $this;
-    }
-    /*** End - Translatable entity ***/
+//
+//    /*** Translatable entity ***/
+//
+//    /**
+//     * Used locale to override Translation listener`s locale
+//     * this is not a mapped field of entity metadata, just a simple property
+//     */
+//    protected $locale;
+//
+//    /**
+//     * @var ArrayCollection
+//     */
+//    protected $translations;
+//
+//    public function __construct()
+//    {
+//        $this->translations = new ArrayCollection();
+//    }
+//
+//    /**
+//     * Set current locale
+//     *
+//     * @param  string $locale
+//     * @return TranslatableEntity
+//     */
+//    public function setLocale($locale)
+//    {
+//        $this->locale = $locale;
+//        return $this;
+//    }
+//
+//    /**
+//     * Get current locale
+//     *
+//     * @return string
+//     */
+//    public function getLocale()
+//    {
+//        return $this->locale;
+//    }
+//
+//    /**
+//     * Returns translations
+//     *
+//     * @return Doctrine\Common\Collections\ArrayCollection
+//     */
+//    public function getTranslations()
+//    {
+//        return $this->translations;
+//    }
+//
+//    /**
+//     * Add new translation
+//     *
+//     * @param  AbstractPersonalTranslation $translation
+//     * @return TranslatableEntity
+//     */
+//    public function addTranslation(AbstractPersonalTranslation $translation)
+//    {
+//        if (!$this->translations->contains($translation)) {
+//            $this->translations[] = $translation;
+//            $translation->setObject($this);
+//        }
+//        return $this;
+//    }
+//    /*** End - Translatable entity ***/
 }
