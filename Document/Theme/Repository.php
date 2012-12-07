@@ -16,6 +16,7 @@ use PHPCR\Util\NodeHelper;
 use Presta\CMSCoreBundle\Document\Website;
 use Presta\CMSCoreBundle\Document\Theme;
 use Presta\CMSCoreBundle\Document\Theme\Zone;
+use Presta\CMSCoreBundle\Document\Block;
 
 
 /**
@@ -29,7 +30,7 @@ class Repository extends BaseDocumentRepository
 {
     public function getZones($themeName, $website)
     {
-        $websiteTheme = $this->getDocumentManager()->find('Presta\CMSCoreBundle\Document\Website\Theme', $website->getId() . '/theme/' . $themeName);
+        $websiteTheme = $this->getDocumentManager()->find('Presta\CMSCoreBundle\Document\Theme', $website->getId() . '/theme/' . $themeName);
         if ($websiteTheme != null) {
             return $websiteTheme->getZones();
         }
@@ -65,10 +66,15 @@ class Repository extends BaseDocumentRepository
             $websiteThemeZone->setName($zoneConfiguration['name']);
             $this->getDocumentManager()->persist($websiteThemeZone);
             foreach ($zoneConfiguration['blocks'] as $blockConfiguration) {
-                $block = new $blockConfiguration['block_type']();
+                $block = new Block();
                 $block->setParent($websiteThemeZone);
                 $block->setLocale($website->getLocale());
-                $block->setName('simple'.$blockConfiguration['position']);
+                $block->setType($blockConfiguration['type']);
+                if (strlen($blockConfiguration['name'])) {
+                    $block->setName($blockConfiguration['name']);
+                } else {
+                    $block->setName($blockConfiguration['type'] . '-' . $blockConfiguration['position']);
+                }
                 $block->setIsEditable($blockConfiguration['is_editable']);
                 $block->setIsDeletable($blockConfiguration['is_deletable']);
                 $block->setPosition($blockConfiguration['position']);

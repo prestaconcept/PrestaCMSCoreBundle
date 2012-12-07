@@ -22,7 +22,7 @@ use Presta\CMSCoreBundle\Document\Website;
  * @subpackage CMSCoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  *
- * @PHPCRODM\Document(referenceable=true, repositoryClass="Presta\CMSCoreBundle\Document\Website\Theme\Repository")
+ * @PHPCRODM\Document(referenceable=true, repositoryClass="Presta\CMSCoreBundle\Document\Theme\Repository")
  */
 class Theme
 {

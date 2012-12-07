@@ -34,6 +34,6 @@
         if ($('#website_selector').val() == '') {
             return;
         }
-        window.location.href = website_selector_url + $('#website_selector').val();
+        window.location.href = '{{ settings.url }}' + $('#website_selector').val();
     }
 </script>

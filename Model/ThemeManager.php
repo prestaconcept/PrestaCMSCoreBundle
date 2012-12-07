@@ -65,7 +65,7 @@ class ThemeManager
     {
         if ($this->_repository == null) {
             $this->_repository =$this->_container->get('doctrine_phpcr.odm.default_document_manager')
-                ->getRepository('Presta\CMSCoreBundle\Document\Website\Theme');
+                ->getRepository('Presta\CMSCoreBundle\Document\Theme');
         }
         return $this->_repository;
     }
