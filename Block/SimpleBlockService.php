@@ -42,14 +42,12 @@ class SimpleBlockService extends BaseBlockService
      */
     public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
     {
-//        $formMapper->add('settings', 'sonata_type_immutable_array', array(
-//            'keys' => array(
-//                array('content', 'text', array('attr' => array())),
-//            )
-//        ));
-        $formMapper
-            ->add('title', 'text', array('required' => false))
-            ->add('content', 'textarea', array('required' => false));
+        $formMapper->add('settings', 'sonata_type_immutable_array', array(
+            'keys' => array(
+                array('title', 'text', array('required' => false, 'label' => 'title')),
+                array('content', 'text', array('attr' => array(), 'label' => 'content')),
+            )
+        ));
     }
 
     /**
@@ -57,7 +55,7 @@ class SimpleBlockService extends BaseBlockService
      */
     public function getName()
     {
-        return 'Editor';
+        return 'Simple CMS Block';
     }
 
     /**

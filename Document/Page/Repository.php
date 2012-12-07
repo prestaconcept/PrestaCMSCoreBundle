@@ -13,6 +13,7 @@ use Doctrine\ODM\PHPCR\DocumentRepository as BaseDocumentRepository;
 
 use Presta\CMSCoreBundle\Document\Page;
 use Presta\CMSCoreBundle\Document\Page\Zone;
+use Presta\CMSCoreBundle\Document\Block;
 
 /**
  * Page Repository
@@ -41,10 +42,15 @@ class Repository extends BaseDocumentRepository
             $pageZone->setName($zoneConfiguration['name']);
             $this->getDocumentManager()->persist($pageZone);
             foreach ($zoneConfiguration['blocks'] as $blockConfiguration) {
-                $block = new $blockConfiguration['block_type']();
+                $block = new Block();
                 $block->setParent($pageZone);
                 $block->setLocale($page->getLocale());
-                $block->setName('simple'.$blockConfiguration['position']);
+                $block->setType($blockConfiguration['type']);
+                if (strlen($blockConfiguration['name'])) {
+                    $block->setName($blockConfiguration['name']);
+                } else {
+                    $block->setName($blockConfiguration['type'] . '-' . $blockConfiguration['position']);
+                }
                 $block->setIsEditable($blockConfiguration['is_editable']);
                 $block->setIsDeletable($blockConfiguration['is_deletable']);
                 $block->setPosition($blockConfiguration['position']);

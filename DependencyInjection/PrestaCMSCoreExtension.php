@@ -40,6 +40,9 @@ class PrestaCMSCoreExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
+//        //todo voir un parametrage pour ne pas charger le theme par d?fault
+//        $loader->load('theme_default.yml');
+
         //Initialisation of ThemeManager definition with all theme defined by configuration
         $themeManager = $container->getDefinition('presta_cms.theme_manager');
         foreach ($config['themes'] as $themeConfiguration) {

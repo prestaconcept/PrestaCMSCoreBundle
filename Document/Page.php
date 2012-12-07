@@ -29,6 +29,10 @@ use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowInterface;
  */
 class Page extends MultilangStaticContent implements RouteAwareInterface, PublishWorkflowInterface
 {
+    const STATUS_DRAFT      = 'draft';
+    const STATUS_PUBLISHED  = 'published';
+    const STATUS_ARCHIVE    = 'archive';
+    
     /**
      * @var string $metaKeywords
      * @PHPCRODM\String(translated=true)

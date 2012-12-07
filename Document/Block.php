@@ -48,7 +48,12 @@ class Block extends CmfBaseBlock
     protected $isAdminMode = false;
 
     /**
-     * @PHPCRODM\String(multivalue=true, translated=true)
+     * @PHPCRODM\String()
+     */
+    protected $type;
+
+    /**
+     * @PHPCRODM\String(assoc="")
      */
     protected $settings;
 
@@ -64,8 +69,14 @@ class Block extends CmfBaseBlock
      */
     function getType()
     {
-        return 'presta_cms.block';
+        return $this->type;
     }
+
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
 
     public function getHtmlId()
     {
@@ -125,7 +136,7 @@ class Block extends CmfBaseBlock
      * {@inheritdoc}
      */
     public function getSettings()
-    {
+    {//var_dump($this->settings);die;
         if (!is_array($this->settings)) {
             //If translation is not created yet, Gedmo return an empty string
             return array();
@@ -172,42 +183,3 @@ class Block extends CmfBaseBlock
         return $this->isAdminMode;
     }
 }
-//class BaseBlock extends BaseBlock
-//{
-//    /** @PHPCRODM\String(translated=true) */
-//    protected $title;
-//
-//    /** @PHPCRODM\String(translated=true) */
-//    protected $content;
-//
-//    /**
-//     * Returns the type
-//     *
-//     * @return string $type
-//     */
-//    function getType()
-//    {
-//        return 'presta_cms.block.simple';
-//    }
-//
-//    public function setTitle($title)
-//    {
-//        $this->title = $title;
-//    }
-//
-//    public function getTitle()
-//    {
-//        return $this->title;
-//    }
-//
-//    public function setContent($content)
-//    {
-//        $this->content = $content;
-//    }
-//
-//    public function getContent()
-//    {
-//        return $this->content;
-//    }
-//
-//}

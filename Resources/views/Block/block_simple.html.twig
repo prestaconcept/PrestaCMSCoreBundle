@@ -12,6 +12,6 @@ file that was distributed with this source code.
 {% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
 
 {% block block %}
-    <h2>{{ block.title }}</h2>
-    {{ block.content|raw }}
+    <h2>{{ settings.title }}</h2>
+    {{ settings.content|raw }}
 {% endblock %}
