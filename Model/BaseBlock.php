@@ -22,7 +22,7 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
  *
  * @PHPCRODM\Document(translator="attribute")
  */
-abstract class BaseBlock extends CmfBaseBlock
+abstract class BaseBlockXXX extends CmfBaseBlock
 {    
     /**
      * @var boolean

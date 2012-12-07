@@ -1,0 +1,30 @@
+{#
+/**
+ * This file is part of the Presta Bundle project.
+ *
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+/**
+ * Theme Default - sidebar 2 column page
+ */
+#}
+<div class="row">
+    <div class="span3">
+        {%  if  page.zones.left is defined %}
+            {% for block in page.zones.left.blocks %}
+                {{ sonata_block_render(block) }}
+            {% endfor %}
+        {%  endif %}
+    </div>
+    <div class="span9">
+        {%  if  page.zones.content is defined %}
+            {% for block in page.zones.content.blocks %}
+                {{ sonata_block_render(block) }}
+            {% endfor %}
+        {%  endif %}
+    </div>
+</div>
+

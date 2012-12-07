@@ -70,7 +70,9 @@ var CMSContent = function() {
                     $('#modal-content').html('');
                     $('#modal').modal('hide');
                     CMSContentInit();
-                    var blockContainerId = '#block-content-' + html.objectId.replace(/\//g, '-');
+                    var blockContainerId = html.objectId.replace(/\//g, '');
+                    blockContainerId = blockContainerId.replace(/\_/g, '');
+                    blockContainerId = '#block-content-' + blockContainerId.replace(/\./g, '');
                     $(blockContainerId).load(CMSContent.getRenderBlocUrl(html.objectId), function() {
                         $(blockContainerId).effect("highlight", {}, 3000);
                     });

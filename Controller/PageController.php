@@ -75,6 +75,10 @@ class PageController extends Controller
 			'theme' => $theme,
 			'page'  => $contentDocument
 		);
+        $pageType = $this->getPageManager()->getType($contentDocument->getType());
+        if ($pageType != null) {
+			$viewParams = array_merge($viewParams, $pageType->getData($contentDocument));
+		}
 
         return $this->render('PrestaCMSCoreBundle:Page:index.html.twig', $viewParams);
     }

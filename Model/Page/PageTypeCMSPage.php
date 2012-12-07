@@ -117,16 +117,16 @@ class PageTypeCMSPage implements PageTypeInterface
 	 */
 	public function getData($page)
 	{
-		$repository = $this->container->get('doctrine')->getEntityManager()
-			->getRepository('Application\Presta\CMSCoreBundle\Entity\PageRevision');
-
-		//$publishedRevision = $repository->getPublishedRevisionForPage($page);
-		//tmp waiting for publication to be implemented
-		$publishedRevision = $repository->getDraftForPage($page);
+//		$repository = $this->container->get('doctrine')->getEntityManager()
+//			->getRepository('Application\Presta\CMSCoreBundle\Entity\PageRevision');
+//
+//		//$publishedRevision = $repository->getPublishedRevisionForPage($page);
+//		//tmp waiting for publication to be implemented
+//		$publishedRevision = $repository->getDraftForPage($page);
 
 		return array(
-			'revision' => $publishedRevision,
-			'template' => $this->themeManager->getPageTemplateFile($publishedRevision->getTemplate())
+			'revision' => $page,
+			'template' => $this->themeManager->getPageTemplateFile($page->getTemplate())
 		);
 	}
 }

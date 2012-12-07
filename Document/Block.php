@@ -80,8 +80,9 @@ class Block extends CmfBaseBlock
 
     public function getHtmlId()
     {
-        return str_replace('/', '-', $this->getId());
+        return str_replace(array('.', '_', '/'), '', $this->getId());
     }
+
     public function getLocale()
     {
         return $this->locale;

@@ -9,7 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
-use PrestaSonata\AdminBundle\Controller\Admin\Controller as AdminController;
+use Presta\SonataAdminBundle\Controller\Admin\BaseController as AdminController;
 use Presta\CMSCoreBundle\Form\PageType;
 
 use Application\Presta\CMSCoreBundle\Entity\Page;

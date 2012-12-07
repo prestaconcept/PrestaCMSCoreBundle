@@ -14,11 +14,11 @@
 
 {{ sonata_block_render({
     'type': 'presta_cms.block.website.selector',
-    'settings': {'website_id' : websiteId, 'locale' : locale}
+    'settings': {'website_id' : websiteId, 'locale' : locale, 'url' : path('presta_cms_page') }
 }) }}
-<script type="text/javascript"> 
+<script type="text/javascript">
     var website_selector_url = "{{ path('presta_cms_page') }}";
-</script>  
+</script>
 <fieldset class="cms_page_tree">
     <legend>{{ 'cms_page_tree.title'|trans }}</legend>
     <div id="page-tree-container" class="control-group">

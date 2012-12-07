@@ -7,10 +7,10 @@ presta_cms_core:
       template: PrestaCMSCoreBundle:Theme/Default:layout.html.twig
       screenshot: 'bundles/prestacmscore/themes/default/screenshot.jpg'
       zones:
-        top_left:
+        top:
           rows: 1
-          cols: 6
-          name: top_left
+          cols: 12
+          name: top
           can_add_block: false
           can_sort_block: false
           blocks:
@@ -20,9 +20,7 @@ presta_cms_core:
               is_editable: true
               is_deletable: false
               position: 10
-        empty:
-          rows: 1
-          cols: 6
+
         navigation:
           rows: 1
           cols: 12
@@ -62,7 +60,7 @@ presta_cms_core:
       page_template:
         default:
           name: default
-          path: PrestaCMSCoreBundle:Theme/Default/Page:default.phtml.twig
+          path: PrestaCMSCoreBundle:Theme/Default/Page:default.html.twig
           zones:
             content:
               rows: 1
@@ -78,7 +76,7 @@ presta_cms_core:
                   position: 10
         sidebar:
           name: sidebar
-          path: PrestaCMSCoreBundle:Theme/Default/Page:sidebar.phtml.twig
+          path: PrestaCMSCoreBundle:Theme/Default/Page:sidebar.html.twig
           zones:
             left:
               rows: 1
