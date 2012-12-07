@@ -196,4 +196,10 @@ class Page extends MultilangStaticContent implements RouteAwareInterface, Publis
     {
         return $this;
     }
+
+    public function getUrl()
+    {
+        //todo prendre en compte la locale
+        return $this->getRoutes()->first()->getName();
+    }
 }

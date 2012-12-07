@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Presta\CMSCoreBundle\Document\Block;
+namespace Presta\CMSCoreBundle\Document;
 
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
 
@@ -20,9 +20,9 @@ use Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock as CmfBaseBlock;
  * @subpackage CMSCoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  *
- * @PHPCRODM\Document(referenceable=true, translator="attribute")
+ * @PHPCRODM\Document(referenceable=true, translator="attribute", repositoryClass="Presta\CMSCoreBundle\Document\Block\Repository")
  */
-abstract class BaseBlock extends CmfBaseBlock
+class Block extends CmfBaseBlock
 {
     /**
      * @var boolean
@@ -47,25 +47,25 @@ abstract class BaseBlock extends CmfBaseBlock
      */
     protected $isAdminMode = false;
 
-//    /**
-//     * @PHPCRODM\String(multivalue=true)
-//     */
-//    protected $settings;
+    /**
+     * @PHPCRODM\String(multivalue=true, translated=true)
+     */
+    protected $settings;
 
     /**
      * @PHPCRODM\Locale
      */
     protected $locale;
 
-//    /**
-//     * Returns the type
-//     *
-//     * @return string $type
-//     */
-//    function getType()
-//    {
-//        return 'presta_cms.block.base';
-//    }
+    /**
+     * Returns the type
+     *
+     * @return string $type
+     */
+    function getType()
+    {
+        return 'presta_cms.block';
+    }
 
     public function getHtmlId()
     {

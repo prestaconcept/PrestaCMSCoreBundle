@@ -7,15 +7,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Presta\CMSCoreBundle\Document\Website\Theme;
+namespace Presta\CMSCoreBundle\Document\Theme;
 
 use Doctrine\ODM\PHPCR\DocumentRepository as BaseDocumentRepository;
 
 use PHPCR\Util\NodeHelper;
 
 use Presta\CMSCoreBundle\Document\Website;
-use Presta\CMSCoreBundle\Document\Website\Theme;
-use Presta\CMSCoreBundle\Document\Website\Theme\Zone;
+use Presta\CMSCoreBundle\Document\Theme;
+use Presta\CMSCoreBundle\Document\Theme\Zone;
 
 
 /**
