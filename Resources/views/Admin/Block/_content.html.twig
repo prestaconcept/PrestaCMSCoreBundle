@@ -1,0 +1,62 @@
+<script type="text/javascript" src="{{ asset('bundles/prestacmscore/admin/js/cms.js') }}"></script>
+<script type="text/javascript">
+    {#
+    /**
+     * Initialize CMSContent
+     * Specific function so it can be called asynchrone
+     */
+    #}
+    function CMSContentInit() {
+    {% if (website) %}
+        CMSContent.init(
+                "{{ path('presta_cms_block_edit', { 'locale': website.locale }) }}",
+                "{{ path('presta_cms_block_render', { 'locale': website.locale }) }}"
+        );
+    {% endif %}
+    }
+    $(document).ready(function() {
+        CMSContentInit();
+    });
+    var website_selector_url = "{{ path('presta_cms_theme_edit', { 'name': website.theme }) }}";
+</script>
+<table class="table table-bordered page-content-admin" cellspacing="5">
+    <tr>
+        {% set currentCol = 0 %}
+        {% for zone in zones %}
+            {% if (currentCol == cols) %}
+                {% set currentCol = zone.cols %}
+                </tr>
+                <tr>
+            {% else %}
+                {% set currentCol = currentCol + zone.cols %}
+            {% endif %}
+            <td colspan="{{ zone.cols }}">
+                {% if (zone.name) %}
+                    <div id="zone_{{ zone.name }}" class="zone_{{ zone.name }} page-zone {% if (zone.blocks|length == 0 and zone.canAddBlock == false) %}page-zone-disabled{% endif %}">
+                        <h3>{{ ['zone.name.', zone.name]|join|trans }}</h3>
+                        {% if (zone.blocks) %}
+                        <div class="page-zone-block-container">
+                            {% for block in zone.blocks %}
+                                <div class="page-zone-block">
+                                    <h4>{{ ['block.title.', block.type]|join|trans }}</h4>
+                                    <div class="block-actions">
+                                        {% if (block.isEditable) %}
+                                            <a block-id="{{ block.id }}" class="action-edit">&nbsp;</a>
+                                        {% endif %}
+                                        {% if (block.isDeletable) %}
+                                            <a href="#" class="action-delete">&nbsp;</a>
+                                        {% endif %}
+                                    </div>
+                                    <div id="block-content-{{ block.htmlId }}" class="block-content">
+                                        {{ sonata_block_render(block) }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </td>
+        {% endfor %}
+    </tr>
+</table>

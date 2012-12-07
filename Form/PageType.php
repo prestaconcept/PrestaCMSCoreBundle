@@ -27,10 +27,10 @@ class PageType extends AbstractType
         return 'page';
     }
     
-    public function getDefaultOptions()
+    public function getDefaultOptions(array $options)
     {
         return array(
-            'data_class' => 'Application\Presta\CMSCoreBundle\Entity\Page',
+            'data_class' => 'Presta\CMSCoreBundle\Document\Page',
         );
     }    
     

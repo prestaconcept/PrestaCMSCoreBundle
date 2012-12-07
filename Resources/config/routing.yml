@@ -25,13 +25,15 @@ presta_cms_block_render:
         
 #Administration - pages
 presta_cms_page:
-    pattern:  /cms/page/{website_id}/{locale}
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:index, id: '',  website_id: '', locale: ''}
+    pattern:  /cms/page
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:index, websiteId: null, locale: null}
+presta_cms_page_website:
+    pattern:  /cms/page/website/{websiteId}/{locale}
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:index, websiteId: null, locale: null}
 presta_cms_page_edit:
-    pattern:  /cms/page/edit/{id}/{website_id}/{locale}
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:index, website_id: '', locale: ''}
-    requirements:
-        id: \d+
+    pattern:  /cms/page/edit
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:edit}
+
 presta_cms_page_revision_edit_block:
     pattern:  /cms/page/block-edit/{website_id}/{locale}/{id}
     defaults: {_controller: PrestaCMSCoreBundle:Admin/PageRevisionBlock:edit, id: '', _sonata_admin: 'presta_cms.page.admin.bloc'}
@@ -54,4 +56,7 @@ presta_cms_page_selector:
 presta_cms_data:
     pattern:  /cms/data/{website_id}/{locale}
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Data:index, website_id: '', locale: ''}
+
+fos_js_routing:
+    resource: @FOSJsRoutingBundle/Resources/config/routing/routing.xml
 

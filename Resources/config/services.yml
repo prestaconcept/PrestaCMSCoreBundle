@@ -75,15 +75,15 @@ services:
     presta_cms.theme_manager:
       class: Presta\CMSCoreBundle\Model\ThemeManager
       arguments: [@service_container]
-#    presta_cms.page_manager:
-#      class: Presta\CMSCoreBundle\Model\PageManager
-#      arguments: [@service_container]
+    presta_cms.page_manager:
+      class: Presta\CMSCoreBundle\Model\PageManager
+      arguments: [@service_container]
 
     #Page Types
-#    presta_cms.page_type.cms_page:
-#      class: Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage
-#      arguments: [@service_container, @presta_cms.website_manager, @presta_cms.theme_manager]
-#
+    presta_cms.page_type.cms_page:
+      class: Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage
+      arguments: [@service_container, @presta_cms.website_manager, @presta_cms.theme_manager]
+
 #    presta_cms.listener.create_page:
 #        class: Presta\CMSCoreBundle\EventListener\CreatePageListener
 #        tags:

@@ -11,76 +11,14 @@
  * Tab content for page edition
  */
 #}
-
-
 <div class="">
     <div class="">
         <fieldset>
             <legend>{{ 'cms_page.content.title'|trans }}</legend>
             <div class="control-group">
-            <table class="table table-bordered page-content-admin" cellspacing="5">
-                <colgroup>
-                    {% for i in range(1, 12) %}
-                        <col width="{{ 100 / 12 }} %" />
-                    {% endfor %}
-                </colgroup>
-                <tr>
-                    {% set currentCol = 0 %}
-                    {% for zone in template.zones %}
-                        {% if (currentCol == 12) %}
-                            {% set currentCol = zone.cols %}
-                            </tr><tr>
-                        {% else %}
-                            {% set currentCol = currentCol + zone.cols %}
-                        {% endif %}
-                        <td colspan="{{ zone.cols }}" class="col{{ zone.cols }}">
-                            {% if (zone.name) %}
-                                <div id="{{ zone.name}}" class="page-zone {% if (zone.blocks|length == 0 and zone.canAddBlock == false) %}page-zone-disabled{% endif %}">
-                                    <h3>{{ ['zone.name.', zone.name]|join|trans }}</h3>
-                                    {% if (zone.blocks) %}
-                                        <div class="page-zone-block-container">
-                                        {% for block in zone.blocks %}
-                                            <div class="page-zone-block {{ block.type }}">
-                                                <h4>{{ ['block.title.', block.type]|join|trans }}</h4>
-                                                <div class="block-actions">
-                                                    {% if (block.isEditable) %}
-                                                        <a block-id="{{ block.id }}" class="action-edit">&nbsp;</a>
-                                                    {% endif %}
-                                                    {% if (block.isDeletable) %}
-                                                        <a href="#" class="action-delete">&nbsp;</a>
-                                                    {% endif %}
-                                                </div>
-                                                <div id="block-content-{{ block.id }}" class="block-content">
-                                                    {{ block.setAdminMode }}
-                                                    {{ sonata_block_render(block) }}
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                    {% endif %}
-                                    </div>
-                                </div>
-                            {% endif %}
-                        </td>
-                    {% endfor %}
-                </tr>                
-            </table>
+                {% set zones = template.zones %}
+                {% set cols  = 12 %}
+                {% include 'PrestaCMSCoreBundle:Admin/Block:_content.html.twig' %}
         </fieldset>
-        <script type="text/javascript"> 
-            {#
-            /**
-            * Initialize CMSContent
-            * Specific function so it can be called asynchrone
-            */
-            #}
-            function CMSContentInit() {
-                CMSContent.init(
-                    "{{ path('presta_cms_page_revision_edit_block', { 'website_id': website.id, 'locale': website.locale }) }}",
-                    "{{ path('presta_cms_page_revision_render_block', { 'locale': website.locale }) }}"
-                );
-            }
-            $(document).ready(function() {
-                CMSContentInit();
-            });
-        </script>        
     </div>
 </div>

@@ -81,15 +81,20 @@ class WebsiteManager
 //        return $website;
 //    }
 //
-//    /**
-//     * Return current website
-//     *
-//     * @return \Application\Presta\CMSCoreBundle\Entity\Website
-//     */
-//    public function getCurrentWebsite()
-//    {
-//        return $this->currentWebsite;
-//    }
+    /**
+     * Return current website
+     *
+     * @return \Application\Presta\CMSCoreBundle\Entity\Website
+     */
+    public function getCurrentWebsite()
+    {
+        return $this->currentWebsite;
+    }
+
+    public function setCurrentWebsite($website)
+    {
+        $this->currentWebsite = $website;
+    }
 //
     /**
      * Get website

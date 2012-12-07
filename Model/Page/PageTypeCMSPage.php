@@ -74,22 +74,28 @@ class PageTypeCMSPage implements PageTypeInterface
     {
         switch ($tab) {
             case self::TAB_CONTENT:
-                //Working with draft version on edition
-                $repository = $this->container->get('doctrine')->getEntityManager()
-                    ->getRepository('Application\Presta\CMSCoreBundle\Entity\PageRevision');
-                $draft = $repository->getDraftForPage($page);
-				$data = $draft->getBlocksByZone();
-				if (count($data) == 0) {
+                $draft = $page;
+
+//                //Working with draft version on edition
+//                $repository = $this->container->get('doctrine')->getEntityManager()
+//                    ->getRepository('Application\Presta\CMSCoreBundle\Entity\PageRevision');
+//                $draft = $repository->getDraftForPage($page);
+//				$data = $draft->getBlocksByZone();
+				if (count($page->getZones()) == 0) {
 					// Todo améliorer ça !
 					// + prendre en compte le changement de template!
+                    $repository = $this->container->get('doctrine_phpcr.odm.default_document_manager')
+                        ->getRepository('Presta\CMSCoreBundle\Document\Page');
+
 
 					//If there is no corresponding data, initialisation with default configuration
-					$data = $repository->createBlockRevisionForTemplate($draft, $this->themeManager->getPageTemplateConfiguration($draft->getTemplate()));
+					$repository->initializeForTemplate($draft, $this->themeManager->getPageTemplateConfiguration($draft->getTemplate()));
 				}
+
                 return array(
                     'page' 	   => $draft,
                     'website'  => $this->websiteManager->getCurrentWebsite(),
-                    'template' => $this->themeManager->getPageTemplate($draft->getTemplate(), $data)
+                    'template' => $this->themeManager->getPageTemplate($draft->getTemplate(), $draft->getZones())
                 );
                 break;
             default:

@@ -128,23 +128,19 @@ class ThemeManager
         $theme->setScreenshot($configuration['screenshot']);
 		$theme->setAdminStyle($configuration['admin_style']);
         $theme->setCols($configuration['cols']);//var_dump(serialize(array('content'=>'<p>hello</p>')));die;
-        //Voir pour les éventuels thèmes sans contenu editable!
-        $data = array();
+
         if ($website != null) {
             $zones = $this->_getRepository()->getZones($configuration['name'], $website);
             if (count($zones) == 0) {
                 //If there is no corresponding data, initialisation with default configuration
-                $data = $this->_getRepository()->initializeForWebsite($website, $configuration);
+                $zones = $this->_getRepository()->initializeForWebsite($website, $configuration);
             }
         }
 		foreach ($configuration['navigations'] as $navigation) {
-			$theme->addNavigation($navigation['name']);
+			$theme->addNavigation($navigation);
 		}
 
         foreach ($configuration['zones'] as $zoneConfiguration) {
-            if (!isset($data[$zoneConfiguration['name']])) {
-                $data[$zoneConfiguration['name']] = array();
-            }
             $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration);
             if (isset($zones[$zoneConfiguration['name']])) {
                 $zone->setBlocks($zones[$zoneConfiguration['name']]->getBlocks());
@@ -254,14 +250,19 @@ class ThemeManager
      * @param  array $data
      * @return \Presta\CMSCoreBundle\Model\Template
      */
-    protected function _buildThemeTemplate($name, array $configuration, $data = null)
+    protected function _buildThemeTemplate($name, array $configuration, $zones = null)
     {
         $template = new Template($name, $configuration['path']);
         foreach ($configuration['zones'] as $zoneConfiguration) {
             if (!isset($data[$zoneConfiguration['name']])) {
                 $data[$zoneConfiguration['name']] = array();
             }
-            $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration, $data[$zoneConfiguration['name']]);
+            $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration);
+
+            if (isset($zones[$zoneConfiguration['name']])) {
+                $zone->setBlocks($zones[$zoneConfiguration['name']]->getBlocks());
+            }
+
             $template->addZone($zone);
         } 
         return $template;
