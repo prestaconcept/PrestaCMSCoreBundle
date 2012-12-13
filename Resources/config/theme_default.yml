@@ -5,7 +5,7 @@ presta_cms_core:
       description: Presta CMS default theme
       navigations: [main]
       template: PrestaCMSCoreBundle:Theme/Default:layout.html.twig
-      screenshot: 'bundles/prestacmscore/themes/default/screenshot.jpg'
+      screenshot: 'bundles/prestacmscore/theme/default/screenshot.jpg'
       zones:
         top:
           rows: 1

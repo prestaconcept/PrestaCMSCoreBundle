@@ -32,6 +32,13 @@ use Presta\SonataAdminBundle\Admin\PHPCR\BaseAdmin;
 class BlockAdmin extends BaseAdmin
 {
     /**
+     * The translation domain to be used to translate messages
+     *
+     * @var string
+     */
+    protected $translationDomain = 'PrestaCMSCoreBunde';
+
+    /**
      * @param \Sonata\BlockBundle\Block\BlockServiceManagerInterface $blockManager
      */
     public function setBlockManager(BlockServiceManagerInterface $blockManager)

@@ -1,0 +1,121 @@
+/**
+ * @package    Presta
+ * @subpackage CMSCoreBundle
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
+ */
+/*************************************
+    Content administration
+*************************************/
+table.page-content-admin {}
+.sonata-bc table.page-content-admin tbody tr td,
+.sonata-bc table.page-content-admin tbody tr th,
+.sonata-bc table.page-content-admin tbody tr:hover td,
+.sonata-bc table.page-content-admin tbody tr:hover th {
+    background-color:#f7f7f5;
+}
+table.page-content-admin div.page-zone {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 100%;
+    padding: 5px;
+    margin:5px;
+    -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 0 #fff;
+    -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 0 #fff;
+    box-shadow: inset 0 1px 0 #fff, 0 1px 0 #fff;
+    background: #deeffb;
+    background: -moz-linear-gradient(top, #deeffb 0%, #f2f9fd 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #deeffb), color-stop(100%, #f2f9fd));
+    background: -webkit-linear-gradient(top, #deeffb 0%, #f2f9fd 100%);
+    background: -o-linear-gradient(top, #deeffb 0%, #f2f9fd 100%);
+    background: -ms-linear-gradient(top, #deeffb 0%, #f2f9fd 100%);
+    background: linear-gradient(top, #deeffb 0%, #f2f9fd 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#deeffb', endColorstr='#f2f9fd', GradientType=0 );
+}
+table.page-content-admin div.page-zone.page-zone-disabled {
+    background: #EEE;
+}
+table.page-content-admin div.page-zone h3 {
+    font: bold 12px Arial, Helvetica, sans-serif;
+    color: #666;
+    text-shadow: 1px 1px 0 #fff;
+    text-align: center;
+    padding: 0 0 5px 0;
+    text-transform: capitalize;
+}
+table.page-content-admin div.page-zone-block-container {
+    border: 1px dashed #777;
+    min-height: 40px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+table.page-content-admin div.page-zone-block {
+    border: 1px solid #DDD;
+    border-top: 0;
+    background: white;
+    text-align: left;
+    -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 0 #fff;
+    -webkit-box-shadow: inset 0 1px 0 white, 0 1px 0 white;
+    box-shadow: inset 0 1px 0 white, 0 1px 0 white;
+    background: #F7F7F7;
+    padding: 10px;
+    margin-bottom: 5px;
+    position: relative;
+}
+table.page-content-admin div.page-zone-block:hover {
+    background: #FFF;
+}
+table.page-content-admin div.page-zone-block h4 {
+    color: #666;
+    float: left;
+    margin: 0px;
+    font-size: 13px;
+}
+table.page-content-admin div.page-zone-block div.block-content {
+    clear: both;
+    padding: 5px;
+}
+table.page-content-admin div.block-actions {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+table.page-content-admin div.page-zone-block div.block-actions a {
+    text-decoration:none;
+    padding:1px 0 0 0;
+    float:left;
+    height: 22px;
+    width: 22px;
+    margin-left: 5px;
+    border: 1px solid #777;
+    border-radius: 3px 3px 3px 3px;
+    cursor: pointer;
+}
+table.page-content-admin div.page-zone-block div.block-actions a:hover {
+    box-shadow: 0px 2px 5px #666;
+}
+a.action-edit {
+    background: url('../../bundles/prestasonataadmin/img/icons/edit-icon.png') no-repeat center center transparent;
+}
+a.action-delete {
+    background: url('../../bundles/prestasonataadmin/img/icons/delete-icon.png') no-repeat center center transparent;
+}
+.icon-add {
+    background-image: url('../../bundles/prestasonataadmin/img/icons/add-icon.png') !important;
+    background-position: -1px -1px !important;
+}
+table.page-content-admin td.empty, table.page-content-admin td.empty:hover {
+    background: #F5F5F5;
+}
+/* Listing */
+td.sonata-ba-list-field-screenshot {
+    text-align: center !important;
+    width: 420px;
+}
+img.sonata-ba-img-box {
+    background: #FFF;
+    padding: 5px;
+    border: 1px solid #D4D4D4;
+    -moz-box-shadow: 0 13px 5px -10px #aaa;
+    -webkit-box-shadow: 0 13px 5px -10px #AAA;
+    box-shadow: 0 13px 5px -10px #AAA;
+}

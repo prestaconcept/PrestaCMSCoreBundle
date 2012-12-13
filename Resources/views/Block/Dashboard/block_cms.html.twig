@@ -11,9 +11,9 @@
 {% block block_title %} CMS {% endblock %}
 
 {% block block_content %}
-<div class="span3">
+<div class="span4">
     <div class="block-content-block block-content-block-website">
-        <h4>Websites</h4>
+        <h4>{%- trans from 'PrestaCMSCoreBundle' %}dashboard.block.website.title{% endtrans -%}</h4>
         <a href="{{ websiteAdmin.generateUrl('create')}}" class="link link-add">
             {%- trans from 'SonataAdminBundle' %}link_add{% endtrans -%}
         </a>
@@ -22,17 +22,17 @@
         </a>
     </div>
 </div>
-<div class="span3">
+<div class="span4">
     <div class="block-content-block block-content-block-theme">
-        <h4>Themes</h4>
+        <h4>{%- trans from 'PrestaCMSCoreBundle' %}dashboard.block.theme.title{% endtrans -%}</h4>
         <a href="{{ path('presta_cms_theme') }}" class="link link-list">
             {%- trans from 'SonataAdminBundle' %}link_list{% endtrans -%}
         </a>
     </div>
 </div>
-<div class="span3">
+<div class="span4">
     <div class="block-content-block block-content-block-page">
-        <h4>Pages</h4>
+        <h4>{%- trans from 'PrestaCMSCoreBundle' %}dashboard.block.page.title{% endtrans -%}</h4>
         <a href="{{ path('presta_cms_page') }}" class="link link-list">
             {%- trans from 'SonataAdminBundle' %}link_list{% endtrans -%}
         </a>

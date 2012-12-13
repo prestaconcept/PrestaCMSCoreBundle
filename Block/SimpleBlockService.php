@@ -42,12 +42,16 @@ class SimpleBlockService extends BaseBlockService
      */
     public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $formMapper->add('settings', 'sonata_type_immutable_array', array(
-            'keys' => array(
-                array('title', 'text', array('required' => false, 'label' => 'title')),
-                array('content', 'text', array('attr' => array(), 'label' => 'content')),
-            )
-        ));
+        $formMapper
+            ->with($this->trans($block->getType()))
+                ->add('settings', 'sonata_type_immutable_array', array(
+                    'keys' => array(
+                        array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
+                        array('content', 'text', array('attr' => array(), 'label' => $this->trans('form.label_content'))),
+                    ),
+                    'label' => $this->trans('form.label_settings')
+                ))
+            ->end();
     }
 
     /**

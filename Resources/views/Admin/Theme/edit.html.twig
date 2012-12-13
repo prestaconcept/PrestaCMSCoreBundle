@@ -27,26 +27,10 @@
 {% endblock %}
 
 {% block content %}
-<div id="modal" class="modal modal-large hide">
-  <div class="modal-header">
-    <h3 id="modal-title">Edit block</h3>
-  </div>
-  <div id="modal-body" class="modal-body">
-      <div id="modal-loader">
-          <img src="{{ asset('bundles/prestasonataadmin/img/loader.gif') }}" />
-      </div>
-      <div id="modal-content"></div>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal"><i class="icon-ok icon-remove"></i>&nbsp;Close</a>
-    <a href="#" class="btn btn-primary" onclick="CMSContent.submitModalForm();"><i class="icon-ok icon-white"></i>&nbsp;Save changes</a>
-  </div>
-</div>
-
 <div class="sonata-ba-form">
     <div class="form-horizontal">
         <fieldset>
-            <legend>General Information</legend>
+            <legend>{{ 'theme.label.general'|trans([], 'PrestaCMSCoreBundle') }}</legend>
             <div class="row-fluid sonata-ba-collapsed-fields">
                 <div class="span5 center">
                     <img src="{{ asset(theme.screenshot) }}" class="sonata-ba-img-box" />
@@ -55,13 +39,13 @@
                     <table class="table ">
                         <tbody>
                             <tr>
-                                <th><label>Name</label></th><td>{{ theme.name }}</td>
+                                <th><label>{{ 'theme.label.name'|trans([], 'PrestaCMSCoreBundle') }}</label></th><td>{{ theme.name }}</td>
                             </tr>
                             <tr>
-                                <th><label>Description</label></th><td>{{ theme.description }}</td>
+                                <th><label>{{ 'theme.label.description'|trans([], 'PrestaCMSCoreBundle') }}</label></th><td>{{ theme.description }}</td>
                             </tr>
                             <tr>
-                                <th><label>Zones</label></th>
+                                <th><label>{{ 'theme.label.zones'|trans([], 'PrestaCMSCoreBundle') }}</label></th>
                                 <td>
                                     <ul>
                                     {% for zone in theme.zones %}
@@ -71,7 +55,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th><label>Page templates</label></th>
+                                <th><label>{{ 'theme.label.page_templates'|trans([], 'PrestaCMSCoreBundle') }}</label></th>
                                 <td>
                                     <ul>
                                     {% for template in theme.pageTemplates %}
@@ -94,7 +78,7 @@
 <div class="sonata-ba-form">
     <div class="form-horizontal">
         <fieldset>
-            <legend>Content</legend>
+            <legend>{{ 'theme.label.content'|trans([], 'PrestaCMSCoreBundle') }}</legend>
             <div class="sonata-ba-collapsed-fields">
                 {{ sonata_block_render({
                     'type': 'presta_cms.block.website.selector',

@@ -23,7 +23,39 @@ use Sonata\AdminBundle\Validator\ErrorElement;
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 abstract class BaseBlockService extends SonataBaseBlockService
-{    
+{
+
+    /**
+     * @var \Symfony\Component\Translation\Translator
+     */
+    protected $translator;
+
+    /**
+     * @param \Symfony\Component\Translation\Translator $translator
+     */
+    public function setTranslator($translator)
+    {
+        $this->translator = $translator;
+    }
+
+    /**
+     * @return \Symfony\Component\Translation\Translator
+     */
+    public function getTranslator()
+    {
+        return $this->translator;
+    }
+
+    /**
+     * @param $id
+     * @param array $parameters
+     * @return string
+     */
+    protected function trans($id, array $parameters = array())
+    {
+        return $this->translator->trans($id, $parameters, 'PrestaCMSCoreBundle');
+    }
+
     /**
      * {@inheritdoc}
      */

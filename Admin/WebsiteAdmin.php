@@ -34,6 +34,13 @@ use Presta\SonataAdminBundle\Admin\PHPCR\BaseAdmin;
 class WebsiteAdmin extends BaseAdmin
 {
     /**
+     * The translation domain to be used to translate messages
+     *
+     * @var string
+     */
+    protected $translationDomain = 'PrestaCMSCoreBunde';
+
+    /**
      * @var array
      */
     protected $_availableLocales;

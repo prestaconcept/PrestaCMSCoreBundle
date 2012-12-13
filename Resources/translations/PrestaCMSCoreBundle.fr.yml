@@ -1,0 +1,30 @@
+admin.locale_switcher.tooltip.fr: Français
+admin.locale_switcher.tooltip.en: Anglais
+select_no_result: Aucun résultat
+breadcrumb.link_dashboard: Tableau de bord
+
+zone.name.top: Bandeau Commercial
+zone.name.navigation: Menu principal
+zone.name.content: Contenu de la page
+zone.name.footer_left: Actualités
+zone.name.footer_right: Présentation de l'activité
+block.title.presta_cms.block.simple: Block Simple
+breadcrumb.link_theme_list: Liste des thèmes
+
+theme.label.name: Nom
+theme.label.description: Description
+theme.label.zones: Zones
+theme.label.page_templates: Gabarits de page
+theme.label.content: Contenu
+theme.label.general: Informations générales
+
+form.label_settings: Paramétrage
+form.label_title: Titre
+form.label_content: Contenu
+
+presta_cms.block.simple: Bloc Editeur Basique
+
+dashboard.block.website.title: Websites
+dashboard.block.theme.title: Thèmes
+dashboard.block.page.title: Pages
+

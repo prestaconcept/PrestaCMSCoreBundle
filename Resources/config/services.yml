@@ -55,6 +55,8 @@ services:
       tags:
         - {name: sonata.block}
       arguments: [cms_core_editor, @templating]
+      calls:
+          - [ setTranslator, [ @translator ] ]
 
     #Block service
     presta_cms.block.dashboard.cms:

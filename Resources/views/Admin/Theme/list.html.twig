@@ -18,7 +18,8 @@
     Themes
 {% endblock %}
 {% block breadcrumb %}
-    CMS > Gestion des themes
+    <li><a href="{{ url('sonata_admin_dashboard') }}">{{ 'breadcrumb.link_dashboard'|trans([], 'PrestaCMSCoreBundle') }}</a><span class="divider">/</span></li>
+    <li class="active">{{ 'breadcrumb.link_theme_list'|trans([], 'PrestaCMSCoreBundle') }}</li>
 {% endblock %}
 
 {% block content %}
