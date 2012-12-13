@@ -219,7 +219,10 @@ class Website extends BaseTranslatableDocument
         return $this->path;
     }
 
-
+    public function getRoutePrefix()
+    {
+        return $this->getPath() . '/route';
+    }
 
 
 

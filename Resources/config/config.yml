@@ -46,7 +46,7 @@ symfony_cmf_routing_extra:
 #        templates_by_class:
 #            Symfony\Cmf\Bundle\ContentBundle\Document\MultilangStaticContent: PrestaCMSCoreBundle:Page:index.html.twig
 
-        routing_repositoryroot: /website/prestaconcept/route
+#        routing_repositoryroot: /website/prestaconcept/route
 
 knp_menu:
     twig: true

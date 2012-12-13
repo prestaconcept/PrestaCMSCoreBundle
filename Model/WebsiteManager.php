@@ -124,6 +124,17 @@ class WebsiteManager
     {
         return $this->_getRepository()->getAvailableWebsites();
     }
+
+    public function loadWebsiteByHost($host)
+    {
+        //voir comment requ?ter PHPCR pour charger le bon website
+
+        $website = $this->getWebsite('/website/prestaconcept' ,'fr');
+        $this->setCurrentWebsite($website);
+
+        return $website;
+
+    }
 //
 //
 //    /**

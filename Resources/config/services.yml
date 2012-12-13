@@ -3,6 +3,7 @@ parameters:
       presta_cms.block.simple: Presta\CMSCoreBundle\Block\SimpleBlockService
       cms_core_dummy: Presta\CMSCoreBundle\Block\EditorBlockService
     cms_locales: {fr: fr, en: en}
+    symfony_cmf_routing_extra.phpcrodm_route_idprefix_listener_class: Presta\CMSCoreBundle\EventListener\IdPrefix
 
 services:
 #    presta_cms_theme.example:
@@ -86,7 +87,8 @@ services:
       class: Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage
       arguments: [@service_container, @presta_cms.website_manager, @presta_cms.theme_manager]
 
-#    presta_cms.listener.create_page:
-#        class: Presta\CMSCoreBundle\EventListener\CreatePageListener
-#        tags:
-#            - { name: doctrine.event_listener, event: postPersist }
+    presta_cms.listener.website:
+        class: Presta\CMSCoreBundle\EventListener\WebsiteListener
+        arguments: [@presta_cms.website_manager, @symfony_cmf_routing_extra.default_route_repository, @symfony_cmf_routing_extra.phpcrodm_route_idprefix_listener]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 500 }
