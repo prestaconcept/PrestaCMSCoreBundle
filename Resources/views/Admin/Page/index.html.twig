@@ -15,18 +15,6 @@
 {% extends base_template %}
 
 
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets
-        '@PrestaCMSCoreBundle/Resources/public/jstree/dist/themes/presta/style.css'
-    %}
-
-    <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
-
-{% endblock %}
-
-
 
 {% block side_menu %}
     {% include 'PrestaCMSCoreBundle:Admin/Page:_sidebar.html.twig' %}
