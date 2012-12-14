@@ -38,19 +38,17 @@ class WebsiteAdmin extends BaseAdmin
      *
      * @var string
      */
-    protected $translationDomain = 'PrestaCMSCoreBunde';
+    protected $translationDomain = 'PrestaCMSCoreBundle';
 
     /**
      * @var array
      */
     protected $_availableLocales;
 
-
     /**
      * @var Presta\CMSCoreBundle\Model\ThemeManager
      */
     protected $_themeManager;
-
 
     /**
      * Set available locales : called via DI
@@ -61,7 +59,6 @@ class WebsiteAdmin extends BaseAdmin
     {
         $this->_availableLocales = $availableLocales;
     }
-
 
     /**
      * Setter for _themeManager
@@ -77,14 +74,26 @@ class WebsiteAdmin extends BaseAdmin
     /**
      * {@inheritdoc}
      */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        //Should be create by Fixtures
+        //Host handle by configuration
+        $collection->remove('create');
+
+        parent::configureRoutes($collection);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
             ->addIdentifier('name', 'text')
-            ->add('host', 'text')
+//            ->add('host', 'text') //Handle in configuration
             ->add('theme', 'text')
-            ->add('defaultLocale', 'locale', array('template' => 'PrestaSonataAdminBundle:CRUD:list_locale.html.twig'))
-            ->add('availableLocales', 'array', array('template' => 'PrestaSonataAdminBundle:CRUD:list_array_locale.html.twig'))
+            ->add('defaultLocale', 'locale', array('template' => 'PrestaCMSCoreBundle:CRUD:list_locale.html.twig'))
+            ->add('availableLocales', 'array', array('template' => 'PrestaCMSCoreBundle:CRUD:list_array_locale.html.twig'))
 
             ->add('isActive', 'boolean')
             ->add('isDefault', 'boolean')
@@ -105,52 +114,14 @@ class WebsiteAdmin extends BaseAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('name', null, array('label' => 'admin.name'))
-            ->add('host', null, array('label' => 'admin.host'))
-            ->add('isDefault', 'boolean', array('label' => 'admin.isDefault'))
-            ->add('isActive', 'boolean', array('label' => 'admin.isActive'))
-            ->add('defaultLocale', null, array('label' => 'admin.defaultLocale'))
+            ->add('name', null, array())
+            ->add('host', null, array())
+            ->add('isDefault', 'boolean', array())
+            ->add('isActive', 'boolean', array())
+            ->add('defaultLocale', null, array())
         ;
     }
 
-//
-//
-//    /**
-//     * Add locale param to edit url
-//     *
-//     * @param   $name
-//     * @param   array $parameters
-//     * @param   bool $absolute
-//     * @return  string
-//     */
-//    public function generateUrl($name, array $parameters = array(), $absolute = false)
-//    {
-//        if (!isset($parameters['locale']) && $this->hasSubject()) {
-//            $parameters['locale'] = $this->getSubject()->getLocale();
-//        }
-//
-//        return $this->routeGenerator->generateUrl($this, $name, $parameters, $absolute);
-//    }
-//
-//
-//
-//
-//
-//
-//
-//    /**
-//     * {@inheritdoc}
-//     */
-//    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-//    {
-//        //SF forms update hasn't been changed in sonata yet !
-////        $datagridMapper
-////            ->add('name')
-////            ->add('host')
-////        ;
-//    }
-//
-//
     /**
      * Configure form per locale
      *
@@ -162,26 +133,21 @@ class WebsiteAdmin extends BaseAdmin
         $locale = $this->getTranslatableLocale();
         $formMapper
             ->with($this->trans('form_site.label_general'))
-                ->add('name', 'text', array('attr' => array('class' => 'sonata-medium locale locale_' . $locale), 'help' => 'Vix te omnium sententiae.', 'label' => 'admin.name'))
-                ->add('host', 'text', array('attr' => array('class' => 'sonata-medium locale locale_' . $locale), 'label' => 'admin.host'))
-                ->add('isDefault', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'label' => 'admin.isDefault', 'required' => false))
-                ->add('isActive', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'label' => 'admin.isActive', 'required' => false))
+//                ->add('name', 'text', array('attr' => array('class' => 'sonata-medium locale locale_' . $locale), 'help' => 'Vix te omnium sententiae.'))
+//                ->add('host', 'text', array('attr' => array('class' => 'sonata-medium locale locale_' . $locale) ))
+                ->add('isDefault', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
+                ->add('isActive', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
 
-                ->add('theme', 'choice', array('attr' => array('class' => 'sonata-medium locale locale_' . $locale), 'label' => 'admin.theme', 'choices' => $this->_themeManager->getAvailableThemeCodesForSelect()))
-                ->add('defaultLocale', 'choice', array('label' => 'admin.defaultLocale', 'choices' => $this->_availableLocales))
+                ->add('theme', 'choice', array('attr' => array('class' => 'sonata-medium locale locale_' . $locale), 'choices' => $this->_themeManager->getAvailableThemeCodesForSelect()))
+                ->add('defaultLocale', 'choice', array('choices' => $this->_availableLocales))
                 ->add('availableLocales', 'choice', array(
-                    'label'     => 'admin.availableLocales',
                     'choices'   => $this->_availableLocales,
                     'expanded'  => true,
                     'multiple'  => true
                 ))
             ->end()
         ;
-
     }
-
-
-
 
     /**
      * Allow to select locale to edit in side menu
@@ -193,12 +159,10 @@ class WebsiteAdmin extends BaseAdmin
      */
     protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
-
         $object = $this->getSubject();
         if (!in_array($action, array('edit')) || is_null($this->getUrlsafeIdentifier($object))) {
             return;
         }
-
 
         foreach ($object->getAvailableLocales() as $locale) {
             $menuItem = $menu->addChild(
@@ -213,7 +177,5 @@ class WebsiteAdmin extends BaseAdmin
             }
         }
     }
-
-
 
 }

@@ -1,7 +1,13 @@
 admin.locale_switcher.tooltip.fr: Français
 admin.locale_switcher.tooltip.en: Anglais
 select_no_result: Aucun résultat
+
 breadcrumb.link_dashboard: Tableau de bord
+breadcrumb.link_website_edit: Modification d'un site
+breadcrumb.link_website_list: Liste des sites
+breadcrumb.link_website_create: Création d'un site
+breadcrumb.link_theme_list: Liste des thèmes
+
 
 zone.name.top: Bandeau Commercial
 zone.name.navigation: Menu principal
@@ -9,7 +15,7 @@ zone.name.content: Contenu de la page
 zone.name.footer_left: Actualités
 zone.name.footer_right: Présentation de l'activité
 block.title.presta_cms.block.simple: Block Simple
-breadcrumb.link_theme_list: Liste des thèmes
+
 
 theme.label.name: Nom
 theme.label.description: Description
@@ -28,3 +34,22 @@ dashboard.block.website.title: Websites
 dashboard.block.theme.title: Thèmes
 dashboard.block.page.title: Pages
 
+
+form_site.label_general: Général
+form.label_name: Nom
+form.label_host: Host
+form.label_is_default: Défault
+form.label_is_active: Actif
+form.label_theme: Thème
+form.label_default_locale: Langue par défaut
+form.label_available_locales: Langue autorisées
+
+
+list.label_theme: Théme
+list.label_host: Host
+list.label_name: Name
+list.label__action: Action
+list.label_default_locale: Langue par défaut
+list.label_available_locales: Langues disponibles
+list.label_is_active: Actif
+list.label_is_default: Défaut
