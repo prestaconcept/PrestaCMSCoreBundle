@@ -12,8 +12,6 @@ namespace Presta\CMSCoreBundle\Document;
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-use Presta\Common\Doctrine\Document\BaseTranslatableDocument;
-
 /**
  * Website Document
  *
@@ -23,7 +21,7 @@ use Presta\Common\Doctrine\Document\BaseTranslatableDocument;
  *
  * @PHPCRODM\Document(referenceable=true, translator="attribute", repositoryClass="Presta\CMSCoreBundle\Document\Website\Repository")
  */
-class Website extends BaseTranslatableDocument
+class Website
 {
     /**
      * to create the document at the specified location. read only for existing documents.
@@ -38,11 +36,17 @@ class Website extends BaseTranslatableDocument
     public $node;
 
     /**
+     * @var string $locale
+     *
+     * @PHPCRODM\Locale
+     */
+    protected $locale;
+
+    /**
      * @var string $host
      * @PHPCRODM\String(translated=true)
      */
     protected $host;
-
 
     /**
      * @var string $theme
@@ -126,6 +130,22 @@ class Website extends BaseTranslatableDocument
     public function getDefaultLocale()
     {
         return $this->default_locale;
+    }
+
+    /**
+     * @param string $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
     }
 
     /**
