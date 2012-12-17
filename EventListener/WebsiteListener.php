@@ -58,7 +58,9 @@ class WebsiteListener
     {
         $request = $event->getRequest();
 
-        if (strpos($request->getPathInfo(), '/admin') === 0 || strpos($request->getPathInfo(), '/_wdt') === 0 || strpos($request->getPathInfo(), '/robots.txt') === 0) {
+        if (strpos($request->getPathInfo(), '/admin') === 0 || strpos($request->getPathInfo(), '/_wdt') === 0
+            || strpos($request->getPathInfo(), '/robots.txt') === 0 || strpos($request->getPathInfo(), '/css') === 0
+            || strpos($request->getPathInfo(), '/js') === 0) {
             //For Front only
             return;
         }
