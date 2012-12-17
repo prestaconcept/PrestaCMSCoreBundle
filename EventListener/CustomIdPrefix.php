@@ -7,7 +7,7 @@ use Symfony\Cmf\Bundle\RoutingExtraBundle\Listener\IdPrefix as BaseIdPrefix;
 
 /**
  */
-class IdPrefix extends BaseIdPrefix
+class CustomIdPrefix extends BaseIdPrefix
 {
     //just need a setter to load if dynamiclly
     //see if we can make a pull request for this
