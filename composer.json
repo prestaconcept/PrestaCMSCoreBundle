@@ -20,5 +20,11 @@
     "autoload": {
         "psr-0": { "Presta\\CMSCoreBundle": "" }
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://satis.local/"
+        }
+    ],
     "target-dir": "Presta/CMSCoreBundle"
 }
