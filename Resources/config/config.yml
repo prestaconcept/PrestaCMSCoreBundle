@@ -31,6 +31,19 @@ sonata_admin:
       blocks:
           - { position: right, type: presta_cms.block.dashboard.cms }
 
+presta_sonata_admin:
+    menu:
+        items:
+            cms:
+                route: presta_cms_page
+                children:
+                    websites:
+                        route: admin_presta_cmscore_website_list
+                    themes:
+                        route: presta_cms_theme
+                    pages:
+                        route: presta_cms_page
+
 symfony_cmf_routing_extra:
     chain:
         routers_by_id:
