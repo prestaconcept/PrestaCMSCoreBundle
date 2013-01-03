@@ -14,85 +14,85 @@
 
 {{ sonata_block_render({
     'type': 'presta_cms.block.website.selector',
-    'settings': {'website_id' : websiteId, 'locale' : locale, 'url' : path('presta_cms_page') }
+    'settings': {'website_id' : websiteId, 'locale' : locale, 'url' : path('presta_cms_page'), 'with_fieldset': false }
 }) }}
 <script type="text/javascript">
     var website_selector_url = "{{ path('presta_cms_page') }}";
 </script>
 <fieldset class="cms_page_tree">
-    <legend>{{ 'cms_page_tree.title'|trans }}</legend>
-    <div id="page-tree-container" class="control-group">
-        <h4>{{ 'navigation.title'|trans }}</h4>
+    <legend>{{ 'cms_page_tree.title'|trans({}, 'PrestaCMSCoreBundle') }}</legend>
+    {%  if (websiteId|length > 0) %}
+        <div id="page-tree-container" class="control-group">
+            <h4>{{ 'navigation.title'|trans({}, 'PrestaCMSCoreBundle') }}</h4>
 
-        {% include 'SymfonyCmfTreeBrowserBundle:Base:tree.html.twig' %}
-        <script src="{{ asset('bundles/prestacmscore/admin/js/tree.js') }}" type="text/javascript"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                var treeState = AdminTree.generateTreeStateArray("{{ menuItemId }}");
+            {% include 'SymfonyCmfTreeBrowserBundle:Base:tree.html.twig' %}
+            <script src="{{ asset('bundles/prestacmscore/admin/js/tree.js') }}" type="text/javascript"></script>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    var treeState = AdminTree.generateTreeStateArray("{{ menuItemId }}");
 
-                AdminCMSTree.initTree({
-                    "_locale": "{{ _locale }}",
-                    "locale": "{{ locale }}",
-                    "selector": "#tree",
-                    "rootNode": "/website/prestaconcept/menu",
-                    "selected": "{{ menuItemId }}",
-                    "contentselector": ".sonata-ba-content",
-                    "ajax": {
-                        "children_url": Routing.generate('sonata.admin.doctrine_phpcr.phpcrodm_children'),
-                        "move_url": Routing.generate('sonata.admin.doctrine_phpcr.phpcrodm_move')
-                    },
-                    "path": {
-                        "expanded":     treeState,
-                        "preloaded":    treeState
-                    },
-                    "icon": {
-                        "document": "{{ asset('bundles/symfonycmftree/images/document.png') }}",
-                        "folder":   "{{ asset('bundles/symfonycmftree/images/folder.png') }}"
-                    },
-                    "route": {
-                        "edit":     'admin_sandbox_main_editablestaticcontent_edit'
-                    },
-                    "routecollection": {
-                        "Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem" : {
-                            "routes" : {
-                                "edit": "presta_cms_page_edit"
+                    AdminCMSTree.initTree({
+                        "_locale": "{{ _locale }}",
+                        "locale": "{{ locale }}",
+                        "selector": "#tree",
+                        "rootNode": "/website/{{ websiteId }}/menu",
+                        "selected": "{{ menuItemId }}",
+                        "contentselector": ".sonata-ba-content",
+                        "ajax": {
+                            "children_url": Routing.generate('sonata.admin.doctrine_phpcr.phpcrodm_children'),
+                            "move_url": Routing.generate('sonata.admin.doctrine_phpcr.phpcrodm_move')
+                        },
+                        "path": {
+                            "expanded":     treeState,
+                            "preloaded":    treeState
+                        },
+                        "icon": {
+                            "document": "{{ asset('bundles/symfonycmftree/images/document.png') }}",
+                            "folder":   "{{ asset('bundles/symfonycmftree/images/folder.png') }}"
+                        },
+                        "route": {
+                            "edit":     'admin_sandbox_main_editablestaticcontent_edit'
+                        },
+                        "routecollection": {
+                            "Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem" : {
+                                "routes" : {
+                                    "edit": "presta_cms_page_edit"
+                                }
+                            },
+                            "Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem" : {
+                                "routes" : {
+                                    "edit": "presta_cms_page_edit"
+                                }
                             }
                         },
-                        "Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem" : {
-                            "routes" : {
-                                "edit": "presta_cms_page_edit"
+                        "types": {
+                            "Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem": {
+                                "valid_children": [
+                                    "Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem",
+                                    "Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem",
+                                ],
+                                "icon": {
+                                    "image": ""
+                                }
+                            },
+                            "Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem": {
+                                "valid_children": [
+                                    "Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem",
+                                    "Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem",
+                                ],
+                                "icon": {
+                                    "image": ""
+                                }
                             }
                         }
-                    },
-                    "types": {
-                        "Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem": {
-                            "valid_children": [
-                                "Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem",
-                                "Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem",
-                            ],
-                            "icon": {
-                                "image": ""
-                            }
-                        },
-                        "Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem": {
-                            "valid_children": [
-                                "Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem",
-                                "Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem",
-                            ],
-                            "icon": {
-                                "image": ""
-                            }
-                        }
-                    }
+                    });
                 });
-            });
-            $('#tree').jstree()
-                .bind("select_node.jstree", function (e, data) { alert(data.rslt.obj.data("id")); });
+                $('#tree').jstree().bind("select_node.jstree", function (e, data) { alert(data.rslt.obj.data("id")); });
+            </script>
 
-
-
-        </script>
-
-        <div id="tree"></div>
-    </div>
+            <div id="tree"></div>
+        </div>
+    {% else %}
+        <p>{{ 'cms_page.select_website'|trans({}, 'PrestaCMSCoreBundle') }}</p>
+    {% endif %}
 </fieldset>
