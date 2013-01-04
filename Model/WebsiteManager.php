@@ -11,8 +11,8 @@ namespace Presta\CMSCoreBundle\Model;
 
 use Symfony\Component\HttpFoundation\Request;
 
-use Application\Presta\CMSCoreBundle\Entity\Website;
 use Presta\CMSCoreBundle\Exception\Website\WebsiteNotFoundException;
+use Presta\CMSCoreBundle\Document\Website;
 
 /**
  * Website Manager
@@ -43,12 +43,73 @@ class WebsiteManager
      */
     protected $_repository;
 
+    /**
+     * @var boolean
+     */
+    protected $multipleWebsite;
+
+    /**
+     * @var string
+     */
+    protected $defaultWebsiteCode;
+
+    /**
+     * @var array
+     */
+    protected $hosts;
+
     public function __construct($container)
     {
         $this->_container = $container;
         $this->_websites = null;
         $this->currentWebsite = null;
         $this->_repository = null;
+        $this->hosts = array();
+    }
+
+    /**
+     * @param string $defaultWebsiteCode
+     */
+    public function setDefaultWebsiteCode($defaultWebsiteCode)
+    {
+        $this->defaultWebsiteCode = $defaultWebsiteCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultWebsiteCode()
+    {
+        return $this->defaultWebsiteCode;
+    }
+
+    /**
+     * @param boolean $multipleWebsite
+     */
+    public function setMultipleWebsite($multipleWebsite)
+    {
+        $this->multipleWebsite = $multipleWebsite;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getMultipleWebsite()
+    {
+        return $this->multipleWebsite;
+    }
+
+    /**
+     * Register a new host
+     *
+     * @param  array $hostConfiguration
+     * @return WebsiteManager
+     */
+    public function registerHost($hostConfiguration)
+    {
+        $this->hosts[$hostConfiguration['host']] = $hostConfiguration;
+
+        return $this;
     }
 
     /**
@@ -64,23 +125,7 @@ class WebsiteManager
         }
         return $this->_repository;
     }
-//
-//    /**
-//     * Return default website
-//     *
-//     * @param  string $locale
-//     * @return \Application\Presta\CMSCoreBundle\Entity\Website
-//     * @throws \Exception
-//     */
-//    public function getDefaultWebsite($locale)
-//    {
-//        $website = $this->_getRepository()->getDefaultWebsite($locale);
-//        if (($website instanceof Website) == false) {
-//            throw new \Exception('There is no default website defined!');
-//        }
-//        return $website;
-//    }
-//
+
     /**
      * Return current website
      *
@@ -99,19 +144,21 @@ class WebsiteManager
     /**
      * Get website
      *
-     * @param  integer $websiteId
+     * @param  string $websiteCode
      * @param  string $locale
-     * @return \Presta\CMSCoreBundle\Document\Website
+     * @return Website
      */
-    public function getWebsite($websiteId, $locale)
-    {
+    public function getWebsite($websiteCode, $locale = null)
+    {$websiteCode = '/website/prestaconcept';
         //$website = $this->_getRepository()->find($websiteId);
         $dm = $this->_container->get('doctrine_phpcr.odm.default_document_manager');
-        $website = $dm->findTranslation(null, $websiteId, $locale);
-        if ($website instanceof Website) {
+        $website = $dm->find(null, $websiteCode);
+
+        if ($website instanceof Website && $locale != null) {
             $website->setLocale($locale);
         }
         $this->currentWebsite = $website;
+
         return $website;
     }
 
@@ -125,61 +172,22 @@ class WebsiteManager
         return $this->_getRepository()->getAvailableWebsites();
     }
 
+    /**
+     * Load a website based by host
+     *
+     * @param  string $host
+     * @return Website
+     */
     public function loadWebsiteByHost($host)
     {
-        //voir comment requ?ter PHPCR pour charger le bon website
-
-        $website = $this->getWebsite('/website/prestaconcept' ,'fr');
+        if (isset($this->hosts[$host])) {
+            $website = $this->getWebsite($this->hosts[$host]['website'], $this->hosts[$host]['locale']);
+        } else {
+            $website = $this->getWebsite($this->defaultWebsiteCode);
+        }
         $this->setCurrentWebsite($website);
 
         return $website;
 
     }
-//
-//
-//    /**
-//     * Retrieve website for current host and locale
-//     *
-//     * @param   Symfony\Component\HttpFoundation\Request $resquest
-//     * @return  \Application\Presta\CMSCoreBundle\Entity\Website  $website
-//     */
-//    public function getWebsiteForRequest(Request $request)
-//    {
-//        $requestWebsite = null;
-//
-//        $websites = $this->_getRepository()->findByHost($request->getHost());
-//        if (empty($websites)) {
-//            throw new WebsiteNotFoundException();
-//        }
-//
-//        // Closure telling if a given uri matches a path
-//        $uriMatchesPath = function ($uri, $path) {
-//            $uri = preg_replace('/^\/app_[a-z]+.php/', '', $uri);
-//            return strpos($uri, $path) === 0;
-//        };
-//
-//        foreach ($websites as $website) {
-//            foreach ($website->getTranslations() as $translation) {
-//
-//                if (in_array($translation->getLocale(), $website->getAvailableLocales())
-//                    && $translation->getField() == 'relative_path'
-//                    && $uriMatchesPath($request->getRequestUri(), $translation->getContent())) {
-//
-//                    //if the current website match for the current locale stop search
-//                    $requestWebsite = $website;
-//                    $requestWebsite->setLocale($translation->getLocale());
-//                    break 2;
-//                }
-//
-//            }
-//        }
-//
-//        if (is_null($requestWebsite))
-//        {
-//            $requestWebsite = $websites[0];
-//            $requestWebsite->setLocale($requestWebsite->getDefaultLocale());
-//        }
-//
-//        return $requestWebsite;
-//    }
 }

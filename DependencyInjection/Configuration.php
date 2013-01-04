@@ -34,6 +34,17 @@ class Configuration implements ConfigurationInterface
         //TODO : check hox to use the requiresAtLeastOneElement !
         $rootNode
             ->children()
+                ->booleanNode('multiple_website')->defaultValue(false)->end()
+                ->scalarNode('default_website')->defaultValue('default')->end()
+                ->arrayNode('hosts')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('host')->end()
+                            ->scalarNode('website')->end()
+                            ->scalarNode('locale')->end()
+                        ->end()
+                    ->end()
+                ->end()
                 ->arrayNode('themes')
                     ->prototype('array')
                         //->requiresAtLeastOneElement()                  
