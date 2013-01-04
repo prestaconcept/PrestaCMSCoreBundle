@@ -8,10 +8,10 @@
 #}
 {% if (settings.with_fieldset) %}
 <fieldset class="website-selector">
-    <legend>{{ 'presta_cms.block.website.selector.title' |trans }}</legend>
+    <legend>{{ 'presta_cms.block.website.selector.title' |trans({}, 'PrestaCMSCoreBundle') }}</legend>
 {% endif %}
     <div class="control-group">
-        <label class="control-label" for="website_selector">{{ 'presta_cms.block.website.selector.title' |trans }}</label>
+        <label class="control-label" for="website_selector">{{ 'presta_cms.block.website.selector.title' |trans({}, 'PrestaCMSCoreBundle') }}</label>
         <div class="controls">
             <select id="website_selector" name="website_selector" required="required" class="sonata-medium"
                 onchange="return switchWebsite();">

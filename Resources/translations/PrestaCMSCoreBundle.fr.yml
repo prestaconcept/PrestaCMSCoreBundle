@@ -53,3 +53,30 @@ list.label_default_locale: Langue par défaut
 list.label_available_locales: Langues disponibles
 list.label_is_active: Actif
 list.label_is_default: Défaut
+
+navigation.title: Navigation
+presta_cms.block.website.selector.title: Site
+modal.edit.block.title: Editer un bloc
+button.close: Fermer
+button.save: Sauvegarder
+
+cms_page_tree.title: Pages
+cms_page.content.title: Contenu
+cms_page.seo.title: SEO
+cms_page.settings.title: Paramètres
+cms_page.history.title: Versions
+
+
+cms_page.history.list.title: Titre
+cms_page.history.list.updated_at: Modifié le
+cms_page.history.list.user: Utilisateur
+cms_page.history.list.actions: Actions
+
+cms_page.select_website: Sélectionner un site
+
+cms_page.form.seo.label.url: Url
+cms_page.form.seo.label.title: Titre
+cms_page.form.seo.label.meta_keywords: Keywords
+cms_page.form.seo.label.meta_description: Description
+cms_page.form.settings.label.name: Nom
+cms_page.form.settings.label.is_active: Active

@@ -65,9 +65,27 @@ class PageController extends Controller
             throw new NotFoundHttpException('Content not found');
         }
 
-        $website = $this->getWebsiteManager()->getWebsite('/website/prestaconcept', 'en');
+        $website = $this->getWebsiteManager()->getCurrentWebsite();
 
         $theme = $this->getThemeManager()->getTheme($website->getTheme(), $website);
+
+        //If document load doesn't have the same locale as the website
+        //Try to redirect on the translated page
+        if ($contentDocument->getLocale() != $website->getLocale()) {
+            var_dump('on est pas sur la bonne locale, @todo impl?menter la redirection ou g?rer ?a plus haut dans le routing');
+        }
+        //Check if the document is publish and load the good version
+        //todo when jackaplone implements it
+
+
+        $seoPage = $this->get('sonata.seo.page');
+
+        $seoPage
+            ->setTitle($contentDocument->getTitle())
+            ->addMeta('name', 'keywords', $contentDocument->getMetaKeywords())
+            ->addMeta('name', 'description', $contentDocument->getMetaDescription())
+        ;
+
 
         $viewParams = array(
 			'base_template' => $theme->getTemplate(),

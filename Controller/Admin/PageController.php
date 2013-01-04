@@ -64,6 +64,7 @@ class PageController extends AdminController
 
         if ($websiteId != null) {
             $websiteId = '/website/' . $websiteId; //le slash ne passant pas au routing on rajoute le basePath
+            $viewParams['websiteId'] = $websiteId;
             $website = $this->getWebsiteManager()->getWebsite($websiteId, $locale);
             $theme = $this->getThemeManager()->getTheme($website->getTheme());
 
@@ -128,7 +129,8 @@ class PageController extends AdminController
         $viewParams = array(
             'menuItemId' => $menuItemId,  'websiteId' => $websiteId,
             'locale' => $locale, 'navigations' => array(),
-            'page' => $page, '_locale' => $this->getRequest()->get('_locale')
+            'page' => $page, '_locale' => $this->getRequest()->get('_locale'),
+            'translation_domain' => 'PrestaCMSCoreBundle'
         );
 
         $viewParams['pageEditTabs'] = $this->getPageManager()->getType($page->getType())->getEditTabs();

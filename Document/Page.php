@@ -16,7 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use Symfony\Cmf\Bundle\ContentBundle\Document\MultilangStaticContent;
 use Symfony\Cmf\Component\Routing\RouteAwareInterface;
-use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowInterface;
 
 /**
  * Page Document
@@ -27,12 +26,12 @@ use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowInterface;
  *
  * @PHPCRODM\Document(referenceable=true, translator="attribute", repositoryClass="Presta\CMSCoreBundle\Document\Page\Repository")
  */
-class Page extends MultilangStaticContent implements RouteAwareInterface, PublishWorkflowInterface
+class Page extends MultilangStaticContent implements RouteAwareInterface
 {
     const STATUS_DRAFT      = 'draft';
     const STATUS_PUBLISHED  = 'published';
     const STATUS_ARCHIVE    = 'archive';
-    
+
     /**
      * @var string $metaKeywords
      * @PHPCRODM\String(translated=true)
@@ -52,6 +51,12 @@ class Page extends MultilangStaticContent implements RouteAwareInterface, Publis
     protected $type;
 
     /**
+     * @var string $type
+     * @PHPCRODM\String(translated=true)
+     */
+    protected $status;
+
+    /**
      * @var boolean $isActive
      * @PHPCRODM\Boolean(translated=true)
      */
@@ -63,7 +68,9 @@ class Page extends MultilangStaticContent implements RouteAwareInterface, Publis
      */
     protected $template;
 
-    /** @PHPCRODM\Children(fetchDepth=3) */
+    /**
+     * @PHPCRODM\Children(fetchDepth=3)
+     */
     protected  $children;
 
     /**

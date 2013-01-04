@@ -123,3 +123,10 @@ sonata_doctrine_phpcr_admin:
             valid_children:
                 - Symfony\Cmf\Bundle\MenuItem\Document\MenuItem
                 - Symfony\Cmf\Bundle\ContentBundle\Document\MultilangMenuItem
+
+sonata_seo:
+    encoding: UTF-8
+    page:
+        title: PrestaCMS by PrestaConcept
+
+

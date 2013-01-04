@@ -11,50 +11,70 @@ namespace Presta\CMSCoreBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Page Form
  *
- * @package    PrestaCMS
- * @subpackage CoreBundle
+ * @package    Presta
+ * @subpackage CMSCoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class PageType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'page';
     }
-    
+
+    /**
+     * {@inheritdoc}
+     */
     public function getDefaultOptions(array $options)
     {
         return array(
             'data_class' => 'Presta\CMSCoreBundle\Document\Page',
         );
-    }    
-    
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['translation_domain'] = 'PrestaCMSCoreBundle';
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
         //SEO
-            ->add('url', null, array('label' => 'admin.url'))
-            ->add('title', null, array('label' => 'admin.title'))
-            ->add('metaKeywords', null, array('label' => 'admin.metaKeywords'))
-            ->add('metaDescription', 'textarea', array('label' => 'admin.metaDescription'))
+            ->add('url', null, array('label' => 'cms_page.form.seo.label.url'))
+            ->add('title', null, array('label' => 'cms_page.form.seo.label.title'))
+            ->add('metaKeywords', null, array('label' => 'cms_page.form.seo.label.meta_keywords'))
+            ->add('metaDescription', 'textarea', array('label' => 'cms_page.form.seo.label.meta_description'))
         //Settings
-            ->add('name', null, array('label' => 'admin.name'))
-            ->add('active', 'choice', array(
+            ->add('name', null, array('label' => 'cms_page.form.settings.label.name'))
+            ->add('isActive', 'choice', array(
                 'choices'   => array(true => 'Yes', false => 'No'),
                 'required'  => true,
-                'label'     => 'admin.active'
+                'label'     => 'cms_page.form.settings.label.is_active'
             ))
             ->add('settings', 'sonata_type_immutable_array', array(
                 'keys' => array(
                     //here add specific type settings based on PageType
                     //var_dump($builder->getForm()->getData());die;
                     //array('content', 'textarea', array('attr' => array('class'=> 'ckeditor'))),
-                )
+                ),
+                'label' => 'form.label_settings'
             ))
         ;
         
