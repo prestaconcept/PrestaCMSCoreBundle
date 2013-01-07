@@ -80,3 +80,12 @@ cms_page.form.seo.label.meta_keywords: Keywords
 cms_page.form.seo.label.meta_description: Description
 cms_page.form.settings.label.name: Nom
 cms_page.form.settings.label.is_active: Active
+
+
+breadcrumb.link_block_list: Liste de blocs
+list.label_type: Type
+list.label_settings: Paramétrage
+
+block.title.presta_media.block.media: Bloc Média
+
+
