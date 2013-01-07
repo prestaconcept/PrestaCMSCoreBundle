@@ -11,7 +11,7 @@ namespace Presta\CMSCoreBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\Event;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
-use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RouteRepository;
+use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RouteProvider;
 use Symfony\Cmf\Bundle\RoutingExtraBundle\Listener\IdPrefix;
 
 /**
@@ -29,9 +29,9 @@ class WebsiteListener
     protected $websiteManager;
 
     /**
-     * @var RouteRepository
+     * @var RouteProvider
      */
-    protected $routeRepository;
+    protected $routeProvider;
 
     /**
      * @var IdPrefix
@@ -40,12 +40,13 @@ class WebsiteListener
 
     /**
      * @param $websiteManager
-     * @param $routeRepository
+     * @param $routeProvider
+     * @parma $routeListener
      */
-    public function __construct($websiteManager, $routeRepository, $routeListener)
+    public function __construct($websiteManager, $routeProvider, $routeListener)
     {
         $this->websiteManager  = $websiteManager;
-        $this->routeRepository = $routeRepository;
+        $this->routeProvider   = $routeProvider;
         $this->routeListener   = $routeListener;
     }
 
@@ -69,7 +70,7 @@ class WebsiteListener
         $website = $this->websiteManager->loadWebsiteByHost($request->getHost());
 
         //Inject route prefix in Route Repository adn listener
-        $this->routeRepository->setPrefix($website->getRoutePrefix());
+        $this->routeProvider->setPrefix($website->getRoutePrefix());
         $this->routeListener->setPrefix($website->getRoutePrefix());
     }
 }
