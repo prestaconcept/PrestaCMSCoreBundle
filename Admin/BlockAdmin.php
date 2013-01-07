@@ -25,8 +25,8 @@ use Presta\SonataAdminBundle\Admin\PHPCR\BaseAdmin;
 /**
  * Admin definition for the Site class
  *
- * @package    PrestaCMS
- * @subpackage CoreBundle
+ * @package    Presta
+ * @subpackage CMSCoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class BlockAdmin extends BaseAdmin
@@ -78,22 +78,25 @@ class BlockAdmin extends BaseAdmin
         $this->inValidate = false;
     }
 
-//    /**
-//     * {@inheritdoc}
-//     */
-//    public function getObject($id)
-//    {
-//        $subject = parent::getObject($id);
-//
-//        //Set locale and get translated data
-//        $subject->setLocale($this->getRequest()->get('locale'));
-//        $this->getModelManager()->getEntityManager($this->getClass())->refresh($subject);
-//
-//        if ($subject) {
-//            $service = $this->blockManager->get($subject);
-//            $subject->setSettings(array_merge($service->getDefaultSettings(), $subject->getSettings()));
-//            $service->load($subject);
-//        }
-//        return $subject;
-//    }
+    /**
+     * {@inheritdoc}
+     */
+    public function preUpdate($object)
+    {
+        $block = $this->getSubject();
+        $service = $this->blockManager->get($block);
+        $service->preUpdate($object);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function prePersist($object)
+    {
+        $block = $this->getSubject();
+        $service = $this->blockManager->get($block);
+        $service->prePersist($object);
+    }
+
+
 }
