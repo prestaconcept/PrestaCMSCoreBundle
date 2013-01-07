@@ -36,7 +36,7 @@ class BlockAdmin extends BaseAdmin
      *
      * @var string
      */
-    protected $translationDomain = 'PrestaCMSCoreBunde';
+    protected $translationDomain = 'PrestaCMSCoreBundle';
 
     /**
      * @param \Sonata\BlockBundle\Block\BlockServiceManagerInterface $blockManager
@@ -44,6 +44,21 @@ class BlockAdmin extends BaseAdmin
     public function setBlockManager(BlockServiceManagerInterface $blockManager)
     {
         $this->blockManager = $blockManager;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper
+            ->addIdentifier('name', 'text')
+            ->add('type', 'text')
+            ->add('settings', 'array')
+
+            ->add('isActive', 'boolean')
+
+        ;
     }
 
     /**
