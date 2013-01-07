@@ -229,19 +229,28 @@ class Website
         return $this->theme;
     }
 
+    /**
+     * @param $path
+     */
     public function setPath($path)
     {
         $this->path = $path;
     }
 
+    /**
+     * @return mixed
+     */
     public function getPath()
     {
         return $this->path;
     }
 
+    /**
+     * @return string
+     */
     public function getRoutePrefix()
     {
-        return $this->getPath() . '/route';
+        return $this->getPath() . '/route/' . $this->getLocale();
     }
 
 
