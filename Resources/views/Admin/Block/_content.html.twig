@@ -51,6 +51,7 @@
                         {% if (zone.blocks) %}
                         <div class="page-zone-block-container">
                             {% for block in zone.blocks %}
+                                {% do block.setAdminMode() %}
                                 <div class="page-zone-block">
                                     <h4>{{ ['block.title.', block.type]|join|trans([], 'PrestaCMSCoreBundle') }}</h4>
                                     <div class="block-actions">
