@@ -11,6 +11,9 @@
  * Theme Default - default 1 column page
  */
 #}
+{% extends base_template %}
+
+{% block content %}
 <div class="row">
     <div class="span12">
         {%  if  page.zones.content is defined %}
@@ -20,3 +23,4 @@
         {%  endif %}
     </div>
 </div>
+{% endblock %}

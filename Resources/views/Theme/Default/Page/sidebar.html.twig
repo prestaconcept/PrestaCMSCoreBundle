@@ -11,6 +11,9 @@
  * Theme Default - sidebar 2 column page
  */
 #}
+{% extends base_template %}
+
+{% block content %}
 <div class="row">
     <div class="span3">
         {%  if  page.zones.left is defined %}
@@ -27,4 +30,4 @@
         {%  endif %}
     </div>
 </div>
-
+{% endblock %}

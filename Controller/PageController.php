@@ -97,8 +97,12 @@ class PageController extends Controller
         if ($pageType != null) {
 			$viewParams = array_merge($viewParams, $pageType->getData($contentDocument));
 		}
+        //todo voir pour une meileur initialisation
+        //on doit charger directement le tempalte pour que ce denier puisse surcharge
+        //des partie du layout librement
+        $template = $viewParams['template'];
 
-        return $this->render('PrestaCMSCoreBundle:Page:index.html.twig', $viewParams);
+        return $this->render($template, $viewParams);
     }
 
 //    /**
