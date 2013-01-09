@@ -14,7 +14,12 @@
 
 {% extends base_template %}
 
-
+{% block stylesheets %}
+    {{ parent() }}
+    {% if (theme is defined) %}
+        <link rel="stylesheet" href="{{ asset('' ~ theme.adminStyle) }}"></script>
+    {% endif %}
+{% endblock %}
 
 {% block side_menu %}
     {% include 'PrestaCMSCoreBundle:Admin/Page:_sidebar.html.twig' %}

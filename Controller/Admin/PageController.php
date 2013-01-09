@@ -123,8 +123,6 @@ class PageController extends AdminController
             $navigations[$navigation] = $navigation;
         }
 //            $navigations['single_pages'] = 'single_pages';
-        $viewParams['theme'] = $theme;
-        $viewParams['navigations'] = $navigations;
 
         $viewParams = array(
             'menuItemId' => $menuItemId,  'websiteId' => $websiteId,
@@ -132,6 +130,8 @@ class PageController extends AdminController
             'page' => $page, '_locale' => $this->getRequest()->get('_locale'),
             'translation_domain' => 'PrestaCMSCoreBundle'
         );
+        $viewParams['theme'] = $theme;
+        $viewParams['navigations'] = $navigations;
 
         $viewParams['pageEditTabs'] = $this->getPageManager()->getType($page->getType())->getEditTabs();
 
