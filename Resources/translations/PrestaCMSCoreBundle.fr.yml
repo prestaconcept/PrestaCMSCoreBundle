@@ -81,7 +81,7 @@ cms_page.form.seo.label.meta_description: Description
 cms_page.form.settings.label.name: Nom
 cms_page.form.settings.label.is_active: Active
 
-
+breadcrumb.link_block_edit: Edition d'un bloc
 breadcrumb.link_block_list: Liste de blocs
 list.label_type: Type
 list.label_settings: Paramétrage

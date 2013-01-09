@@ -1,0 +1,10 @@
+{# Block preview for administration, allow us to render a screenshot for non editable blocks #}
+
+{% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
+
+{% block block %}
+<div class="block-preview">
+    <img src="{{ asset(settings.block_preview) }}" />
+</div>
+{% endblock %}
+

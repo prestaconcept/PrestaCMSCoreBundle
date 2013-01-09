@@ -179,3 +179,7 @@ img.sonata-ba-img-box {
 #sidebar #website_selector {
     width: auto;
 }
+
+.block-preview {
+    text-align: center;
+}
