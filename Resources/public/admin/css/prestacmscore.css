@@ -161,6 +161,19 @@ a.action-delete {
 table.page-content-admin td.empty, table.page-content-admin td.empty:hover {
     background: #F5F5F5;
 }
+div.block-settings {
+    text-align: center;
+    margin-top: 20px;
+}
+div.cms-block a.module-settings {
+    background: url('../../bundles/prestasonataadmin/img/icons/settings-16.png') no-repeat left center #fff;
+    color: #404040;
+    padding-left: 20px;
+    font-weight: bold;
+}
+div.cms-block a.module-settings:hover {
+    background: url('../../bundles/prestasonataadmin/img/icons/settings-16.png') no-repeat left center #f7f7f7;
+}
 /* Listing */
 td.sonata-ba-list-field-screenshot {
     text-align: center !important;

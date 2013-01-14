@@ -3,7 +3,7 @@ parameters:
       presta_cms.block.simple: Presta\CMSCoreBundle\Block\SimpleBlockService
       cms_core_dummy: Presta\CMSCoreBundle\Block\EditorBlockService
     cms_locales: {fr: fr, en: en}
-    symfony_cmf_routing_extra.phpcrodm_route_idprefix_listener_class: Presta\CMSCoreBundle\EventListener\CustomIdPrefix
+#    symfony_cmf_routing_extra.phpcrodm_route_idprefix_listener_class: Presta\CMSCoreBundle\EventListener\CustomIdPrefix
 
 services:
 #    presta_cms_theme.example:

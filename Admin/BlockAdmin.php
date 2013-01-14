@@ -94,6 +94,20 @@ class BlockAdmin extends BaseAdmin
     }
 
     /**
+     * Refresh object to load locale get in param
+     *
+     * @param   $id
+     * @return  $subject
+     */
+    public function getObject($id)
+    {
+        $block = parent::getObject($id);
+        $service = $this->blockManager->get($block);
+        $service->load($block);
+
+        return $block;
+    }
+        /**
      * {@inheritdoc}
      */
     public function preUpdate($object)
