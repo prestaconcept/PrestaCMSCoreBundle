@@ -29,6 +29,16 @@ class WebsiteManager
     protected $_container;
 
     /**
+     * @var RouteProvider
+     */
+    protected $routeProvider;
+
+    /**
+     * @var IdPrefix
+     */
+    protected $routeListener;
+
+    /**
      * @var array
      */
     protected $_websites;
@@ -58,9 +68,16 @@ class WebsiteManager
      */
     protected $hosts;
 
-    public function __construct($container)
+    /**
+     * @param $container
+     * @param $routeProvider
+     * @param $routeListener
+     */
+    public function __construct($container, $routeProvider, $routeListener)
     {
         $this->_container = $container;
+        $this->routeProvider   = $routeProvider;
+        $this->routeListener   = $routeListener;
         $this->_websites = null;
         $this->currentWebsite = null;
         $this->_repository = null;
@@ -139,6 +156,10 @@ class WebsiteManager
     public function setCurrentWebsite($website)
     {
         $this->currentWebsite = $website;
+
+        //Inject route prefix in Route Repository adn listener
+        $this->routeProvider->setPrefix($website->getRoutePrefix());
+        $this->routeListener->setPrefix($website->getRoutePrefix());
     }
 //
     /**
@@ -157,7 +178,7 @@ class WebsiteManager
         if ($website instanceof Website && $locale != null) {
             $website->setLocale($locale);
         }
-        $this->currentWebsite = $website;
+        $this->setCurrentWebsite($website);
 
         return $website;
     }

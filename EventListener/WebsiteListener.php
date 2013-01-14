@@ -29,25 +29,11 @@ class WebsiteListener
     protected $websiteManager;
 
     /**
-     * @var RouteProvider
-     */
-    protected $routeProvider;
-
-    /**
-     * @var IdPrefix
-     */
-    protected $routeListener;
-
-    /**
      * @param $websiteManager
-     * @param $routeProvider
-     * @parma $routeListener
      */
-    public function __construct($websiteManager, $routeProvider, $routeListener)
+    public function __construct($websiteManager)
     {
         $this->websiteManager  = $websiteManager;
-        $this->routeProvider   = $routeProvider;
-        $this->routeListener   = $routeListener;
     }
 
     /**
@@ -66,11 +52,7 @@ class WebsiteListener
             return;
         }
 
-        //Find website
-        $website = $this->websiteManager->loadWebsiteByHost($request->getHost());
-
-        //Inject route prefix in Route Repository adn listener
-        $this->routeProvider->setPrefix($website->getRoutePrefix());
-        $this->routeListener->setPrefix($website->getRoutePrefix());
+        //Load current website
+        $this->websiteManager->loadWebsiteByHost($request->getHost());
     }
 }
