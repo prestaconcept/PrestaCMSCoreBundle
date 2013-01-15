@@ -107,12 +107,12 @@ class PageController extends AdminController
         $menuItemId = $this->getRequest()->get('id');
         $locale = $this->getRequest()->get('locale');
 
-        //R?cup?ration de la page
-
         $page = $this->getPageManager()->getPageForMenu($menuItemId, $locale);
 
-
-        $website = $page->getParent()->getParent(); //todo better!
+        $website = $page->getParent()->getParent();
+        while (!$website instanceof \Presta\CMSCoreBundle\Document\Website) {
+            $website = $website->getParent();
+        }
         $websiteId = $website->getId();
         $this->getWebsiteManager()->setCurrentWebsite($website);
 
