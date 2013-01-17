@@ -153,6 +153,16 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
     }
 
     /**
+     * Return Children page description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->metaDescription;
+    }
+
+    /**
      * @param string $metaKeywords
      */
     public function setMetaKeywords($metaKeywords)

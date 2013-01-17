@@ -35,6 +35,11 @@ class PageManager
      * @var Presta\CMSCoreBundle\Repository\PageRepository
      */
     protected $_repository;
+
+    /**
+     * @var Page
+     */
+    protected $currentPage;
     
     /**
      * @var array 
@@ -87,6 +92,8 @@ class PageManager
         $page = $menuItem->getContent();
         //ici le chargement de la trad ne fonctionne pas !
         $this->getDocumentManager()->bindTranslation($page, $locale);
+
+        $this->setCurrentPage($page);
 
         return $page;
     }
@@ -259,4 +266,22 @@ class PageManager
         }
         return false;  
     }
+
+    /**
+     * @param \Presta\CMSCoreBundle\Document\Page $currentPage
+     */
+    public function setCurrentPage($currentPage)
+    {
+        $this->currentPage = $currentPage;
+    }
+
+    /**
+     * @return \Presta\CMSCoreBundle\Document\Page
+     */
+    public function getCurrentPage()
+    {
+        return $this->currentPage;
+    }
+
+
 }

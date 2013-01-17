@@ -1,6 +1,7 @@
 parameters:
     cms_block_type:
       presta_cms.block.simple: Presta\CMSCoreBundle\Block\SimpleBlockService
+      presta_cms.block.page_children: Presta\CMSCoreBundle\Block\PageChildrenBlockService
       cms_core_dummy: Presta\CMSCoreBundle\Block\EditorBlockService
     cms_locales: {fr: fr, en: en}
 #    symfony_cmf_routing_extra.phpcrodm_route_idprefix_listener_class: Presta\CMSCoreBundle\EventListener\CustomIdPrefix
@@ -52,13 +53,20 @@ services:
 
     #CMS Block service
     presta_cms.block.simple:
-      class: Presta\CMSCoreBundle\Block\SimpleBlockService
-      tags:
-        - {name: sonata.block}
-      arguments: [cms_core_editor, @templating]
-      calls:
-          - [ setTranslator, [ @translator ] ]
-
+        class: Presta\CMSCoreBundle\Block\SimpleBlockService
+        tags:
+            - {name: sonata.block}
+        arguments: [cms_core_editor, @templating]
+        calls:
+            - [ setTranslator, [ @translator ] ]
+    presta_cms.block.page_children:
+        class: Presta\CMSCoreBundle\Block\PageChildrenBlockService
+        tags:
+            - {name: sonata.block}
+        arguments: [cms_core_editor, @templating]
+        calls:
+            - [ setTranslator, [ @translator ] ]
+            - [ setPageManager, [ @presta_cms.page_manager ] ]
     #Block service
     presta_cms.block.dashboard.cms:
       class: Presta\CMSCoreBundle\Block\Dashboard\CmsBlockService

@@ -1,0 +1,17 @@
+{% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
+
+{% block block %}
+    <h2>{{ settings.title }}</h2>
+    {{ settings.content|raw }}
+    <ul class="page-children">
+        {% for child in cmf_children(page) %}
+            {%  if child.title is defined %}
+            <li>
+                <h3>{{ child.title }}</h3>
+                <p>{{ child.description }}</p>
+                <p><a href="{{ path(child) }}">{{ child.title }}</a></p>
+            </li>
+            {%  endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}

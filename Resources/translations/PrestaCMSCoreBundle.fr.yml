@@ -89,3 +89,4 @@ list.label_settings: Paramétrage
 block.title.presta_media.block.media: Bloc Média
 
 block.module.settings.link: paramétrage du module
+block.title.presta_cms.block.page_children: Liste des sous pages

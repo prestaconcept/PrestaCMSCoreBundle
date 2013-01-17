@@ -93,6 +93,7 @@ class PageController extends Controller
 			'theme' => $theme,
 			'page'  => $contentDocument
 		);
+        $this->getPageManager()->setCurrentPage($contentDocument);
         $pageType = $this->getPageManager()->getType($contentDocument->getType());
         if ($pageType != null) {
 			$viewParams = array_merge($viewParams, $pageType->getData($contentDocument));
