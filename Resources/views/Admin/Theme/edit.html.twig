@@ -23,7 +23,9 @@
     Theme - {{ theme.name }}
 {% endblock %}
 {% block breadcrumb %}
-    CMS > Gestion des themes > {{ theme.name }}
+<li><a href="{{ url('sonata_admin_dashboard') }}">{{ 'breadcrumb.link_dashboard'|trans([], 'PrestaCMSCoreBundle') }}</a><span class="divider">/</span></li>
+<li class="active"><a href="{{ url('presta_cms_theme') }}">{{ 'breadcrumb.link_theme_list'|trans([], 'PrestaCMSCoreBundle') }}</a><span class="divider">/</span></li>
+<li class="active">{{ theme.name }}</li>
 {% endblock %}
 
 {% block content %}

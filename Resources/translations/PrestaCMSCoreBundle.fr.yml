@@ -3,11 +3,11 @@ admin.locale_switcher.tooltip.en: Anglais
 select_no_result: Aucun résultat
 
 breadcrumb.link_dashboard: Tableau de bord
-breadcrumb.link_website_edit: Modification d'un site
-breadcrumb.link_website_list: Liste des sites
-breadcrumb.link_website_create: Création d'un site
-breadcrumb.link_theme_list: Liste des thèmes
-
+breadcrumb.link_website_edit: CMS - Modification d'un site
+breadcrumb.link_website_list: CMS - Liste des sites
+breadcrumb.link_website_create: CMS - Création d'un site
+breadcrumb.link_theme_list: CMS - Liste des thèmes
+breadcrumb.link_page_list: CMS - Liste des pages
 
 zone.name.top: Bandeau Commercial
 zone.name.navigation: Menu principal
