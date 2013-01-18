@@ -88,10 +88,12 @@ class PageManager
      */
     public function getPageForMenu($menuItemId, $locale)
     {
-        $menuItem = $this->getDocumentManager()->find(null, $menuItemId);
+        $menuItem = $this->getDocumentManager()->findTranslation(null, $menuItemId, $locale);
         $page = $menuItem->getContent();
+
         //ici le chargement de la trad ne fonctionne pas !
-        $this->getDocumentManager()->bindTranslation($page, $locale);
+        //$this->getDocumentManager()->bindTranslation($page, $locale);
+        $page = $this->getDocumentManager()->findTranslation(null, $page->getPath(), $locale);
 
         $this->setCurrentPage($page);
 
@@ -133,6 +135,15 @@ class PageManager
      */
     public function update($page)
     {
+        //Update corresponding route
+        $route = $page->getRoute();
+        $route->setName($page->getUrl());
+
+        //todo voir pour faire mieux :
+        //création d'une redirection pour l'ancien url
+        //pas de modification de la home sinon ça case le prefix des routes!
+
+        $this->getDocumentManager()->persist($route);
         $this->getDocumentManager()->persist($page);
         $this->getDocumentManager()->flush();
     }

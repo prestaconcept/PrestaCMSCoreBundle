@@ -62,20 +62,20 @@ class PageType extends AbstractType
             ->add('metaKeywords', null, array('label' => 'cms_page.form.seo.label.meta_keywords'))
             ->add('metaDescription', 'textarea', array('label' => 'cms_page.form.seo.label.meta_description'))
         //Settings
-            ->add('name', null, array('label' => 'cms_page.form.settings.label.name'))
-            ->add('isActive', 'choice', array(
-                'choices'   => array(true => 'Yes', false => 'No'),
-                'required'  => true,
-                'label'     => 'cms_page.form.settings.label.is_active'
-            ))
-            ->add('settings', 'sonata_type_immutable_array', array(
-                'keys' => array(
-                    //here add specific type settings based on PageType
-                    //var_dump($builder->getForm()->getData());die;
-                    //array('content', 'textarea', array('attr' => array('class'=> 'ckeditor'))),
-                ),
-                'label' => 'form.label_settings'
-            ))
+//            ->add('name', null, array('label' => 'cms_page.form.settings.label.name'))
+//            ->add('isActive', 'choice', array(
+//                'choices'   => array(true => 'Yes', false => 'No'),
+//                'required'  => true,
+//                'label'     => 'cms_page.form.settings.label.is_active'
+//            ))
+//            ->add('settings', 'sonata_type_immutable_array', array(
+//                'keys' => array(
+//                    //here add specific type settings based on PageType
+//                    //var_dump($builder->getForm()->getData());die;
+//                    //array('content', 'textarea', array('attr' => array('class'=> 'ckeditor'))),
+//                ),
+//                'label' => 'form.label_settings'
+//            ))
         ;
         
     }

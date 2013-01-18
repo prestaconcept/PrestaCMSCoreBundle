@@ -232,9 +232,35 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
         return $this;
     }
 
+    public function getRoute()
+    {
+        foreach ($this->getRoutes() as $route) {
+            if ($route->getDefault('_locale') == $this->getLocale()) {
+                return $route;
+            }
+        }
+
+        return false;
+    }
+
+    protected $url;
+
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
     public function getUrl()
     {
-        //todo prendre en compte la locale
-        return $this->getRoutes()->first()->getName();
+        if (!$this->url) {
+            $route = $this->getRoute();
+            if ($route != false) {
+                $this->url = $route->getName();
+            } else {
+                $this->url = false;
+            }
+        }
+
+        return $this->url;
     }
 }

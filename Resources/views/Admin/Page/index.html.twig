@@ -75,7 +75,7 @@
                 <li class="{% if (loop.index == 1) %}active{% endif %}"><a href="#{{ [type, '-', tab]|join }}" data-toggle="tab">{{ [type, '.', tab, '.title']|join|trans({}, 'PrestaCMSCoreBundle') }}</a></li>
             {% endfor %}
             <li><a href="#seo" data-toggle="tab">{{ 'cms_page.seo.title'|trans({}, 'PrestaCMSCoreBundle') }}</a></li>
-            <li><a href="#settings" data-toggle="tab">{{ 'cms_page.settings.title'|trans({}, 'PrestaCMSCoreBundle') }}</a></li>
+            {#<li><a href="#settings" data-toggle="tab">{{ 'cms_page.settings.title'|trans({}, 'PrestaCMSCoreBundle') }}</a></li>#}
         </ul>
         <form id="edit_form" class="form-horizontal" method="POST">
             {% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
@@ -97,15 +97,15 @@
                         </div>
                     </fieldset>
                 </div>
-                <div class="tab-pane form-horizontal" id="settings">
-                    <fieldset>
-                        <legend>{{ 'cms_page.settings.title'|trans({}, 'PrestaCMSCoreBundle') }}</legend>
-                        {{ form_row(form.name)}}
-                        {{ form_row(form.isActive)}}
-                        {{ form_row(form.settings)}}
-                        {{ form_rest(form) }}
-                    </fieldset>
-                </div>
+                {#<div class="tab-pane form-horizontal" id="settings">#}
+                    {#<fieldset>#}
+                        {#<legend>{{ 'cms_page.settings.title'|trans({}, 'PrestaCMSCoreBundle') }}</legend>#}
+                        {#{{ form_row(form.name)}}#}
+                        {#{{ form_row(form.isActive)}}#}
+                        {#{{ form_row(form.settings)}}#}
+                    {#</fieldset>#}
+                {#</div>#}
+                {{ form_rest(form) }}
             </div>
         </form>
     {% endif %}
