@@ -10,6 +10,8 @@
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Sonata\AdminBundle\Controller\CRUDController;
+use Presta\CMSCoreBundle\Document\Block;
+
 /**
  * Theme administration controller
  * 
@@ -32,5 +34,70 @@ class BlockController extends CRUDController
         return $this->render('PrestaCMSCoreBundle:Admin/Block:render_block.html.twig', array(
             'block' => $this->admin->getObject($id)
         ));
-    }    
+    }
+
+    /**
+     * Add a block
+     *
+     * @param  integer $id
+     * @return Response
+     */
+    public function addAction()
+    {
+        $zoneId = $this->getRequest()->get('id');
+        $locale = $this->getRequest()->get('locale');
+        $origin = $this->getRequest()->get('origin');
+
+        if ($this->get('request')->getMethod() == 'POST') {
+            $manager = $this->admin->getModelManager();
+            if ($origin == 'page') {
+                $zoneClass = 'Presta\CMSCoreBundle\Document\Page\Zone';
+            } else {
+                $zoneClass = 'Presta\CMSCoreBundle\Document\Theme\Zone';
+            }
+            //ajout du block à la zone
+            $zone = $manager->find($zoneClass, $zoneId);
+            $position = (count($zone->getBlocks()) + 1) * 10;
+
+            $blockType = $this->getRequest()->get('block');
+            $block = new Block();
+            $block->setName($blockType . '-' . $position);
+            $block->setId($zone->getId().$block->getName());
+            $block->setParent($zone);
+            $block->setLocale($locale);
+            $block->setType($blockType);
+            $block->setIsActive(true);
+            $block->setIsDeletable(true);
+            $block->setIsEditable(true);
+            $block->setSettings(array());
+
+            $manager->create($block);
+
+            if ($this->isXmlHttpRequest()) {
+                return $this->renderJson(array(
+                    'result'    => 'ok',
+                    'action'    => 'add',
+                    'zone'      => $zoneId,
+                    'objectId'  => $block->getId()
+                ));
+            }
+            // redirect to edit mode
+            return $this->redirectTo($block);
+        }
+
+        //Temporaire
+        //Il faudrait ajouter un tag au service de bloc + un group afin de faire directement le chargement par un compiler
+        //faire un blockmanager
+        $blocks = array (
+            0 => 'presta_cms.block.simple',
+            1 => 'presta_cms.block.page_children'
+        );
+
+        return $this->render('PrestaCMSCoreBundle:Admin/Block:add_block.html.twig', array(
+            'zoneId' => $zoneId,
+            'locale' => $locale,
+            'blocks' => $blocks,
+            'origin' => $origin
+        ));
+    }
 }

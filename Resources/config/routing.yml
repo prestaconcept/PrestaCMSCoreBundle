@@ -22,7 +22,11 @@ presta_cms_block_edit:
 presta_cms_block_render:
     pattern:  /cms/block/render/{locale}
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:render, _sonata_admin: presta_cms.admin.bloc}
-        
+
+presta_cms_block_add:
+    pattern:  /cms/block/add/{locale}/{origin}
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:add, _sonata_admin: presta_cms.admin.bloc}
+
 #Administration - pages
 presta_cms_page:
     pattern:  /cms/page
@@ -34,18 +38,18 @@ presta_cms_page_edit:
     pattern:  /cms/page/edit
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:edit}
 
-presta_cms_page_revision_edit_block:
-    pattern:  /cms/page/block-edit/{website_id}/{locale}/{id}
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/PageRevisionBlock:edit, id: '', _sonata_admin: 'presta_cms.page.admin.bloc'}
-    requirements:
-        website_id:  \d+
-        id: \d+        
-
-presta_cms_page_revision_render_block:
-    pattern:  /cms/page/block-render/{locale}/{id}
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/PageRevisionBlock:render, id: '', _sonata_admin: 'presta_cms.page.admin.bloc'}
-    requirements:
-        id: \d+
+#presta_cms_page_revision_edit_block:
+#    pattern:  /cms/page/block-edit/{website_id}/{locale}/{id}
+#    defaults: {_controller: PrestaCMSCoreBundle:Admin/PageRevisionBlock:edit, id: '', _sonata_admin: 'presta_cms.page.admin.bloc'}
+#    requirements:
+#        website_id:  \d+
+#        id: \d+
+#
+#presta_cms_page_revision_render_block:
+#    pattern:  /cms/page/block-render/{locale}/{id}
+#    defaults: {_controller: PrestaCMSCoreBundle:Admin/PageRevisionBlock:render, id: '', _sonata_admin: 'presta_cms.page.admin.bloc'}
+#    requirements:
+#        id: \d+
 
 #Administration - Import / Export
 presta_cms_page_selector:
@@ -53,9 +57,9 @@ presta_cms_page_selector:
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:selector, website_id: '', locale: ''}
 
 #Administration - Import / Export
-presta_cms_data:
-    pattern:  /cms/data/{website_id}/{locale}
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/Data:index, website_id: '', locale: ''}
+#presta_cms_data:
+#    pattern:  /cms/data/{website_id}/{locale}
+#    defaults: {_controller: PrestaCMSCoreBundle:Admin/Data:index, website_id: '', locale: ''}
 
 fos_js_routing:
     resource: @FOSJsRoutingBundle/Resources/config/routing/routing.xml

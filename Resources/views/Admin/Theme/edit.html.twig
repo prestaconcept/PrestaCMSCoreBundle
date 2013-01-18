@@ -86,7 +86,7 @@
                 }) }}
                 {% set zones = theme.zones %}
                 {% set cols  = theme.cols %}
-                {% include 'PrestaCMSCoreBundle:Admin/Block:_content.html.twig' %}
+                {% include 'PrestaCMSCoreBundle:Admin/Block:_content.html.twig' with {'origin': 'theme'}  %}
             </div>
         </fieldset>
     </div>

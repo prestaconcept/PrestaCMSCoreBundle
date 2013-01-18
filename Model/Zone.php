@@ -19,6 +19,8 @@ use Doctrine\Common\Collections\Collection;
  */
 class Zone
 {
+    protected $id;
+
     /**
      * @var string 
      */
@@ -52,6 +54,16 @@ class Zone
         $this->_name = $name;
         $this->_cols = $configuration['cols'];
         $this->_rows = $configuration['rows'];
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
 

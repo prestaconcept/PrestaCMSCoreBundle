@@ -202,13 +202,13 @@ class ThemeManager
      * @param  array $data
      * @return false|Template 
      */
-    public function getPageTemplate($template, $data = null)
+    public function getPageTemplate($template, $page)
     {
         $theme = $this->_currentTheme->getName();
         if (!isset($this->_themesConfiguration[$theme]['page_template'][$template])) {
             return false;
         }
-        return $this->_buildThemeTemplate($template, $this->_themesConfiguration[$theme]['page_template'][$template], $data);
+        return $this->_buildThemeTemplate($template, $this->_themesConfiguration[$theme]['page_template'][$template], $page);
     }
 
 	/**
@@ -250,15 +250,16 @@ class ThemeManager
      * @param  array $data
      * @return \Presta\CMSCoreBundle\Model\Template
      */
-    protected function _buildThemeTemplate($name, array $configuration, $zones = null)
+    protected function _buildThemeTemplate($name, array $configuration, $page = null)
     {
+        $zones = $page->getZones();
         $template = new Template($name, $configuration['path']);
         foreach ($configuration['zones'] as $zoneConfiguration) {
             if (!isset($data[$zoneConfiguration['name']])) {
                 $data[$zoneConfiguration['name']] = array();
             }
             $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration);
-
+            $zone->setId($page->getPath() . '/' . $zoneConfiguration['name']); //voir pour faire un set parent ?
             if (isset($zones[$zoneConfiguration['name']])) {
                 $zone->setBlocks($zones[$zoneConfiguration['name']]->getBlocks());
             }

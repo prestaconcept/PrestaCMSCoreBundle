@@ -18,7 +18,7 @@
             <div class="control-group">
                 {% set zones = template.zones %}
                 {% set cols  = 12 %}
-                {% include 'PrestaCMSCoreBundle:Admin/Block:_content.html.twig' %}
+                {% include 'PrestaCMSCoreBundle:Admin/Block:_content.html.twig' with {'origin': 'page'}  %}
         </fieldset>
     </div>
 </div>

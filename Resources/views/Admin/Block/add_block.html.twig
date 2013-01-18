@@ -1,0 +1,20 @@
+
+
+<form class="form-horizontal" action="{{  url('presta_cms_block_add', {'id': zoneId, 'locale': locale, 'origin': origin }) }}"  method="POST">
+
+    <fieldset >
+        <legend>
+            {{ 'presta_cms.block.add'|trans([], 'PrestaCMSCoreBundle') }}
+        </legend>
+
+        <div class="sonata-ba-collapsed-fields">
+            {%  for block in blocks %}
+                <label class="radio span6" style="margin-left: 0px;">
+                    <input type="radio" name="block" value="{{ block }}" checked>
+                    {{ ['block.title.', block]|join|trans([], 'PrestaCMSCoreBundle') }}
+                    <p>{{ ['block.description.', block]|join|trans([], 'PrestaCMSCoreBundle') }}</p>
+                </label>
+            {% endfor %}
+        </div>
+    </fieldset>
+</form>

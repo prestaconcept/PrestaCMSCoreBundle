@@ -25,7 +25,8 @@
     {% if (website) %}
         CMSContent.init(
                 "{{ path('presta_cms_block_edit', { 'locale': website.locale }) }}",
-                "{{ path('presta_cms_block_render', { 'locale': website.locale }) }}"
+                "{{ path('presta_cms_block_render', { 'locale': website.locale }) }}",
+                "{{ path('presta_cms_block_add', { 'locale': website.locale, 'origin': origin }) }}"
         );
     {% endif %}
     }
@@ -67,8 +68,13 @@
                                     </div>
                                 </div>
                             {% endfor %}
-                        {% endif %}
                         </div>
+                        {% endif %}
+                        {% if (zone.canAddBlock or true) %}
+                        <div class="zone-actions">
+                            <a class="btn action-add" zone-id="{{ zone.id }}"><i class="icon-plus"></i>&nbsp;</a>
+                        </div>
+                        {% endif %}
                     </div>
                 {% endif %}
             </td>

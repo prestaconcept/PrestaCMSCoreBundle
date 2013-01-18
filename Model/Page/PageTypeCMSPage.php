@@ -95,7 +95,7 @@ class PageTypeCMSPage implements PageTypeInterface
                 return array(
                     'page' 	   => $draft,
                     'website'  => $this->websiteManager->getCurrentWebsite(),
-                    'template' => $this->themeManager->getPageTemplate($draft->getTemplate(), $draft->getZones())
+                    'template' => $this->themeManager->getPageTemplate($draft->getTemplate(), $draft)
                 );
                 break;
             default:

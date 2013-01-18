@@ -11,6 +11,11 @@ var CMSContent = function() {
      * Url for bloc edition
      */
     var _editBlocUrl;
+
+    /**
+     * Url for bloc addition
+     */
+    var _addBlocUrl;
     
     /**
      * Url for block rendering
@@ -21,13 +26,18 @@ var CMSContent = function() {
         /**
          * Initialisation
          */
-        init : function (editBlocUrl, renderBlockUrl) {
+        init : function (editBlocUrl, renderBlockUrl, addBlockUrl) {
             this._editBlocUrl = editBlocUrl;
             this._renderBlockUrl = renderBlockUrl;
+            this._addBlocUrl = addBlockUrl;
             
             $('a.action-edit').click(function(e) {
                 e.preventDefault();
                 CMSContent.editBlock($(this).attr('block-id'));                    
+            });
+            $('a.action-add').click(function(e) {
+                e.preventDefault();
+                CMSContent.addBlock($(this).attr('zone-id'));
             });
         },
         /**
@@ -53,6 +63,22 @@ var CMSContent = function() {
             });
         },
         /**
+         * Handle block add button click
+         * Load Modal
+         */
+        addBlock : function (zoneId) {
+            $('#modal-loader').show();
+            $('#modal-content').html('');
+            $('#modal-content').hide();
+            $('#modal').modal('show');
+
+            $('#modal-content').load(this._addBlocUrl + '?id=' + zoneId, function() {
+                $('#modal-content div.form-actions').remove();
+                $('#modal-loader').hide();
+                $('#modal-content').show();
+            });
+        },
+        /**
          * Submit Modal Edition form and update content
          */
         submitModalForm : function () {
@@ -70,6 +96,7 @@ var CMSContent = function() {
                     $('#modal-content').html('');
                     $('#modal').modal('hide');
                     CMSContentInit();
+                    //check action
                     var blockContainerId = html.objectId.replace(/\//g, '');
                     blockContainerId = blockContainerId.replace(/\_/g, '');
                     blockContainerId = '#block-content-' + blockContainerId.replace(/\./g, '');
