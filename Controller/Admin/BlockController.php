@@ -101,4 +101,40 @@ class BlockController extends CRUDController
             'origin' => $origin
         ));
     }
+
+    /**
+     * Delete a block
+     *
+     * @param  integer $id
+     * @return Response
+     */
+    public function deleteAction($id = null)
+    {
+        $id = $this->getRequest()->get('id');
+
+        if ($this->get('request')->getMethod() == 'POST') {
+            $block = $this->admin->getObject($id);
+
+            if (!$block) {
+                throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+            }
+
+            if (false === $this->admin->isGranted('DELETE', $block)) {
+                throw new AccessDeniedException();
+            }
+            $this->admin->delete($block);
+
+            if ($this->isXmlHttpRequest()) {
+                return $this->renderJson(array(
+                    'result'    => 'ok',
+                    'action'    => 'delete',
+                    'zone'      => $block->getParent()->getId(),
+                    'block'  => $block->getId()
+                ));
+            }
+
+            return new RedirectResponse($this->admin->generateUrl('list'));
+        }
+
+    }
 }

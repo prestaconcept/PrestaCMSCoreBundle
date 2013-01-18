@@ -26,6 +26,9 @@ presta_cms_block_render:
 presta_cms_block_add:
     pattern:  /cms/block/add/{locale}/{origin}
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:add, _sonata_admin: presta_cms.admin.bloc}
+presta_cms_block_delete:
+    pattern:  /cms/block/delete
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:delete, _sonata_admin: presta_cms.admin.bloc}
 
 #Administration - pages
 presta_cms_page:

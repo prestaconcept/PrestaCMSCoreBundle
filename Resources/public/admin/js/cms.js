@@ -16,6 +16,11 @@ var CMSContent = function() {
      * Url for bloc addition
      */
     var _addBlocUrl;
+
+    /**
+     * Url for bloc deletion
+     */
+    var _deleteBlocUrl;
     
     /**
      * Url for block rendering
@@ -26,10 +31,11 @@ var CMSContent = function() {
         /**
          * Initialisation
          */
-        init : function (editBlocUrl, renderBlockUrl, addBlockUrl) {
+        init : function (editBlocUrl, renderBlockUrl, addBlockUrl, deleteBlockUrl) {
             this._editBlocUrl = editBlocUrl;
             this._renderBlockUrl = renderBlockUrl;
             this._addBlocUrl = addBlockUrl;
+            this._deleteBlocUrl = deleteBlockUrl;
             
             $('a.action-edit').click(function(e) {
                 e.preventDefault();
@@ -38,6 +44,10 @@ var CMSContent = function() {
             $('a.action-add').click(function(e) {
                 e.preventDefault();
                 CMSContent.addBlock($(this).attr('zone-id'));
+            });
+            $('a.action-delete').click(function(e) {
+                e.preventDefault();
+                CMSContent.deleteBlock($(this).attr('block-id'), $(this).attr('block-title'));
             });
         },
         /**
@@ -77,6 +87,32 @@ var CMSContent = function() {
                 $('#modal-loader').hide();
                 $('#modal-content').show();
             });
+        },
+        /**
+         * Handle block add button click
+         * Load Modal
+         */
+        deleteBlock : function (blockId, message) {
+
+            if (confirm(message)) {
+                $.ajax({
+                    url: this._deleteBlocUrl + '?id=' + blockId,
+                    type: "POST",
+                    data: {}
+                }).done(function( html ) {
+                    if (html.result != undefined) {
+                        var blockContainerId = html.block.replace(/\//g, '');
+                        blockContainerId = blockContainerId.replace(/\_/g, '');
+                        blockContainerId = '#block-content-' + blockContainerId.replace(/\./g, '');
+                        $(blockContainerId).parent().remove();
+
+                        var zoneContainerId = html.zone.replace(/\//g, '');
+                        zoneContainerId = zoneContainerId.replace(/\_/g, '');
+                        zoneContainerId = '#cms-zone-' + zoneContainerId.replace(/\./g, '');
+                        $(zoneContainerId).effect("highlight", {}, 3000);
+                    }
+                });
+            }
         },
         /**
          * Submit Modal Edition form and update content

@@ -26,7 +26,8 @@
         CMSContent.init(
                 "{{ path('presta_cms_block_edit', { 'locale': website.locale }) }}",
                 "{{ path('presta_cms_block_render', { 'locale': website.locale }) }}",
-                "{{ path('presta_cms_block_add', { 'locale': website.locale, 'origin': origin }) }}"
+                "{{ path('presta_cms_block_add', { 'locale': website.locale, 'origin': origin }) }}",
+                "{{ path('presta_cms_block_delete') }}"
         );
     {% endif %}
     }
@@ -60,7 +61,7 @@
                                             <a block-id="{{ block.id }}" class="action-edit">&nbsp;</a>
                                         {% endif %}
                                         {% if (block.isDeletable) %}
-                                            <a href="#" class="action-delete">&nbsp;</a>
+                                            <a block-id="{{ block.id }}" block-title="{{ ['block.title.', block.type]|join|trans([], 'PrestaCMSCoreBundle') }}" class="action-delete">&nbsp;</a>
                                         {% endif %}
                                     </div>
                                     <div id="block-content-{{ block.htmlId }}" class="block-content">
