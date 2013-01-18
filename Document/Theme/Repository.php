@@ -81,11 +81,11 @@ class Repository extends BaseDocumentRepository
                 $block->setIsActive(true);
                 $block->setSettings(array());
                 $this->getDocumentManager()->persist($block);
+                $websiteThemeZone->addBlock($block);
+                $websiteTheme->addZone($websiteThemeZone);
             }
         }
         $this->getDocumentManager()->flush();
-
-        //todo ici les zones ne sont pas remontés!
 
         return $websiteTheme->getZones();
     }

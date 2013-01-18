@@ -30,9 +30,13 @@ class Zone extends ContainerBlock
         return 'presta_cms.page.zone';
     }
 
+    public function addBlock($block)
+    {
+        $this->addChild($block);
+    }
+
     public function getBlocks()
     {
         return $this->getChildren();
     }
-
 }

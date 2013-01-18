@@ -87,9 +87,8 @@ class PageTypeCMSPage implements PageTypeInterface
                     $repository = $this->container->get('doctrine_phpcr.odm.default_document_manager')
                         ->getRepository('Presta\CMSCoreBundle\Document\Page');
 
-
 					//If there is no corresponding data, initialisation with default configuration
-					$repository->initializeForTemplate($draft, $this->themeManager->getPageTemplateConfiguration($draft->getTemplate()));
+					$draft = $repository->initializeForTemplate($draft, $this->themeManager->getPageTemplateConfiguration($draft->getTemplate()));
 				}
 
                 return array(

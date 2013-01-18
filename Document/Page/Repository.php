@@ -29,7 +29,7 @@ class Repository extends BaseDocumentRepository
      *
      * @param  Page  $page
      * @param  array $configuration
-     * @return
+     * @return Page
      */
     public function initializeForTemplate(Page $page, array $configuration)
     {
@@ -56,11 +56,13 @@ class Repository extends BaseDocumentRepository
                 $block->setPosition($blockConfiguration['position']);
                 $block->setIsActive(true);
                 $block->setSettings(array());
+                $pageZone->addBlock($block);
                 $this->getDocumentManager()->persist($block);
+                $page->addZone($pageZone);
             }
         }
         $this->getDocumentManager()->flush();
 
-        return $page->getZones();
+        return $page;
     }
 }

@@ -111,6 +111,20 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
     }
 
     /**
+     * Add a zone and initialize its id
+     *
+     * @return object
+     */
+    public function addZone($zone)
+    {
+        if (null === $this->children) {
+            $this->children = new ArrayCollection();
+        }
+
+        return $this->children->set($zone->getName(), $zone);
+    }
+
+    /**
      * Alias de getChildren
      *
      * @return object

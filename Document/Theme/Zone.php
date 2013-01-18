@@ -38,5 +38,8 @@ class Zone extends ContainerBlock
         return $this->getChildren();
     }
 
-
+    public function addBlock($block)
+    {
+        $this->addChild($block);
+    }
 }
