@@ -50,7 +50,7 @@
                     <div id="zone_{{ zone.name }}" class="zone_{{ zone.name }} page-zone {% if (zone.blocks|length == 0 and zone.canAddBlock == false) %}page-zone-disabled{% endif %}">
                         <h3>{{ ['zone.name.', zone.name]|join|trans([], 'PrestaCMSCoreBundle') }}</h3>
                         {% if (zone.blocks) %}
-                        <div class="page-zone-block-container">
+                        <div class="page-zone-block-container" id="cms-zone-{{ zone.htmlId }}">
                             {% for block in zone.blocks %}
                                 {% do block.setAdminMode() %}
                                 <div class="page-zone-block">

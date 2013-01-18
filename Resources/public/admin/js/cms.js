@@ -97,6 +97,16 @@ var CMSContent = function() {
                     $('#modal').modal('hide');
                     CMSContentInit();
                     //check action
+                    if (html.action != undefined) {
+                        if (html.action == 'add') {
+                            var zoneContainerId = html.zone.replace(/\//g, '');
+                            zoneContainerId = zoneContainerId.replace(/\_/g, '');
+                            zoneContainerId = '#cms-zone-' + zoneContainerId.replace(/\./g, '');
+                            $(zoneContainerId).append(html.content);
+                            $(zoneContainerId).effect("highlight", {}, 3000);
+                            return;
+                        }
+                    }
                     var blockContainerId = html.objectId.replace(/\//g, '');
                     blockContainerId = blockContainerId.replace(/\_/g, '');
                     blockContainerId = '#block-content-' + blockContainerId.replace(/\./g, '');

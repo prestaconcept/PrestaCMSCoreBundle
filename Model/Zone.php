@@ -188,4 +188,9 @@ class Zone
         $this->_rows = $rows;
         return $this;
     }
+
+    public function getHtmlId()
+    {
+        return str_replace(array('.', '_', '/'), '', $this->getId());
+    }
 }

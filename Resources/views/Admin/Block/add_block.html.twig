@@ -10,7 +10,7 @@
         <div class="sonata-ba-collapsed-fields">
             {%  for block in blocks %}
                 <label class="radio span6" style="margin-left: 0px;">
-                    <input type="radio" name="block" value="{{ block }}" checked>
+                    <input type="radio" name="block" value="{{ block }}" {%  if (loop.first) %}checked{% endif %}>
                     {{ ['block.title.', block]|join|trans([], 'PrestaCMSCoreBundle') }}
                     <p>{{ ['block.description.', block]|join|trans([], 'PrestaCMSCoreBundle') }}</p>
                 </label>
