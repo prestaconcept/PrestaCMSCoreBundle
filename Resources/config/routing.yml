@@ -67,3 +67,7 @@ presta_cms_page_selector:
 fos_js_routing:
     resource: @FOSJsRoutingBundle/Resources/config/routing/routing.xml
 
+symfony_cmf_tree:
+    resource: .
+    type: 'symfony_cmf_tree'
+    prefix: /admin/browser
