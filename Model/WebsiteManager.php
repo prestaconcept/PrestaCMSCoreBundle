@@ -171,8 +171,6 @@ class WebsiteManager
      */
     public function getWebsite($websiteCode, $locale = null)
     {
-        $websiteCode = '/website/' . $websiteCode;
-
         $dm = $this->_container->get('doctrine_phpcr.odm.default_document_manager');
         $website = $dm->find(null, $websiteCode);
 
