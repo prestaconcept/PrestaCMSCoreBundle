@@ -53,6 +53,8 @@ class WebsiteListener
         }
 
         //Load current website
-        $this->websiteManager->loadWebsiteByHost($request->getHost());
+        $website = $this->websiteManager->loadWebsiteByHost($request->getHost());
+
+        $request->setLocale($website->getLocale());
     }
 }
