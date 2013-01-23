@@ -86,13 +86,7 @@ class BlockController extends CRUDController
             return $this->redirectTo($block);
         }
 
-        //Temporaire
-        //Il faudrait ajouter un tag au service de bloc + un group afin de faire directement le chargement par un compiler
-        //faire un blockmanager
-        $blocks = array (
-            0 => 'presta_cms.block.simple',
-            1 => 'presta_cms.block.page_children'
-        );
+        $blocks = $this->get('presta_cms.block_manager')->getBlocks();
 
         return $this->render('PrestaCMSCoreBundle:Admin/Block:add_block.html.twig', array(
             'zoneId' => $zoneId,

@@ -51,6 +51,7 @@ services:
         class: Presta\CMSCoreBundle\Block\SimpleBlockService
         tags:
             - {name: sonata.block}
+            - {name: presta_cms.block}
         arguments: [cms_core_editor, @templating]
         calls:
             - [ setTranslator, [ @translator ] ]
@@ -58,10 +59,12 @@ services:
         class: Presta\CMSCoreBundle\Block\PageChildrenBlockService
         tags:
             - {name: sonata.block}
+            - {name: presta_cms.block}
         arguments: [cms_core_editor, @templating]
         calls:
             - [ setTranslator, [ @translator ] ]
             - [ setPageManager, [ @presta_cms.page_manager ] ]
+
     #Block service
     presta_cms.block.dashboard.cms:
       class: Presta\CMSCoreBundle\Block\Dashboard\CmsBlockService
@@ -84,6 +87,8 @@ services:
     presta_cms.page_manager:
       class: Presta\CMSCoreBundle\Model\PageManager
       arguments: [@service_container]
+    presta_cms.block_manager:
+      class: Presta\CMSCoreBundle\Model\BlockManager
 
     #Page Types
     presta_cms.page_type.cms_page:

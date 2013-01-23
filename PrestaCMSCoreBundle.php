@@ -11,6 +11,10 @@
 namespace Presta\CMSCoreBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+
+use Presta\CMSCoreBundle\DependencyInjection\Compiler\BlockCompilerPass;
+
 
 /**
  * References :
@@ -22,5 +26,13 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class PrestaCMSCoreBundle extends Bundle
 {
-    
+    /**
+     * {@inheritDoc}
+     */
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+
+        $container->addCompilerPass(new BlockCompilerPass());
+    }
 }
