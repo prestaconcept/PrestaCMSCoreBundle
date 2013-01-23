@@ -63,45 +63,21 @@ class PageController extends AdminController
         );
 
         if ($websiteId != null) {
-            $websiteId = '/website/' . $websiteId; //le slash ne passant pas au routing on rajoute le basePath
+            $websiteId = '/website/' . $websiteId; //todo !
             $viewParams['websiteId'] = $websiteId;
             $website = $this->getWebsiteManager()->getWebsite($websiteId, $locale);
             $theme = $this->getThemeManager()->getTheme($website->getTheme());
-
-            $navigations = array();
-            foreach ($theme->getNavigations() as $navigation) {
-                $navigations[$navigation] = $navigation;
-            }
-//            $navigations['single_pages'] = 'single_pages';
             $viewParams['theme'] = $theme;
-            $viewParams['navigations'] = $navigations;
-
-
-//            if ($id) {
-//                $page = $this->getPageManager()->getPageById($website, $id);
-//
-//                $viewParams['pageEditTabs'] = $this->getPageManager()->getType($page->getType())->getEditTabs();
-//
-//                $form = $this->createForm(new PageType(), $page);
-//                if ($this->get('request')->getMethod() == 'POST') {
-//                    $form->bindRequest($this->get('request'));
-//
-//                    if ($form->isValid()) {
-//                        $this->getPageManager()->update($page);
-//                        $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
-//                    } else {
-//                        $this->get('session')->setFlash('sonata_flash_error', 'flash_edit_error');
-//                    }
-//                }
-//
-//                $viewParams['page'] = $page;
-//                $viewParams['form'] = $form->createView();
-//            }
         }
         
         return $this->render('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
     }
 
+    /**
+     * Page Edition
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function editAction()
     {
         $menuItemId = $this->getRequest()->get('id');
@@ -118,20 +94,13 @@ class PageController extends AdminController
 
         $theme = $this->getThemeManager()->getTheme($website->getTheme());
 
-        $navigations = array();
-        foreach ($theme->getNavigations() as $navigation) {
-            $navigations[$navigation] = $navigation;
-        }
-//            $navigations['single_pages'] = 'single_pages';
-
         $viewParams = array(
             'menuItemId' => $menuItemId,  'websiteId' => $websiteId,
-            'locale' => $locale, 'navigations' => array(),
+            'locale' => $locale,
             'page' => $page, '_locale' => $this->getRequest()->get('_locale'),
             'translation_domain' => 'PrestaCMSCoreBundle'
         );
         $viewParams['theme'] = $theme;
-        $viewParams['navigations'] = $navigations;
 
         $viewParams['pageEditTabs'] = $this->getPageManager()->getType($page->getType())->getEditTabs();
 
