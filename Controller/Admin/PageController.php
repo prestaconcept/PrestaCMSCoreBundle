@@ -134,9 +134,30 @@ class PageController extends AdminController
      */
     public function renderEditTabAction($type, $tab, $page)
     {
+        //nicolas-bastien: 23/01/2013
+        //Force PHPCR locale to retrieve children in the good one
+        //check if DoctrinePHPCR evoluate to handle children transaltion
+        //when document is loaded by findTranslation
+        $this->get('doctrine_phpcr.odm.locale_chooser')->setLocale($page->getLocale());
+
         $pageType   = $this->getPageManager()->getType($type);
         $viewParams = $pageType->getEditTabData($tab, $page);
         return $this->render($pageType->getEditTabTemplate($tab), $viewParams);
+    }
+
+    /**
+     * Allow us to render the tre in the website locale
+     *
+     * @param $root
+     * @param $selected
+     * @param $locale
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderPageTreeAction ($root, $selected, $locale)
+    {
+        $this->getRequest()->setLocale($locale);
+        //$selected is set to null cause it trigger the "select_node.jstree" event and reload the page
+        return $this->forward('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array('root' => $root, 'selected' => null));
     }
 
 //	/**
