@@ -90,8 +90,6 @@ class PageManager
         $menuItem = $this->getDocumentManager()->findTranslation(null, $menuItemId, $locale);
         $page = $menuItem->getContent();
 
-        //ici le chargement de la trad ne fonctionne pas !
-        //$this->getDocumentManager()->bindTranslation($page, $locale);
         $page = $this->getDocumentManager()->findTranslation(null, $page->getPath(), $locale);
 
         $this->setCurrentPage($page);

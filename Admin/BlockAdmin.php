@@ -94,6 +94,17 @@ class BlockAdmin extends BaseAdmin
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function generateUrl($name, array $parameters = array(), $absolute = false)
+    {
+        if ($name == 'create' || $name == 'edit') {
+            $parameters = $parameters + array('locale' => $this->getRequest()->get('locale'));
+        }
+        return parent::generateUrl($name, $parameters, $absolute);
+    }
+
+    /**
      * Refresh object to load locale get in param
      *
      * @param   $id
@@ -101,7 +112,13 @@ class BlockAdmin extends BaseAdmin
      */
     public function getObject($id)
     {
-        $block = parent::getObject($id);
+        $locale = $this->getRequest()->get('locale');
+        $block = $this->getDocumentManager()->findTranslation($this->getClass(), $id, $locale);
+        if (!is_null($locale)) {
+            //Here we have to consider the PHPCR fallback system and rest the locale
+            //in case translation does not exist
+            $this->getDocumentManager()->bindTranslation($block, $locale);
+        }
         $service = $this->blockManager->get($block);
         $service->load($block);
 

@@ -84,7 +84,7 @@ class PageTypeCMSPage implements PageTypeInterface
 				if (count($page->getZones()) == 0) {
 					// Todo améliorer ça !
 					// + prendre en compte le changement de template!
-                    $repository = $this->container->get('doctrine_phpcr.odm.default_document_manager')
+                    $repository = $this->container->get('doctrine_phpcr')->getManager()
                         ->getRepository('Presta\CMSCoreBundle\Document\Page');
 
 					//If there is no corresponding data, initialisation with default configuration
@@ -122,9 +122,9 @@ class PageTypeCMSPage implements PageTypeInterface
 //		//$publishedRevision = $repository->getPublishedRevisionForPage($page);
 //		//tmp waiting for publication to be implemented
 //		$publishedRevision = $repository->getDraftForPage($page);
-
+//var_dump('cms page type get data');die;
 		return array(
-			'revision' => $page,
+//			'revision' => $page,
 			'template' => $this->themeManager->getPageTemplateFile($page->getTemplate())
 		);
 	}

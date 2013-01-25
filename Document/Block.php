@@ -53,7 +53,7 @@ class Block extends CmfBaseBlock
     protected $type;
 
 //    /**
-//     * @PHPCRODM\String(assoc="")
+//     * @PHPCRODM\String(translated=true, assoc="")
 //     */
 //    protected $settings;
 
@@ -133,17 +133,17 @@ class Block extends CmfBaseBlock
         return $this;
     }
 
-//    /**
-//     * {@inheritdoc}
-//     */
-//    public function getSettings()
-//    {//var_dump($this->settings);die;
-//        if (!is_array($this->settings)) {
-//            //If translation is not created yet, Gedmo return an empty string
-//            return array();
-//        }
-//        return $this->settings;
-//    }
+    /**
+     * {@inheritdoc}
+     */
+    public function getSettings()
+    {
+        if (!is_array($this->settings)) {
+            //If translation is not created yet, PHPCR-ODM return null
+            return array();
+        }
+        return $this->settings;
+    }
 
     /**
      * Set is_active
