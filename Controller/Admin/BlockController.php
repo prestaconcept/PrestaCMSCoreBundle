@@ -57,6 +57,11 @@ class BlockController extends CRUDController
             }
             //ajout du block à la zone
             $zone = $manager->find($zoneClass, $zoneId);
+            if (is_null($zone)) {
+                $zone = new $zoneClass();
+                $zone->setId($zoneId);
+                $manager->create($zone);
+            }
             $position = (count($zone->getBlocks()) + 1) * 10;
 
             $blockType = $this->getRequest()->get('block');
