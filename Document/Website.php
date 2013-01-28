@@ -83,6 +83,7 @@ class Website
     {
         $this->setIsActive(true);
         $this->setIsDefault(false);
+        $this->availableLocales = array();
     }
 
     /**
@@ -133,7 +134,7 @@ class Website
     public function getDefaultLocale()
     {
         if (is_null($this->defaultLocale)) {
-            return array_shift($this->getAvailableLocales());
+            return array_shift($this->availableLocales);
         }
 
         return $this->defaultLocale;
