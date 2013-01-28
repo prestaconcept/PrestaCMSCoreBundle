@@ -195,7 +195,10 @@ class WebsiteManager
     {
         $website = $this->getModelManager()->find(self::WEBSITE_CLASS, $websiteCode);
 
-        if ($website instanceof Website && $locale != null) {
+        if (!$website instanceof Website) {
+            return null;
+        }
+        if ($locale != null) {
             $website->setLocale($locale);
         }
         $this->setCurrentWebsite($website);
