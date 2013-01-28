@@ -15,14 +15,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Website Document
  *
- * @package    Presta
- * @subpackage CMSCoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  *
  * @PHPCRODM\Document(referenceable=true, translator="attribute", repositoryClass="Presta\CMSCoreBundle\Document\Website\Repository")
  */
 class Website
 {
+    const WEBSITE_PREFIX    = 'website';
+    const ROUTE_PREFIX      = 'route';
+    const PAGE_PREFIX       = 'page';
+
     /**
      * to create the document at the specified location. read only for existing documents.
      *
@@ -43,12 +45,6 @@ class Website
     protected $locale;
 
     /**
-     * @var string $host
-     * @PHPCRODM\String(translated=true)
-     */
-    protected $host;
-
-    /**
      * @var string $theme
      * @PHPCRODM\String(translated=true)
      */
@@ -57,33 +53,37 @@ class Website
     /**
      * @var string $name
      * @Assert\NotBlank
-     * @PHPCRODM\String(translated=true)
      */
     protected $name;
 
     /**
-     * @var boolean $is_active
+     * @var boolean $isActive
      * @PHPCRODM\Boolean(translated=true)
      */
-    protected $is_active;
+    protected $isActive;
 
     /**
-     * @var boolean $is_default
-     * @PHPCRODM\Boolean(translated=true)
+     * @var boolean $isDefault
      */
-    protected $is_default;
+    protected $isDefault;
 
     /**
-     * @var string $default_locale
+     * @var string $defaultLocale
      * @PHPCRODM\String()
      */
-    protected $default_locale;
+    protected $defaultLocale;
 
     /**
-     * @var array $available_locales
+     * @var array $availableLocales
      * @PHPCRODM\String(multivalue=true)
      */
-    protected $available_locales;
+    protected $availableLocales;
+
+    public function __construct()
+    {
+        $this->setIsActive(true);
+        $this->setIsDefault(false);
+    }
 
     /**
      * Used by Admin edition
@@ -95,17 +95,20 @@ class Website
         return $this->getName();
     }
 
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->getPath();
     }
 
     /**
-     * @param array $available_locales
+     * @param array $availableLocales
      */
-    public function setAvailableLocales($available_locales)
+    public function setAvailableLocales($availableLocales)
     {
-        $this->available_locales = $available_locales;
+        $this->availableLocales = $availableLocales;
     }
 
     /**
@@ -113,15 +116,15 @@ class Website
      */
     public function getAvailableLocales()
     {
-        return $this->available_locales;
+        return $this->availableLocales;
     }
 
     /**
-     * @param string $default_locale
+     * @param string $defaultLocale
      */
-    public function setDefaultLocale($default_locale)
+    public function setDefaultLocale($defaultLocale)
     {
-        $this->default_locale = $default_locale;
+        $this->defaultLocale = $defaultLocale;
     }
 
     /**
@@ -129,7 +132,11 @@ class Website
      */
     public function getDefaultLocale()
     {
-        return $this->default_locale;
+        if (is_null($this->defaultLocale)) {
+            return array_shift($this->getAvailableLocales());
+        }
+
+        return $this->defaultLocale;
     }
 
     /**
@@ -149,51 +156,35 @@ class Website
     }
 
     /**
-     * @param string $host
+     * @param boolean $isActive
      */
-    public function setHost($host)
+    public function setIsActive($isActive)
     {
-        $this->host = $host;
-    }
-
-    /**
-     * @return string
-     */
-    public function getHost()
-    {
-        return $this->host;
-    }
-
-    /**
-     * @param boolean $is_active
-     */
-    public function setIsActive($is_active)
-    {
-        $this->is_active = $is_active;
+        $this->isActive = $isActive;
     }
 
     /**
      * @return boolean
      */
-    public function getIsActive()
+    public function isActive()
     {
-        return $this->is_active;
+        return $this->isActive;
     }
 
     /**
-     * @param boolean $is_default
+     * @param boolean $isDefault
      */
-    public function setIsDefault($is_default)
+    public function setIsDefault($isDefault)
     {
-        $this->is_default = $is_default;
+        $this->isDefault = $isDefault;
     }
 
     /**
      * @return boolean
      */
-    public function getIsDefault()
+    public function isDefault()
     {
-        return $this->is_default;
+        return $this->isDefault;
     }
 
     /**
@@ -202,7 +193,6 @@ class Website
     public function setName($name)
     {
         $this->name = $name;
-        $this->path = '/website/' . $name; //todo!
     }
 
     /**
@@ -250,9 +240,6 @@ class Website
      */
     public function getRoutePrefix()
     {
-        return $this->getPath() . '/route/' . $this->getLocale();
+        return $this->getPath() . DIRECTORY_SEPARATOR . self::ROUTE_PREFIX . DIRECTORY_SEPARATOR . $this->getLocale();
     }
-
-
-
 }

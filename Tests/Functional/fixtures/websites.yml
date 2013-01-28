@@ -1,0 +1,19 @@
+websites:
+    -
+        path: /website/prestaconcept
+        available_locales: ['fr', 'en']
+        default_locale: 'fr'
+        theme: prestaconcept
+        name: prestaconcept
+    -
+        path: /website/liip
+        available_locales: ['fr', 'en', 'de']
+        default_locale: 'fr'
+        theme: liip
+        name: liip
+    -
+        path: /website/symfony
+        available_locales: ['en', 'de', 'fr']
+        default_locale: 'en'
+        theme: symfony
+        name: symfony
