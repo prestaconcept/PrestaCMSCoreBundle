@@ -11,47 +11,43 @@ namespace Presta\CMSCoreBundle\Model;
 
 use Symfony\Component\HttpFoundation\Request;
 
-use Presta\CMSCoreBundle\Exception\Website\WebsiteNotFoundException;
+use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Presta\CMSCoreBundle\Document\Website;
+use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RouteProvider;
 
 /**
  * Website Manager
  *
- * @package    PrestaCMS
- * @subpackage CoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class WebsiteManager
 {
-    /**
-     * @var Symfony\Component\DependencyInjection\Container
-     */
-    protected $_container;
+    const WEBSITE_CLASS = 'Presta\CMSCoreBundle\Document\Website';
 
     /**
-     * @var RouteProvider
+     * @var \Sonata\AdminBundle\Model\ModelManagerInterface
+     */
+    protected $modelManager;
+
+    /**
+     * @var \Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RouteProvider
      */
     protected $routeProvider;
 
     /**
-     * @var IdPrefix
+     * @var \Symfony\Cmf\Bundle\RoutingExtraBundle\Listener\IdPrefix
      */
     protected $routeListener;
 
     /**
      * @var array
      */
-    protected $_websites;
+    protected $websites;
 
     /**
      * @var \Presta\CMSCoreBundle\Document\Website
      */
     protected $currentWebsite;
-
-    /**
-     * @var Presta\CMSCoreBundle\Document\WebsiteRepository
-     */
-    protected $_repository;
 
     /**
      * @var boolean
@@ -68,20 +64,44 @@ class WebsiteManager
      */
     protected $hosts;
 
+    public function __construct()
+    {
+        $this->websites = null;
+        $this->currentWebsite  = null;
+        $this->multipleWebsite = false;
+        $this->hosts = array();
+    }
+
     /**
-     * @param $container
-     * @param $routeProvider
+     * @param \Sonata\AdminBundle\Model\ModelManagerInterface $modelManager
+     */
+    public function setModelManager(ModelManagerInterface $modelManager)
+    {
+        $this->modelManager = $modelManager;
+    }
+
+    /**
+     * @return \Sonata\AdminBundle\Model\ModelManagerInterface
+     */
+    public function getModelManager()
+    {
+        return $this->modelManager;
+    }
+
+    /**
+     * @param \Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RouteProvider $routeProvider
+     */
+    public function setRouteProvider(RouteProvider $routeProvider)
+    {
+        $this->routeProvider = $routeProvider;
+    }
+
+    /**
      * @param $routeListener
      */
-    public function __construct($container, $routeProvider, $routeListener)
+    public function setRouteListener($routeListener)
     {
-        $this->_container = $container;
-        $this->routeProvider   = $routeProvider;
-        $this->routeListener   = $routeListener;
-        $this->_websites = null;
-        $this->currentWebsite = null;
-        $this->_repository = null;
-        $this->hosts = array();
+        $this->routeListener = $routeListener;
     }
 
     /**
@@ -130,17 +150,14 @@ class WebsiteManager
     }
 
     /**
-     * Return website repository
+     * Check if a host is registered
      *
-     * @return Presta\CMSCoreBundle\Repository\WebsiteRepository
+     * @param  string $hostCode
+     * @return bool
      */
-    protected function _getRepository()
+    public function hasHostRegistered($hostCode)
     {
-        if ($this->_repository == null) {
-            $this->_repository =$this->_container->get('doctrine_phpcr.odm.default_document_manager')
-                ->getRepository('Presta\CMSCoreBundle\Document\Website');
-        }
-        return $this->_repository;
+        return isset($this->hosts[$hostCode]);
     }
 
     /**
@@ -153,15 +170,20 @@ class WebsiteManager
         return $this->currentWebsite;
     }
 
+    /**
+     * Set current website
+     *
+     * @param $website
+     */
     public function setCurrentWebsite($website)
     {
         $this->currentWebsite = $website;
 
-        //Inject route prefix in Route Repository adn listener
+        //Inject route prefix in Route Repository and listener
         $this->routeProvider->setPrefix($website->getRoutePrefix());
         $this->routeListener->setPrefix($website->getRoutePrefix());
     }
-//
+
     /**
      * Get website
      *
@@ -171,8 +193,7 @@ class WebsiteManager
      */
     public function getWebsite($websiteCode, $locale = null)
     {
-        $dm = $this->_container->get('doctrine_phpcr.odm.default_document_manager');
-        $website = $dm->find(null, $websiteCode);
+        $website = $this->getModelManager()->find(self::WEBSITE_CLASS, $websiteCode);
 
         if ($website instanceof Website && $locale != null) {
             $website->setLocale($locale);
@@ -189,7 +210,7 @@ class WebsiteManager
      */
     public function getAvailableWebsites()
     {
-        return $this->_getRepository()->getAvailableWebsites();
+        return $this->getModelManager()->findBy(self::WEBSITE_CLASS, array());
     }
 
     /**
@@ -208,6 +229,5 @@ class WebsiteManager
         $this->setCurrentWebsite($website);
 
         return $website;
-
     }
 }

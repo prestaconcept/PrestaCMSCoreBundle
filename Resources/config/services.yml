@@ -79,8 +79,12 @@ services:
 
     #Manager
     presta_cms.website_manager:
-      class: Presta\CMSCoreBundle\Model\WebsiteManager
-      arguments: [@service_container, @symfony_cmf_routing_extra.default_route_provider, @symfony_cmf_routing_extra.phpcrodm_route_idprefix_listener]
+        class: Presta\CMSCoreBundle\Model\WebsiteManager
+        arguments: []
+        calls:
+            - [ setModelManager, [ @sonata.admin.manager.doctrine_phpcr ] ]
+            - [ setRouteProvider, [ @symfony_cmf_routing_extra.default_route_provider ] ]
+            - [ setRouteListener, [ @symfony_cmf_routing_extra.phpcrodm_route_idprefix_listener ] ]
     presta_cms.theme_manager:
       class: Presta\CMSCoreBundle\Model\ThemeManager
       arguments: [@service_container]
