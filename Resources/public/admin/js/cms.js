@@ -49,6 +49,12 @@ var CMSContent = function() {
                 e.preventDefault();
                 CMSContent.deleteBlock($(this).attr('block-id'), $(this).attr('block-title'));
             });
+
+//                $( ".page-zone-block-container" ).sortable(
+//                    { cursor: "move" }
+//                );
+//                $( ".page-zone-block-container" ).disableSelection();
+
         },
         /**
          * Return url for block rendering
@@ -70,6 +76,7 @@ var CMSContent = function() {
                 $('#modal-content div.form-actions').remove();
                 $('#modal-loader').hide();
                 $('#modal-content').show();
+                initWysiwyg();
             });
         },
         /**
