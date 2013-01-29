@@ -53,6 +53,7 @@ class Website
     /**
      * @var string $name
      * @Assert\NotBlank
+     * @PHPCRODM\String()
      */
     protected $name;
 

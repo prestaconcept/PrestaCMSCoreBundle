@@ -86,10 +86,6 @@ class Theme extends ContainerBlock
      */
     public function addZone($zone)
     {
-        if (null === $this->children) {
-            $this->children = new ArrayCollection();
-        }
-
         return $this->children->set($zone->getName(), $zone);
     }
 

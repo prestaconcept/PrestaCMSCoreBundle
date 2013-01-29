@@ -15,19 +15,22 @@ use PHPCR\Util\NodeHelper;
 
 use Presta\CMSCoreBundle\Document\Website;
 use Presta\CMSCoreBundle\Document\Theme;
-use Presta\CMSCoreBundle\Document\Theme\Zone;
+use Presta\CMSCoreBundle\Document\Zone;
 use Presta\CMSCoreBundle\Document\Block;
 
 
 /**
  * Website Theme Repository
  *
- * @package    Presta
- * @subpackage CMSCoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class Repository extends BaseDocumentRepository
 {
+    /**
+     * @param $themeName
+     * @param $website
+     * @return array
+     */
     public function getZones($themeName, $website)
     {
         $websiteTheme = $this->getDocumentManager()->find('Presta\CMSCoreBundle\Document\Theme', $website->getId() . '/theme/' . $themeName);
@@ -41,7 +44,7 @@ class Repository extends BaseDocumentRepository
     /**
      * Initialize data for a website
      *
-     * @param  Application\Presta\CMSCoreBundle\Entity\Website $website
+     * @param  Website $website
      * @param  array $configuration
      * @return
      */
@@ -58,7 +61,7 @@ class Repository extends BaseDocumentRepository
 
 
         foreach ($configuration['zones'] as $zoneConfiguration) {
-            if (count($zoneConfiguration['blocks']) == 0) {
+            if (!isset($zoneConfiguration['blocks']) || count($zoneConfiguration['blocks']) == 0) {
                 continue;
             }
             $websiteThemeZone = new Zone();
@@ -70,7 +73,7 @@ class Repository extends BaseDocumentRepository
                 $block->setParent($websiteThemeZone);
                 $block->setLocale($website->getLocale());
                 $block->setType($blockConfiguration['type']);
-                if (strlen($blockConfiguration['name'])) {
+                if (isset($blockConfiguration['name']) && strlen($blockConfiguration['name'])) {
                     $block->setName($blockConfiguration['name']);
                 } else {
                     $block->setName($blockConfiguration['type'] . '-' . $blockConfiguration['position']);

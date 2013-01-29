@@ -20,9 +20,9 @@ use Symfony\Cmf\Component\Routing\RouteAwareInterface;
 /**
  * Page Document
  *
- * @package    Presta
- * @subpackage CMSCoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
+ *
+ * @todo refactor children and zone storing so everything is not loaded each time: use filter on children annotation ?
  *
  * @PHPCRODM\Document(referenceable=true, translator="attribute", repositoryClass="Presta\CMSCoreBundle\Document\Page\Repository")
  */
@@ -31,6 +31,12 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
     const STATUS_DRAFT      = 'draft';
     const STATUS_PUBLISHED  = 'published';
     const STATUS_ARCHIVE    = 'archive';
+
+    /**
+     * This is not store in database, it's used to pass data form the form to the route
+     * @var string
+     */
+    protected $url;
 
     /**
      * @var string $metaKeywords
@@ -73,6 +79,12 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      */
     protected  $children;
 
+    public function __construct()
+    {
+        $this->isActive = true;
+        $this->children = new ArrayCollection();
+    }
+
     /**
      * The children documents of this document
      *
@@ -83,7 +95,7 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      */
     public function getChildren()
     {
-        return $this->children;
+        return $this->children->filter(function($e) {return $e instanceof Page;});
     }
 
     /**
@@ -103,10 +115,6 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      */
     public function addChild($child)
     {
-        if (null === $this->children) {
-            $this->children = new ArrayCollection();
-        }
-
         $this->children->add($child);
     }
 
@@ -117,10 +125,6 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      */
     public function addZone($zone)
     {
-        if (null === $this->children) {
-            $this->children = new ArrayCollection();
-        }
-
         return $this->children->set($zone->getName(), $zone);
     }
 
@@ -131,7 +135,7 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      */
     public function getZones()
     {
-        return $this->getChildren();
+        return $this->children->filter(function($e) {return $e instanceof Zone;});
     }
 
     /**
@@ -145,7 +149,7 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
     /**
      * @return boolean
      */
-    public function getIsActive()
+    public function isActive()
     {
         return $this->isActive;
     }
@@ -232,6 +236,9 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
         return $this;
     }
 
+    /**
+     * @return bool|\Symfony\Component\Routing\Route
+     */
     public function getRoute()
     {
         foreach ($this->getRoutes() as $route) {
@@ -243,13 +250,17 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
         return false;
     }
 
-    protected $url;
-
+    /**
+     * @param string $url
+     */
     public function setUrl($url)
     {
         $this->url = $url;
     }
 
+    /**
+     * @return bool|string
+     */
     public function getUrl()
     {
         if (!$this->url) {
