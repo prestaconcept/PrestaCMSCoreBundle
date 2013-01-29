@@ -37,10 +37,10 @@ class Block extends CmfBaseBlock
     protected $isDeletable;
 
     /**
-     * @var boolean $is_active
+     * @var boolean $isActive
      * @PHPCRODM\Boolean(translated=true)
      */
-    protected $isActive;
+    protected $isActive = true;
 
     /**
      * @var bool
@@ -52,12 +52,13 @@ class Block extends CmfBaseBlock
      */
     protected $type;
 
-//    /**
-//     * @PHPCRODM\String(translated=true, assoc="")
-//     */
-//    protected $settings;
+    /**
+     * @PHPCRODM\String(translated=true)
+     */
+    protected $settings;
 
     /**
+     * @var string
      * @PHPCRODM\Locale
      */
     protected $locale;
@@ -72,22 +73,33 @@ class Block extends CmfBaseBlock
         return $this->type;
     }
 
+    /**
+     * @param string $type
+     */
     public function setType($type)
     {
         $this->type = $type;
     }
 
-
+    /**
+     * @return string
+     */
     public function getHtmlId()
     {
         return str_replace(array('.', '_', '/'), '', $this->getId());
     }
 
+    /**
+     * @return string
+     */
     public function getLocale()
     {
         return $this->locale;
     }
 
+    /**
+     * @param string $locale
+     */
     public function setLocale($locale)
     {
         $this->locale = $locale;
@@ -110,6 +122,7 @@ class Block extends CmfBaseBlock
     public function setIsEditable($isEditable)
     {
         $this->isEditable = $isEditable;
+
         return $this;
     }
 
@@ -130,6 +143,7 @@ class Block extends CmfBaseBlock
     public function setIsDeletable($isDeletable)
     {
         $this->isDeletable = $isDeletable;
+
         return $this;
     }
 
@@ -142,6 +156,7 @@ class Block extends CmfBaseBlock
             //If translation is not created yet, PHPCR-ODM return null
             return array();
         }
+
         return $this->settings;
     }
 
@@ -154,6 +169,7 @@ class Block extends CmfBaseBlock
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
+
         return $this;
     }
 
@@ -162,7 +178,7 @@ class Block extends CmfBaseBlock
      *
      * @return boolean
      */
-    public function getIsActive()
+    public function isActive()
     {
         return $this->isActive;
     }
