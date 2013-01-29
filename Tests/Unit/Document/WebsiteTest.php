@@ -41,8 +41,9 @@ class WebsiteTest extends BaseUnitTestCase
         $this->assertFalse($website->isDefault());
         $website->setIsDefault(true);
         $this->assertTrue($website->isDefault());
+
+        $website->setName('default');
+        $this->assertEquals('default', $website->__toString());
     }
-
-
 }
 
