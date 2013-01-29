@@ -11,7 +11,7 @@ namespace Presta\CMSCoreBundle\Tests\Unit\Model;
 
 use Presta\CMSCoreBundle\Tests\Unit\BaseUnitTestCase;
 use Presta\CMSCoreBundle\Model\Template;
-use Presta\CMSCoreBundle\Model\Zone;
+use Presta\CMSCoreBundle\Document\Zone;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
@@ -32,15 +32,21 @@ class TemplateTest extends BaseUnitTestCase
 
         $this->assertEquals(0, count($template->getZones()));
 
-//        $zoneContent = new Zone('content', array());
-//        $template->addZone($zoneContent);
-//
-//        $this->assertEquals(1, count($template->getZones()));
+        $zoneContent = new Zone('content');
+        $template->addZone($zoneContent);
 
+        $sidebarContent = new Zone('sidebar');
+        $template->addZone($sidebarContent);
+
+        $this->assertEquals(2, count($template->getZones()));
+
+        $zones = $template->getZones();
+
+        $template->setZones(array());
+        $this->assertEquals(0, count($template->getZones()));
+
+        $template->setZones($zones);
+        $this->assertEquals(2, count($template->getZones()));
     }
-
-
-
-
 }
 
