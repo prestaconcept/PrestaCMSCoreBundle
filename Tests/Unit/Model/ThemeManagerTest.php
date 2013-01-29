@@ -37,7 +37,6 @@ class ThemeManagerTest extends BaseUnitTestCase
         return $themeManager;
     }
 
-
     public function testGetAvailableThemes()
     {
         $themeManager = $this->getThemeManager();
@@ -52,8 +51,14 @@ class ThemeManagerTest extends BaseUnitTestCase
             array('default' => 'default', 'prestaconcept' => 'prestaconcept', 'liip' => 'liip'),
             $themeManager->getAvailableThemeCodesForSelect()
         );
+    }
 
+    public function testGetThemeError()
+    {
+        $themeManager = $this->getThemeManager();
 
+        $theme = $themeManager->getTheme('no-theme');
+        $this->assertEquals(false, $theme);
     }
 
     public function testGetThemeFullConfiguration()
@@ -61,6 +66,7 @@ class ThemeManagerTest extends BaseUnitTestCase
         $themeManager = $this->getThemeManager();
 
         $theme = $themeManager->getTheme('default');
+        $this->assertEquals($theme, $themeManager->getCurrentTheme());
         $this->assertTrue($theme instanceof Theme);
         $this->assertEquals('default', $theme->getName());
         $this->assertEquals('Presta CMS default theme', $theme->getDescription());
@@ -73,8 +79,6 @@ class ThemeManagerTest extends BaseUnitTestCase
         //@todo test zone
 
         $this->assertEquals(2, count($theme->getPageTemplates()));
-
-        //@todo test page template
     }
 
     public function testGetThemeMinimalConfiguration()
@@ -90,6 +94,41 @@ class ThemeManagerTest extends BaseUnitTestCase
         $this->assertEquals(null, $theme->getAdminStyle());
     }
 
+    public function testGetPageTemplateFile()
+    {
+        $themeManager = $this->getThemeManager();
+
+        $template = $themeManager->getPageTemplateFile('default');
+        $this->assertEquals(false, $template); //Current theme is not setted
+
+        $theme = $themeManager->getTheme('default');
+        $template = $themeManager->getPageTemplateFile('default');
+        $this->assertEquals('PrestaCMSCoreBundle:Theme/Default/Page:default.html.twig', $template);
+
+        $template = $themeManager->getPageTemplateFile('sidebar');
+        $this->assertEquals('PrestaCMSCoreBundle:Theme/Default/Page:sidebar.html.twig', $template);
+
+        $template = $themeManager->getPageTemplateFile('no-template');
+        $this->assertEquals(false, $template);
+    }
+
+    public function testGetPageTemplateConfiguration()
+    {
+        $themeManager = $this->getThemeManager();
+
+        $configuration = $themeManager->getPageTemplateConfiguration('default');
+        $this->assertEquals(false, $configuration); //Current theme is not setted
+
+        $theme = $themeManager->getTheme('default');
+        $configuration = $themeManager->getPageTemplateConfiguration('default');
+
+        $this->assertEquals('default', $configuration['name']);
+        $this->assertEquals('PrestaCMSCoreBundle:Theme/Default/Page:default.html.twig', $configuration['path']);
+        $this->assertEquals(1, count($configuration['zones']));
+        $this->assertEquals(6, count($configuration['zones']['content']));
+
+        //todo default initialisation !
+    }
 
 }
 
