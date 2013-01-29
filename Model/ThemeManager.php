@@ -9,6 +9,10 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
+use Symfony\Component\DependencyInjection\ContainerAware;
+use Presta\CMSCoreBundle\Document\Theme;
+use Presta\CMSCoreBundle\Document\Zone;
+
 /**
  * Theme Manager
  * 
@@ -18,56 +22,123 @@ namespace Presta\CMSCoreBundle\Model;
  */
 class ThemeManager
 {
+//    const WEBSITE_CLASS = 'Presta\CMSCoreBundle\Document\Website';
+
     /**
-     * @var Symfony\Component\DependencyInjection\Container
+     * @var \Sonata\AdminBundle\Model\ModelManagerInterface
      */
-    protected $_container;
+    protected $modelManager;
+
+    /**
+     * @var array 
+     */
+    protected $themes;
     
     /**
      * @var array 
      */
-    protected $_themes;
+    protected $themesConfiguration;
     
-    /**
-     * @var array 
-     */
-    protected $_themesConfiguration;
-    
-    /**
-     * @var array 
-     */
-    protected $_blockTypes;
+//    /**
+//     * @var array
+//     */
+//    protected $_blockTypes;
     
     /**
      * @var \Presta\CMSCoreBundle\Model\Theme
      */
-    protected $_currentTheme;
+    protected $currentTheme;
     
     /**
      * @var type 
      */
     protected $_repository;
 
-    public function __construct($container)
+    public function __construct()
     {
-        $this->_container = $container;
-        $this->_themes = null;
+        $this->themes = null;
         $this->_repository = null;
-        $this->_themesConfiguration = array();
+        $this->themesConfiguration = array();
+    }
+
+    /**
+     * @param \Sonata\AdminBundle\Model\ModelManagerInterface $modelManager
+     */
+    public function setModelManager(ModelManagerInterface $modelManager)
+    {
+        $this->modelManager = $modelManager;
+    }
+
+    /**
+     * @return \Sonata\AdminBundle\Model\ModelManagerInterface
+     */
+    public function getModelManager()
+    {
+        return $this->modelManager;
     }
         
+//    /**
+//     * Return Theme block repository
+//     *
+//     * @return todo
+//     */
+//    protected function _getRepository()
+//    {
+//        if ($this->_repository == null) {
+//            $this->_repository =$this->_container->get('doctrine_phpcr.odm.default_document_manager')
+//                ->getRepository('Presta\CMSCoreBundle\Document\Theme');
+//        }
+//        return $this->_repository;
+//    }
+
     /**
-     * Return Theme block repository
-     * 
-     * @return todo
+     * Add a new theme configuration
+     *
+     * @param  array $configuration
+     * @return \Presta\CMSCoreBundle\Model\ThemeManager
      */
-    protected function _getRepository()
+    public function addThemeConfiguration(array $configuration)
     {
-        if ($this->_repository == null) {
-            $this->_repository =$this->_container->get('doctrine_phpcr.odm.default_document_manager')
-                ->getRepository('Presta\CMSCoreBundle\Document\Theme');
+        $this->themesConfiguration[$configuration['name']] = $configuration;
+
+        return $this;
+    }
+
+    /**
+     * Return all themes codes declared in configuration
+     *
+     * @rturn array
+     */
+    public function getAvailableThemeCodes()
+    {
+        return array_keys($this->themesConfiguration);
+    }
+
+    /**
+     * Return all themes codes indexed by themes code for select
+     *
+     * @return  array
+     */
+    public function getAvailableThemeCodesForSelect()
+    {
+        $themeCodes = $this->getAvailableThemeCodes();
+
+        return array_combine($themeCodes, $themeCodes);
+    }
+
+    /**
+     * Return all themes declared in configuration
+     *
+     * @rturn array
+     */
+    public function getAvailableThemes()
+    {
+        if (!is_array($this->themes)) {
+            foreach ($this->themesConfiguration as $configuration) {
+                $this->themes[$configuration['name']] = $this->_buildTheme($configuration);
+            }
         }
-        return $this->_repository;
+        return $this->themes;
     }
 
 	/**
@@ -75,44 +146,12 @@ class ThemeManager
 	 */
 	public function getCurrentTheme()
 	{
-		return $this->_currentTheme;
+		return $this->currentTheme;
 	}
 
-    /**
-     * Return all themes declared in configuration
-     * 
-     * @rturn array 
-     */
-    public function getAvailableThemes()
-    {
-        if (!is_array($this->_themes)) {
-            foreach ($this->_themesConfiguration as $configuration) {
-                $this->_themes[$configuration['name']] = $this->_buildTheme($configuration);
-            }
-        }
-        return $this->_themes;
-    }
 
-    /**
-     * Return all themes codes declared in configuration
-     * 
-     * @rturn array 
-     */
-    public function getAvailableThemeCodes()
-    {
-        return array_keys($this->_themesConfiguration);
-    }
 
-    /**
-     * Return all themes codes indexed by themes code for select
-     * 
-     * @return  array
-     */
-    public function getAvailableThemeCodesForSelect()
-    {
-        $themeCodes = $this->getAvailableThemeCodes();
-        return array_combine($themeCodes, $themeCodes);
-    }
+
 
     /**
      * Build Theme model with data
@@ -122,6 +161,13 @@ class ThemeManager
      */
     protected function _buildTheme(array $configuration, $website = null)
     {
+        $configuration += array(
+            'cols' => 12,
+            'admin_style' => null,
+            'zones' => array(),
+            'page_template' => array()
+        );
+
         $theme = new Theme($configuration['name']);
         $theme->setDescription($configuration['description']);
         $theme->setTemplate($configuration['template']);
@@ -129,16 +175,13 @@ class ThemeManager
 		$theme->setAdminStyle($configuration['admin_style']);
         $theme->setCols($configuration['cols']);//var_dump(serialize(array('content'=>'<p>hello</p>')));die;
 
-        if ($website != null) {
-            $zones = $this->_getRepository()->getZones($configuration['name'], $website);
-            if (count($zones) == 0) {
-                //If there is no corresponding data, initialisation with default configuration
-                $zones = $this->_getRepository()->initializeForWebsite($website, $configuration);
-            }
-        }
-		foreach ($configuration['navigations'] as $navigation) {
-			$theme->addNavigation($navigation);
-		}
+//        if ($website != null) {
+//            $zones = $this->_getRepository()->getZones($configuration['name'], $website);
+//            if (count($zones) == 0) {
+//                //If there is no corresponding data, initialisation with default configuration
+//                $zones = $this->_getRepository()->initializeForWebsite($website, $configuration);
+//            }
+//        }
 
         foreach ($configuration['zones'] as $zoneConfiguration) {
             $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration);
@@ -151,20 +194,11 @@ class ThemeManager
             $template = new Template($templateName, $templateConfiguration['path']);
             $theme->addPageTemplate($template);
         }
+
         return $theme;
     }
     
-    /**
-     * Add a new theme configuration
-     * 
-     * @param  array $configuration
-     * @return \Presta\CMSCoreBundle\Model\ThemeManager
-     */
-    public function addThemeConfiguration(array $configuration)
-    {
-        $this->_themesConfiguration[$configuration['name']] = $configuration;
-        return $this;
-    }
+    
     
     /**
      * Return theme by name
@@ -174,11 +208,12 @@ class ThemeManager
      */
     public function getTheme($name, $website = null)
     {
-        if (!isset($this->_themesConfiguration[$name])) {
+        if (!isset($this->themesConfiguration[$name])) {
             return false;
         }
-        $this->_currentTheme = $this->_buildTheme($this->_themesConfiguration[$name], $website);
-        return $this->_currentTheme;
+        $this->currentTheme = $this->_buildTheme($this->themesConfiguration[$name], $website);
+
+        return $this->currentTheme;
     }
     
     /**
@@ -189,10 +224,10 @@ class ThemeManager
      */
     public function getPageTemplates($theme)
     {
-        if (!isset($this->_themesConfiguration[$theme])) {
+        if (!isset($this->themesConfiguration[$theme])) {
             return false;
         }
-        return $this->_themesConfiguration[$theme]['page_template'];
+        return $this->themesConfiguration[$theme]['page_template'];
     }
     
     /**
@@ -204,30 +239,34 @@ class ThemeManager
      */
     public function getPageTemplate($template, $page)
     {
-        $theme = $this->_currentTheme->getName();
-        if (!isset($this->_themesConfiguration[$theme]['page_template'][$template])) {
+        $theme = $this->currentTheme->getName();
+        if (!isset($this->themesConfiguration[$theme]['page_template'][$template])) {
             return false;
         }
-        return $this->_buildThemeTemplate($template, $this->_themesConfiguration[$theme]['page_template'][$template], $page);
+        return $this->_buildThemeTemplate($template, $this->themesConfiguration[$theme]['page_template'][$template], $page);
     }
 
 	/**
 	 * Return Template file
+     *
+     * Use when display a page on front
 	 *
 	 * @param  string $templateName
 	 * @return false|string
 	 */
 	public function getPageTemplateFile($templateName)
 	{
-		$theme = $this->_currentTheme->getName();
-		if (!isset($this->_themesConfiguration[$theme]['page_template'][$templateName])) {
+		$theme = $this->currentTheme->getName();
+		if (!isset($this->themesConfiguration[$theme]['page_template'][$templateName])) {
 			return false;
 		}
-		return $this->_themesConfiguration[$theme]['page_template'][$templateName]['path'];
+		return $this->themesConfiguration[$theme]['page_template'][$templateName]['path'];
 	}
 
 	/**
 	 * Return Template configuration
+     *
+     * Used for page creation
 	 *
 	 * @param  string $template
 	 * @param  array $data
@@ -235,11 +274,11 @@ class ThemeManager
 	 */
 	public function getPageTemplateConfiguration($template)
 	{
-		$theme = $this->_currentTheme->getName();
-		if (!isset($this->_themesConfiguration[$theme]['page_template'][$template])) {
+		$theme = $this->currentTheme->getName();
+		if (!isset($this->themesConfiguration[$theme]['page_template'][$template])) {
 			return array();
 		}
-		return $this->_themesConfiguration[$theme]['page_template'][$template];
+		return $this->themesConfiguration[$theme]['page_template'][$template];
 	}
     
     /**
@@ -252,6 +291,7 @@ class ThemeManager
      */
     protected function _buildThemeTemplate($name, array $configuration, $page = null)
     {
+
         $zones = $page->getZones();
         $template = new Template($name, $configuration['path']);
         foreach ($configuration['zones'] as $zoneConfiguration) {

@@ -14,9 +14,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use Presta\CMSCoreBundle\Document\Website;
+use Presta\CMSCoreBundle\Model\Template;
+
+use Symfony\Cmf\Bundle\BlockBundle\Document\ContainerBlock;
 
 /**
- * Theme Document child of a website
+ * Theme Document child of a website : Zone container + configuration
  *
  * @package    Presta
  * @subpackage CMSCoreBundle
@@ -24,111 +27,56 @@ use Presta\CMSCoreBundle\Document\Website;
  *
  * @PHPCRODM\Document(referenceable=true, repositoryClass="Presta\CMSCoreBundle\Document\Theme\Repository")
  */
-class Theme
+class Theme extends ContainerBlock
 {
-    /** @PHPCRODM\Id(strategy="parent") */
-    protected $id;
-
     /**
-     * @var Website
-     * @Assert\NotBlank
-     * @PHPCRODM\ParentDocument()
+     * @var string
      */
-    protected $parent;
+    protected $description;
 
     /**
      * @var string
-     * @Assert\NotBlank
-     * @PHPCRODM\Nodename()
      */
-    protected $name;
+    protected $template;
 
-    /** @PHPCRODM\Children(fetchDepth=3) */
-    protected  $children;
+    /**
+     * @var string
+     */
+    protected $screenshot;
+
+    /**
+     * @var string
+     */
+    protected $adminStyle;
+
+    /**
+     * @var integer
+     */
+    protected $cols;
+
+    /**
+     * @var array
+     */
+    protected $zones;
+
+    /**
+     * @var array
+     */
+    protected $pageTemplates;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct($name = null)
+    {
+        parent::__construct($name);
+        $this->zones = array();
+        $this->pageTemplates = array();
+    }
 
     public function __toString()
     {
         return $this->getName();
-    }
-
-    /**
-     * Id (path) of this document
-     *
-     * @return string the id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param Website $parent
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-    }
-
-    /**
-     * @return Website
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-
-    /**
-     * The children documents of this document
-     *
-     * If there is information on the document type, the documents are of the
-     * specified type, otherwise they will be Generic documents
-     *
-     * @return object documents
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    /**
-     * Sets the children
-     *
-     * @param $children ArrayCollection
-     */
-    public function setChildren(ArrayCollection $children)
-    {
-        $this->children = $children;
-    }
-
-    /**
-     * Add a child to this document
-     *
-     * @param $child
-     */
-    public function addChild($child)
-    {
-        if (null === $this->children) {
-            $this->children = new ArrayCollection();
-        }
-
-        $this->children->add($child);
     }
 
     /**
@@ -153,6 +101,115 @@ class Theme
     public function getZones()
     {
         return $this->getChildren();
+    }
+
+    /**
+     * @param string $adminStyle
+     */
+    public function setAdminStyle($adminStyle)
+    {
+        $this->adminStyle = $adminStyle;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdminStyle()
+    {
+        return $this->adminStyle;
+    }
+
+    /**
+     * @param int $cols
+     */
+    public function setCols($cols)
+    {
+        $this->cols = $cols;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCols()
+    {
+        return $this->cols;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param array $pageTemplates
+     */
+    public function setPageTemplates($pageTemplates)
+    {
+        $this->pageTemplates = $pageTemplates;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPageTemplates()
+    {
+        return $this->pageTemplates;
+    }
+
+    /**
+     * Add a page template
+     *
+     * @param  Template $template
+     * @return \Presta\CMSCoreBundle\Model\Theme
+     */
+    public function addPageTemplate(Template $template)
+    {
+        $this->pageTemplates[$template->getName()] = $template;
+
+        return $this;
+    }
+
+    /**
+     * @param string $screenshot
+     */
+    public function setScreenshot($screenshot)
+    {
+        $this->screenshot = $screenshot;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScreenshot()
+    {
+        return $this->screenshot;
+    }
+
+    /**
+     * @param string $template
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplate()
+    {
+        return $this->template;
     }
 
 }
