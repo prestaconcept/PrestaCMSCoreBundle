@@ -204,3 +204,6 @@ img.sonata-ba-img-box {
 .block-preview {
     text-align: center;
 }
+.ui-sortable-helper {
+    cursor: move;
+}

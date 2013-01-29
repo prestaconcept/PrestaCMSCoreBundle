@@ -13,9 +13,6 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "presta/sonata-admin-bundle": "dev-master",
-        "presta/sonata-media-bundle": "dev-master",
-        "presta/asset-tinymce-bundle": "dev-master",
 
         "jackalope/jackalope-doctrine-dbal": "dev-master",
         "jackalope/jackalope-jackrabbit": "1.0.*",

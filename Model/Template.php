@@ -9,6 +9,8 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
+use Presta\CMSCoreBundle\Document\Zone;
+
 /**
  * Template Model
  *
@@ -72,7 +74,7 @@ class Template
      * Set zones
      * 
      * @param  array $zones
-     * @return \Presta\CMSCoreBundle\Model\Zone
+     * @return \Presta\CMSCoreBundle\Document\Zone
      */
     public function setZones(array $zones)
     {
@@ -85,7 +87,7 @@ class Template
      * Add a zone
      * 
      * @param  Zone $zone
-     * @return \Presta\CMSCoreBundle\Model\Zone
+     * @return \Presta\CMSCoreBundle\Document\Zone
      */
     public function addZone(Zone $zone)
     {

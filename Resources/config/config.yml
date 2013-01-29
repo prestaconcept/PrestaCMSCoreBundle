@@ -98,10 +98,15 @@ sonata_doctrine_phpcr_admin:
         Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode:
             valid_children:
                 - Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode
+            image: '/bundles/symfonycmftreebrowser/images/document.png'
         Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode:
             valid_children:
                 - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode
             image: '/bundles/symfonycmftreebrowser/images/document.png'
+        Presta\CMSCoreBundle\Document\Page:
+            valid_children:
+                - Presta\CMSCoreBundle\Document\Page
+            image: '/bundles/symfonycmftreebrowser/images/d.png'
 
 sonata_seo:
     encoding: UTF-8

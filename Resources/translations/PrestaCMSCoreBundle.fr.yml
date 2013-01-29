@@ -95,3 +95,4 @@ presta_cms.block.add: Ajout d'un bloc
 block.description.presta_cms.block.simple: Bloc texte simple
 block.description.presta_cms.block.page_children: Liste des pages filles avec titre et description
 
+presta_cms.block.page_children: Page palier

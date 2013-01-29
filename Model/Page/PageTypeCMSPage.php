@@ -10,10 +10,8 @@
 namespace Presta\CMSCoreBundle\Model\Page;
 
 /**
- * Base page type
- * 
- * @package    PrestaCMS
- * @subpackage CoreBundle
+ * Base page type for CMS
+ *
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class PageTypeCMSPage implements PageTypeInterface
@@ -76,11 +74,6 @@ class PageTypeCMSPage implements PageTypeInterface
             case self::TAB_CONTENT:
                 $draft = $page;
 
-//                //Working with draft version on edition
-//                $repository = $this->container->get('doctrine')->getEntityManager()
-//                    ->getRepository('Application\Presta\CMSCoreBundle\Entity\PageRevision');
-//                $draft = $repository->getDraftForPage($page);
-//				$data = $draft->getBlocksByZone();
 				if (count($page->getZones()) == 0) {
 					// Todo améliorer ça !
 					// + prendre en compte le changement de template!
@@ -93,6 +86,7 @@ class PageTypeCMSPage implements PageTypeInterface
 
                 return array(
                     'page' 	   => $draft,
+                    'locale'   => $page->getLocale(),
                     'website'  => $this->websiteManager->getCurrentWebsite(),
                     'template' => $this->themeManager->getPageTemplate($draft->getTemplate(), $draft)
                 );
@@ -116,15 +110,7 @@ class PageTypeCMSPage implements PageTypeInterface
 	 */
 	public function getData($page)
 	{
-//		$repository = $this->container->get('doctrine')->getEntityManager()
-//			->getRepository('Application\Presta\CMSCoreBundle\Entity\PageRevision');
-//
-//		//$publishedRevision = $repository->getPublishedRevisionForPage($page);
-//		//tmp waiting for publication to be implemented
-//		$publishedRevision = $repository->getDraftForPage($page);
-//var_dump('cms page type get data');die;
 		return array(
-//			'revision' => $page,
 			'template' => $this->themeManager->getPageTemplateFile($page->getTemplate())
 		);
 	}

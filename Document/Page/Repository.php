@@ -12,7 +12,7 @@ namespace Presta\CMSCoreBundle\Document\Page;
 use Doctrine\ODM\PHPCR\DocumentRepository as BaseDocumentRepository;
 
 use Presta\CMSCoreBundle\Document\Page;
-use Presta\CMSCoreBundle\Document\Page\Zone;
+use Presta\CMSCoreBundle\Document\Zone;
 use Presta\CMSCoreBundle\Document\Block;
 
 /**

@@ -148,10 +148,6 @@ class ThemeManager
 		return $this->currentTheme;
 	}
 
-
-
-
-
     /**
      * Build Theme model with data
      * 
@@ -308,7 +304,8 @@ class ThemeManager
             if (!isset($data[$zoneConfiguration['name']])) {
                 $data[$zoneConfiguration['name']] = array();
             }
-            $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration);
+            $zone = new Zone($zoneConfiguration['name']);
+            $zone->setConfiguration($zoneConfiguration);
             $zone->setId($page->getPath() . '/' . $zoneConfiguration['name']); //voir pour faire un set parent ?
             if (isset($zones[$zoneConfiguration['name']])) {
                 $zone->setBlocks($zones[$zoneConfiguration['name']]->getBlocks());

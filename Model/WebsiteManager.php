@@ -177,6 +177,9 @@ class WebsiteManager
      */
     public function setCurrentWebsite($website)
     {
+        if (!$website instanceof Website) {
+            return false;
+        }
         $this->currentWebsite = $website;
 
         //Inject route prefix in Route Repository and listener
