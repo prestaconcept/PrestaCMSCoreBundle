@@ -1,5 +1,11 @@
 websites:
     -
+        path: /website/default
+        available_locales: ['en', 'de', 'fr']
+        default_locale: 'en'
+        theme: default
+        name: default
+    -
         path: /website/prestaconcept
         available_locales: ['fr', 'en']
         default_locale: 'fr'

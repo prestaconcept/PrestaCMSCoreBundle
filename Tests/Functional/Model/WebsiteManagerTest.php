@@ -49,5 +49,34 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
         $this->assertEquals(false, $liipWebsite->isDefault());
         $this->assertEquals('/website/liip', $liipWebsite->getPath());
     }
+
+    public function testGetAvailableWebsites()
+    {
+        $websiteManager = $this->getWebsiteManager();
+
+        $this->assertEquals(4, $websiteManager->getAvailableWebsites()->count());
+    }
+
+    public function testLoadWebsiteByHost()
+    {
+        $websiteManager = $this->getWebsiteManager();
+        $websiteManager->setDefaultWebsiteCode('/website/default');
+
+        $websiteManager->registerHost(array(
+            'host'      => 'www.liip.ch',
+            'website'   => '/website/liip',
+            'locale'    =>  'fr'
+        ));
+
+        $defaultWebsite = $websiteManager->loadWebsiteByHost('www.no-website.com');
+        $this->assertEquals('/website/default', $defaultWebsite->getPath());
+        $this->assertEquals('default', $defaultWebsite->getName());
+
+        $liipWebsite = $websiteManager->loadWebsiteByHost('www.liip.ch');
+        $this->assertEquals('/website/liip', $liipWebsite->getPath());
+        $this->assertEquals('liip', $liipWebsite->getName());
+
+        $this->assertEquals($liipWebsite, $websiteManager->getCurrentWebsite());
+    }
 }
 

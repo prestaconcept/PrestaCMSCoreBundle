@@ -33,15 +33,26 @@ class BaseFunctionalTestCase extends WebTestCase
      */
     protected $documentManager;
 
-    protected function loadFixtures()
+    /**
+     * Init kernel and container
+     */
+    protected function init()
     {
         self::$kernel = self::createKernel();
         self::$kernel->init();
         self::$kernel->boot();
 
         $this->container = self::$kernel->getContainer();
-        $session = self::$kernel->getContainer()->get('doctrine_phpcr.session');
         $this->documentManager = self::$kernel->getContainer()->get('doctrine_phpcr.odm.document_manager');
+    }
+
+    /**
+     * Load test fixtures
+     */
+    protected function loadFixtures()
+    {
+
+        $session = self::$kernel->getContainer()->get('doctrine_phpcr.session');
 
         $purger = new PHPCRPurger($this->documentManager);
         $purger->purge();
@@ -65,6 +76,7 @@ class BaseFunctionalTestCase extends WebTestCase
 
     protected function setUp()
     {
+        $this->init();
         $this->loadFixtures();
     }
 
@@ -78,10 +90,10 @@ class BaseFunctionalTestCase extends WebTestCase
     {
         $website = new Website();
         $website->setPath($configuration['path']);
+        $website->setName($configuration['name']);
         $website->setAvailableLocales($configuration['available_locales']);
         $website->setDefaultLocale($configuration['default_locale']);
         $website->setTheme($configuration['theme']);
-        $website->setName($configuration['name']);
 
         $this->documentManager->persist($website);
 
