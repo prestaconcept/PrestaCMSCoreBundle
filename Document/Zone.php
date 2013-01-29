@@ -170,5 +170,10 @@ class Zone extends ContainerBlock
         $this->addChild($block);
     }
 
+    public function setBlocks($blocks)
+    {
+        $this->children = $blocks;
+    }
+
 
 }

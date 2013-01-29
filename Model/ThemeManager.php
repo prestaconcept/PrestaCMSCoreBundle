@@ -22,7 +22,7 @@ use Presta\CMSCoreBundle\Document\Zone;
  */
 class ThemeManager
 {
-//    const WEBSITE_CLASS = 'Presta\CMSCoreBundle\Document\Website';
+    const THEME_CLASS = 'Presta\CMSCoreBundle\Document\Theme';
 
     /**
      * @var \Sonata\AdminBundle\Model\ModelManagerInterface
@@ -57,7 +57,7 @@ class ThemeManager
     public function __construct()
     {
         $this->themes = null;
-        $this->_repository = null;
+        $this->repository = null;
         $this->themesConfiguration = array();
     }
 
@@ -77,19 +77,18 @@ class ThemeManager
         return $this->modelManager;
     }
         
-//    /**
-//     * Return Theme block repository
-//     *
-//     * @return todo
-//     */
-//    protected function _getRepository()
-//    {
-//        if ($this->_repository == null) {
-//            $this->_repository =$this->_container->get('doctrine_phpcr.odm.default_document_manager')
-//                ->getRepository('Presta\CMSCoreBundle\Document\Theme');
-//        }
-//        return $this->_repository;
-//    }
+    /**
+     * Return Theme repository
+     *
+     * @return \Doctrine\ODM\PHPCR\DocumentRepository
+     */
+    protected function getRepository()
+    {
+        if ($this->repository == null) {
+            $this->repository = $this->getModelManager()->getDocumentManager()->getRepository(self::THEME_CLASS);
+        }
+        return $this->repository;
+    }
 
     /**
      * Add a new theme configuration
@@ -175,13 +174,13 @@ class ThemeManager
 		$theme->setAdminStyle($configuration['admin_style']);
         $theme->setCols($configuration['cols']);//var_dump(serialize(array('content'=>'<p>hello</p>')));die;
 
-//        if ($website != null) {
-//            $zones = $this->_getRepository()->getZones($configuration['name'], $website);
-//            if (count($zones) == 0) {
-//                //If there is no corresponding data, initialisation with default configuration
-//                $zones = $this->_getRepository()->initializeForWebsite($website, $configuration);
-//            }
-//        }
+        if ($website != null) {
+            $zones = $this->getRepository()->getZones($configuration['name'], $website);
+            if (count($zones) == 0) {
+                //If there is no corresponding data, initialisation with default configuration
+                $zones = $this->getRepository()->initializeForWebsite($website, $configuration);
+            }
+        }
 
         foreach ($configuration['zones'] as $zoneConfiguration) {
             $zone = new Zone($zoneConfiguration['name']);

@@ -52,7 +52,7 @@ class Repository extends BaseDocumentRepository
 
         //Create website theme default association
         $websiteTheme = new Theme();
-        $websiteTheme->setParent($website);
+        $websiteTheme->setParentDocument($website);
         $websiteTheme->setName('theme/' . $configuration['name']);
         $this->getDocumentManager()->persist($websiteTheme);
 
