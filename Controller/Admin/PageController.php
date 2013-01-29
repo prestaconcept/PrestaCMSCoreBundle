@@ -134,12 +134,6 @@ class PageController extends AdminController
      */
     public function renderEditTabAction($type, $tab, $page)
     {
-        //nicolas-bastien: 23/01/2013
-        //Force PHPCR locale to retrieve children in the good one
-        //check if DoctrinePHPCR evoluate to handle children transaltion
-        //when document is loaded by findTranslation
-        $this->get('doctrine_phpcr.odm.locale_chooser')->setLocale($page->getLocale());
-
         $pageType   = $this->getPageManager()->getType($type);
         $viewParams = $pageType->getEditTabData($tab, $page);
         return $this->render($pageType->getEditTabTemplate($tab), $viewParams);
