@@ -66,6 +66,25 @@ class Zone extends ContainerBlock
     }
 
     /**
+     * Initialise form configuration
+     *
+     * @param array $configuration
+     */
+    public function setConfiguration(array $configuration)
+    {
+        $configuration += array(
+            'rows' => 1,
+            'cols' => 12,
+            'can_add_block' => false,
+            'can_sort_block' => false
+        );
+        $this->setRows($configuration['rows']);
+        $this->setCols($configuration['cols']);
+        $this->setCanAddBlock($configuration['can_add_block']);
+        $this->setCanSortBlock($configuration['can_sort_block']);
+    }
+
+    /**
      * Return id for HTML element
      *
      * @return string

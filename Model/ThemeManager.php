@@ -9,7 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Presta\CMSCoreBundle\Document\Theme;
 use Presta\CMSCoreBundle\Document\Zone;
 
@@ -184,7 +184,8 @@ class ThemeManager
 //        }
 
         foreach ($configuration['zones'] as $zoneConfiguration) {
-            $zone = new Zone($zoneConfiguration['name'], $zoneConfiguration);
+            $zone = new Zone($zoneConfiguration['name']);
+            $zone->setConfiguration($zoneConfiguration);
             if (isset($zones[$zoneConfiguration['name']])) {
                 $zone->setBlocks($zones[$zoneConfiguration['name']]->getBlocks());
             }
@@ -197,9 +198,7 @@ class ThemeManager
 
         return $theme;
     }
-    
-    
-    
+
     /**
      * Return theme by name
      * 
@@ -216,19 +215,20 @@ class ThemeManager
         return $this->currentTheme;
     }
     
-    /**
-     * Returns page templates defined by a theme
-     * 
-     * @param  string $theme
-     * @return false|array 
-     */
-    public function getPageTemplates($theme)
-    {
-        if (!isset($this->themesConfiguration[$theme])) {
-            return false;
-        }
-        return $this->themesConfiguration[$theme]['page_template'];
-    }
+//    /**
+//     * Returns page templates defined by a theme
+//     *
+//     * @param  string $theme
+//     * @return false|array
+//     */
+//    public function getPageTemplates($theme)
+//    {
+//        if (!isset($this->themesConfiguration[$theme])) {
+//            return false;
+//        }
+//
+//        return $this->themesConfiguration[$theme]['page_template'];
+//    }
     
     /**
      * Return Template model initialised with $data
@@ -239,11 +239,15 @@ class ThemeManager
      */
     public function getPageTemplate($template, $page)
     {
+        if (!$this->currentTheme instanceof Theme) {
+            return false;
+        }
         $theme = $this->currentTheme->getName();
         if (!isset($this->themesConfiguration[$theme]['page_template'][$template])) {
             return false;
         }
-        return $this->_buildThemeTemplate($template, $this->themesConfiguration[$theme]['page_template'][$template], $page);
+
+        return $this->buildThemeTemplate($template, $this->themesConfiguration[$theme]['page_template'][$template], $page);
     }
 
 	/**
@@ -256,10 +260,14 @@ class ThemeManager
 	 */
 	public function getPageTemplateFile($templateName)
 	{
+        if (!$this->currentTheme instanceof Theme) {
+            return false;
+        }
 		$theme = $this->currentTheme->getName();
 		if (!isset($this->themesConfiguration[$theme]['page_template'][$templateName])) {
 			return false;
 		}
+
 		return $this->themesConfiguration[$theme]['page_template'][$templateName]['path'];
 	}
 
@@ -274,10 +282,14 @@ class ThemeManager
 	 */
 	public function getPageTemplateConfiguration($template)
 	{
+        if (!$this->currentTheme instanceof Theme) {
+            return false;
+        }
 		$theme = $this->currentTheme->getName();
 		if (!isset($this->themesConfiguration[$theme]['page_template'][$template])) {
 			return array();
 		}
+
 		return $this->themesConfiguration[$theme]['page_template'][$template];
 	}
     
@@ -289,9 +301,8 @@ class ThemeManager
      * @param  array $data
      * @return \Presta\CMSCoreBundle\Model\Template
      */
-    protected function _buildThemeTemplate($name, array $configuration, $page = null)
+    protected function buildThemeTemplate($name, array $configuration, $page = null)
     {
-
         $zones = $page->getZones();
         $template = new Template($name, $configuration['path']);
         foreach ($configuration['zones'] as $zoneConfiguration) {
@@ -303,9 +314,9 @@ class ThemeManager
             if (isset($zones[$zoneConfiguration['name']])) {
                 $zone->setBlocks($zones[$zoneConfiguration['name']]->getBlocks());
             }
-
             $template->addZone($zone);
-        } 
+        }
+
         return $template;
     }
 }
