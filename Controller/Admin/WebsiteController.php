@@ -9,7 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Sonata\CMSCoreBundle\Controller\CRUDController as Controller;
 
 /**
  * Website administration controller

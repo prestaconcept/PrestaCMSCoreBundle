@@ -20,7 +20,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Block\BlockServiceManagerInterface;
 
-use Presta\SonataAdminBundle\Admin\PHPCR\BaseAdmin;
+use Sonata\DoctrinePHPCRAdminBundle\Admin\Admin as BaseAdmin;
 
 /**
  * Admin definition for the Site class

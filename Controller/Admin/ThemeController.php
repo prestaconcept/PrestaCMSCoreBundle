@@ -9,7 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
-use Presta\SonataAdminBundle\Controller\Admin\BaseController as AdminController;
+use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 
 /**
  * Theme administration controller

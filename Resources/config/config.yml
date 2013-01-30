@@ -8,7 +8,6 @@ doctrine:
         entity_managers:
             default:
                 mappings:
-                    ApplicationPrestaCMSCoreBundle: ~
                     PrestaCMSCoreBundle: ~
 
 
@@ -40,8 +39,6 @@ symfony_cmf_routing_extra:
             router.default: 100
     dynamic:
         enabled: true
-        controllers_by_alias:
-            demo_alias: presta_cms.page.controller:aliasAction
         controllers_by_class:
             Presta\CMSCoreBundle\Document\Page: presta_cms.page.controller:renderAction
             Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute:  symfony_cmf_routing_extra.redirect_controller:redirectAction
