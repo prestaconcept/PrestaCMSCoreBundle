@@ -10,37 +10,37 @@
 .sonata-bc .navbar li.open a.nav-menu-cms,
 .sonata-bc .navbar a.nav-menu-cms:focus,
 .sonata-bc .navbar a.nav-menu-cms:hover{
-    background: url('../../bundles/prestacmscore/admin/img/icons/cms-32.png') center left no-repeat;
+    background: url('/bundles/prestacmscore/admin/img/icons/cms-32.png') center left no-repeat;
 }
 .sonata-bc .navbar li a.nav-submenu-cms-websites,
 .sonata-bc .dropdown-menu .active>a.nav-submenu-cms-websites {
-    background: url('../../bundles/prestacmscore/admin/img/icons/website-16.png')  10px center no-repeat;
+    background: url('/bundles/prestacmscore/admin/img/icons/website-16.png')  10px center no-repeat;
 }
 .sonata-bc .dropdown-menu li>a.nav-submenu-cms-websites:hover,
 .sonata-bc .dropdown-menu .active>a.nav-submenu-cms-websites:hover {
-    background: url('../../bundles/prestacmscore/admin/img/icons/website-16.png')  10px center no-repeat;
-    background: url('../../bundles/prestacmscore/admin/img/icons/website-16.png')  10px center no-repeat, -webkit-linear-gradient(white, #E5E5E5);
-    background: url('../../bundles/prestacmscore/admin/img/icons/website-16.png')  10px center no-repeat, -moz-linear-gradient(white, #E5E5E5);
+    background: url('/bundles/prestacmscore/admin/img/icons/website-16.png')  10px center no-repeat;
+    background: url('/bundles/prestacmscore/admin/img/icons/website-16.png')  10px center no-repeat, -webkit-linear-gradient(white, #E5E5E5);
+    background: url('/bundles/prestacmscore/admin/img/icons/website-16.png')  10px center no-repeat, -moz-linear-gradient(white, #E5E5E5);
 }
 .sonata-bc .navbar li a.nav-submenu-cms-themes,
 .sonata-bc .dropdown-menu .active>a.nav-submenu-cms-themes {
-    background: url('../../bundles/prestacmscore/admin/img/icons/theme-16.png')  10px center no-repeat;
+    background: url('/bundles/prestacmscore/admin/img/icons/theme-16.png')  10px center no-repeat;
 }
 .sonata-bc .dropdown-menu li>a.nav-submenu-cms-themes:hover,
 .sonata-bc .dropdown-menu .active>a.nav-submenu-cms-themes:hover {
-    background: url('../../bundles/prestacmscore/admin/img/icons/theme-16.png')  10px center no-repeat;
-    background: url('../../bundles/prestacmscore/admin/img/icons/theme-16.png')  10px center no-repeat, -webkit-linear-gradient(white, #E5E5E5);
-    background: url('../../bundles/prestacmscore/admin/img/icons/theme-16.png')  10px center no-repeat, -moz-linear-gradient(white, #E5E5E5);
+    background: url('/bundles/prestacmscore/admin/img/icons/theme-16.png')  10px center no-repeat;
+    background: url('/bundles/prestacmscore/admin/img/icons/theme-16.png')  10px center no-repeat, -webkit-linear-gradient(white, #E5E5E5);
+    background: url('/bundles/prestacmscore/admin/img/icons/theme-16.png')  10px center no-repeat, -moz-linear-gradient(white, #E5E5E5);
 }
 .sonata-bc .navbar li a.nav-submenu-cms-pages,
 .sonata-bc .dropdown-menu .active>a.nav-submenu-cms-pages {
-    background: url('../../bundles/prestacmscore/admin/img/icons/page-16.png')  10px center no-repeat;
+    background: url('/bundles/prestacmscore/admin/img/icons/page-16.png')  10px center no-repeat;
 }
 .sonata-bc .dropdown-menu li>a.nav-submenu-cms-pages:hover,
 .sonata-bc .dropdown-menu .active>a.nav-submenu-cms-pages:hover {
-    background: url('../../bundles/prestacmscore/admin/img/icons/page-16.png')  10px center no-repeat;
-    background: url('../../bundles/prestacmscore/admin/img/icons/page-16.png')  10px center no-repeat, -webkit-linear-gradient(white, #E5E5E5);
-    background: url('../../bundles/prestacmscore/admin/img/icons/page-16.png')  10px center no-repeat, -moz-linear-gradient(white, #E5E5E5);
+    background: url('/bundles/prestacmscore/admin/img/icons/page-16.png')  10px center no-repeat;
+    background: url('/bundles/prestacmscore/admin/img/icons/page-16.png')  10px center no-repeat, -webkit-linear-gradient(white, #E5E5E5);
+    background: url('/bundles/prestacmscore/admin/img/icons/page-16.png')  10px center no-repeat, -moz-linear-gradient(white, #E5E5E5);
 }
 
 /*************************************
@@ -48,13 +48,13 @@
 *************************************/
 
 div.dashboard-block-content div.block-content-block-website {
-    background: url('../../bundles/prestacmscore/admin/img/icons/website-48.png') no-repeat 0 7px transparent;
+    background: url('/bundles/prestacmscore/admin/img/icons/website-48.png') no-repeat 0 7px transparent;
 }
 div.dashboard-block-content div.block-content-block-theme {
-    background: url('../../bundles/prestacmscore/admin/img/icons/theme-48.png') no-repeat 0 7px transparent;
+    background: url('/bundles/prestacmscore/admin/img/icons/theme-48.png') no-repeat 0 7px transparent;
 }
 div.dashboard-block-content div.block-content-block-page {
-    background: url('../../bundles/prestacmscore/admin/img/icons/page-48.png') no-repeat 0 7px transparent;
+    background: url('/bundles/prestacmscore/admin/img/icons/page-48.png') no-repeat 0 7px transparent;
 }
 
 
@@ -157,13 +157,13 @@ table.page-content-admin div.zone-actions {
 
 
 a.action-edit {
-    background: url('../../bundles/prestacmscore/admin/img/icons/edit-icon.png') no-repeat center center transparent;
+    background: url('/bundles/prestacmscore/admin/img/icons/edit-icon.png') no-repeat center center transparent;
 }
 a.action-delete {
-    background: url('../../bundles/prestacmscore/admin/img/icons/delete-icon.png') no-repeat center center transparent;
+    background: url('/bundles/prestacmscore/admin/img/icons/delete-icon.png') no-repeat center center transparent;
 }
 .icon-add {
-    background-image: url('../../bundles/prestacmscore/admin/img/icons/add-icon.png') !important;
+    background-image: url('/bundles/prestacmscore/admin/img/icons/add-icon.png') !important;
     background-position: -1px -1px !important;
 }
 table.page-content-admin td.empty, table.page-content-admin td.empty:hover {
@@ -174,13 +174,13 @@ div.block-settings {
     margin-top: 20px;
 }
 div.cms-block a.module-settings {
-    background: url('../../bundles/prestacmscore/admin/img/icons/settings-16.png') no-repeat left center #fff;
+    background: url('/bundles/prestacmscore/admin/img/icons/settings-16.png') no-repeat left center #fff;
     color: #404040;
     padding-left: 20px;
     font-weight: bold;
 }
 div.cms-block a.module-settings:hover {
-    background: url('../../bundles/prestacmscore/admin/img/icons/settings-16.png') no-repeat left center #f7f7f7;
+    background: url('/bundles/prestacmscore/admin/img/icons/settings-16.png') no-repeat left center #f7f7f7;
 }
 /* Listing */
 td.sonata-ba-list-field-screenshot {
