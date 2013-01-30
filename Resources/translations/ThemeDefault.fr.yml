@@ -1,0 +1,6 @@
+header.title: PrestaCMS Sandbox
+header.subtitle: Système de gestion de contenu basé sur Symfony2 et Symfony CMF
+
+
+footer.copyright: Powered by <a href="http://cmf.symfony.com/">Symfony CMF</a> | Sponsored by <a href="http://www.prestaconcept.net/">PrestaConcept</a>
+
