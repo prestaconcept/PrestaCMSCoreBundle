@@ -18,6 +18,7 @@ assetic:
         - PrestaCMSCoreBundle
 
 sonata_block:
+    default_contexts: [cms]
     blocks:
         presta_cms.block.dashboard.cms:
         presta_cms.block.website.selector:
@@ -31,18 +32,6 @@ sonata_admin:
       blocks:
           - { position: right, type: presta_cms.block.dashboard.cms }
 
-presta_sonata_admin:
-    menu:
-        items:
-            cms:
-                route: presta_cms_page
-                children:
-                    websites:
-                        route: admin_presta_cmscore_website_list
-                    themes:
-                        route: presta_cms_theme
-                    pages:
-                        route: presta_cms_page
 
 symfony_cmf_routing_extra:
     chain:
@@ -67,7 +56,7 @@ knp_menu:
 symfony_cmf_menu:
     menu_basepath: /website/prestaconcept/menu
     multilang:
-      locales: %presta_admin.front.locales%
+      locales: %locales%
 
 symfony_cmf_tree_browser:
     session_name:  default

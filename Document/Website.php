@@ -58,15 +58,15 @@ class Website
     protected $name;
 
     /**
-     * @var boolean $isActive
+     * @var boolean $active
      * @PHPCRODM\Boolean(translated=true)
      */
-    protected $isActive;
+    protected $active;
 
     /**
-     * @var boolean $isDefault
+     * @var boolean $default
      */
-    protected $isDefault;
+    protected $default;
 
     /**
      * @var string $defaultLocale
@@ -82,8 +82,8 @@ class Website
 
     public function __construct()
     {
-        $this->setIsActive(true);
-        $this->setIsDefault(false);
+        $this->setActive(true);
+        $this->setDefault(false);
         $this->availableLocales = array();
     }
 
@@ -160,9 +160,9 @@ class Website
     /**
      * @param boolean $isActive
      */
-    public function setIsActive($isActive)
+    public function setActive($isActive)
     {
-        $this->isActive = $isActive;
+        $this->active = $isActive;
     }
 
     /**
@@ -170,15 +170,15 @@ class Website
      */
     public function isActive()
     {
-        return $this->isActive;
+        return $this->active;
     }
 
     /**
      * @param boolean $isDefault
      */
-    public function setIsDefault($isDefault)
+    public function setDefault($isDefault)
     {
-        $this->isDefault = $isDefault;
+        $this->default = $isDefault;
     }
 
     /**
@@ -186,7 +186,7 @@ class Website
      */
     public function isDefault()
     {
-        return $this->isDefault;
+        return $this->default;
     }
 
     /**

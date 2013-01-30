@@ -21,14 +21,10 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 
-//use Presta\SonataAdminBundle\Admin\BaseAdmin;
-use Presta\SonataAdminBundle\Admin\PHPCR\BaseAdmin;
-
+use Sonata\DoctrinePHPCRAdminBundle\Admin\Admin as BaseAdmin;
 /**
  * Admin definition for the Site class
  *
- * @package    Presta
- * @subpackage CMSCoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class WebsiteAdmin extends BaseAdmin
@@ -43,12 +39,27 @@ class WebsiteAdmin extends BaseAdmin
     /**
      * @var array
      */
-    protected $_availableLocales;
+    protected $availableLocales;
 
     /**
      * @var Presta\CMSCoreBundle\Model\ThemeManager
      */
-    protected $_themeManager;
+    protected $themeManager;
+
+    /**
+     * Return current edition locale
+     * -> paramètre de l'url
+     *
+     * @return string
+     */
+    protected function getTranslatableLocale()
+    {
+        if ($this->request && $this->getRequest()->get('translatable_locale') != null) {
+            return  $this->getRequest()->get('translatable_locale');
+        }
+
+        return $this->getConfigurationPool()->getContainer()->getParameter('locale');
+    }
 
     /**
      * Set available locales : called via DI
@@ -57,18 +68,18 @@ class WebsiteAdmin extends BaseAdmin
      */
     public function setAvailableLocales($availableLocales)
     {
-        $this->_availableLocales = $availableLocales;
+        $this->availableLocales = $availableLocales;
     }
 
     /**
-     * Setter for _themeManager
+     * Setter for themeManager
      *
      * @param   ThemeManager $themeManager
      * @return  void
      */
     public function setThemeManager(ThemeManager $themeManager)
     {
-        $this->_themeManager = $themeManager;
+        $this->themeManager = $themeManager;
     }
 
     /**
@@ -90,7 +101,6 @@ class WebsiteAdmin extends BaseAdmin
     {
         $listMapper
             ->addIdentifier('name', 'text')
-//            ->add('host', 'text') //Handle in configuration
             ->add('theme', 'text')
             ->add('defaultLocale', 'locale', array('template' => 'PrestaCMSCoreBundle:CRUD:list_locale.html.twig'))
             ->add('availableLocales', 'array', array('template' => 'PrestaCMSCoreBundle:CRUD:list_array_locale.html.twig'))
@@ -116,8 +126,8 @@ class WebsiteAdmin extends BaseAdmin
         $showMapper
             ->add('name', null, array())
             ->add('host', null, array())
-            ->add('isDefault', 'boolean', array())
-            ->add('isActive', 'boolean', array())
+            ->add('default', 'boolean', array())
+            ->add('active', 'boolean', array())
             ->add('defaultLocale', null, array())
         ;
     }
@@ -133,18 +143,16 @@ class WebsiteAdmin extends BaseAdmin
         $locale = $this->getTranslatableLocale();
         $formMapper
             ->with($this->trans('form_site.label_general'))
-//                ->add('name', 'text', array('attr' => array('class' => 'sonata-medium locale locale_' . $locale), 'help' => 'Vix te omnium sententiae.'))
-//                ->add('host', 'text', array('attr' => array('class' => 'sonata-medium locale locale_' . $locale) ))
-                ->add('isDefault', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
-                ->add('isActive', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
+//                ->add('default', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
+//                ->add('active', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
 
-                ->add('theme', 'choice', array('attr' => array('class' => 'sonata-medium locale locale_' . $locale), 'choices' => $this->_themeManager->getAvailableThemeCodesForSelect()))
-                ->add('defaultLocale', 'choice', array('choices' => $this->_availableLocales))
-                ->add('availableLocales', 'choice', array(
-                    'choices'   => $this->_availableLocales,
-                    'expanded'  => true,
-                    'multiple'  => true
-                ))
+                ->add('theme', 'choice', array('attr' => array('class' => 'sonata-medium locale locale_' . $locale), 'choices' => $this->themeManager->getAvailableThemeCodesForSelect()))
+//                ->add('defaultLocale', 'choice', array('choices' => $this->availableLocales))
+//                ->add('availableLocales', 'choice', array(
+//                    'choices'   => $this->availableLocales,
+//                    'expanded'  => true,
+//                    'multiple'  => true
+//                ))
             ->end()
         ;
     }
@@ -176,6 +184,32 @@ class WebsiteAdmin extends BaseAdmin
                 $menu->setCurrentUri($this->generateObjectUrl('edit', $object, array('translatable_locale' => $locale)));
             }
         }
+    }
+
+    /**
+     * Refresh object to load locale get in param
+     *
+     * @param   $id
+     * @return  $subject
+     */
+    public function getObject($id)
+    {
+        $subject = parent::getObject($id);
+
+        $subject = $this->modelManager->getDocumentManager()->findTranslation(null, $subject->getPath(), $this->getTranslatableLocale());
+
+        return $subject;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function generateUrl($name, array $parameters = array(), $absolute = false)
+    {
+        if ($name == 'create' || $name == 'edit') {
+            $parameters = $parameters + array('translatable_locale' => $this->getTranslatableLocale());
+        }
+        return parent::generateUrl($name, $parameters, $absolute);
     }
 
 }

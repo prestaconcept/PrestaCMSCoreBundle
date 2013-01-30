@@ -39,7 +39,7 @@ class WebsiteTest extends BaseUnitTestCase
         $this->assertEquals('en', $website->getDefaultLocale());
 
         $this->assertFalse($website->isDefault());
-        $website->setIsDefault(true);
+        $website->setDefault(true);
         $this->assertTrue($website->isDefault());
 
         $website->setName('default');
