@@ -197,6 +197,9 @@ img.sonata-ba-img-box {
 }
 
 /* Edition d'une page */
+.sidebar .sonata-ba-side-menu {
+    padding-left: 8px;
+}
 #sidebar #website_selector,
 .sidebar #website_selector {
     width: auto;

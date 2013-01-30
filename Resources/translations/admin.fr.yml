@@ -10,3 +10,7 @@ navigation:
     pages:
       label: Pages
       description: Gestion du contenu
+
+button.save : Enregistrer
+button.close : Fermer
+button.delete : Supprimer

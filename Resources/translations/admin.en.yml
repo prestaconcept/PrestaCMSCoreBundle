@@ -1,0 +1,16 @@
+navigation:
+  cms:
+    label: CMS
+    websites:
+      label: Websites
+      description: Websites administration
+    themes:
+      label: Themes
+      description: Themes administration
+    pages:
+      label: Pages
+      description: Content administration
+
+button.save : Save
+button.close : Close
+button.delete : Delete
