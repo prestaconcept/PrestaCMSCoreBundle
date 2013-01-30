@@ -1,9 +1,9 @@
 {
     "name": "presta/cms-core-bundle",
     "type": "symfony-bundle",
-    "description": "PrestaCMS Core bundle : handle website, theme and pages",
-    "keywords": ["PrestaCMS Core"],
-    "homepage": "http://www.gitorious.local/symfony2-bundles/prestacmscorebundle",
+    "description": "PrestaCMS Core bundle : CMS based on Symfony2 and Symfony-CMF",
+    "keywords": ["symfony2", "bundle", "cms", "symfony-cmf", "prestaconcept"],
+    "homepage": "https://github.com/prestaconcept/PrestaCMSCoreBundle",
     "license": "MIT",
     "authors": [
         {
@@ -29,11 +29,5 @@
     "autoload": {
         "psr-0": { "Presta\\CMSCoreBundle": "" }
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "http://satis.local/"
-        }
-    ],
     "target-dir": "Presta/CMSCoreBundle"
 }
