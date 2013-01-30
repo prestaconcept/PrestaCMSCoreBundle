@@ -9,7 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
-use Sonata\CMSCoreBundle\Controller\CRUDController;
+use Sonata\AdminBundle\Controller\CRUDController;
 use Presta\CMSCoreBundle\Document\Block;
 
 /**
