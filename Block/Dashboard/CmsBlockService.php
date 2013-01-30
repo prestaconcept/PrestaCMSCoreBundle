@@ -57,7 +57,13 @@ class CmsBlockService extends BaseBlockService
     {
         $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
 
-        return $this->renderResponse('PrestaCMSCoreBundle:Block/Dashboard:block_cms.html.twig', array(
+        if (isset($settings['display']) && $settings['display'] == 'sonata') {
+            $template = 'PrestaCMSCoreBundle:Block/Dashboard:block_cms_sonata.html.twig';
+        } else {
+            $template = 'PrestaCMSCoreBundle:Block/Dashboard:block_cms_sonata.html.twig';
+        }
+
+        return $this->renderResponse($template, array(
             'block'     => $block,
             'blockId'   => 'block-cms',
             'websiteAdmin' => $this->pool->getAdminByAdminCode('presta_cms.website.admin.website'),
