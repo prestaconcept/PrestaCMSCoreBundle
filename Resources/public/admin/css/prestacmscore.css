@@ -196,7 +196,7 @@ img.sonata-ba-img-box {
     box-shadow: 0 13px 5px -10px #AAA;
 }
 
-/* Edition d'une page */
+/* Sidebar */
 .sidebar .sonata-ba-side-menu {
     padding-left: 8px !important;
 }
@@ -210,4 +210,13 @@ img.sonata-ba-img-box {
 }
 .ui-sortable-helper {
     cursor: move;
+}
+
+/* Modal */
+.sonata-bc .modal-large {
+    width: 80% !important;
+    left: 30% !important;
+}
+#modal-loader {
+    text-align: center;
 }
