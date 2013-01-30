@@ -46,6 +46,11 @@ class BlockAdmin extends BaseAdmin
         $this->blockManager = $blockManager;
     }
 
+    protected function getDocumentManager()
+    {
+        return $this->modelManager->getDocumentManager();
+    }
+
     /**
      * {@inheritdoc}
      */

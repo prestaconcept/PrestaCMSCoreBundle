@@ -19,3 +19,9 @@ This bundle heavily takes advantage of Symfony CMF bundle.
 
 ### Easy extend it in your application
 
+    php app/console sonata:easy-extends:generate SonataAdminBundle --dest=src
+    php app/console sonata:easy-extends:generate PrestaCMSCoreBundle --dest=src
+
+### Add routing
+
+
