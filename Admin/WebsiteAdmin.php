@@ -125,7 +125,7 @@ class WebsiteAdmin extends BaseAdmin
     {
         $showMapper
             ->add('name', null, array())
-            ->add('host', null, array())
+            ->add('theme', null, array())
             ->add('default', 'boolean', array())
             ->add('active', 'boolean', array())
             ->add('defaultLocale', null, array())
