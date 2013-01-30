@@ -157,13 +157,13 @@ table.page-content-admin div.zone-actions {
 
 
 a.action-edit {
-    background: url('../../bundles/prestacmscore/img/icons/edit-icon.png') no-repeat center center transparent;
+    background: url('../../bundles/prestacmscore/admin/img/icons/edit-icon.png') no-repeat center center transparent;
 }
 a.action-delete {
-    background: url('../../bundles/prestacmscore/img/icons/delete-icon.png') no-repeat center center transparent;
+    background: url('../../bundles/prestacmscore/admin/img/icons/delete-icon.png') no-repeat center center transparent;
 }
 .icon-add {
-    background-image: url('../../bundles/prestacmscore/img/icons/add-icon.png') !important;
+    background-image: url('../../bundles/prestacmscore/admin/img/icons/add-icon.png') !important;
     background-position: -1px -1px !important;
 }
 table.page-content-admin td.empty, table.page-content-admin td.empty:hover {
@@ -174,13 +174,13 @@ div.block-settings {
     margin-top: 20px;
 }
 div.cms-block a.module-settings {
-    background: url('../../bundles/prestacmscore/img/icons/settings-16.png') no-repeat left center #fff;
+    background: url('../../bundles/prestacmscore/admin/img/icons/settings-16.png') no-repeat left center #fff;
     color: #404040;
     padding-left: 20px;
     font-weight: bold;
 }
 div.cms-block a.module-settings:hover {
-    background: url('../../bundles/prestacmscore/img/icons/settings-16.png') no-repeat left center #f7f7f7;
+    background: url('../../bundles/prestacmscore/admin/img/icons/settings-16.png') no-repeat left center #f7f7f7;
 }
 /* Listing */
 td.sonata-ba-list-field-screenshot {
@@ -198,7 +198,7 @@ img.sonata-ba-img-box {
 
 /* Edition d'une page */
 .sidebar .sonata-ba-side-menu {
-    padding-left: 8px;
+    padding-left: 8px !important;
 }
 #sidebar #website_selector,
 .sidebar #website_selector {
