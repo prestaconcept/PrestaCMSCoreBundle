@@ -1,0 +1,7 @@
+Tests/Functional/config/parameters.yml
+build/
+vendor
+composer.phar
+
+.idea/*
+app.sqlite

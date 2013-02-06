@@ -34,6 +34,16 @@ class BaseFunctionalTestCase extends WebTestCase
     protected $documentManager;
 
     /**
+     * {@inherit}
+     */
+    static protected function createKernel(array $options = array())
+    {
+        return new AppKernel(
+            isset($options['config']) ? $options['config'] : 'default.yml'
+        );
+    }
+
+    /**
      * Init kernel and container
      */
     protected function init()

@@ -1,0 +1,22 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+
+before_script:
+  - pear install pear/PHP_CodeSniffer
+  - phpenv rehash
+  - composer install --dev
+  - cp ./Tests/Functional/config/parameters.yml.dist ./Tests/Functional/config/parameters.yml
+  - php Tests/Functional/console doctrine:phpcr:init:dbal
+  - php Tests/Functional/console doctrine:phpcr:register-system-node-types
+
+
+script:
+  - phpunit --coverage-text
+  - phpcs --encoding=utf-8 --standard=PSR2 -np
+
+
+notifications:
+  email: "nbastien@prestaconcept.net"

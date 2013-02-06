@@ -1,6 +1,6 @@
 imports:
 #     - { resource: '@PrestaAssetTinymceBundle/Resources/config/config.yml' }
-     - { resource: 'theme_default.yml' }
+#     - { resource: 'theme_default.yml' }
 
 
 doctrine:
