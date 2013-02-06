@@ -1,4 +1,4 @@
-Presta CMS Core Bundle  [![Build Status](https://secure.travis-ci.org/prestaconcept/prestacms-sandbox.png?branch=master)](http://travis-ci.org/prestaconcept/prestacmscore)
+Presta CMS Core Bundle  [![Build Status](https://secure.travis-ci.org/prestaconcept/PrestaCMSCoreBundle.png?branch=master)](http://travis-ci.org/prestaconcept/PrestaCMSCoreBundle)
 =============
 
 This bundle contains the main logic of Presta CMS.
