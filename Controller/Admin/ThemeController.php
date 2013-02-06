@@ -13,37 +13,37 @@ use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 
 /**
  * Theme administration controller
- * 
+ *
  * @package    PrestaCMS
  * @subpackage CoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class ThemeController extends AdminController
-{    
+{
     /**
      * Return Website manager
-     * 
+     *
      * @return Presta\CMSCoreBundle\Model\WebsiteManager
      */
     public function getWebsiteManager()
     {
         return $this->get('presta_cms.website_manager');
     }
-    
+
     /**
      * Return Theme manager
-     * 
+     *
      * @return Presta\CMSCoreBundle\Model\ThemeManager
      */
     public function getThemeManager()
     {
         return $this->get('presta_cms.theme_manager');
     }
-    
+
     /**
      * Theme listing
-     * 
-     * @return Response 
+     *
+     * @return Response
      */
     public function listAction()
     {
@@ -51,11 +51,11 @@ class ThemeController extends AdminController
             'themes' => $this->getThemeManager()->getAvailableThemes()
         ));
     }
-    
+
     /**
      * Theme administration
-     * 
-     * @return Response 
+     *
+     * @return Response
      */
     public function editAction($name, $websiteId = null, $locale = null)
     {
@@ -65,6 +65,7 @@ class ThemeController extends AdminController
             $website = $this->getWebsiteManager()->getWebsite($websiteId, $locale);
         }
         $theme = $this->getThemeManager()->getTheme($name, $website);
+
         return $this->render('PrestaCMSCoreBundle:Admin/Theme:edit.html.twig', array(
             'websiteId' => $websiteId,
             'locale'    => $locale,

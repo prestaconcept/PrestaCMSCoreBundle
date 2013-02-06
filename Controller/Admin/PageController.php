@@ -16,7 +16,7 @@ use Application\Presta\CMSCoreBundle\Entity\Page;
 
 /**
  * Page administration controller
- * 
+ *
  * @package    PrestaCMS
  * @subpackage CoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
@@ -25,36 +25,36 @@ class PageController extends AdminController
 {
     /**
      * Return Website manager
-     * 
+     *
      * @return Presta\CMSCoreBundle\Model\WebsiteManager
      */
     public function getWebsiteManager()
     {
         return $this->get('presta_cms.website_manager');
     }
-    
+
     /**
      * Return Theme manager
-     * 
+     *
      * @return Presta\CMSCoreBundle\Model\ThemeManager
      */
     public function getThemeManager()
     {
         return $this->get('presta_cms.theme_manager');
     }
-    
+
     /**
      * Return Page manager
-     * 
+     *
      * @return Presta\CMSCoreBundle\Model\PageManager
      */
     public function getPageManager()
     {
         return $this->get('presta_cms.page_manager');
     }
-    
+
     /**
-     * Page administration main screen 
+     * Page administration main screen
      */
     public function indexAction($websiteId, $locale)
     {
@@ -69,7 +69,7 @@ class PageController extends AdminController
             $theme = $this->getThemeManager()->getTheme($website->getTheme());
             $viewParams['theme'] = $theme;
         }
-        
+
         return $this->render('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
     }
 
@@ -121,21 +121,21 @@ class PageController extends AdminController
         return $this->render('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
     }
 
-    
     /**
      * Return a specific page edit tab
      *
      * Action rendered in main edit template
      *
-     * @param  string $type
-     * @param  string $tab
-     * @param  Page $page
+     * @param  string   $type
+     * @param  string   $tab
+     * @param  Page     $page
      * @return Response
      */
     public function renderEditTabAction($type, $tab, $page)
     {
         $pageType   = $this->getPageManager()->getType($type);
         $viewParams = $pageType->getEditTabData($tab, $page);
+
         return $this->render($pageType->getEditTabTemplate($tab), $viewParams);
     }
 

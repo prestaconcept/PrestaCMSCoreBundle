@@ -59,4 +59,3 @@ class ZoneTest extends BaseUnitTestCase
         $this->assertEquals('websitedefaultthemedefaultcontent', $zone->getHtmlId());
     }
 }
-

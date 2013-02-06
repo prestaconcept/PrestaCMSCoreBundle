@@ -10,7 +10,6 @@
 namespace Presta\CMSCoreBundle\Document;
 
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Website Document

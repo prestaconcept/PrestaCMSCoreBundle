@@ -23,9 +23,9 @@ use Application\Presta\CMSCoreBundle\Entity\PageRevision;
 class CreatePageListener
 {
     /**
-     * Create page draft revision for a new page 
+     * Create page draft revision for a new page
      *
-     * @param   LifecycleEventArgs $args
+     * @param LifecycleEventArgs $args
      */
     public function postPersist(LifecycleEventArgs $args)
     {

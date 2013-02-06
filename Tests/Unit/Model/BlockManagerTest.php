@@ -36,4 +36,3 @@ class BlockManagerTest extends BaseUnitTestCase
         );
     }
 }
-

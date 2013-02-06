@@ -13,23 +13,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 use Sonata\AdminBundle\Admin\Pool;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Presta\CMSCoreBundle\Block\BaseBlockService;
 
 /**
  * Dashboard CMS Management block
- * 
+ *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class CmsBlockService extends BaseBlockService
 {
     /**
-     * @var \Sonata\AdminBundle\Admin\Pool  
+     * @var \Sonata\AdminBundle\Admin\Pool
      */
     protected $pool;
-    
+
     /**
      * @param string                                                     $name
      * @param \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface $templating
@@ -41,7 +39,7 @@ class CmsBlockService extends BaseBlockService
 
         $this->pool = $pool;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -49,7 +47,7 @@ class CmsBlockService extends BaseBlockService
     {
         return 'Dashboard CMS';
     }
-    
+
     /**
      * {@inheritdoc}
      */

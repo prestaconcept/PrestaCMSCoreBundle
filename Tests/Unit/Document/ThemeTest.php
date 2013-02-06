@@ -43,4 +43,3 @@ class ThemeTest extends BaseUnitTestCase
         $this->assertEquals('content', $theme->getZones()->get('content')->getName());
     }
 }
-

@@ -11,7 +11,6 @@ namespace Presta\CMSCoreBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Reference;
 
 class BlockCompilerPass implements CompilerPassInterface
 {
@@ -34,7 +33,6 @@ class BlockCompilerPass implements CompilerPassInterface
                 array($id)
             );
         }
-
 
     }
 

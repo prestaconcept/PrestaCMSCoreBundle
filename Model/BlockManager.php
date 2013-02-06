@@ -37,7 +37,7 @@ class BlockManager
     }
 
     /**
-     * @param  string $blockServiceId
+     * @param  string       $blockServiceId
      * @return BlockManager
      */
     public function addBlock($blockServiceId)

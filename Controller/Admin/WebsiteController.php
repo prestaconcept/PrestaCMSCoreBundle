@@ -13,9 +13,9 @@ use Sonata\AdminBundle\Controller\CRUDController as Controller;
 
 /**
  * Website administration controller
- * 
+ *
  * Website administration is handle with Sonata
- * 
+ *
  * @package    PrestaCMS
  * @subpackage CoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>

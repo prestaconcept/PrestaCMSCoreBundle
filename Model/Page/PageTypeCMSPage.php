@@ -17,33 +17,34 @@ namespace Presta\CMSCoreBundle\Model\Page;
 class PageTypeCMSPage implements PageTypeInterface
 {
     const TAB_CONTENT = 'content';
-    
+
     /**
      * @var Symfony\Component\DependencyInjection\Container
      */
     protected $container;
-    
+
     /**
      * @var Presta\CMSCoreBundle\Model\WebsiteManager
      */
     protected $websiteManager;
-    
+
     /**
      * @var Presta\CMSCoreBundle\Model\ThemeManager
      */
     protected $themeManager;
-    
+
     public function __construct($container, $websiteManager, $themeManager)
     {
         $this->container = $container;
         $this->websiteManager = $websiteManager;
         $this->themeManager   = $themeManager;
     }
-    
+
     /**
      * {@inheritdoc}
      */
-    public function getName(){
+    public function getName()
+    {
         return 'cms_page';
     }
 
@@ -52,9 +53,9 @@ class PageTypeCMSPage implements PageTypeInterface
      */
     public function getDefaultSettings()
     {
-        
+
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -64,7 +65,7 @@ class PageTypeCMSPage implements PageTypeInterface
             'cms_page' => 'content'
         );
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -74,15 +75,15 @@ class PageTypeCMSPage implements PageTypeInterface
             case self::TAB_CONTENT:
                 $draft = $page;
 
-				if (count($page->getZones()) == 0) {
-					// Todo améliorer ça !
-					// + prendre en compte le changement de template!
+                if (count($page->getZones()) == 0) {
+                    // Todo améliorer ça !
+                    // + prendre en compte le changement de template!
                     $repository = $this->container->get('doctrine_phpcr')->getManager()
                         ->getRepository('Presta\CMSCoreBundle\Document\Page');
 
-					//If there is no corresponding data, initialisation with default configuration
-					$draft = $repository->initializeForTemplate($draft, $this->themeManager->getPageTemplateConfiguration($draft->getTemplate()));
-				}
+                    //If there is no corresponding data, initialisation with default configuration
+                    $draft = $repository->initializeForTemplate($draft, $this->themeManager->getPageTemplateConfiguration($draft->getTemplate()));
+                }
 
                 return array(
                     'page' 	   => $draft,
@@ -94,9 +95,10 @@ class PageTypeCMSPage implements PageTypeInterface
             default:
                 break;
         }
+
         return array();
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -105,13 +107,13 @@ class PageTypeCMSPage implements PageTypeInterface
         return 'PrestaCMSCoreBundle:Admin/Page/CMSPage:tab_content.html.twig';
     }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getData($page)
-	{
-		return array(
-			'template' => $this->themeManager->getPageTemplateFile($page->getTemplate())
-		);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getData($page)
+    {
+        return array(
+            'template' => $this->themeManager->getPageTemplateFile($page->getTemplate())
+        );
+    }
 }

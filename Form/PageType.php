@@ -49,7 +49,6 @@ class PageType extends AbstractType
         $view->vars['translation_domain'] = 'PrestaCMSCoreBundle';
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -77,6 +76,6 @@ class PageType extends AbstractType
 //                'label' => 'form.label_settings'
 //            ))
         ;
-        
+
     }
 }

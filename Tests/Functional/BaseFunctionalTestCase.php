@@ -36,7 +36,7 @@ class BaseFunctionalTestCase extends WebTestCase
     /**
      * {@inherit}
      */
-    static protected function createKernel(array $options = array())
+    protected static function createKernel(array $options = array())
     {
         return new AppKernel(
             isset($options['config']) ? $options['config'] : 'default.yml'
@@ -79,7 +79,6 @@ class BaseFunctionalTestCase extends WebTestCase
             $website = $this->createWebsite($configuration);
         }
 
-
         // Commit $document and $block to the database
         $this->documentManager->flush();
     }
@@ -93,7 +92,7 @@ class BaseFunctionalTestCase extends WebTestCase
     /**
      * Create a website
      *
-     * @param array $configuration
+     * @param  array                                  $configuration
      * @return \Presta\CMSCoreBundle\Document\Website
      */
     protected function createWebsite(array $configuration)
@@ -114,6 +113,4 @@ class BaseFunctionalTestCase extends WebTestCase
         return $website;
     }
 
-
 }
-

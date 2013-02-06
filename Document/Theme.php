@@ -10,8 +10,6 @@
 namespace Presta\CMSCoreBundle\Document;
 
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
 
 use Presta\CMSCoreBundle\Document\Website;
 use Presta\CMSCoreBundle\Model\Template;
@@ -166,7 +164,7 @@ class Theme extends ContainerBlock
     /**
      * Add a page template
      *
-     * @param  Template $template
+     * @param  Template                          $template
      * @return \Presta\CMSCoreBundle\Model\Theme
      */
     public function addPageTemplate(Template $template)

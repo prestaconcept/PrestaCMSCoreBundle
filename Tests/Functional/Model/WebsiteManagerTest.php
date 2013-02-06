@@ -26,7 +26,6 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
         return $this->container->get('presta_cms.website_manager');
     }
 
-
     public function testGetWebsite()
     {
         $websiteManager = $this->getWebsiteManager();
@@ -79,4 +78,3 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
         $this->assertEquals($liipWebsite, $websiteManager->getCurrentWebsite());
     }
 }
-

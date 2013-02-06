@@ -131,4 +131,3 @@ class ThemeManagerTest extends BaseUnitTestCase
     }
 
 }
-

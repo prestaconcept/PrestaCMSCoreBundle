@@ -12,8 +12,6 @@ namespace Presta\CMSCoreBundle\Document;
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
 use Symfony\Cmf\Bundle\ContentBundle\Document\MultilangStaticContent;
 use Symfony\Cmf\Component\Routing\RouteAwareInterface;
 
@@ -77,7 +75,7 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
     /**
      * @PHPCRODM\Children(fetchDepth=3)
      */
-    protected  $children;
+    protected $children;
 
     public function __construct()
     {

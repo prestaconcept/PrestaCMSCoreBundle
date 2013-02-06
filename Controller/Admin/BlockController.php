@@ -14,7 +14,7 @@ use Presta\CMSCoreBundle\Document\Block;
 
 /**
  * Theme administration controller
- * 
+ *
  * @package    PrestaCMS
  * @subpackage CoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
@@ -23,9 +23,9 @@ class BlockController extends CRUDController
 {
     /**
      * Render a block
-     * 
-     * @param  integer $id
-     * @return Response 
+     *
+     * @param  integer  $id
+     * @return Response
      */
     public function renderAction()
     {
@@ -39,7 +39,7 @@ class BlockController extends CRUDController
     /**
      * Add a block
      *
-     * @param  integer $id
+     * @param  integer  $id
      * @return Response
      */
     public function addAction()
@@ -104,7 +104,7 @@ class BlockController extends CRUDController
     /**
      * Delete a block
      *
-     * @param  integer $id
+     * @param  integer  $id
      * @return Response
      */
     public function deleteAction($id = null)

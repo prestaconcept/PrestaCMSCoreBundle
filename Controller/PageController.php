@@ -14,9 +14,8 @@ use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-
 /**
- * 
+ *
  * @package    PrestaCMS
  * @subpackage CoreBundle
  */
@@ -24,17 +23,17 @@ class PageController extends Controller
 {
     /**
      * Return Website manager
-     * 
+     *
      * @return Presta\CMSCoreBundle\Model\WebsiteManager
      */
     public function getWebsiteManager()
     {
         return $this->get('presta_cms.website_manager');
     }
-    
+
     /**
      * Return Theme manager
-     * 
+     *
      * @return Presta\CMSCoreBundle\Model\ThemeManager
      */
     public function getThemeManager()
@@ -42,15 +41,15 @@ class PageController extends Controller
         return $this->get('presta_cms.theme_manager');
     }
 
-	/**
-	 * Return Page manager
-	 *
-	 * @return Presta\CMSCoreBundle\Model\PageManager
-	 */
-	public function getPageManager()
-	{
-		return $this->get('presta_cms.page_manager');
-	}
+    /**
+     * Return Page manager
+     *
+     * @return Presta\CMSCoreBundle\Model\PageManager
+     */
+    public function getPageManager()
+    {
+        return $this->get('presta_cms.page_manager');
+    }
 
     /**
      * Render a CMS page
@@ -88,16 +87,16 @@ class PageController extends Controller
 
 
         $viewParams = array(
-			'base_template' => $theme->getTemplate(),
-			'website' => $website,
-			'theme' => $theme,
-			'page'  => $contentDocument
-		);
+            'base_template' => $theme->getTemplate(),
+            'website' => $website,
+            'theme' => $theme,
+            'page'  => $contentDocument
+        );
         $this->getPageManager()->setCurrentPage($contentDocument);
         $pageType = $this->getPageManager()->getType($contentDocument->getType());
         if ($pageType != null) {
-			$viewParams = array_merge($viewParams, $pageType->getData($contentDocument));
-		}
+            $viewParams = array_merge($viewParams, $pageType->getData($contentDocument));
+        }
         //todo voir pour une meileur initialisation
         //on doit charger directement le tempalte pour que ce denier puisse surcharge
         //des partie du layout librement
@@ -122,7 +121,7 @@ class PageController extends Controller
 //		//Load theme data
 //        $theme = $this->getThemeManager()->getTheme($website->getTheme(), $website);
 //
-//		$pathInfo = (string)substr($request->getPathInfo(), strlen($website->getRelativePath()));
+//		$pathInfo = (string) substr($request->getPathInfo(), strlen($website->getRelativePath()));
 //
 //		try {
 //			$page = $this->getPageManager()->getPageByUrl($website, $pathInfo);

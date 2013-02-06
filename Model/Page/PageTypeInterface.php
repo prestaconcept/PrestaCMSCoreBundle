@@ -11,7 +11,7 @@ namespace Presta\CMSCoreBundle\Model\Page;
 
 /**
  * Page type interface
- * 
+ *
  * @package    PrestaCMS
  * @subpackage CoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
@@ -29,38 +29,37 @@ interface PageTypeInterface
      * @return array
      */
     public function getDefaultSettings();
-    
+
     /**
      * Returns type specific tabs for page edtion
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function getEditTabs();
-    
+
     /**
      * Return all data needed to render $tab
-     * 
+     *
      * @param  string $tab
-     * @param  Page $page
+     * @param  Page   $page
      * @return array
      */
     public function getEditTabData($tab, $page);
-    
+
     /**
      * Return $tab template
-     * 
+     *
      * @param  string $tab
      * @return string
-     */    
+     */
     public function getEditTabTemplate($tab);
 
-	/**
-	 * Return type specific data for page rendering
-	 * 
-	 * @param  $page
-	 * @return array
-	 */
-	public function getData($page);
-
+    /**
+     * Return type specific data for page rendering
+     *
+     * @param  $page
+     * @return array
+     */
+    public function getData($page);
 
 }

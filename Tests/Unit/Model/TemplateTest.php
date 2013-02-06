@@ -49,4 +49,3 @@ class TemplateTest extends BaseUnitTestCase
         $this->assertEquals(2, count($template->getZones()));
     }
 }
-

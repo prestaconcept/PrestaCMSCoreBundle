@@ -11,11 +11,8 @@
 namespace Presta\CMSCoreBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Route\RouteCollection;
-use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Block\BlockServiceManagerInterface;
@@ -71,16 +68,16 @@ class BlockAdmin extends BaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $block = $this->getSubject();        
+        $block = $this->getSubject();
         $service = $this->blockManager->get($block);
 
         if ($block->getId() > 0) {
             $service->buildEditForm($formMapper, $block);
         } else {
             $service->buildCreateForm($formMapper, $block);
-        }        
+        }
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -106,6 +103,7 @@ class BlockAdmin extends BaseAdmin
         if ($name == 'create' || $name == 'edit') {
             $parameters = $parameters + array('locale' => $this->getRequest()->get('locale'));
         }
+
         return parent::generateUrl($name, $parameters, $absolute);
     }
 
@@ -148,6 +146,5 @@ class BlockAdmin extends BaseAdmin
         $service = $this->blockManager->get($block);
         $service->prePersist($object);
     }
-
 
 }

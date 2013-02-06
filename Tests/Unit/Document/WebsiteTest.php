@@ -46,4 +46,3 @@ class WebsiteTest extends BaseUnitTestCase
         $this->assertEquals('default', $website->__toString());
     }
 }
-

@@ -9,8 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
-use Symfony\Component\HttpFoundation\Request;
-
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Presta\CMSCoreBundle\Document\Website;
 use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RouteProvider;
@@ -139,7 +137,7 @@ class WebsiteManager
     /**
      * Register a new host
      *
-     * @param  array $hostConfiguration
+     * @param  array          $hostConfiguration
      * @return WebsiteManager
      */
     public function registerHost($hostConfiguration)
@@ -190,8 +188,8 @@ class WebsiteManager
     /**
      * Get website
      *
-     * @param  string $websiteCode
-     * @param  string $locale
+     * @param  string  $websiteCode
+     * @param  string  $locale
      * @return Website
      */
     public function getWebsite($websiteCode, $locale = null)
@@ -222,7 +220,7 @@ class WebsiteManager
     /**
      * Load a website based by host
      *
-     * @param  string $host
+     * @param  string  $host
      * @return Website
      */
     public function loadWebsiteByHost($host)

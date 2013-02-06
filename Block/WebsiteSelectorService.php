@@ -19,20 +19,20 @@ use Presta\CMSCoreBundle\Block\BaseBlockService;
 
 /**
  * Blok Website Selector
- * 
+ *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class WebsiteSelectorService extends BaseBlockService
 {
     /**
-     * @var \Sonata\AdminBundle\Admin\Pool  
+     * @var \Sonata\AdminBundle\Admin\Pool
      */
     protected $_websiteManager;
-    
+
     /**
-     * @param string $name
+     * @param string          $name
      * @param EngineInterface $templating
-     * @param WebsiteManager $websiteManager
+     * @param WebsiteManager  $websiteManager
      */
     public function __construct($name, EngineInterface $templating, WebsiteManager $websiteManager)
     {
@@ -40,7 +40,7 @@ class WebsiteSelectorService extends BaseBlockService
 
         $this->_websiteManager = $websiteManager;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -49,13 +49,13 @@ class WebsiteSelectorService extends BaseBlockService
         return 'Website Selector';
     }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getDefaultSettings()
-	{
-		return array('with_fieldset' => true);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getDefaultSettings()
+    {
+        return array('with_fieldset' => true);
+    }
 
     /**
      * {@inheritdoc}

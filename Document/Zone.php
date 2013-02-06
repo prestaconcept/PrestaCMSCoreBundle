@@ -10,8 +10,6 @@
 namespace Presta\CMSCoreBundle\Document;
 
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
-use Symfony\Component\Validator\Constraints as Assert;
-
 
 use Symfony\Cmf\Bundle\BlockBundle\Document\ContainerBlock;
 
@@ -48,7 +46,6 @@ class Zone extends ContainerBlock
      * @var ArrayCollection
      */
     protected $_blocks;
-
 
     public function __construct($name = null)
     {
@@ -158,8 +155,6 @@ class Zone extends ContainerBlock
         return $this->canSortBlock;
     }
 
-
-
     public function getBlocks()
     {
         return $this->getChildren();
@@ -174,6 +169,5 @@ class Zone extends ContainerBlock
     {
         $this->children = $blocks;
     }
-
 
 }

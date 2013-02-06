@@ -11,7 +11,6 @@ namespace Presta\CMSCoreBundle\Document\Block;
 
 use Doctrine\ODM\PHPCR\DocumentRepository as BaseDocumentRepository;
 
-
 /**
  * Block Repository
  *

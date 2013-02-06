@@ -18,7 +18,6 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 
 use Sonata\DoctrinePHPCRAdminBundle\Admin\Admin as BaseAdmin;
@@ -74,8 +73,8 @@ class WebsiteAdmin extends BaseAdmin
     /**
      * Setter for themeManager
      *
-     * @param   ThemeManager $themeManager
-     * @return  void
+     * @param  ThemeManager $themeManager
+     * @return void
      */
     public function setThemeManager(ThemeManager $themeManager)
     {
@@ -135,8 +134,8 @@ class WebsiteAdmin extends BaseAdmin
     /**
      * Configure form per locale
      *
-     * @param   Sonata\AdminBundle\Form\FormMapper $formMapper
-     * @return  void
+     * @param  Sonata\AdminBundle\Form\FormMapper $formMapper
+     * @return void
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -160,10 +159,10 @@ class WebsiteAdmin extends BaseAdmin
     /**
      * Allow to select locale to edit in side menu
      *
-     * @param   MenuItemInterface $menu
-     * @param   $action
-     * @param   Sonata\AdminBundle\Admin\Admin $childAdmin
-     * @return  void
+     * @param  MenuItemInterface              $menu
+     * @param                                 $action
+     * @param  Sonata\AdminBundle\Admin\Admin $childAdmin
+     * @return void
      */
     protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
@@ -177,7 +176,7 @@ class WebsiteAdmin extends BaseAdmin
                 $this->trans($locale),
                 array('uri' => $this->generateObjectUrl('edit', $object, array('translatable_locale' => $locale)))
             );
-			$menuItem->setAttribute('class', 'locale locale_' . $locale);
+            $menuItem->setAttribute('class', 'locale locale_' . $locale);
 
             // select current edited locale item in menu
             if ($object->getLocale() == $locale) {
@@ -209,6 +208,7 @@ class WebsiteAdmin extends BaseAdmin
         if ($name == 'create' || $name == 'edit') {
             $parameters = $parameters + array('translatable_locale' => $this->getTranslatableLocale());
         }
+
         return parent::generateUrl($name, $parameters, $absolute);
     }
 

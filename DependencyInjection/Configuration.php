@@ -16,7 +16,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  * This is the class that validates and merges configuration from your app/config files
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
- * 
+ *
  * @package    PrestaCMS
  * @subpackage CoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
@@ -47,7 +47,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->arrayNode('themes')
                     ->prototype('array')
-                        //->requiresAtLeastOneElement()                  
+                        //->requiresAtLeastOneElement()
                         ->children()
                             ->scalarNode('name')->end()
                             ->scalarNode('description')->end()
@@ -85,14 +85,14 @@ class Configuration implements ConfigurationInterface
                                 ->requiresAtLeastOneElement()
                                 ->useAttributeAsKey('name')
                                 ->prototype('array')
-                                    ->children()  
+                                    ->children()
                                         ->scalarNode('name')->end()
                                         ->scalarNode('path')->end()
                                         ->arrayNode('zones')
                                             ->prototype('array')
                                                 ->children()
                                                     ->scalarNode('rows')->defaultValue(1)->end()
-                                                    ->scalarNode('cols')->defaultValue(1)->end() 
+                                                    ->scalarNode('cols')->defaultValue(1)->end()
                                                     ->scalarNode('name')->defaultValue('')->end()
                                                     ->scalarNode('can_add_block')->defaultValue(false)->end()
                                                     ->scalarNode('can_sort_block')->defaultValue(false)->end()
@@ -119,7 +119,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ->end();
-        
+
         return $treeBuilder;
     }
 }

@@ -59,4 +59,3 @@ class ThemeManagerTest extends BaseFunctionalTestCase
         $this->assertEquals(5, count($theme->getZones()));
     }
 }
-

@@ -9,8 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
-use Symfony\Component\HttpFoundation\Request;
-
 use Application\Presta\CMSCoreBundle\Entity\Website;
 
 use Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem;
@@ -19,7 +17,7 @@ use Doctrine\ODM\PHPCR\DocumentManager;
 
 /**
  * Page Manager
- * 
+ *
  * @package    PrestaCMS
  * @subpackage CoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
@@ -30,7 +28,7 @@ class PageManager
      * @var Symfony\Component\DependencyInjection\Container
      */
     protected $container;
-    
+
     /**
      * @var Presta\CMSCoreBundle\Repository\PageRepository
      */
@@ -40,9 +38,9 @@ class PageManager
      * @var Page
      */
     protected $currentPage;
-    
+
     /**
-     * @var array 
+     * @var array
      */
     protected $types;
 
@@ -67,7 +65,7 @@ class PageManager
 
     /**
      * Return website repository
-     * 
+     *
      * @return
      */
     protected function getRepository()
@@ -75,6 +73,7 @@ class PageManager
         if ($this->repository == null) {
             $this->repository = $this->getDocumentManager->getRepository('Presta\CMSCoreBundle\Document\Page');
         }
+
         return $this->repository;
     }
 
@@ -116,24 +115,25 @@ class PageManager
         $this->getDocumentManager()->persist($page);
         $this->getDocumentManager()->flush();
     }
-    
+
     /**
      * Reference a new page type service
-     * 
-     * @param  string $idType
-     * @param  string $typeServiceId 
+     *
+     * @param  string                                  $idType
+     * @param  string                                  $typeServiceId
      * @return \Presta\CMSCoreBundle\Model\PageManager
      */
     public function addType($idType, $typeServiceId)
     {
         $this->types[$idType] = $typeServiceId;
+
         return $this;
     }
-    
+
     /**
      * Return corresponding page type service
-     * 
-     * @param  string $idType
+     *
+     * @param  string                                                 $idType
      * @return false|Presta\CMSCoreBundle\Model\PagePageTypeInterface
      */
     public function getType($idType)
@@ -141,7 +141,8 @@ class PageManager
         if (isset($this->types[$idType])) {
             return $this->container->get($this->types[$idType]);
         }
-        return false;  
+
+        return false;
     }
 
     /**

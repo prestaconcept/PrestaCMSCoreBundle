@@ -18,7 +18,6 @@ use Presta\CMSCoreBundle\Document\Theme;
 use Presta\CMSCoreBundle\Document\Zone;
 use Presta\CMSCoreBundle\Document\Block;
 
-
 /**
  * Website Theme Repository
  *
@@ -44,8 +43,8 @@ class Repository extends BaseDocumentRepository
     /**
      * Initialize data for a website
      *
-     * @param  Website $website
-     * @param  array $configuration
+     * @param Website $website
+     * @param array   $configuration
      * @return
      */
     public function initializeForWebsite(Website $website, array $configuration)
@@ -58,7 +57,6 @@ class Repository extends BaseDocumentRepository
         $websiteTheme->setParentDocument($website);
         $websiteTheme->setName('theme/' . $configuration['name']);
         $this->getDocumentManager()->persist($websiteTheme);
-
 
         foreach ($configuration['zones'] as $zoneConfiguration) {
             if (!isset($zoneConfiguration['blocks']) || count($zoneConfiguration['blocks']) == 0) {

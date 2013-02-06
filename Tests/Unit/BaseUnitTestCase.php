@@ -9,7 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Tests\Unit;
 
-
 /**
  * Base test case for all unit tests
  *
@@ -19,4 +18,3 @@ class BaseUnitTestCase extends \PHPUnit_Framework_TestCase
 {
 
 }
-

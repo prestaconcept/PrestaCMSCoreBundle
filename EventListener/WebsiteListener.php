@@ -11,8 +11,6 @@ namespace Presta\CMSCoreBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\Event;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
-use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RouteProvider;
-use Symfony\Cmf\Bundle\RoutingExtraBundle\Listener\IdPrefix;
 
 /**
  * Handle website selection based on request

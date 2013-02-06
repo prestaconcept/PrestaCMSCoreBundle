@@ -9,13 +9,10 @@
  */
 namespace Presta\CMSCoreBundle\Block;
 
-use Symfony\Component\HttpFoundation\Response;
-
 use Sonata\BlockBundle\Block\BaseBlockService as SonataBaseBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
-
 
 /**
  * Base Block Service
@@ -48,7 +45,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
 
     /**
      * @param $id
-     * @param array $parameters
+     * @param  array  $parameters
      * @return string
      */
     protected function trans($id, array $parameters = array())
@@ -66,7 +63,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
             'block_id'   => $block->getId()
         );
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -80,7 +77,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
     public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
     {
     }
-    
+
     /**
      * {@inheritdoc}
      */

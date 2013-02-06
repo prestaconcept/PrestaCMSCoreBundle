@@ -68,7 +68,7 @@ class Block extends CmfBaseBlock
      *
      * @return string $type
      */
-    function getType()
+    public function getType()
     {
         return $this->type;
     }
@@ -116,7 +116,7 @@ class Block extends CmfBaseBlock
     /**
      * Set if block is editable
      *
-     * @param  boolean $isEditable
+     * @param  boolean                                      $isEditable
      * @return \Presta\CMSCoreBundle\Block\BaseBlockService
      */
     public function setIsEditable($isEditable)
@@ -137,7 +137,7 @@ class Block extends CmfBaseBlock
     /**
      * Set if block is delitable
      *
-     * @param  boolean $isDeletable
+     * @param  boolean                                      $isDeletable
      * @return \Presta\CMSCoreBundle\Block\BaseBlockService
      */
     public function setIsDeletable($isDeletable)
@@ -163,7 +163,7 @@ class Block extends CmfBaseBlock
     /**
      * Set is_active
      *
-     * @param boolean $isActive
+     * @param  boolean        $isActive
      * @return BaseThemeBlock
      */
     public function setIsActive($isActive)
@@ -182,7 +182,6 @@ class Block extends CmfBaseBlock
     {
         return $this->isActive;
     }
-
 
     /**
      * Set admin mode

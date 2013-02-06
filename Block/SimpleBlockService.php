@@ -12,7 +12,6 @@ namespace Presta\CMSCoreBundle\Block;
 use Symfony\Component\HttpFoundation\Response;
 
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Model\BlockInterface;
 
 use Presta\CMSCoreBundle\Block\BaseBlockService;
@@ -65,7 +64,7 @@ class SimpleBlockService extends BaseBlockService
     /**
      * {@inheritdoc}
      */
-    function getDefaultSettings()
+    public function getDefaultSettings()
     {
         return array(
             'title' => 'default tile example',

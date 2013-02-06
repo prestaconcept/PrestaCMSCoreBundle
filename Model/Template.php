@@ -27,9 +27,9 @@ class Template
      * @var string
      */
     protected $name;
-    
+
     /**
-     * @var array 
+     * @var array
      */
     protected $zones;
 
@@ -59,21 +59,21 @@ class Template
     {
         return $this->path;
     }
-    
+
     /**
      * Returns zones
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function getZones()
     {
         return $this->zones;
     }
-    
+
     /**
      * Set zones
-     * 
-     * @param  array $zones
+     *
+     * @param  array                               $zones
      * @return \Presta\CMSCoreBundle\Document\Zone
      */
     public function setZones(array $zones)
@@ -82,11 +82,11 @@ class Template
 
         return $this;
     }
-    
+
     /**
      * Add a zone
-     * 
-     * @param  Zone $zone
+     *
+     * @param  Zone                                $zone
      * @return \Presta\CMSCoreBundle\Document\Zone
      */
     public function addZone(Zone $zone)

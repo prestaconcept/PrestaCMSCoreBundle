@@ -47,7 +47,6 @@ class PageTest extends BaseUnitTestCase
         $this->assertEquals('default', $page->getTemplate());
     }
 
-
     public function testChildren()
     {
         $page = new Page();
@@ -94,4 +93,3 @@ class PageTest extends BaseUnitTestCase
         $this->assertEquals(1, count($page->getZones()));
     }
 }
-
