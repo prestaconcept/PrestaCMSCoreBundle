@@ -93,7 +93,7 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      */
     public function getChildren()
     {
-        return $this->children->filter(function($e) {return $e instanceof Page;});
+        return $this->children->filter(function ($e) {return $e instanceof Page;});
     }
 
     /**
@@ -133,7 +133,7 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      */
     public function getZones()
     {
-        return $this->children->filter(function($e) {return $e instanceof Zone;});
+        return $this->children->filter(function ($e) {return $e instanceof Zone;});
     }
 
     /**

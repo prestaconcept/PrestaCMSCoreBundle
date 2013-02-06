@@ -21,6 +21,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 
 use Sonata\DoctrinePHPCRAdminBundle\Admin\Admin as BaseAdmin;
+
 /**
  * Admin definition for the Site class
  *
@@ -54,7 +55,7 @@ class WebsiteAdmin extends BaseAdmin
     protected function getTranslatableLocale()
     {
         if ($this->request && $this->getRequest()->get('translatable_locale') != null) {
-            return  $this->getRequest()->get('translatable_locale');
+            return $this->getRequest()->get('translatable_locale');
         }
 
         return $this->getConfigurationPool()->getContainer()->getParameter('locale');
@@ -211,5 +212,4 @@ class WebsiteAdmin extends BaseAdmin
 
         return parent::generateUrl($name, $parameters, $absolute);
     }
-
 }

@@ -9,8 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Controller;
 
-use Doctrine\ORM\NoResultException;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -82,8 +80,7 @@ class PageController extends Controller
         $seoPage
             ->setTitle($contentDocument->getTitle())
             ->addMeta('name', 'keywords', $contentDocument->getMetaKeywords())
-            ->addMeta('name', 'description', $contentDocument->getMetaDescription())
-        ;
+            ->addMeta('name', 'description', $contentDocument->getMetaDescription());
 
 
         $viewParams = array(
@@ -104,42 +101,4 @@ class PageController extends Controller
 
         return $this->render($template, $viewParams);
     }
-
-//    /**
-//     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-//     * @return \Symfony\Bundle\FrameworkBundle\Controller\Response
-//     */
-//    public function catchAllAction(Request $request)
-//    {
-//        $website = $this->getWebsiteManager()->getWebsiteForRequest($this->getRequest());
-//		$pathInfo = $request->getPathInfo();
-//
-//		//Relative path control
-//		if (strpos($pathInfo, $website->getRelativePath()) !== 0) {
-//			return $this->redirect($website->getUrl($request->getBaseUrl()));
-//		}
-//		//Load theme data
-//        $theme = $this->getThemeManager()->getTheme($website->getTheme(), $website);
-//
-//		$pathInfo = (string) substr($request->getPathInfo(), strlen($website->getRelativePath()));
-//
-//		try {
-//			$page = $this->getPageManager()->getPageByUrl($website, $pathInfo);
-//		} catch (NoResultException $e) {
-//			throw $this->createNotFoundException('Page not found');
-//		}
-//
-//		$pageType = $this->getPageManager()->getType($page->getType());
-//
-//		$viewParams = array(
-//			'base_template' => $theme->getTemplate(),
-//			'website' => $website,
-//			'theme' => $theme,
-//			'page'  => $page
-//		);
-//		if ($pageType != null) {
-//			$viewParams = array_merge($viewParams, $pageType->getData($page));
-//		}
-//        return $this->render('PrestaCMSCoreBundle:Page:index.html.twig', $viewParams);
-//    }
 }

@@ -22,5 +22,4 @@ use Sonata\AdminBundle\Controller\CRUDController as Controller;
  */
 class WebsiteController extends Controller
 {
-
 }

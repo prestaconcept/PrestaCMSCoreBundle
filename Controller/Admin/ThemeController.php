@@ -47,9 +47,7 @@ class ThemeController extends AdminController
      */
     public function listAction()
     {
-        return $this->render('PrestaCMSCoreBundle:Admin/Theme:list.html.twig', array(
-            'themes' => $this->getThemeManager()->getAvailableThemes()
-        ));
+        return $this->render('PrestaCMSCoreBundle:Admin/Theme:list.html.twig', array('themes' => $this->getThemeManager()->getAvailableThemes()));
     }
 
     /**
@@ -64,13 +62,13 @@ class ThemeController extends AdminController
             $websiteId = '/website/' . $websiteId; //le slash ne passant pas au routing on rajoute le basePath
             $website = $this->getWebsiteManager()->getWebsite($websiteId, $locale);
         }
-        $theme = $this->getThemeManager()->getTheme($name, $website);
-
-        return $this->render('PrestaCMSCoreBundle:Admin/Theme:edit.html.twig', array(
+        $viewParams = array(
             'websiteId' => $websiteId,
             'locale'    => $locale,
             'website'   => $website,
-            'theme'     => $theme
-        ));
+            'theme'     => $this->getThemeManager()->getTheme($name, $website)
+        );
+
+        return $this->render('PrestaCMSCoreBundle:Admin/Theme:edit.html.twig', $viewParams);
     }
 }

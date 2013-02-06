@@ -205,5 +205,4 @@ class Theme extends ContainerBlock
     {
         return $this->template;
     }
-
 }

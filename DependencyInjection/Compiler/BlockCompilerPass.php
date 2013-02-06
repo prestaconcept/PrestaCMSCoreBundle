@@ -14,6 +14,9 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 
 class BlockCompilerPass implements CompilerPassInterface
 {
+    /**
+     * {@inherited}
+     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('presta_cms.block_manager')) {
@@ -35,5 +38,4 @@ class BlockCompilerPass implements CompilerPassInterface
         }
 
     }
-
 }

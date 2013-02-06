@@ -51,5 +51,4 @@ class BlockTest extends BaseUnitTestCase
         $block->setId('/website/default/.._..__/block-id');
         $this->assertEquals('websitedefaultblock-id', $block->getHtmlId());
     }
-
 }

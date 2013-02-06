@@ -61,5 +61,4 @@ interface PageTypeInterface
      * @return array
      */
     public function getData($page);
-
 }

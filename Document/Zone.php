@@ -169,5 +169,4 @@ class Zone extends ContainerBlock
     {
         $this->children = $blocks;
     }
-
 }

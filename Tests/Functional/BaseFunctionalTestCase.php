@@ -112,5 +112,4 @@ class BaseFunctionalTestCase extends WebTestCase
 
         return $website;
     }
-
 }

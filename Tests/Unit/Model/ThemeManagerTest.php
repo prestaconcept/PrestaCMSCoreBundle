@@ -129,5 +129,4 @@ class ThemeManagerTest extends BaseUnitTestCase
 
         //todo default initialisation !
     }
-
 }

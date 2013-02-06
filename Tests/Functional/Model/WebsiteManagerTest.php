@@ -61,11 +61,13 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
         $websiteManager = $this->getWebsiteManager();
         $websiteManager->setDefaultWebsiteCode('/website/default');
 
-        $websiteManager->registerHost(array(
-            'host'      => 'www.liip.ch',
-            'website'   => '/website/liip',
-            'locale'    =>  'fr'
-        ));
+        $websiteManager->registerHost(
+            array(
+                'host'      => 'www.liip.ch',
+                'website'   => '/website/liip',
+                'locale'    =>  'fr'
+            )
+        );
 
         $defaultWebsite = $websiteManager->loadWebsiteByHost('www.no-website.com');
         $this->assertEquals('/website/default', $defaultWebsite->getPath());

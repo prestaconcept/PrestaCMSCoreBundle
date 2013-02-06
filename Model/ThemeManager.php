@@ -39,11 +39,6 @@ class ThemeManager
      */
     protected $themesConfiguration;
 
-//    /**
-//     * @var array
-//     */
-//    protected $_blockTypes;
-
     /**
      * @var \Presta\CMSCoreBundle\Model\Theme
      */
@@ -135,7 +130,7 @@ class ThemeManager
     {
         if (!is_array($this->themes)) {
             foreach ($this->themesConfiguration as $configuration) {
-                $this->themes[$configuration['name']] = $this->_buildTheme($configuration);
+                $this->themes[$configuration['name']] = $this->buildTheme($configuration);
             }
         }
 
@@ -156,7 +151,7 @@ class ThemeManager
      * @param  array                             $configuration
      * @return \Presta\CMSCoreBundle\Model\Theme
      */
-    protected function _buildTheme(array $configuration, $website = null)
+    protected function buildTheme(array $configuration, $website = null)
     {
         $configuration += array(
             'cols' => 12,
@@ -207,25 +202,25 @@ class ThemeManager
         if (!isset($this->themesConfiguration[$name])) {
             return false;
         }
-        $this->currentTheme = $this->_buildTheme($this->themesConfiguration[$name], $website);
+        $this->currentTheme = $this->buildTheme($this->themesConfiguration[$name], $website);
 
         return $this->currentTheme;
     }
 
-//    /**
-//     * Returns page templates defined by a theme
-//     *
-//     * @param  string $theme
-//     * @return false|array
-//     */
-//    public function getPageTemplates($theme)
-//    {
-//        if (!isset($this->themesConfiguration[$theme])) {
-//            return false;
-//        }
-//
-//        return $this->themesConfiguration[$theme]['page_template'];
-//    }
+    /**
+     * Returns page templates defined by a theme
+     *
+     * @param  string $theme
+     * @return false|array
+     */
+    public function getPageTemplates($theme)
+    {
+        if (!isset($this->themesConfiguration[$theme])) {
+            return false;
+        }
+
+        return $this->themesConfiguration[$theme]['page_template'];
+    }
 
     /**
      * Return Template model initialised with $data

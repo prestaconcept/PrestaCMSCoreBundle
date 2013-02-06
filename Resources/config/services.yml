@@ -11,13 +11,6 @@ services:
         calls:
             - [ setContainer, [@service_container] ]
 
-    #Configuration Menu
-    presta_cms_core.configure_menu_listener:
-        class: Presta\CMSCoreBundle\EventListener\ConfigureMenuListener
-        arguments: [@service_container]
-        tags:
-          - { name: kernel.event_listener, event: presta_admin.menu_configure, method: onMenuConfigure }
-
     #Admin class
     presta_cms.website.admin.website:
       class: Presta\CMSCoreBundle\Admin\WebsiteAdmin

@@ -1,5 +1,13 @@
 <?php
-
+<?php
+/**
+ * This file is part of the Presta Bundle project.
+ *
+ * @author David Epely depely@prestaconcept.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Presta\CMSCoreBundle\Features\Context;
 
 use Symfony\Component\HttpKernel\KernelInterface;

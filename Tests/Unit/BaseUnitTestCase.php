@@ -16,5 +16,4 @@ namespace Presta\CMSCoreBundle\Tests\Unit;
  */
 class BaseUnitTestCase extends \PHPUnit_Framework_TestCase
 {
-
 }

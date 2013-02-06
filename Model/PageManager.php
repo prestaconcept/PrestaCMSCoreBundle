@@ -160,5 +160,4 @@ class PageManager
     {
         return $this->currentPage;
     }
-
 }

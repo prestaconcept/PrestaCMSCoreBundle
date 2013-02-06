@@ -46,5 +46,4 @@ class BlockManager
 
         return $this;
     }
-
 }

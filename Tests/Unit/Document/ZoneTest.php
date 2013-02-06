@@ -39,12 +39,14 @@ class ZoneTest extends BaseUnitTestCase
         $this->assertEquals(false, $zone->getCanAddBlock());
         $this->assertEquals(false, $zone->getCanSortBlock());
 
-        $zone->setConfiguration(array(
-            'cols' => 3,
-            'rows' => 12,
-            'can_add_block'  => true,
-            'can_sort_block' => true
-        ));
+        $zone->setConfiguration(
+            array(
+                'cols' => 3,
+                'rows' => 12,
+                'can_add_block'  => true,
+                'can_sort_block' => true
+            )
+        );
         $this->assertEquals(3, $zone->getCols());
         $this->assertEquals(12, $zone->getRows());
         $this->assertEquals(true, $zone->getCanAddBlock());

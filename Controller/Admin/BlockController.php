@@ -31,9 +31,7 @@ class BlockController extends CRUDController
     {
         $id = $this->getRequest()->get('id');
 
-        return $this->render('PrestaCMSCoreBundle:Admin/Block:render_block.html.twig', array(
-            'block' => $this->admin->getObject($id)
-        ));
+        return $this->render('PrestaCMSCoreBundle:Admin/Block:render_block.html.twig', array('block' => $this->admin->getObject($id)));
     }
 
     /**
@@ -79,26 +77,28 @@ class BlockController extends CRUDController
             $manager->create($block);
 
             if ($this->isXmlHttpRequest()) {
-                return $this->renderJson(array(
-                    'result'    => 'ok',
-                    'action'    => 'add',
-                    'zone'      => $zoneId,
-                    'objectId'  => $block->getId(),
-                    'content'   => $this->renderView('PrestaCMSCoreBundle:Admin/Block:add_block_content.html.twig', array('block' => $block))
-                ));
+                return $this->renderJson(
+                    array(
+                        'result'    => 'ok',
+                        'action'    => 'add',
+                        'zone'      => $zoneId,
+                        'objectId'  => $block->getId(),
+                        'content'   => $this->renderView('PrestaCMSCoreBundle:Admin/Block:add_block_content.html.twig', array('block' => $block))
+                    )
+                );
             }
             // redirect to edit mode
             return $this->redirectTo($block);
         }
 
-        $blocks = $this->get('presta_cms.block_manager')->getBlocks();
-
-        return $this->render('PrestaCMSCoreBundle:Admin/Block:add_block.html.twig', array(
+        $viewParams = array(
             'zoneId' => $zoneId,
             'locale' => $locale,
-            'blocks' => $blocks,
+            'blocks' => $this->get('presta_cms.block_manager')->getBlocks(),
             'origin' => $origin
-        ));
+        );
+
+        return $this->render('PrestaCMSCoreBundle:Admin/Block:add_block.html.twig', $viewParams);
     }
 
     /**
@@ -134,6 +134,5 @@ class BlockController extends CRUDController
 
             return new RedirectResponse($this->admin->generateUrl('list'));
         }
-
     }
 }

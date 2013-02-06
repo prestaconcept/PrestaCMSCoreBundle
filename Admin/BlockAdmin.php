@@ -57,10 +57,7 @@ class BlockAdmin extends BaseAdmin
             ->addIdentifier('name', 'text')
             ->add('type', 'text')
             ->add('settings', 'array')
-
-            ->add('isActive', 'boolean')
-
-        ;
+            ->add('isActive', 'boolean');
     }
 
     /**
@@ -146,5 +143,4 @@ class BlockAdmin extends BaseAdmin
         $service = $this->blockManager->get($block);
         $service->prePersist($object);
     }
-
 }
