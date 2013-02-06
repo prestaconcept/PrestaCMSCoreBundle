@@ -12,3 +12,4 @@ parameters:
     database_path: '%kernel.root_dir%/app.sqlite'
 
     locale: en
+    locales: [en, fr]
