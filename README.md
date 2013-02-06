@@ -1,27 +1,46 @@
-# Presta CMS Core Bundle
+Presta CMS Core Bundle[![Build Status](https://secure.travis-ci.org/prestaconcept/prestacms-sandbox.png?branch=master)](http://travis-ci.org/prestaconcept/prestacmscore)
+=============
 
 This bundle contains the main logic of Presta CMS.
 
-This bundle heavily takes advantage of Symfony CMF bundle.
+PrestaCMS is based on Symfony CMF bundles.
 
-## Features:
+** Important ** This bundles is currently under development
+
+If you want to have some informations about the projet progession you can register to our [google group](https://groups.google.com/forum/?hl=fr&fromgroups#!forum/prestacms-devs)
+
+
+#Overview #
+
+For a ready to use demonstration of PrestaCMS you should check the [prestacms-sandox available on github](https://github.com/prestaconcept/prestacms-sandbox).
+
+## Features: ##
 
 * Multiple website
 * Custom theming
 * Custom pages
 
-## Installation
+## Screenshot ##
 
-### Get the bundle
+### Page Edition ###
 
-    php composer.phar require presta/cms-core-bundle:dev-master --no-update
-    php composer.phar update presta/cms-core-bundle
+![Page edition](https://raw.github.com/prestaconcept/PrestaCMSCoreBundle/master/app/Resources/docs/assets/backend-page-edit.png)
 
-### Easy extend it in your application
+## Documentation ##
 
-    php app/console sonata:easy-extends:generate SonataAdminBundle --dest=src
-    php app/console sonata:easy-extends:generate PrestaCMSCoreBundle --dest=src
+    1. [Set-up](https://github.com/prestaconcept/PrestaCMSCoreBundle/tree/master/app/Resources/docs/1-set-up.md)
+    2. ...
 
-### Add routing
+
+## Ask for help ##
+
+If you need help about this project you can [post a message on our google group](https://groups.google.com/forum/?hl=fr&fromgroups#!forum/prestacms-devs)
+
+
+
+---
+
+*This project is supported by [PrestaConcept](http://www.prestaconcept.net)*
+
 
 
