@@ -5,3 +5,4 @@ composer.phar
 
 .idea/*
 app.sqlite
+php-cs-fixer.phar
