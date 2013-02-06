@@ -28,8 +28,15 @@ For a ready to use demonstration of PrestaCMS you should check the [prestacms-sa
 
 ## Documentation ##
 
-    1. [Set-up](https://github.com/prestaconcept/PrestaCMSCoreBundle/tree/master/app/Resources/docs/1-set-up.md)
-    2. ...
+1.  [Set-up](https://github.com/prestaconcept/PrestaCMSCoreBundle/tree/master/app/Resources/docs/1-set-up.md)
+2.  Getting start with PrestaCMS
+3.  How to create a block
+4.  How to Create a new theme
+5.  How to configure a new website
+6.  How to create complex page layout
+7.  How to link CMS with other bundles
+8.  ...
+
 
 
 ## Ask for help ##
