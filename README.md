@@ -1,4 +1,4 @@
-Presta CMS Core Bundle[![Build Status](https://secure.travis-ci.org/prestaconcept/prestacms-sandbox.png?branch=master)](http://travis-ci.org/prestaconcept/prestacmscore)
+Presta CMS Core Bundle  [![Build Status](https://secure.travis-ci.org/prestaconcept/prestacms-sandbox.png?branch=master)](http://travis-ci.org/prestaconcept/prestacmscore)
 =============
 
 This bundle contains the main logic of Presta CMS.
@@ -24,7 +24,7 @@ For a ready to use demonstration of PrestaCMS you should check the [prestacms-sa
 
 ### Page Edition ###
 
-![Page edition](https://raw.github.com/prestaconcept/PrestaCMSCoreBundle/master/app/Resources/docs/assets/backend-page-edit.png)
+![Page edition](https://raw.github.com/prestaconcept/PrestaCMSCoreBundle/master/Resources/docs/assets/backend-page-edit.png)
 
 ## Documentation ##
 
