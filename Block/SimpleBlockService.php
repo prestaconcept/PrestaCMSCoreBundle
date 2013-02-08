@@ -46,7 +46,7 @@ class SimpleBlockService extends BaseBlockService
                 ->add('settings', 'sonata_type_immutable_array', array(
                     'keys' => array(
                         array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
-                        array('content', 'text', array('attr' => array(), 'label' => $this->trans('form.label_content'))),
+                        array('content', 'textarea', array('attr' => array(), 'label' => $this->trans('form.label_content'))),
                     ),
                     'label' => $this->trans('form.label_settings')
                 ))
@@ -67,8 +67,8 @@ class SimpleBlockService extends BaseBlockService
     public function getDefaultSettings()
     {
         return array(
-            'title' => 'default tile example',
-            'content' => 'Insert your custom content here',
+            'title' => $this->trans('block.default.title'),
+            'content' => $this->trans('block.default.content'),
         );
     }
 }
