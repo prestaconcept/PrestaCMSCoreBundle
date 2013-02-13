@@ -1,99 +1,103 @@
-admin.locale_switcher.tooltip.fr: Français
-admin.locale_switcher.tooltip.en: Anglais
-select_no_result: Aucun résultat
+admin.locale_switcher.tooltip.fr: French
+admin.locale_switcher.tooltip.en: English
+select_no_result: No result
 
-breadcrumb.link_dashboard: Tableau de bord
-breadcrumb.link_website_edit: CMS - Modification d'un site
-breadcrumb.link_website_list: CMS - Liste des sites
-breadcrumb.link_website_create: CMS - Création d'un site
-breadcrumb.link_theme_list: CMS - Liste des thèmes
-breadcrumb.link_page_list: CMS - Liste des pages
+breadcrumb.link_dashboard: Dashboard
+breadcrumb.link_website_edit: Edit
+breadcrumb.link_website_list: CMS - Websites
+breadcrumb.link_website_create: Create
+breadcrumb.link_theme_list: CMS - Themes
+breadcrumb.link_page_list: CMS - Pages
 
-zone.name.top: Bandeau Commercial
-zone.name.navigation: Menu principal
-zone.name.content: Contenu de la page
-zone.name.footer_left: Actualités
-zone.name.footer_right: Présentation de l'activité
+zone.name.top: Top
+zone.name.navigation: Main navigation
+zone.name.content: Page content
+zone.name.footer_left: Left footer
+zone.name.footer_right: Right footer
+zone.name.left: Left sidebar
+zone.name.right: Right sidebar
 block.title.presta_cms.block.simple: Block Simple
 
-
-theme.label.name: Nom
+theme.label.name: Name
 theme.label.description: Description
 theme.label.zones: Zones
-theme.label.page_templates: Gabarits de page
-theme.label.content: Contenu
-theme.label.general: Informations générales
+theme.label.page_templates: Page layout
+theme.label.content: Content
+theme.label.general: General informations
 
-form.label_settings: Paramétrage
-form.label_title: Titre
-form.label_content: Contenu
+form.label_settings: Settings
+form.label_title: Title
+form.label_content: Content
 
-presta_cms.block.simple: Bloc Editeur Basique
+presta_cms.block.simple: Simple editor
 
 dashboard.block.cms.title: CMS
 dashboard.block.website.title: Websites
-dashboard.block.theme.title: Thèmes
+dashboard.block.theme.title: Themes
 dashboard.block.page.title: Pages
 
 
-form_site.label_general: Général
+form_site.label_general: General
 form.label_name: Nom
 form.label_host: Host
 form.label_is_default: Défault
 form.label_is_active: Actif
-form.label_theme: Thème
-form.label_default_locale: Langue par défaut
-form.label_available_locales: Langue autorisées
+form.label_theme: Default language
+form.label_available_locales: Languages availables
 
 
-list.label_theme: Théme
+list.label_theme: Theme
 list.label_host: Host
 list.label_name: Name
 list.label__action: Action
 list.label_default_locale: Langue par défaut
 list.label_available_locales: Langues disponibles
-list.label_is_active: Actif
-list.label_is_default: Défaut
+list.label_is_active: Active
+list.label_is_default: Default
 
 navigation.title: Navigation
-presta_cms.block.website.selector.title: Site
-modal.edit.block.title: Editer un bloc
-button.close: Fermer
-button.save: Sauvegarder
+presta_cms.block.website.selector.title: Website
+modal.edit.block.title: Block edition
+button.close: Close
+button.save: Save
 
 cms_page_tree.title: Pages
-cms_page.content.title: Contenu
+cms_page.content.title: Content
 cms_page.seo.title: SEO
-cms_page.settings.title: Paramètres
+cms_page.settings.title: Settings
 cms_page.history.title: Versions
 
 
-cms_page.history.list.title: Titre
-cms_page.history.list.updated_at: Modifié le
-cms_page.history.list.user: Utilisateur
+cms_page.history.list.title: Title
+cms_page.history.list.updated_at: Update at
+cms_page.history.list.user: Users
 cms_page.history.list.actions: Actions
 
-cms_page.select_website: Sélectionner un site
+cms_page.select_website: Select a website
 
 cms_page.form.seo.label.url: Url
-cms_page.form.seo.label.title: Titre
+cms_page.form.seo.label.title: Title
 cms_page.form.seo.label.meta_keywords: Keywords
 cms_page.form.seo.label.meta_description: Description
-cms_page.form.settings.label.name: Nom
+cms_page.form.settings.label.name: Name
 cms_page.form.settings.label.is_active: Active
 
-breadcrumb.link_block_edit: Edition d'un bloc
-breadcrumb.link_block_list: Liste de blocs
+breadcrumb.link_block_edit: Edit
+breadcrumb.link_block_list: Blocks
 list.label_type: Type
-list.label_settings: Paramétrage
+list.label_settings: Settings
 
-block.title.presta_media.block.media: Bloc Média
+block.title.presta_media.block.media: Media Block
 
-block.module.settings.link: paramétrage du module
-block.title.presta_cms.block.page_children: Liste des sous pages
+block.module.settings.link: Module settings
+block.title.presta_cms.block.page_children: Children list
 
-presta_cms.block.add: Ajout d'un bloc
-block.description.presta_cms.block.simple: Bloc texte simple
-block.description.presta_cms.block.page_children: Liste des pages filles avec titre et description
+presta_cms.block.add: Add a block
+block.description.presta_cms.block.simple: Simple block
+block.description.presta_cms.block.page_children: Children pages list with tile and content
 
-presta_cms.block.page_children: Page palier
+presta_cms.block.page_children: Landing page
+
+
+block.default.title: Insert your title here
+block.default.content: Insert your content here

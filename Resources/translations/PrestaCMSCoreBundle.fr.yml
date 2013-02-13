@@ -14,6 +14,8 @@ zone.name.navigation: Menu principal
 zone.name.content: Contenu de la page
 zone.name.footer_left: Actualités
 zone.name.footer_right: Présentation de l'activité
+zone.name.left: Colonne gauche
+zone.name.right: Colonne droite
 block.title.presta_cms.block.simple: Block Simple
 
 
@@ -96,3 +98,6 @@ block.description.presta_cms.block.simple: Bloc texte simple
 block.description.presta_cms.block.page_children: Liste des pages filles avec titre et description
 
 presta_cms.block.page_children: Page palier
+
+block.default.title: Votre titre
+block.default.content: Votre contenu

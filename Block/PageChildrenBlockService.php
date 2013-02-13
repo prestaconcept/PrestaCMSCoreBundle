@@ -70,8 +70,8 @@ class PageChildrenBlockService extends BaseBlockService
     public function getDefaultSettings()
     {
         return array(
-            'title' => 'page children title',
-            'content' => 'Insert your custom content here',
+            'title' => $this->trans('block.default.title'),
+            'content' => $this->trans('block.default.content'),
         );
     }
 }
