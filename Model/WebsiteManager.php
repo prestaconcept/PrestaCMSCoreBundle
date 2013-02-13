@@ -142,7 +142,9 @@ class WebsiteManager
      */
     public function registerHost($hostConfiguration)
     {
-        $this->hosts[$hostConfiguration['host']] = $hostConfiguration;
+        foreach ($hostConfiguration['host'] as $host) {
+            $this->hosts[$host] = $hostConfiguration;
+        }
 
         return $this;
     }

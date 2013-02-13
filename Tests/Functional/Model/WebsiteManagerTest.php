@@ -63,7 +63,7 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
 
         $websiteManager->registerHost(
             array(
-                'host'      => 'www.liip.ch',
+                'host'      => array('www.liip.ch', 'www.liip.fr'),
                 'website'   => '/website/liip',
                 'locale'    =>  'fr'
             )

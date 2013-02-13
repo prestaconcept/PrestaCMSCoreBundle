@@ -53,30 +53,25 @@ class WebsiteManagerTest extends BaseUnitTestCase
     {
         $websiteManager = $this->getWebsiteManager();
 
-        $websiteManager->registerHost(
-            array(
-                'host'      => 'www.prestaconcept.net',
-                'website'   => '/website/prestaconcept',
-                'locale'    =>  'fr'
-            )
-        );
-        $websiteManager->registerHost(
-            array(
-                'host'      => 'www.liip.ch',
-                'website'   => '/website/liip',
-                'locale'    =>  'fr'
-            )
-        );
+        $websiteManager->registerHost(array(
+            'host'      => array('www.prestaconcept.net', 'www.prestaconcept.local'),
+            'website'   => '/website/prestaconcept',
+            'locale'    =>  'fr'
+        ));
+        $websiteManager->registerHost(array(
+            'host'      => array('www.liip.ch'),
+            'website'   => '/website/liip',
+            'locale'    =>  'fr'
+        ));
 
-        $websiteManager->registerHost(
-            array(
-                'host'      => 'www.symfony.com',
-                'website'   => '/website/symfony',
-                'locale'    =>  'en'
-            )
-        );
+        $websiteManager->registerHost(array(
+            'host'      => array('www.symfony.com'),
+            'website'   => '/website/symfony',
+            'locale'    =>  'en'
+        ));
 
         $this->assertEquals(true, $websiteManager->hasHostRegistered('www.prestaconcept.net'));
+        $this->assertEquals(true, $websiteManager->hasHostRegistered('www.prestaconcept.local'));
         $this->assertEquals(true, $websiteManager->hasHostRegistered('www.liip.ch'));
 
         //www
