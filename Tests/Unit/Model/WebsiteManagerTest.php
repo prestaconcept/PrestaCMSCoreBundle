@@ -9,6 +9,8 @@
  */
 namespace Presta\CMSCoreBundle\Tests\Unit\Model;
 
+use Symfony\Component\Yaml\Parser;
+
 use Presta\CMSCoreBundle\Tests\Unit\BaseUnitTestCase;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 
@@ -17,70 +19,75 @@ use Presta\CMSCoreBundle\Model\WebsiteManager;
  */
 class WebsiteManagerTest extends BaseUnitTestCase
 {
-    const DEFAULT_WEBSITE_CODE = 'default_website';
+    /**
+     * @var WebsiteManager
+     */
+    protected $websiteManager;
 
     /**
-     * @return \Presta\CMSCoreBundle\Model\WebsiteManager
+     * @return WebsiteManager
      */
     protected function getWebsiteManager()
     {
-        $websiteManager = new WebsiteManager();
+        if (is_null($this->websiteManager)) {
+            $this->websiteManager = new WebsiteManager();
+        }
 
-        return $websiteManager;
+        return $this->websiteManager;
     }
 
-    public function testDefaultWebsite()
-    {
-        $websiteManager = $this->getWebsiteManager();
-        $this->assertNotEquals(self::DEFAULT_WEBSITE_CODE, $websiteManager->getDefaultWebsiteCode());
-        $websiteManager->setDefaultWebsiteCode(self::DEFAULT_WEBSITE_CODE);
-        $this->assertEquals(self::DEFAULT_WEBSITE_CODE, $websiteManager->getDefaultWebsiteCode());
-    }
-
-    public function testMultipleHost()
-    {
-        $websiteManager = $this->getWebsiteManager();
-        $this->assertEquals(false, $websiteManager->getMultipleWebsite());
-        $websiteManager->setMultipleWebsite(true);
-        $this->assertEquals(true, $websiteManager->getMultipleWebsite());
-        $websiteManager->setMultipleWebsite(false);
-        $this->assertEquals(false, $websiteManager->getMultipleWebsite());
-
-        //@next see to and logic when add hosts
-    }
-
-    public function testRegisterHost()
+    protected function loadWebsites($file)
     {
         $websiteManager = $this->getWebsiteManager();
 
-        $websiteManager->registerHost(array(
-            'host'      => array('www.prestaconcept.net', 'www.prestaconcept.local'),
-            'website'   => '/website/prestaconcept',
-            'locale'    =>  'fr'
-        ));
-        $websiteManager->registerHost(array(
-            'host'      => array('www.liip.ch'),
-            'website'   => '/website/liip',
-            'locale'    =>  'fr'
-        ));
+        $yaml = new Parser();
+        $datas = $yaml->parse(file_get_contents($file));
+        $config = $datas['presta_cms_core'];
 
-        $websiteManager->registerHost(array(
-            'host'      => array('www.symfony.com'),
-            'website'   => '/website/symfony',
-            'locale'    =>  'en'
-        ));
+        if (isset($config['websites']) && is_array($config['websites'])) {
+            foreach ($config['websites'] as $websiteConfiguration) {
+                $websiteManager->registerWebsite($websiteConfiguration);
+            }
+        }
+    }
+
+    public function testMultipleWebsite()
+    {
+        $websiteManager = $this->getWebsiteManager();
+
+        $this->assertEquals(false, $websiteManager->hasMultipleWebsite());
+
+        //Load sandbox website
+        $this->loadWebsites(__DIR__ . '/../../Functional/config/prestacmscore.yml');
+
+        $this->assertEquals(false, $websiteManager->hasMultipleWebsite());
+
+        //Load multiple website
+        $this->loadWebsites(__DIR__ . '/../fixtures/websites.yml');
+        $this->assertEquals(true, $websiteManager->hasMultipleWebsite());
+    }
+
+    public function testRegisterWebsite()
+    {
+        $websiteManager = $this->getWebsiteManager();
+
+        //Load sandbox website
+        $this->loadWebsites(__DIR__ . '/../../Functional/config/prestacmscore.yml');
+        $this->loadWebsites(__DIR__ . '/../fixtures/websites.yml');
 
         $this->assertEquals(true, $websiteManager->hasHostRegistered('www.prestaconcept.net'));
         $this->assertEquals(true, $websiteManager->hasHostRegistered('www.prestaconcept.local'));
-        $this->assertEquals(true, $websiteManager->hasHostRegistered('www.liip.ch'));
+        $this->assertEquals(true, $websiteManager->hasHostRegistered('www.symfony.fr'));
+        $this->assertEquals(true, $websiteManager->hasHostRegistered('docs.doctrine-project.org'));
+        $this->assertEquals(true, $websiteManager->hasHostRegistered('www.symfony.fr'));
 
         //www
         $this->assertEquals(false, $websiteManager->hasHostRegistered('prestaconcept.net'));
-        $this->assertEquals(false, $websiteManager->hasHostRegistered('liip.ch'));
+        $this->assertEquals(false, $websiteManager->hasHostRegistered('symfony.com'));
 
         //Extension
         $this->assertEquals(false, $websiteManager->hasHostRegistered('www.prestaconcept.com'));
-        $this->assertEquals(false, $websiteManager->hasHostRegistered('www.liip.com'));
+        $this->assertEquals(false, $websiteManager->hasHostRegistered('www.symfony.ch'));
 
         //@next see to add exception on malformed configuration
     }

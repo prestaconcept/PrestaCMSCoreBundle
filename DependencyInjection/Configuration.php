@@ -31,20 +31,23 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('presta_cms_core');
 
-        //TODO : check hox to use the requiresAtLeastOneElement !
         $rootNode
             ->children()
-                ->booleanNode('multiple_website')->defaultValue(false)->end()
-                ->scalarNode('default_website')->defaultValue('default')->end()
-                ->arrayNode('hosts')
+                ->arrayNode('websites')
                     ->prototype('array')
                         ->children()
-                            ->arrayNode('host')
-                                ->requiresAtLeastOneElement()
-                                ->prototype('scalar')->end()
+                            ->scalarNode('path')->end()
+                            ->arrayNode('hosts')
+                                ->useAttributeAsKey('env')
+                                ->prototype('array')
+                                    ->prototype('array')
+                                        ->children()
+                                            ->scalarNode('locale')->end()
+                                            ->scalarNode('host')->end()
+                                        ->end()
+                                    ->end()
+                                ->end()
                             ->end()
-                            ->scalarNode('website')->end()
-                            ->scalarNode('locale')->end()
                         ->end()
                     ->end()
                 ->end()

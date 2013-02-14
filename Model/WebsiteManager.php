@@ -48,16 +48,6 @@ class WebsiteManager
     protected $currentWebsite;
 
     /**
-     * @var boolean
-     */
-    protected $multipleWebsite;
-
-    /**
-     * @var string
-     */
-    protected $defaultWebsiteCode;
-
-    /**
      * @var array
      */
     protected $hosts;
@@ -66,7 +56,6 @@ class WebsiteManager
     {
         $this->websites = null;
         $this->currentWebsite  = null;
-        $this->multipleWebsite = false;
         $this->hosts = array();
     }
 
@@ -103,47 +92,30 @@ class WebsiteManager
     }
 
     /**
-     * @param string $defaultWebsiteCode
-     */
-    public function setDefaultWebsiteCode($defaultWebsiteCode)
-    {
-        $this->defaultWebsiteCode = $defaultWebsiteCode;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDefaultWebsiteCode()
-    {
-        return $this->defaultWebsiteCode;
-    }
-
-    /**
-     * @param boolean $multipleWebsite
-     */
-    public function setMultipleWebsite($multipleWebsite)
-    {
-        $this->multipleWebsite = $multipleWebsite;
-    }
-
-    /**
      * @return boolean
      */
-    public function getMultipleWebsite()
+    public function hasMultipleWebsite()
     {
-        return $this->multipleWebsite;
+        return (count($this->websites) > 1);
     }
 
     /**
-     * Register a new host
+     * Register a new website
      *
-     * @param  array          $hostConfiguration
+     * @param  array          $websiteConfiguration
      * @return WebsiteManager
      */
-    public function registerHost($hostConfiguration)
+    public function registerWebsite($websiteConfiguration)
     {
-        foreach ($hostConfiguration['host'] as $host) {
-            $this->hosts[$host] = $hostConfiguration;
+        $path = $websiteConfiguration['path'];
+        $this->websites[$path] = $websiteConfiguration;
+
+        foreach ($websiteConfiguration['hosts'] as $env => $hosts) {
+            foreach ($hosts as $hostConfiguration) {
+
+            }
+            $this->hosts[$hostConfiguration['host']] = $hostConfiguration;
+            $this->hosts[$hostConfiguration['host']]['path'] = $path;
         }
 
         return $this;

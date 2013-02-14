@@ -40,11 +40,9 @@ class PrestaCMSCoreExtension extends Extension
 
         //Init website configuration
         $websiteManager = $container->getDefinition('presta_cms.website_manager');
-        $websiteManager->addMethodCall('setMultipleWebsite', array($config['multiple_website']));
-        $websiteManager->addMethodCall('setDefaultWebsiteCode', array($config['default_website']));
-        if (isset($config['hosts']) && is_array($config['hosts'])) {
-            foreach ($config['hosts'] as $hostConfiguration) {
-                $websiteManager->addMethodCall('registerHost', array($hostConfiguration));
+        if (isset($config['websites']) && is_array($config['websites'])) {
+            foreach ($config['websites'] as $websiteConfiguration) {
+                $websiteManager->addMethodCall('registerWebsite', array($websiteConfiguration));
             }
         }
 

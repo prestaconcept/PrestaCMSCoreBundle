@@ -1,0 +1,54 @@
+presta_cms_core:
+    websites:
+        prestacms-sandbox:
+            path: /website/sandbox
+            hosts:
+                dev:
+                    en:
+                        locale: en
+                        host: www.prestacms-sandbox.en.local
+                    fr:
+                        locale: fr
+                        host: www.prestacms-sandbox.fr.local
+                prod:
+                    en:
+                        locale: en
+                        host: www.prestacms-sandbox.com
+                    fr:
+                        locale: fr
+                        host:  www.prestacms-sandbox.fr
+        prestaconcept:
+            path: /website/prestaconcept
+            hosts:
+                dev:
+                    fr:
+                        locale: fr
+                        host: www.prestaconcept.local
+                prod:
+                    fr:
+                        locale: fr
+                        host: www.prestaconcept.net
+        symfony:
+            path: /website/symfony
+            hosts:
+                dev:
+                    en:
+                        locale: en
+                        host: www.symfony.en.local
+                    fr:
+                        locale: fr
+                        host: www.symfony.fr.local
+                prod:
+                    en:
+                        locale: en
+                        host: www.symfony.com
+                    fr:
+                        locale: fr
+                        host: www.symfony.fr
+        doctrine:
+            path: /website/doctrine
+            hosts:
+                prod:
+                    en:
+                        locale: en
+                        host: docs.doctrine-project.org
