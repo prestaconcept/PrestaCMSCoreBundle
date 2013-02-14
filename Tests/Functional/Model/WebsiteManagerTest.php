@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Tests\Functional\Model;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Presta\CMSCoreBundle\Tests\Functional\BaseFunctionalTestCase;
 
 use Presta\CMSCoreBundle\Document\Website;
@@ -30,17 +31,44 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
     {
         $websiteManager = $this->getWebsiteManager();
 
-        $prestaconceptWebsite = $websiteManager->getWebsite('/website/prestaconcept', 'fr');
-
+        $prestaconceptWebsite = $websiteManager->getWebsite(
+            array(
+                'path' => '/website/prestaconcept',
+                'locale' => 'fr',
+                'env'   => 'dev'
+            )
+        );
+        $this->assertEquals('dev', $websiteManager->getCurrentEnvironment());
         $this->assertEquals(true, $prestaconceptWebsite instanceof Website);
         $this->assertEquals('fr', $prestaconceptWebsite->getLocale());
 
-        $prestaconceptWebsite = $websiteManager->getWebsite('/website/prestaconcept', 'en');
+        $prestaconceptWebsite = $websiteManager->getWebsite(
+            array(
+                'path' => '/website/prestaconcept',
+                'locale' => 'en',
+                'env'   => 'prod'
+            )
+        );
+        $this->assertEquals('prod', $websiteManager->getCurrentEnvironment());
         $this->assertEquals('en', $prestaconceptWebsite->getLocale());
 
-        $this->assertEquals(null, $websiteManager->getWebsite('prestaconcept', 'en'));
+        $this->assertEquals(null, $websiteManager->getWebsite(
+                array(
+                    'path' => 'prestaconcept',
+                    'locale' => 'fr',
+                    'env'   => 'dev'
+                )
+            )
+        );
 
-        $liipWebsite = $websiteManager->getWebsite('/website/liip', 'fr');
+        $liipWebsite = $websiteManager->getWebsite(
+            array(
+                'path' => '/website/liip',
+                'locale' => 'fr',
+                'env'   => 'dev'
+            )
+        );
+        $this->assertEquals('dev', $websiteManager->getCurrentEnvironment());
         $this->assertEquals('liip', $liipWebsite->getName());
         $this->assertEquals(array('fr', 'en', 'de'), $liipWebsite->getAvailableLocales());
         $this->assertEquals('liip', $liipWebsite->getTheme());
@@ -59,24 +87,32 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
     public function testLoadWebsiteByHost()
     {
         $websiteManager = $this->getWebsiteManager();
-        $websiteManager->setDefaultWebsiteCode('/website/default');
 
-        $websiteManager->registerHost(
+        $websiteManager->registerWebsite(
             array(
-                'host'      => array('www.liip.ch', 'www.liip.fr'),
-                'website'   => '/website/liip',
-                'locale'    =>  'fr'
+                'path'   => '/website/liip',
+                'hosts'      => array(
+                    'dev' => array(
+                        'fr' => array('locale' => 'fr', 'host' => 'www.liip.fr.local')
+                    ),
+                    'prod' => array(
+                        'fr' => array('locale' => 'fr', 'host' => 'www.liip.fr')
+                    )
+                )
             )
         );
 
-        $defaultWebsite = $websiteManager->loadWebsiteByHost('www.no-website.com');
-        $this->assertEquals('/website/default', $defaultWebsite->getPath());
-        $this->assertEquals('default', $defaultWebsite->getName());
-
-        $liipWebsite = $websiteManager->loadWebsiteByHost('www.liip.ch');
+        $liipWebsite = $websiteManager->loadWebsiteByHost('www.liip.fr');
         $this->assertEquals('/website/liip', $liipWebsite->getPath());
         $this->assertEquals('liip', $liipWebsite->getName());
 
         $this->assertEquals($liipWebsite, $websiteManager->getCurrentWebsite());
+
+        try {
+        $defaultWebsite = $websiteManager->loadWebsiteByHost('www.no-website.com');
+        } catch (NotFoundHttpException $e) {
+            return;
+        }
+        $this->fail('Should trigger exception Webiste not found');
     }
 }

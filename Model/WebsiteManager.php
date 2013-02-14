@@ -12,6 +12,7 @@ namespace Presta\CMSCoreBundle\Model;
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Presta\CMSCoreBundle\Document\Website;
 use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RouteProvider;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Website Manager
@@ -43,9 +44,14 @@ class WebsiteManager
     protected $websites;
 
     /**
-     * @var \Presta\CMSCoreBundle\Document\Website
+     * @var Website
      */
     protected $currentWebsite;
+
+    /**
+     * @var string
+     */
+    protected $currentEnvironment;
 
     /**
      * @var array
@@ -55,7 +61,8 @@ class WebsiteManager
     public function __construct()
     {
         $this->websites = null;
-        $this->currentWebsite  = null;
+        $this->currentWebsite = null;
+        $this->currentEnvironment = null;
         $this->hosts = array();
     }
 
@@ -112,10 +119,10 @@ class WebsiteManager
 
         foreach ($websiteConfiguration['hosts'] as $env => $hosts) {
             foreach ($hosts as $hostConfiguration) {
-
+                $this->hosts[$hostConfiguration['host']] = $hostConfiguration;
+                $this->hosts[$hostConfiguration['host']]['path'] = $path;
+                $this->hosts[$hostConfiguration['host']]['env']  = $env;
             }
-            $this->hosts[$hostConfiguration['host']] = $hostConfiguration;
-            $this->hosts[$hostConfiguration['host']]['path'] = $path;
         }
 
         return $this;
@@ -160,23 +167,39 @@ class WebsiteManager
     }
 
     /**
+     * @return string
+     */
+    public function getCurrentEnvironment()
+    {
+        return $this->currentEnvironment;
+    }
+
+    /**
+     * @param string $currentEnvironment
+     */
+    public function setCurrentEnvironment($currentEnvironment)
+    {
+        $this->currentEnvironment = $currentEnvironment;
+    }
+
+    /**
      * Get website
      *
-     * @param  string  $websiteCode
-     * @param  string  $locale
+     * @param  array  $hostConfiguration
      * @return Website
      */
-    public function getWebsite($websiteCode, $locale = null)
+    public function getWebsite($hostConfiguration)
     {
-        $website = $this->getModelManager()->find(self::WEBSITE_CLASS, $websiteCode);
+        $website = $this->getModelManager()->find(self::WEBSITE_CLASS, $hostConfiguration['path']);
 
         if (!$website instanceof Website) {
             return null;
         }
-        if ($locale != null) {
-            $website->setLocale($locale);
-        }
+
+        $website->setLocale($hostConfiguration['locale']);
+
         $this->setCurrentWebsite($website);
+        $this->setCurrentEnvironment($hostConfiguration['env']);
 
         return $website;
     }
@@ -200,9 +223,9 @@ class WebsiteManager
     public function loadWebsiteByHost($host)
     {
         if (isset($this->hosts[$host])) {
-            $website = $this->getWebsite($this->hosts[$host]['website'], $this->hosts[$host]['locale']);
+            $website = $this->getWebsite($this->hosts[$host]);
         } else {
-            $website = $this->getWebsite($this->defaultWebsiteCode);
+            throw new NotFoundHttpException('Website not found');
         }
         $this->setCurrentWebsite($website);
 
