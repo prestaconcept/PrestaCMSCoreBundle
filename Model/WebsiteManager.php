@@ -255,4 +255,26 @@ class WebsiteManager
 
         return $website;
     }
+
+    /**
+     * Return current website base url for the locale parameter based on current environment
+     *
+     * @param $locale
+     *
+     * @return string
+     */
+    public function getBaseUrlForLocale($locale)
+    {
+        if (is_null($this->getCurrentWebsite()) || is_null($this->getCurrentEnvironment())) {
+            return false;
+        }
+
+        $configuration = $this->websites[$this->getCurrentWebsite()->getPath()]['hosts'][$this->getCurrentEnvironment()];
+
+        if (!isset($configuration[$locale]) || !isset($configuration[$locale]['host'])) {
+            return false;
+        }
+
+        return 'http://' . $configuration[$locale]['host'];
+    }
 }
