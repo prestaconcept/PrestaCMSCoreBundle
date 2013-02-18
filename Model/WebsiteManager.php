@@ -39,6 +39,11 @@ class WebsiteManager
     protected $routeListener;
 
     /**
+     * @var \Knp\Menu\Provider\MenuProviderInterface
+     */
+    protected $menuProvider;
+
+    /**
      * @var array
      */
     protected $websites;
@@ -96,6 +101,22 @@ class WebsiteManager
     public function setRouteListener($routeListener)
     {
         $this->routeListener = $routeListener;
+    }
+
+    /**
+     * @param \Knp\Menu\Provider\MenuProviderInterface $menuProvider
+     */
+    public function setMenuProvider($menuProvider)
+    {
+        $this->menuProvider = $menuProvider;
+    }
+
+    /**
+     * @return \Knp\Menu\Provider\MenuProviderInterface
+     */
+    public function getMenuProvider()
+    {
+        return $this->menuProvider;
     }
 
     /**
@@ -164,6 +185,7 @@ class WebsiteManager
         //Inject route prefix in Route Repository and listener
         $this->routeProvider->setPrefix($website->getRoutePrefix());
         $this->routeListener->setPrefix($website->getRoutePrefix());
+        $this->menuProvider->setMenuRoot($website->getMenuRoot());
     }
 
     /**

@@ -22,6 +22,7 @@ class Website
 {
     const WEBSITE_PREFIX    = 'website';
     const ROUTE_PREFIX      = 'route';
+    const MENU_PREFIX       = 'menu';
     const PAGE_PREFIX       = 'page';
 
     /**
@@ -241,5 +242,13 @@ class Website
     public function getRoutePrefix()
     {
         return $this->getPath() . DIRECTORY_SEPARATOR . self::ROUTE_PREFIX . DIRECTORY_SEPARATOR . $this->getLocale();
+    }
+
+    /**
+     * @return string
+     */
+    public function getMenuRoot()
+    {
+        return $this->getPath() . DIRECTORY_SEPARATOR . self::MENU_PREFIX;
     }
 }
