@@ -199,7 +199,9 @@ class WebsiteManager
         $website->setLocale($hostConfiguration['locale']);
 
         $this->setCurrentWebsite($website);
-        $this->setCurrentEnvironment($hostConfiguration['env']);
+        if (isset($hostConfiguration['env'])) {
+            $this->setCurrentEnvironment($hostConfiguration['env']);
+        }
 
         return $website;
     }
