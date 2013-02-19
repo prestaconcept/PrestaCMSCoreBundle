@@ -101,3 +101,8 @@ presta_cms.block.page_children: Landing page
 
 block.default.title: Insert your title here
 block.default.content: Insert your content here
+
+locale.fr: French
+locale.en: English
+locale.it: Italian
+locale.de: German

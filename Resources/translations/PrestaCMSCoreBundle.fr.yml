@@ -101,3 +101,9 @@ presta_cms.block.page_children: Page palier
 
 block.default.title: Votre titre
 block.default.content: Votre contenu
+
+
+locale.fr: Français
+locale.en: Anglais
+locale.it: Italien
+locale.de: Allemand

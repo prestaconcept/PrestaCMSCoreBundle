@@ -17,9 +17,13 @@
                 {% set website = websites|first %}
                 <div id="website-name">{{ website.name }}</div>
                 <div id="website-locale">
-                {% for locale in website.availableLocales %}
-                    <a href="{{ settings.url }}{{ website.id }}/{{ locale }}">{{ locale|trans() }}</a>
-                {% endfor %}
+                    <ul class="nav nav-list">
+                    {% for locale in website.availableLocales %}
+                        <li class="locale locale_{{ locale }} {% if(app.request.locale == locale) %} active{% endif %}">
+                            <a href="{{ settings.url }}{{ website.id }}/{{ locale }}">{{ ('locale.'~locale)|trans({}, 'PrestaCMSCoreBundle') }}</a>
+                        </li>
+                    {% endfor %}
+                    </ul>
                 </div>
             {% else %}
             <select id="website_selector" name="website_selector" required="required" class="sonata-medium"
