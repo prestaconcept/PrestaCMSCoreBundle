@@ -206,7 +206,6 @@ sonata_admin:
 presta_cms_core: ~
 
 symfony_cmf_menu:
-    menu_basepath: /website/sandbox/menu
     multilang:
       locales: %locales%
 ```
