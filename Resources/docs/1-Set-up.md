@@ -1,10 +1,6 @@
 Installation
 =============
 
-## Install Symfony CMF
-
-See http://symfony.com/doc/master/cmf/getting-started/installing-symfony-cmf.html
-
 ## Get the bundle
 
     php composer.phar require presta/cms-core-bundle:dev-master --no-update
