@@ -39,6 +39,11 @@ class WebsiteManager
     protected $routeListener;
 
     /**
+     * @var \Knp\Menu\Provider\MenuProviderInterface
+     */
+    protected $menuProvider;
+
+    /**
      * @var array
      */
     protected $websites;
@@ -96,6 +101,22 @@ class WebsiteManager
     public function setRouteListener($routeListener)
     {
         $this->routeListener = $routeListener;
+    }
+
+    /**
+     * @param \Knp\Menu\Provider\MenuProviderInterface $menuProvider
+     */
+    public function setMenuProvider($menuProvider)
+    {
+        $this->menuProvider = $menuProvider;
+    }
+
+    /**
+     * @return \Knp\Menu\Provider\MenuProviderInterface
+     */
+    public function getMenuProvider()
+    {
+        return $this->menuProvider;
     }
 
     /**
@@ -164,6 +185,7 @@ class WebsiteManager
         //Inject route prefix in Route Repository and listener
         $this->routeProvider->setPrefix($website->getRoutePrefix());
         $this->routeListener->setPrefix($website->getRoutePrefix());
+        $this->menuProvider->setMenuRoot($website->getMenuRoot());
     }
 
     /**
@@ -199,7 +221,9 @@ class WebsiteManager
         $website->setLocale($hostConfiguration['locale']);
 
         $this->setCurrentWebsite($website);
-        $this->setCurrentEnvironment($hostConfiguration['env']);
+        if (isset($hostConfiguration['env'])) {
+            $this->setCurrentEnvironment($hostConfiguration['env']);
+        }
 
         return $website;
     }
@@ -230,5 +254,27 @@ class WebsiteManager
         $this->setCurrentWebsite($website);
 
         return $website;
+    }
+
+    /**
+     * Return current website base url for the locale parameter based on current environment
+     *
+     * @param $locale
+     *
+     * @return string
+     */
+    public function getBaseUrlForLocale($locale)
+    {
+        if (is_null($this->getCurrentWebsite()) || is_null($this->getCurrentEnvironment())) {
+            return false;
+        }
+
+        $configuration = $this->websites[$this->getCurrentWebsite()->getPath()]['hosts'][$this->getCurrentEnvironment()];
+
+        if (!isset($configuration[$locale]) || !isset($configuration[$locale]['host'])) {
+            return false;
+        }
+
+        return 'http://' . $configuration[$locale]['host'];
     }
 }

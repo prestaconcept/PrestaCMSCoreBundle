@@ -25,9 +25,9 @@ use Presta\CMSCoreBundle\Block\BaseBlockService;
 class WebsiteSelectorService extends BaseBlockService
 {
     /**
-     * @var \Sonata\AdminBundle\Admin\Pool
+     * @var WebsiteManager
      */
-    protected $_websiteManager;
+    protected $websiteManager;
 
     /**
      * @param string          $name
@@ -38,7 +38,7 @@ class WebsiteSelectorService extends BaseBlockService
     {
         parent::__construct($name, $templating);
 
-        $this->_websiteManager = $websiteManager;
+        $this->websiteManager = $websiteManager;
     }
 
     /**
@@ -65,7 +65,8 @@ class WebsiteSelectorService extends BaseBlockService
         $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
 
         return $this->renderResponse('PrestaCMSCoreBundle:Block:block_website_selector.html.twig', array(
-            'websites'  => $this->_websiteManager->getAvailableWebsites(),
+            'websites'  => $this->websiteManager->getAvailableWebsites(),
+            'hasMultipleWebsite' => $this->websiteManager->hasMultipleWebsite(),
             'settings'  => $settings
         ), $response);
     }

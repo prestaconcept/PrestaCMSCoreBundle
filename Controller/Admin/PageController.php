@@ -65,7 +65,7 @@ class PageController extends AdminController
         if ($websiteId != null) {
             $websiteId = '/website/' . $websiteId; //todo !
             $viewParams['websiteId'] = $websiteId;
-            $website = $this->getWebsiteManager()->getWebsite($websiteId, $locale);
+            $website = $this->getWebsiteManager()->getWebsite(array('path' => $websiteId, 'locale' => $locale));
             $theme = $this->getThemeManager()->getTheme($website->getTheme());
             $viewParams['theme'] = $theme;
         }

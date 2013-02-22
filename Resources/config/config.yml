@@ -51,7 +51,6 @@ knp_menu:
     twig: true
 
 symfony_cmf_menu:
-    menu_basepath: /website/prestaconcept/menu
     multilang:
       locales: %locales%
 

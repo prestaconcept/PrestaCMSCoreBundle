@@ -10,12 +10,16 @@
 namespace Presta\CMSCoreBundle\DataFixtures\PHPCR;
 
 use Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode;
+use Presta\CMSCoreBundle\Document\Navigation\RootMenuNode;
 
 /**
  * Base fixtures methods to easily create menu
  */
 abstract class BaseMenuFixture extends BaseFixture
 {
+    const NAVIGATION_ROOT_MENU_NODE_CLASS = '\Presta\CMSCoreBundle\Document\Navigation\RootMenuNode';
+    const MENU_NODE_CLASS = '\Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode';
+
     /**
      * {@inheritdoc}
      */
@@ -70,11 +74,15 @@ abstract class BaseMenuFixture extends BaseFixture
 
     /**
      * @see CMF-Sandbox
-     * @return a Navigation instance with the specified information
+     * @return \Knp\Menu\NodeInterface a Navigation instance with the specified information
      */
-    protected function createMenuNode($parent, $name, $label, $content, $uri = null, $route = null)
+    protected function createMenuNode($parent, $name, $label, $content, $uri = null, $route = null, $type = null)
     {
-        $menuNode = new MultilangMenuNode();
+        if ($type == null) {
+            $type = self::MENU_NODE_CLASS;
+        }
+
+        $menuNode = new $type();
         $menuNode->setParent($parent);
         $menuNode->setName($name);
 
@@ -98,5 +106,18 @@ abstract class BaseMenuFixture extends BaseFixture
         }
 
         return $menuNode;
+    }
+
+    /**
+     * Create a navigation root item
+     *
+     * @param $parent
+     * @param $name
+     * @param $label
+     * @return \Knp\Menu\NodeInterface
+     */
+    protected function createNavigationRootNode($parent, $name, $label)
+    {
+        return $this->createMenuNode($parent, $name, $label, null, null, null, self::NAVIGATION_ROOT_MENU_NODE_CLASS);
     }
 }

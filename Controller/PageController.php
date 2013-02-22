@@ -86,6 +86,7 @@ class PageController extends Controller
         $viewParams = array(
             'base_template' => $theme->getTemplate(),
             'website' => $website,
+            'websiteManager' => $this->getWebsiteManager(),
             'theme' => $theme,
             'page'  => $contentDocument
         );

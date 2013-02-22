@@ -60,7 +60,7 @@ class ThemeController extends AdminController
         $website = null;
         if ($websiteId != null) {
             $websiteId = '/website/' . $websiteId; //le slash ne passant pas au routing on rajoute le basePath
-            $website = $this->getWebsiteManager()->getWebsite($websiteId, $locale);
+            $website = $this->getWebsiteManager()->getWebsite(array('path' => $websiteId, 'locale' => $locale));
         }
         $viewParams = array(
             'websiteId' => $websiteId,
