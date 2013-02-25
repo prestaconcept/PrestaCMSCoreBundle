@@ -17,35 +17,19 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Block\BlockServiceManagerInterface;
 
-use Sonata\DoctrinePHPCRAdminBundle\Admin\Admin as BaseAdmin;
+use Presta\CMSCoreBundle\Admin\BaseAdmin;
 
 /**
- * Admin definition for the Site class
- *
- * @package    Presta
- * @subpackage CMSCoreBundle
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
+ * Admin definition for the Block class
  */
 class BlockAdmin extends BaseAdmin
 {
-    /**
-     * The translation domain to be used to translate messages
-     *
-     * @var string
-     */
-    protected $translationDomain = 'PrestaCMSCoreBundle';
-
     /**
      * @param \Sonata\BlockBundle\Block\BlockServiceManagerInterface $blockManager
      */
     public function setBlockManager(BlockServiceManagerInterface $blockManager)
     {
         $this->blockManager = $blockManager;
-    }
-
-    protected function getDocumentManager()
-    {
-        return $this->modelManager->getDocumentManager();
     }
 
     /**
@@ -93,38 +77,22 @@ class BlockAdmin extends BaseAdmin
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function generateUrl($name, array $parameters = array(), $absolute = false)
-    {
-        if ($name == 'create' || $name == 'edit') {
-            $parameters = $parameters + array('locale' => $this->getRequest()->get('locale'));
-        }
-
-        return parent::generateUrl($name, $parameters, $absolute);
-    }
-
-    /**
-     * Refresh object to load locale get in param
+     * Load Block
      *
      * @param   $id
      * @return  $subject
      */
     public function getObject($id)
     {
-        $locale = $this->getRequest()->get('locale');
-        $block = $this->getDocumentManager()->findTranslation($this->getClass(), $id, $locale);
-        if (!is_null($locale)) {
-            //Here we have to consider the PHPCR fallback system and rest the locale
-            //in case translation does not exist
-            $this->getDocumentManager()->bindTranslation($block, $locale);
-        }
+        $block = parent::getObject($id);
+
         $service = $this->blockManager->get($block);
         $service->load($block);
 
         return $block;
     }
-        /**
+
+    /**
      * {@inheritdoc}
      */
     public function preUpdate($object)

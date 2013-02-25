@@ -7,7 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Presta\CMSCoreBundle\Admin;
 
 use Knp\Menu\ItemInterface as MenuItemInterface;
@@ -20,22 +19,13 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 
-use Sonata\DoctrinePHPCRAdminBundle\Admin\Admin as BaseAdmin;
+use Presta\CMSCoreBundle\Admin\BaseAdmin;
 
 /**
  * Admin definition for the Site class
- *
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class WebsiteAdmin extends BaseAdmin
 {
-    /**
-     * The translation domain to be used to translate messages
-     *
-     * @var string
-     */
-    protected $translationDomain = 'PrestaCMSCoreBundle';
-
     /**
      * @var array
      */
@@ -45,21 +35,6 @@ class WebsiteAdmin extends BaseAdmin
      * @var Presta\CMSCoreBundle\Model\ThemeManager
      */
     protected $themeManager;
-
-    /**
-     * Return current edition locale
-     * -> paramètre de l'url
-     *
-     * @return string
-     */
-    protected function getTranslatableLocale()
-    {
-        if ($this->request && $this->getRequest()->get('translatable_locale') != null) {
-            return $this->getRequest()->get('translatable_locale');
-        }
-
-        return $this->getConfigurationPool()->getContainer()->getParameter('locale');
-    }
 
     /**
      * Set available locales : called via DI
@@ -140,7 +115,7 @@ class WebsiteAdmin extends BaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $locale = $this->getTranslatableLocale();
+        $locale = $this->getObjectLocale();
         $formMapper
             ->with($this->trans('form_site.label_general'))
 //                ->add('default', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
@@ -175,41 +150,14 @@ class WebsiteAdmin extends BaseAdmin
         foreach ($object->getAvailableLocales() as $locale) {
             $menuItem = $menu->addChild(
                 $this->trans($locale),
-                array('uri' => $this->generateObjectUrl('edit', $object, array('translatable_locale' => $locale)))
+                array('uri' => $this->generateObjectUrl('edit', $object, array('locale' => $locale)))
             );
             $menuItem->setAttribute('class', 'locale locale_' . $locale);
 
             // select current edited locale item in menu
             if ($object->getLocale() == $locale) {
-                $menu->setCurrentUri($this->generateObjectUrl('edit', $object, array('translatable_locale' => $locale)));
+                $menu->setCurrentUri($this->generateObjectUrl('edit', $object, array('locale' => $locale)));
             }
         }
-    }
-
-    /**
-     * Refresh object to load locale get in param
-     *
-     * @param   $id
-     * @return  $subject
-     */
-    public function getObject($id)
-    {
-        $subject = parent::getObject($id);
-
-        $subject = $this->modelManager->getDocumentManager()->findTranslation(null, $subject->getPath(), $this->getTranslatableLocale());
-
-        return $subject;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function generateUrl($name, array $parameters = array(), $absolute = false)
-    {
-        if ($name == 'create' || $name == 'edit') {
-            $parameters = $parameters + array('translatable_locale' => $this->getTranslatableLocale());
-        }
-
-        return parent::generateUrl($name, $parameters, $absolute);
     }
 }
