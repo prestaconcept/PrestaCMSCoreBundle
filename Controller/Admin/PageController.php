@@ -149,9 +149,8 @@ class PageController extends AdminController
      */
     public function renderPageTreeAction ($root, $selected, $locale)
     {
-        $this->getRequest()->setLocale($locale);
         //$selected is set to null cause it trigger the "select_node.jstree" event and reload the page
-        return $this->forward('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array('root' => $root, 'selected' => null));
+        return $this->forward('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array('root' => $root, 'selected' => null, '_locale' => $locale));
     }
 
 //	/**

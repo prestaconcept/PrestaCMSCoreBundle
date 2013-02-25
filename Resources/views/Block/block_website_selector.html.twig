@@ -19,7 +19,7 @@
                 <div id="website-locale">
                     <ul class="nav nav-list">
                     {% for locale in website.availableLocales %}
-                        <li class="locale locale_{{ locale }} {% if(app.request.locale == locale) %} active{% endif %}">
+                        <li class="locale locale_{{ locale }} {% if (settings.locale == locale) %} active{% endif %}">
                             <a href="{{ settings.url }}{{ website.id }}/{{ locale }}">{{ ('locale.'~locale)|trans({}, 'PrestaCMSCoreBundle') }}</a>
                         </li>
                     {% endfor %}
