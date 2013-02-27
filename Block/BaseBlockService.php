@@ -49,16 +49,6 @@ abstract class BaseBlockService extends SonataBaseBlockService
     }
 
     /**
-     * @param $id
-     * @param  array  $parameters
-     * @return string
-     */
-    protected function trans($id, array $parameters = array())
-    {
-        return $this->translator->trans($id, $parameters, 'PrestaCMSCoreBundle');
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getCacheKeys(BlockInterface $block)
@@ -82,42 +72,6 @@ abstract class BaseBlockService extends SonataBaseBlockService
     /**
      * {@inheritdoc}
      */
-    public function validateBlock(ErrorElement $errorElement, BlockInterface $block)
-    {
-    }
-
-    /**
-     * Returns form settings elements
-     *
-     * @param \Sonata\AdminBundle\Form\FormMapper      $formMapper
-     * @param \Sonata\BlockBundle\Model\BlockInterface $block
-     * @return array
-     */
-    protected function getFormSettings(FormMapper $formMapper, BlockInterface $block)
-    {
-        return array();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
-    {
-        $formMapper
-            ->with($this->trans($block->getType()))
-            ->add(
-                'settings',
-                'sonata_type_immutable_array',
-                array(
-                    'keys'  => $this->getFormSettings($formMapper, $block),
-                    'label' => $this->trans('form.label_settings'))
-                )
-            ->end();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getDefaultSettings()
     {
         return array();
@@ -136,6 +90,53 @@ abstract class BaseBlockService extends SonataBaseBlockService
         //handle orm models loading!
 
         return $settings;
+    }
+
+    /**
+     * Returns form settings elements
+     *
+     * @param \Sonata\AdminBundle\Form\FormMapper      $formMapper
+     * @param \Sonata\BlockBundle\Model\BlockInterface $block
+     * @return array
+     */
+    protected function getFormSettings(FormMapper $formMapper, BlockInterface $block)
+    {
+        return array();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validateBlock(ErrorElement $errorElement, BlockInterface $block)
+    {
+    }
+
+    /**
+     * @param $id
+     * @param  array  $parameters
+     * @return string
+     */
+    protected function trans($id, array $parameters = array())
+    {
+        return $this->translator->trans($id, $parameters, 'PrestaCMSCoreBundle');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
+    {
+        $formMapper
+            ->with($this->trans('block.title.' . $block->getType()))
+                ->add(
+                    'settings',
+                    'sonata_type_immutable_array',
+                    array(
+                        'keys'  => $this->getFormSettings($formMapper, $block),
+                        'label' => $this->trans('form.label_settings')
+                    )
+                )
+            ->end();
     }
 
     /**
