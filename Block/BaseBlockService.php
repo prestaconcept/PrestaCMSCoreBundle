@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Block;
 
+use Symfony\Component\HttpFoundation\Response;
 use Sonata\BlockBundle\Block\BaseBlockService as SonataBaseBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -21,11 +22,15 @@ use Sonata\AdminBundle\Validator\ErrorElement;
  */
 abstract class BaseBlockService extends SonataBaseBlockService
 {
-
     /**
      * @var \Symfony\Component\Translation\Translator
      */
     protected $translator;
+
+    /**
+     * @var string
+     */
+    protected  $template;
 
     /**
      * @param \Symfony\Component\Translation\Translator $translator
@@ -65,6 +70,16 @@ abstract class BaseBlockService extends SonataBaseBlockService
     }
 
     /**
+     * Return block template
+     */
+    public function getTemplate()
+    {
+        //todo handle preview add configurable
+
+        return $this->template;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function validateBlock(ErrorElement $errorElement, BlockInterface $block)
@@ -72,10 +87,32 @@ abstract class BaseBlockService extends SonataBaseBlockService
     }
 
     /**
+     * Returns form settings elements
+     *
+     * @param \Sonata\AdminBundle\Form\FormMapper      $formMapper
+     * @param \Sonata\BlockBundle\Model\BlockInterface $block
+     * @return array
+     */
+    protected function getFormSettings(FormMapper $formMapper, BlockInterface $block)
+    {
+        return array();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
     {
+        $formMapper
+            ->with($this->trans($block->getType()))
+            ->add(
+                'settings',
+                'sonata_type_immutable_array',
+                array(
+                    'keys'  => $this->getFormSettings($formMapper, $block),
+                    'label' => $this->trans('form.label_settings'))
+                )
+            ->end();
     }
 
     /**
@@ -84,5 +121,35 @@ abstract class BaseBlockService extends SonataBaseBlockService
     public function getDefaultSettings()
     {
         return array();
+    }
+
+    /**
+     * Returns block settings for template
+     *
+     * @param \Sonata\BlockBundle\Model\BlockInterface $block
+     * @return array
+     */
+    public function getSettings(BlockInterface $block)
+    {
+        $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
+
+        //handle orm models loading!
+
+        return $settings;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function execute(BlockInterface $block, Response $response = null)
+    {
+        return $this->renderResponse(
+            $this->getTemplate(),
+            array(
+                'block'     => $block,
+                'settings'  => $this->getSettings($block)
+            ),
+            $response
+        );
     }
 }
