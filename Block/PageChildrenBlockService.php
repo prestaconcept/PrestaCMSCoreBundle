@@ -15,19 +15,28 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Model\BlockInterface;
 
 use Presta\CMSCoreBundle\Block\BaseBlockService;
+use Presta\CMSCoreBundle\Model\PageManager;
 
 /**
- * Block Editor
+ * Block Page children, display a list of page children with description and a link
  *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class PageChildrenBlockService extends BaseBlockService
 {
     /**
-     * @var \Presta\CMSCoreBundle\Model\PageManager
+     * @var string
+     */
+    protected $template = 'PrestaCMSCoreBundle:Block:block_page_children.html.twig';
+
+    /**
+     * @var PageManager
      */
     protected $pageManager;
 
+    /**
+     * @param PageManager $pageManager
+     */
     public function setPageManager($pageManager)
     {
         $this->pageManager = $pageManager;
@@ -36,42 +45,23 @@ class PageChildrenBlockService extends BaseBlockService
     /**
      * {@inheritdoc}
      */
-    public function execute(BlockInterface $block, Response $response = null)
-    {
-        $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
-
-        return $this->renderResponse('PrestaCMSCoreBundle:Block:block_page_children.html.twig', array(
-            'block'     => $block,
-            'settings'  => $settings,
-            'page'      => $this->pageManager->getCurrentPage()
-        ), $response);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
-    {
-        $formMapper
-            ->with($this->trans($block->getType()))
-                ->add('settings', 'sonata_type_immutable_array', array(
-                    'keys' => array(
-                        array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
-                        array('content', 'textarea', array('attr' => array(), 'label' => $this->trans('form.label_content'))),
-                    ),
-                    'label' => $this->trans('form.label_settings')
-                ))
-            ->end();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getDefaultSettings()
     {
         return array(
-            'title' => $this->trans('block.default.title'),
+            'title'   => $this->trans('block.default.title'),
             'content' => $this->trans('block.default.content'),
+            'page'    => $this->pageManager->getCurrentPage()
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getFormSettings(FormMapper $formMapper, BlockInterface $block)
+    {
+        return array(
+            array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
+            array('content', 'textarea', array('attr' => array(), 'label' => $this->trans('form.label_content'))),
         );
     }
 }

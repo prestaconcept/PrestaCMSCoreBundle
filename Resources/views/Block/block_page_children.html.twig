@@ -4,7 +4,7 @@
     <h2>{{ settings.title }}</h2>
     {{ settings.content|raw }}
     <ul class="page-children">
-        {% for child in cmf_children(page) %}
+        {% for child in cmf_children(settings.page) %}
             {%  if child.title is defined %}
             <li>
                 <h3>{{ child.title }}</h3>
