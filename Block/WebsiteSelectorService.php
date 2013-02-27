@@ -64,10 +64,14 @@ class WebsiteSelectorService extends BaseBlockService
     {
         $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
 
-        return $this->renderResponse('PrestaCMSCoreBundle:Block:block_website_selector.html.twig', array(
-            'websites'  => $this->websiteManager->getAvailableWebsites(),
-            'hasMultipleWebsite' => $this->websiteManager->hasMultipleWebsite(),
-            'settings'  => $settings
-        ), $response);
+        return $this->renderResponse(
+            'PrestaCMSCoreBundle:Block:block_website_selector.html.twig',
+            array(
+                'websites'  => $this->websiteManager->getAvailableWebsites(),
+                'hasMultipleWebsite' => $this->websiteManager->hasMultipleWebsite(),
+                'settings'  => $settings
+            ),
+            $response
+        );
     }
 }

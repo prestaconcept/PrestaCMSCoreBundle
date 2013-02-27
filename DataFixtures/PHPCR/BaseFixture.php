@@ -41,7 +41,7 @@ abstract class BaseFixture extends AbstractFixture implements ContainerAwareInte
     /**
      * {@inheritdoc}
      */
-    abstract function getOrder();
+    abstract public function getOrder();
 
     /**
      * Returns available locale to initialise documents

@@ -9,7 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Block;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Sonata\BlockBundle\Model\BlockInterface;
@@ -83,16 +82,22 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
         $fieldDescription->setAssociationAdmin($modelAdmin);
         $fieldDescription->setAdmin($formMapper->getAdmin());
         $fieldDescription->setOption('edit', 'list');
-        $fieldDescription->setAssociationMapping(array(
-            'fieldName' => $fieldName,
-            'type'      => \Doctrine\ORM\Mapping\ClassMetadataInfo::MANY_TO_ONE
-        ));
+        $fieldDescription->setAssociationMapping(
+            array(
+                'fieldName' => $fieldName,
+                'type'      => \Doctrine\ORM\Mapping\ClassMetadataInfo::MANY_TO_ONE
+            )
+        );
 
-        return $formMapper->create($fieldName, 'sonata_type_model_list', array(
-            'sonata_field_description' => $fieldDescription,
-            'class'                    => $modelAdmin->getClass(),
-            'model_manager'            => $modelAdmin->getModelManager()
-        ));
+        return $formMapper->create(
+            $fieldName,
+            'sonata_type_model_list',
+            array(
+                'sonata_field_description' => $fieldDescription,
+                'class'                    => $modelAdmin->getClass(),
+                'model_manager'            => $modelAdmin->getModelManager()
+            )
+        );
     }
 
     /**

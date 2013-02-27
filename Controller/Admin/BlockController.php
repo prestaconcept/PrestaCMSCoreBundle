@@ -124,12 +124,14 @@ class BlockController extends CRUDController
             $this->admin->delete($block);
 
             if ($this->isXmlHttpRequest()) {
-                return $this->renderJson(array(
-                    'result'    => 'ok',
-                    'action'    => 'delete',
-                    'zone'      => $block->getParent()->getId(),
-                    'block'  => $block->getId()
-                ));
+                return $this->renderJson(
+                    array(
+                        'result' => 'ok',
+                        'action' => 'delete',
+                        'zone'   => $block->getParent()->getId(),
+                        'block'  => $block->getId()
+                    )
+                );
             }
 
             return new RedirectResponse($this->admin->generateUrl('list'));

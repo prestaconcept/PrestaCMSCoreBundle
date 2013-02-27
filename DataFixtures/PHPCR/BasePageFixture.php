@@ -9,11 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\DataFixtures\PHPCR;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
-use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\ODM\PHPCR\Document\Generic;
 
 use Presta\CMSCoreBundle\Document\Page;
@@ -90,7 +85,7 @@ abstract class BasePageFixture extends BaseFixture
     /**
      * Create a Page document
      *
-     * @param  array $pageConfiguration
+     * @param  array        $pageConfiguration
      * @param  Page|Generic $root
      * @return Page
      */

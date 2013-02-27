@@ -1,5 +1,4 @@
 <?php
-<?php
 /**
  * This file is part of the Presta Bundle project.
  *
@@ -14,10 +13,10 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\MinkExtension\Context\MinkContext;
 
-use Behat\Behat\Context\BehatContext,
-    Behat\Behat\Exception\PendingException;
-use Behat\Gherkin\Node\PyStringNode,
-    Behat\Gherkin\Node\TableNode;
+use Behat\Behat\Context\BehatContext;
+use Behat\Behat\Exception\PendingException;
+use Behat\Gherkin\Node\PyStringNode;
+use Behat\Gherkin\Node\TableNode;
 
 use Presta\CMSCoreBundle\Document\Website;
 
@@ -57,18 +56,18 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
         $this->kernel = $kernel;
     }
 
-//
-// Place your definition and hook methods here:
-//
-//    /**
-//     * @Given /^I have done something with "([^"]*)"$/
-//     */
-//    public function iHaveDoneSomethingWith($argument)
-//    {
-//        $container = $this->kernel->getContainer();
-//        $container->get('some_service')->doSomethingWith($argument);
-//    }
-    
+    //
+    // Place your definition and hook methods here:
+    //
+    //    /**
+    //     * @Given /^I have done something with "([^"]*)"$/
+    //     */
+    //    public function iHaveDoneSomethingWith($argument)
+    //    {
+    //        $container = $this->kernel->getContainer();
+    //        $container->get('some_service')->doSomethingWith($argument);
+    //    }
+
     /**
      * @Given /^I visit the admin dashboard$/
      */
@@ -83,12 +82,11 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
     public function iAmLoggedInAsWithThePassword($arg1, $arg2)
     {
         $this->visit('/admin/en/login');
-        
+
         $this->fillField('username', $arg1);
         $this->fillField('password', $arg2);
         $this->pressButton('_submit');
     }
-    
 
     /**
      * @Given /^there are websites:$/
@@ -97,8 +95,8 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
     {
         $dm = $this->getDocumentManager();
         $lines = $table->getRows();
-        
-        //remove first heading line 
+
+        //remove first heading line
         array_shift($lines);
         try {
             foreach ($lines as $row) {
@@ -128,12 +126,12 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
     {
         file_put_contents('behat.out.html', $this->getSession()->getPage()->getContent());
     }
-    
+
     protected function getDoctrine()
     {
         return $this->kernel->getContainer()->get('doctrine');
     }
-    
+
     protected function getDocumentManager()
     {
         return $this->kernel->getContainer()->get('doctrine_phpcr.odm.default_document_manager');

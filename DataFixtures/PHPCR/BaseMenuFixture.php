@@ -90,9 +90,9 @@ abstract class BaseMenuFixture extends BaseFixture
 
         if (null !== $content) {
             $menuNode->setContent($content);
-        } else if (null !== $uri) {
+        } elseif (null !== $uri) {
             $menuNode->setUri($uri);
-        } else if (null !== $route) {
+        } elseif (null !== $route) {
             $menuNode->setRoute($route);
         }
 

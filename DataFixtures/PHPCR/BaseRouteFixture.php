@@ -9,20 +9,9 @@
  */
 namespace Presta\CMSCoreBundle\DataFixtures\PHPCR;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
-use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\ODM\PHPCR\Document\Generic;
-
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route;
-use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute;
 
 use Presta\CMSCoreBundle\Document\Page;
-use Presta\CMSCoreBundle\Document\Zone;
-use Presta\CMSCoreBundle\Document\Block;
 
 /**
  * Base fixtures methods to easily create routes

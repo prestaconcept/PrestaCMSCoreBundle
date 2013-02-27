@@ -210,7 +210,7 @@ class ThemeManager
     /**
      * Returns page templates defined by a theme
      *
-     * @param  string $theme
+     * @param  string      $theme
      * @return false|array
      */
     public function getPageTemplates($theme)

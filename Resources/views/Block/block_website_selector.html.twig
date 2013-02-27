@@ -2,7 +2,7 @@
   @package    PrestaCMS
   @subpackage CoreBundle
   @author     Nicolas Bastien <nbastien@prestaconcept.net>
-  
+
   Website Selector block
   To work main view has to define a javascript variable : 'website_selector_url'
 #}
@@ -35,7 +35,7 @@
                         <option value="{{ website.id }}/{{ locale }}" {% if (settings.website_id == website.id and settings.locale == locale) %} selected {% endif %}>{{ website.name }} - {{ locale|trans() }}</option>
                     {% endfor %}
                 </optgroup>
-                {% endfor %}                
+                {% endfor %}
             </select>
             {% endif %}
         </div>

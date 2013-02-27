@@ -30,7 +30,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
     /**
      * @var string
      */
-    protected  $template;
+    protected $template;
 
     /**
      * @param \Symfony\Component\Translation\Translator $translator
@@ -65,7 +65,6 @@ abstract class BaseBlockService extends SonataBaseBlockService
     public function getTemplate()
     {
         //todo handle preview add configurable
-
         return $this->template;
     }
 
@@ -80,7 +79,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
     /**
      * Returns block settings for template
      *
-     * @param \Sonata\BlockBundle\Model\BlockInterface $block
+     * @param  \Sonata\BlockBundle\Model\BlockInterface $block
      * @return array
      */
     public function getSettings(BlockInterface $block)
@@ -88,15 +87,14 @@ abstract class BaseBlockService extends SonataBaseBlockService
         $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
 
         //handle orm models loading!
-
         return $settings;
     }
 
     /**
      * Returns form settings elements
      *
-     * @param \Sonata\AdminBundle\Form\FormMapper      $formMapper
-     * @param \Sonata\BlockBundle\Model\BlockInterface $block
+     * @param  \Sonata\AdminBundle\Form\FormMapper      $formMapper
+     * @param  \Sonata\BlockBundle\Model\BlockInterface $block
      * @return array
      */
     protected function getFormSettings(FormMapper $formMapper, BlockInterface $block)

@@ -207,7 +207,7 @@ class WebsiteManager
     /**
      * Get website
      *
-     * @param  array  $hostConfiguration
+     * @param  array   $hostConfiguration
      * @return Website
      */
     public function getWebsite($hostConfiguration)

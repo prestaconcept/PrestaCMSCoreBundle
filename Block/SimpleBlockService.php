@@ -9,8 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Block;
 
-use Symfony\Component\HttpFoundation\Response;
-
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Model\BlockInterface;
 

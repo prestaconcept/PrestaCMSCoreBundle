@@ -83,14 +83,17 @@ class WebsiteAdmin extends BaseAdmin
             ->add('isActive', 'boolean')
             ->add('isDefault', 'boolean')
 
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'view' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'actions'  => array(
+                        'view' => array(),
+                        'edit' => array(),
+                        'delete' => array(),
+                    )
                 )
-            ))
-        ;
+            );
     }
 
     /**
@@ -103,8 +106,7 @@ class WebsiteAdmin extends BaseAdmin
             ->add('theme', null, array())
             ->add('default', 'boolean', array())
             ->add('active', 'boolean', array())
-            ->add('defaultLocale', null, array())
-        ;
+            ->add('defaultLocale', null, array());
     }
 
     /**
@@ -118,18 +120,17 @@ class WebsiteAdmin extends BaseAdmin
         $locale = $this->getObjectLocale();
         $formMapper
             ->with($this->trans('form_site.label_general'))
-//                ->add('default', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
-//                ->add('active', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
+                //->add('default', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
+                //->add('active', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
 
                 ->add('theme', 'choice', array('attr' => array('class' => 'sonata-medium locale locale_' . $locale), 'choices' => $this->themeManager->getAvailableThemeCodesForSelect()))
-//                ->add('defaultLocale', 'choice', array('choices' => $this->availableLocales))
-//                ->add('availableLocales', 'choice', array(
-//                    'choices'   => $this->availableLocales,
-//                    'expanded'  => true,
-//                    'multiple'  => true
-//                ))
-            ->end()
-        ;
+                //->add('defaultLocale', 'choice', array('choices' => $this->availableLocales))
+                //->add('availableLocales', 'choice', array(
+                //    'choices'   => $this->availableLocales,
+                //    'expanded'  => true,
+                //    'multiple'  => true
+                //))
+            ->end();
     }
 
     /**

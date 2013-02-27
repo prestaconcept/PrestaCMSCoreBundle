@@ -52,14 +52,7 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
         $this->assertEquals('prod', $websiteManager->getCurrentEnvironment());
         $this->assertEquals('en', $prestaconceptWebsite->getLocale());
 
-        $this->assertEquals(null, $websiteManager->getWebsite(
-                array(
-                    'path' => 'prestaconcept',
-                    'locale' => 'fr',
-                    'env'   => 'dev'
-                )
-            )
-        );
+        $this->assertEquals(null, $websiteManager->getWebsite(array('path' => 'prestaconcept','locale' => 'fr','env'   => 'dev')));
 
         $liipWebsite = $websiteManager->getWebsite(
             array(
@@ -109,7 +102,7 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
         $this->assertEquals($liipWebsite, $websiteManager->getCurrentWebsite());
 
         try {
-        $defaultWebsite = $websiteManager->loadWebsiteByHost('www.no-website.com');
+            $defaultWebsite = $websiteManager->loadWebsiteByHost('www.no-website.com');
         } catch (NotFoundHttpException $e) {
             return;
         }
