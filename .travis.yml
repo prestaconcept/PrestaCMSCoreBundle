@@ -7,7 +7,8 @@ php:
 before_script:
   - pear install pear/PHP_CodeSniffer
   - phpenv rehash
-  - composer install --dev
+  - wget http://getcomposer.org/composer.phar
+  - php composer.phar install --dev
   - cp ./Tests/Functional/config/parameters.yml.dist ./Tests/Functional/config/parameters.yml
   - php Tests/Functional/console doctrine:phpcr:init:dbal
   - php Tests/Functional/console doctrine:phpcr:register-system-node-types

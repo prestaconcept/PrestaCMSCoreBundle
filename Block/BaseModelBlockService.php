@@ -42,7 +42,22 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
         $this->container = $container;
     }
 
+    /**
+     * Return model fields to map with a sonata_type_model_list
+     *
+     * @return array
+     */
     protected function getModelFields()
+    {
+        return array();
+    }
+
+    /**
+     * Return page model fields to map to a doctrine_phpcr_odm_tree
+     *
+     * @return array
+     */
+    protected function getContentModelFields()
     {
         return array();
     }
@@ -54,6 +69,9 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
     {
         $formSettings = array();
         foreach ($this->getModelFields() as $fieldName => $adminCode) {
+            $formSettings[] = array($this->getModelBuilder($formMapper, $fieldName, $adminCode), null, array());
+        }
+        foreach ($this->getPageModelFields() as $fieldName => $adminCode) {
             $formSettings[] = array($this->getModelBuilder($formMapper, $fieldName, $adminCode), null, array());
         }
 
@@ -105,7 +123,8 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
      */
     public function load(BlockInterface $block)
     {
-        foreach ($this->getModelFields() as $fieldName => $adminCode) {
+        $modelFields = array_merge($this->getModelFields(), $this->getContentModelFields());
+        foreach ($modelFields as $fieldName => $adminCode) {
             $model = $block->getSetting($fieldName, null);
             if ($model) {
                 $modelAdmin = $this->getModelAdmin($adminCode);
@@ -123,7 +142,8 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
      */
     protected function flattenBlock(BlockInterface $block)
     {
-        foreach ($this->getModelFields() as $fieldName => $adminCode) {
+        $modelFields = array_merge($this->getModelFields(), $this->getContentModelFields());
+        foreach ($modelFields as $fieldName => $adminCode) {
             $block->setSetting($fieldName, is_object($block->getSetting($fieldName)) ? $block->getSetting($fieldName)->getId() : null);
         }
 
@@ -143,5 +163,27 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
     public function preUpdate(BlockInterface $block)
     {
         $this->flattenBlock($block);
+    }
+
+    /**
+     * Return form field configuration for CMS Page browser
+     *
+     * @param $filedName
+     * @param $root
+     * @param $label
+     */
+    public function getContentBrowserField($filedName, $root, $class)
+    {
+        return array(
+            $filedName,
+            'doctrine_phpcr_odm_tree',
+            array(
+                'choice_list' => array(),
+                'model_manager' => $this->modelManager,
+                'root_node' => $root,
+                'class' => 'Presta\CMSCoreBundle\Document\Page',
+                'label' => $this->trans('form.label_' . $filedName)
+            )
+        );
     }
 }

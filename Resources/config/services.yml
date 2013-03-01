@@ -22,6 +22,12 @@ services:
         - [ setThemeManager, [ @presta_cms.theme_manager ] ]
         - [ setRouteBuilder, [ @sonata.admin.route.path_info_slashes ] ]
 
+    presta_cms.admin.page:
+        class: Presta\CMSCoreBundle\Admin\PageAdmin
+        tags:
+            - { name: sonata.admin, manager_type: doctrine_phpcr, group: cms, label: block }
+        arguments: [null, Presta\CMSCoreBundle\Document\Page, SonataAdminBundle:CRUDController]
+        - [ setWebsiteManager, [ @presta_cms.website_manager ] ]
 
     presta_cms.admin.bloc:
       class: Presta\CMSCoreBundle\Admin\BlockAdmin

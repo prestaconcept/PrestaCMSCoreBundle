@@ -19,12 +19,22 @@ use Presta\CMSCoreBundle\Block\BaseBlockService;
  *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class SimpleBlockService extends BaseBlockService
+class SimpleBlockService extends BaseModelBlockService
 {
     /**
      * @var string
      */
     protected $template = 'PrestaCMSCoreBundle:Block:block_simple.html.twig';
+
+    /**
+     * Return page model fields to map to a doctrine_phpcr_odm_tree
+     *
+     * @return array
+     */
+    protected function getContentModelFields()
+    {
+        return array('link_destination' => 'presta_cms.admin.page');
+    }
 
     /**
      * {@inheritdoc}
