@@ -108,8 +108,8 @@ abstract class BasePageFixture extends BaseFixture
             $page->setTitle(isset($meta['title'][$locale]) ? $meta['title'][$locale] : '');
             $page->setMetaDescription(isset($meta['description'][$locale]) ? $meta['description'][$locale] : '');
             $page->setMetaKeywords(isset($meta['keywords'][$locale]) ? $meta['keywords'][$locale] : '');
+            $this->manager->bindTranslation($page, $locale);
         }
-        $this->manager->bindTranslation($page, $locale);
 
         //Creation des blocks
         if ($pageConfiguration['zones'] != null) {
