@@ -128,7 +128,7 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
             $model = $block->getSetting($fieldName, null);
             if ($model) {
                 $modelAdmin = $this->getModelAdmin($adminCode);
-                $model = $modelAdmin->getModelManager()->findOneBy($modelAdmin->getClass(), array('id' => $model));
+                $model = $modelAdmin->getModelManager()->find($modelAdmin->getClass(), $model);
             }
             $block->setSetting($fieldName, $model);
         }

@@ -13,5 +13,12 @@ file that was distributed with this source code.
 
 {% block block %}
     <h2>{{ settings.title }}</h2>
-    {{ settings.content|raw }}
+    <div class="content">
+        {{ settings.content|raw }}
+    </div>
+    {% if ((settings.link_label|length) and (settings.link_destination|length)) %}
+    <div class="link">
+        <a href="{{ path(settings.link_destination) }}">{{ settings.link_label }}</a>
+    </div>
+    {% endif %}
 {% endblock %}
