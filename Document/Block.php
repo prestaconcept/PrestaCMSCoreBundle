@@ -90,6 +90,23 @@ class Block extends CmfBaseBlock
     }
 
     /**
+     * Returns the path of the website content root
+     *
+     * used by form builder when linking to a content
+     *
+     * @return
+     */
+    public function getContentRoot()
+    {
+        $path = $this->getId();
+        if (strpos($path, '/page/') === false) {
+            return null;
+        }
+
+        return substr($path, 0, strpos($path, '/page/') + 5);
+    }
+
+    /**
      * @return string
      */
     public function getLocale()

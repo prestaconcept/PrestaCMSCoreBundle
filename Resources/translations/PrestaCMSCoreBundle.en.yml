@@ -28,6 +28,8 @@ theme.label.general: General informations
 form.label_settings: Settings
 form.label_title: Title
 form.label_content: Content
+form.label_link_label: Link label
+form.label_link_destination: Link destination
 
 presta_cms.block.simple: Simple editor
 

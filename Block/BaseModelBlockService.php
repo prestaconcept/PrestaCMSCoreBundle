@@ -71,8 +71,8 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
         foreach ($this->getModelFields() as $fieldName => $adminCode) {
             $formSettings[] = array($this->getModelBuilder($formMapper, $fieldName, $adminCode), null, array());
         }
-        foreach ($this->getPageModelFields() as $fieldName => $adminCode) {
-            $formSettings[] = array($this->getModelBuilder($formMapper, $fieldName, $adminCode), null, array());
+        foreach ($this->getContentModelFields() as $fieldName => $adminCode) {
+            $formSettings[] = array($this->getContentBrowserField($formMapper, $block, $fieldName, $adminCode), null, array());
         }
 
         return $formSettings;
@@ -168,20 +168,24 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
     /**
      * Return form field configuration for CMS Page browser
      *
-     * @param $filedName
-     * @param $root
-     * @param $label
+     * @param FormMapper $formMapper
+     * @param BlockInterface $block
+     * @param string $filedName
+     * @param string $adminCode
+     * @return FormBuilder
      */
-    public function getContentBrowserField($filedName, $root, $class)
+    public function getContentBrowserField(FormMapper $formMapper, BlockInterface $block, $filedName, $adminCode)
     {
-        return array(
+        $modelAdmin = $this->getModelAdmin($adminCode);
+
+        return $formMapper->create(
             $filedName,
             'doctrine_phpcr_odm_tree',
             array(
                 'choice_list' => array(),
-                'model_manager' => $this->modelManager,
-                'root_node' => $root,
-                'class' => 'Presta\CMSCoreBundle\Document\Page',
+                'model_manager' => $modelAdmin->getModelManager(),
+                'root_node' => $block->getContentRoot(),
+                'class' => $modelAdmin->getClass(),
                 'label' => $this->trans('form.label_' . $filedName)
             )
         );

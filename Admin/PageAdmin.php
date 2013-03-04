@@ -13,28 +13,10 @@ use Presta\CMSCoreBundle\Admin\BaseAdmin;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 
 /**
-* Admin definition for the Site class
+* Admin definition for the Page class
+ *
+ * Only used to build the page broser tree form element
 */
 class PageAdmin extends BaseAdmin
 {
-    /**
-     * @var WebsiteManager
-     */
-    protected $websiteManager;
-
-    /**
-     * @param WebsiteManager $websiteManager
-     */
-    public function setWebsiteManager($websiteManager)
-    {
-        $this->websiteManager = $websiteManager;
-    }
-
-    /**
-     * @return WebsiteManager
-     */
-    public function getWebsiteManager()
-    {
-        return $this->websiteManager;
-    }
 }

@@ -52,9 +52,12 @@ class SimpleBlockService extends BaseModelBlockService
      */
     protected function getFormSettings(FormMapper $formMapper, BlockInterface $block)
     {
-        return array(
-            array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
-            array('content', 'textarea', array('attr' => array(), 'label' => $this->trans('form.label_content'))),
+        return array_merge(
+            array(
+                array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
+                array('content', 'textarea', array('attr' => array(), 'label' => $this->trans('form.label_content'))),
+            ),
+            parent::getFormSettings($formMapper, $block)
         );
     }
 }
