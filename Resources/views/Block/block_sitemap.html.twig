@@ -1,0 +1,33 @@
+{% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
+
+{% block block %}
+    <h2>{{ settings.title }}</h2>
+    {% if (settings.root_node|length) %}
+    {% set item = settings.root_node %}
+    {% set depth = settings.depth %}
+    <div class="sitemap">
+        {% if item.hasChildren and depth is not sameas(0) %}
+            <ul>
+                {{ block('children') }}
+            </ul>
+        {% endif %}
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block children %}
+    {% set currentItem = item %}
+    {# update the depth for children #}
+    {% if depth is not none %}
+        {% set depth = depth - 1 %}
+    {% endif %}
+    {% for item in currentItem.getChildren %}
+        {{ block('item') }}
+    {% endfor %}
+    {# restore current variables #}
+    {% set item = currentItem %}
+{% endblock %}
+
+{% block item %}
+    <li><a href="{{ path(item) }}">{{ item.title }}</a></li>
+{% endblock %}

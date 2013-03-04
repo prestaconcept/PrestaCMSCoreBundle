@@ -95,6 +95,16 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
     }
 
     /**
+     * Returns if page has children pages
+     *
+     * @return bool
+     */
+    public function hasChildren()
+    {
+        return (count($this->getChildren()) > 0);
+    }
+
+    /**
      * The children documents of this document
      *
      * If there is information on the document type, the documents are of the

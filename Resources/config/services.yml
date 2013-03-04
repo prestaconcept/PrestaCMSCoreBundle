@@ -63,6 +63,15 @@ services:
         calls:
             - [ setTranslator, [ @translator ] ]
             - [ setPageManager, [ @presta_cms.page_manager ] ]
+    presta_cms.block.sitemap:
+        class: Presta\CMSCoreBundle\Block\SitemapBlockService
+        tags:
+            - {name: sonata.block}
+            - {name: presta_cms.block}
+        arguments: [cms_core_editor, @templating]
+        calls:
+            - [ setContainer, [@service_container] ]
+            - [ setTranslator, [ @translator ] ]
 
     #Block service
     presta_cms.block.dashboard.cms:

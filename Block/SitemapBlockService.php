@@ -15,23 +15,23 @@ use Sonata\BlockBundle\Model\BlockInterface;
 use Presta\CMSCoreBundle\Block\BaseModelBlockService;
 
 /**
- * Simple block with a title and content
+ * Sitemap block can make a simple menu or complete sitemap
  *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class SimpleBlockService extends BaseModelBlockService
+class SitemapBlockService extends BaseModelBlockService
 {
     /**
      * @var string
      */
-    protected $template = 'PrestaCMSCoreBundle:Block:block_simple.html.twig';
+    protected $template = 'PrestaCMSCoreBundle:Block:block_sitemap.html.twig';
 
     /**
      * {@inheritdoc}
      */
     protected function getContentModelFields()
     {
-        return array('link_destination' => 'presta_cms.admin.page');
+        return array('root_node' => 'presta_cms.admin.page');
     }
 
     /**
@@ -41,9 +41,8 @@ class SimpleBlockService extends BaseModelBlockService
     {
         return array(
             'title' => $this->trans('block.default.title'),
-            'content' => $this->trans('block.default.content'),
-            'link_label' => null,
-            'link_destination' => null
+            'root_node' => null,
+            'depth' => 1
         );
     }
 
@@ -55,8 +54,7 @@ class SimpleBlockService extends BaseModelBlockService
         return array_merge(
             array(
                 array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
-                array('content', 'textarea', array('attr' => array(), 'label' => $this->trans('form.label_content'))),
-                array('link_label', 'text', array('required' => false, 'label' => $this->trans('form.label_link_label')))
+                array('depth', 'number', array('label' => $this->trans('form.label_depth')))
             ),
             parent::getFormSettings($formMapper, $block)
         );

@@ -100,6 +100,9 @@ class Block extends CmfBaseBlock
     {
         $path = $this->getId();
         if (strpos($path, '/page/') === false) {
+            if (strpos($path, '/theme/') !== false) {
+                return substr($path, 0, strpos($path, '/theme/')) . '/page';
+            }
             return null;
         }
 

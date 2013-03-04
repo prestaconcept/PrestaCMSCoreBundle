@@ -17,6 +17,7 @@ zone.name.footer_right: Right footer
 zone.name.left: Left sidebar
 zone.name.right: Right sidebar
 block.title.presta_cms.block.simple: Block Simple
+block.title.presta_cms.block.sitemap: Block Sitemap
 
 theme.label.name: Name
 theme.label.description: Description
@@ -30,6 +31,8 @@ form.label_title: Title
 form.label_content: Content
 form.label_link_label: Link label
 form.label_link_destination: Link destination
+form.label_root_node: Root node
+form.label_depth: Depth
 
 presta_cms.block.simple: Simple editor
 

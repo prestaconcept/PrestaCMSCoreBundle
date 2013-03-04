@@ -122,7 +122,7 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
      * {@inheritdoc}
      */
     public function load(BlockInterface $block)
-    {
+    {$block->setSetting('root_node', '/website/sandbox/page');
         $modelFields = array_merge($this->getModelFields(), $this->getContentModelFields());
         foreach ($modelFields as $fieldName => $adminCode) {
             $model = $block->getSetting($fieldName, null);
