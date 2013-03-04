@@ -97,8 +97,7 @@ class BlockAdmin extends BaseAdmin
      */
     public function preUpdate($object)
     {
-        $block = $this->getSubject();
-        $service = $this->blockManager->get($block);
+        $service = $this->blockManager->get($object);
         $service->preUpdate($object);
     }
 
@@ -107,8 +106,8 @@ class BlockAdmin extends BaseAdmin
      */
     public function prePersist($object)
     {
-        $block = $this->getSubject();
-        $service = $this->blockManager->get($block);
+        $service = $this->blockManager->get($object);
         $service->prePersist($object);
     }
+
 }

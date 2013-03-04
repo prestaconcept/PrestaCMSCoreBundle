@@ -44,6 +44,8 @@ class SimpleBlockService extends BaseModelBlockService
         return array(
             'title' => $this->trans('block.default.title'),
             'content' => $this->trans('block.default.content'),
+            'link_label' => null,
+            'link_destination' => null
         );
     }
 
@@ -56,6 +58,7 @@ class SimpleBlockService extends BaseModelBlockService
             array(
                 array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
                 array('content', 'textarea', array('attr' => array(), 'label' => $this->trans('form.label_content'))),
+                array('link_label', 'text', array('required' => false, 'label' => $this->trans('form.label_link_label')))
             ),
             parent::getFormSettings($formMapper, $block)
         );

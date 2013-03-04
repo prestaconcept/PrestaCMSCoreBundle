@@ -84,6 +84,17 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
     }
 
     /**
+     * Return Page id
+     * used to flatten block
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->getPath();
+    }
+
+    /**
      * The children documents of this document
      *
      * If there is information on the document type, the documents are of the

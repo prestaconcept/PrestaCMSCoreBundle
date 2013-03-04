@@ -144,7 +144,7 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
     {
         $modelFields = array_merge($this->getModelFields(), $this->getContentModelFields());
         foreach ($modelFields as $fieldName => $adminCode) {
-            $block->setSetting($fieldName, is_object($block->getSetting($fieldName)) ? $block->getSetting($fieldName)->getId() : null);
+            $block->setSetting($fieldName, is_object($block->getSetting($fieldName)) ? $block->getSetting($fieldName)->getId() : '');
         }
 
         return $block;
@@ -182,6 +182,7 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
             $filedName,
             'doctrine_phpcr_odm_tree',
             array(
+                'required' => false,
                 'choice_list' => array(),
                 'model_manager' => $modelAdmin->getModelManager(),
                 'root_node' => $block->getContentRoot(),
