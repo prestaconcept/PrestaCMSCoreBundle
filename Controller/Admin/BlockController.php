@@ -11,6 +11,7 @@ namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Sonata\AdminBundle\Controller\CRUDController;
 use Presta\CMSCoreBundle\Document\Block;
+use Presta\CMSCoreBundle\Document\Zone;
 
 /**
  * Theme administration controller
@@ -42,31 +43,30 @@ class BlockController extends CRUDController
      */
     public function addAction()
     {
-        $zoneId = $this->getRequest()->get('id');
+        $zoneId = $this->getRequest()->get('zoneId');
+        $blockId = $this->getRequest()->get('blockId');
         $locale = $this->getRequest()->get('locale');
-        $origin = $this->getRequest()->get('origin');
+//        $origin = $this->getRequest()->get('origin');
 
         if ($this->get('request')->getMethod() == 'POST') {
             $manager = $this->admin->getModelManager();
-            if ($origin == 'page') {
-                $zoneClass = 'Presta\CMSCoreBundle\Document\Page\Zone';
-            } else {
-                $zoneClass = 'Presta\CMSCoreBundle\Document\Theme\Zone';
-            }
-            //ajout du block à la zone
-            $zone = $manager->find($zoneClass, $zoneId);
-            if (is_null($zone)) {
-                $zone = new $zoneClass();
-                $zone->setId($zoneId);
-                $manager->create($zone);
-            }
-            $position = (count($zone->getBlocks()) + 1) * 10;
-
             $blockType = $this->getRequest()->get('block');
+
+            if ($zoneId != null) {
+                //Zone mode, eventually create the zone
+                $zone = $manager->find('Presta\CMSCoreBundle\Document\Zone', $zoneId);
+                if (is_null($zone)) {
+                    $zone = new Zone();
+                    $zone->setId($zoneId);
+                    $manager->create($zone);
+                }
+                $position = (count($zone->getBlocks()) + 1) * 10;
+                $blockId = $zone->getId() . $blockType . '-' . $position;
+            }
+
+            //Create new block
             $block = new Block();
-            $block->setName($blockType . '-' . $position);
-            $block->setId($zone->getId().$block->getName());
-            $block->setParent($zone);
+            $block->setId($blockId);
             $block->setLocale($locale);
             $block->setType($blockType);
             $block->setIsActive(true);
@@ -93,9 +93,9 @@ class BlockController extends CRUDController
 
         $viewParams = array(
             'zoneId' => $zoneId,
+            'blockId'=> $blockId,
             'locale' => $locale,
-            'blocks' => $this->get('presta_cms.block_manager')->getBlocks(),
-            'origin' => $origin
+            'blocks' => $this->get('presta_cms.block_manager')->getBlocks()
         );
 
         return $this->render('PrestaCMSCoreBundle:Admin/Block:add_block.html.twig', $viewParams);

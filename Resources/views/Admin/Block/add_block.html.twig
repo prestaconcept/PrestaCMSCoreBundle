@@ -1,7 +1,6 @@
 
 
-<form class="form-horizontal" action="{{  url('presta_cms_block_add', {'id': zoneId, 'locale': locale, 'origin': origin }) }}"  method="POST">
-
+<form class="form-horizontal" action="{{  url('presta_cms_block_add', {'zoneId': zoneId, 'blockId': blockId, 'locale': locale }) }}"  method="POST">
     <fieldset >
         <legend>
             {{ 'presta_cms.block.add'|trans([], 'PrestaCMSCoreBundle') }}
