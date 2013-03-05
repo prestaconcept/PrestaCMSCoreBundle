@@ -6,20 +6,40 @@
 
 {% macro render_container_block(blockId, isAdminMode) %}
     {% set block = cmf_find(blockId) %}
+
+    {% if (isAdminMode) %}
+    <div class="page-zone-block">
+        {% if(block) %}
+        <h4>{{ ['block.title.', block.type]|join|trans([], 'PrestaCMSCoreBundle') }}</h4>
+        <div class="block-actions">
+            {% if (block.isEditable) %}
+                <a block-id="{{ block.id }}" class="action-edit">&nbsp;</a>
+            {% endif %}
+            {% if (block.isDeletable) %}
+                <a block-id="{{ block.id }}" block-title="{{ ['block.title.', block.type]|join|trans([], 'PrestaCMSCoreBundle') }}" class="action-delete">&nbsp;</a>
+            {% endif %}
+        </div>
+        {% endif %}
+        <div id="block-content-{{ blockId|replace({'/': '', '.': '', '_': ''}) }}" class="cms-container-block">
+    {% endif %}
+
     {% if(block) %}
         {{ sonata_block_render(block) }}
     {% elseif(isAdminMode) %}
-        <div class="cms-container-block">
-            <a class="btn sonata-action-element action-container-add" block-id="{{ blockId }}">
-                <i class="icon-plus"></i>
-            </a>
+        <a class="btn sonata-action-element action-container-add" block-id="{{ blockId }}">
+            <i class="icon-plus"></i>
+        </a>
+    {% endif %}
+
+    {% if (isAdminMode) %}
         </div>
+    </div>
     {% endif %}
 {% endmacro %}
 {% import _self as prestacms %}
 
 {% block block %}
-<div class="cms-container {{ settings.class }}">
+<div id="zone_{{ containerId }}" class="cms-container {{ settings.class }}">
     <h2>{{ settings.title }}</h2>
     <div class="content">
         {% include 'PrestaCMSCoreBundle:Block/Container:' ~ settings.layout ~ '.html.twig' %}
