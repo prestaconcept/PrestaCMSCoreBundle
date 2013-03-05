@@ -220,3 +220,17 @@ img.sonata-ba-img-box {
 #modal-loader {
     text-align: center;
 }
+
+/* Container */
+div.cms-container div.row {
+    margin-left: 0px;
+    width: 100%;
+}
+.sonata-bc .row-fluid table div.cms-container div.row [class*=span] {
+    display: inline-block;
+}
+div.cms-container div.row div.cms-container-block {
+    text-align: center;
+    padding: 25px 0px;
+    border: 1px solid #e5e5e5;
+}

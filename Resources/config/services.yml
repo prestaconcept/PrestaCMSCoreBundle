@@ -72,6 +72,14 @@ services:
         calls:
             - [ setContainer, [@service_container] ]
             - [ setTranslator, [ @translator ] ]
+    presta_cms.block.container:
+        class: Presta\CMSCoreBundle\Block\ContainerBlockService
+        tags:
+            - {name: sonata.block}
+            - {name: presta_cms.block}
+        arguments: [cms_core_editor, @templating]
+        calls:
+            - [ setTranslator, [ @translator ] ]
 
     #Block service
     presta_cms.block.dashboard.cms:

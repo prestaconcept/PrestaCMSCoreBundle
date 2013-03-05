@@ -45,6 +45,10 @@ var CMSContent = function() {
                 e.preventDefault();
                 CMSContent.addBlock($(this).attr('zone-id'));
             });
+            $('a.action-container-add').click(function(e) {
+                e.preventDefault();
+                CMSContent.addContainerBlock($(this).attr('block-id'));
+            });
             $('a.action-delete').click(function(e) {
                 e.preventDefault();
                 CMSContent.deleteBlock($(this).attr('block-id'), $(this).attr('block-title'));
@@ -89,7 +93,23 @@ var CMSContent = function() {
             $('#modal-content').hide();
             $('#modal').modal('show');
 
-            $('#modal-content').load(this._addBlocUrl + '?id=' + zoneId, function() {
+            $('#modal-content').load(this._addBlocUrl + '?zoneId=' + zoneId, function() {
+                $('#modal-content div.form-actions').remove();
+                $('#modal-loader').hide();
+                $('#modal-content').show();
+            });
+        },
+        /**
+         * Handle block add button click
+         * Load Modal
+         */
+        addContainerBlock : function (blockId) {
+            $('#modal-loader').show();
+            $('#modal-content').html('');
+            $('#modal-content').hide();
+            $('#modal').modal('show');
+
+            $('#modal-content').load(this._addBlocUrl + '?blockId=' + blockId, function() {
                 $('#modal-content div.form-actions').remove();
                 $('#modal-loader').hide();
                 $('#modal-content').show();

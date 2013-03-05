@@ -1,0 +1,28 @@
+{% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
+
+
+{% set containerId = block.id %}
+{% set isAdminMode = block.isAdminMode %}
+
+{% macro render_container_block(blockId, isAdminMode) %}
+    {% set block = cmf_find(blockId) %}
+    {% if(block) %}
+        {{ sonata_block_render(block) }}
+    {% elseif(isAdminMode) %}
+        <div class="cms-container-block">
+            <a class="btn sonata-action-element action-container-add" block-id="{{ blockId }}">
+                <i class="icon-plus"></i>
+            </a>
+        </div>
+    {% endif %}
+{% endmacro %}
+{% import _self as prestacms %}
+
+{% block block %}
+<div class="cms-container {{ settings.class }}">
+    <h2>{{ settings.title }}</h2>
+    <div class="content">
+        {% include 'PrestaCMSCoreBundle:Block/Container:' ~ settings.layout ~ '.html.twig' %}
+    </div>
+</div>
+{% endblock %}
