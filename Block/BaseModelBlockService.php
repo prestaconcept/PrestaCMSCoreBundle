@@ -132,6 +132,7 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
             }
             $block->setSetting($fieldName, $model);
         }
+
     }
 
     /**
@@ -146,23 +147,9 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
         foreach ($modelFields as $fieldName => $adminCode) {
             $block->setSetting($fieldName, is_object($block->getSetting($fieldName)) ? $block->getSetting($fieldName)->getId() : '');
         }
+        parent::flattenBlock($block);
 
         return $block;
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function prePersist(BlockInterface $block)
-    {
-        $this->flattenBlock($block);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function preUpdate(BlockInterface $block)
-    {
-        $this->flattenBlock($block);
     }
 
     /**

@@ -151,4 +151,39 @@ abstract class BaseBlockService extends SonataBaseBlockService
             $response
         );
     }
+
+    /**
+     * Remove null values not allowed in PHPCR
+     *
+     * @param  BlockInterface $block
+     * @return BlockInterface
+     */
+    protected function flattenBlock(BlockInterface $block)
+    {
+        $settings = $block->getSettings();
+        foreach ($settings as $key => $value) {
+            if ($value == null) {
+                unset($settings[$key]);
+            }
+        }
+        $block->setSettings($settings);
+
+        return $block;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function prePersist(BlockInterface $block)
+    {
+        $this->flattenBlock($block);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function preUpdate(BlockInterface $block)
+    {
+        $this->flattenBlock($block);
+    }
 }
