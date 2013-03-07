@@ -46,7 +46,6 @@ class BlockController extends CRUDController
         $zoneId = $this->getRequest()->get('zoneId');
         $blockId = $this->getRequest()->get('blockId');
         $locale = $this->getRequest()->get('locale');
-//        $origin = $this->getRequest()->get('origin');
 
         if ($this->get('request')->getMethod() == 'POST') {
             $manager = $this->admin->getModelManager();
@@ -79,11 +78,11 @@ class BlockController extends CRUDController
             if ($this->isXmlHttpRequest()) {
                 return $this->renderJson(
                     array(
-                        'result'    => 'ok',
-                        'action'    => 'add',
-                        'zone'      => $zoneId,
-                        'objectId'  => $block->getId(),
-                        'content'   => $this->renderView('PrestaCMSCoreBundle:Admin/Block:add_block_content.html.twig', array('block' => $block))
+                        'result' => 'ok',
+                        'action' => 'add',
+                        'zone' => $zoneId,
+                        'objectId' => $block->getId(),
+                        'content' => $this->renderView('PrestaCMSCoreBundle:Admin/Block:add_block_content.html.twig', array('block' => $block))
                     )
                 );
             }
@@ -93,7 +92,7 @@ class BlockController extends CRUDController
 
         $viewParams = array(
             'zoneId' => $zoneId,
-            'blockId'=> $blockId,
+            'blockId' => $blockId,
             'locale' => $locale,
             'blocks' => $this->get('presta_cms.block_manager')->getBlocks()
         );
@@ -128,8 +127,8 @@ class BlockController extends CRUDController
                     array(
                         'result' => 'ok',
                         'action' => 'delete',
-                        'zone'   => $block->getParent()->getId(),
-                        'block'  => $block->getId()
+                        'zone' => $block->getParent()->getId(),
+                        'block' => $block->getId()
                     )
                 );
             }

@@ -109,5 +109,4 @@ class BlockAdmin extends BaseAdmin
         $service = $this->blockManager->get($object);
         $service->prePersist($object);
     }
-
 }

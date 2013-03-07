@@ -11,46 +11,49 @@ namespace Presta\CMSCoreBundle\Block;
 
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Model\BlockInterface;
-
-use Presta\CMSCoreBundle\Block\BaseModelBlockService;
+use Presta\CMSCoreBundle\Block\BaseBlockService;
 
 /**
  * Container block
  *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class ContainerBlockService extends BaseModelBlockService
+class ContainerBlockService extends BaseBlockService
 {
     /**
      * @var string
      */
     protected $template = 'PrestaCMSCoreBundle:Block:block_container.html.twig';
 
+    /**
+     * Returns available layouts
+     *
+     * @return array
+     */
     protected function getLayouts()
     {
         return array(
-            '2-cols'
+            '2-cols',
+            '3-cols',
+            '4-cols',
+            '23-13-cols',
+            '13-23-cols'
         );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
+    protected function getFormSettings(FormMapper $formMapper, BlockInterface $block)
     {
-        $formMapper->add('settings', 'sonata_type_immutable_array', array(
-            'keys' => array(
+        return array_merge(
+            array(
                 array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
-                array('layout', 'choice', array('choices' => $this->getLayouts(), 'label' => $this->trans('form.label_layout'))),
-                array('class', 'text', array('required' => false, 'label' => $this->trans('form.label_css_class'))),
-            )
-        ));
-
-//        $formMapper->add('children', 'sonata_type_collection', array(), array(
-//            'edit'   => 'inline',
-//            'inline' => 'table',
-//            'sortable' => 'position'
-//        ));
+                array('content', 'textarea', array('attr' => array(), 'label' => $this->trans('form.label_content'))),
+                array('link_label', 'text', array('required' => false, 'label' => $this->trans('form.label_link_label')))
+            ),
+            parent::getFormSettings($formMapper, $block)
+        );
     }
 
     /**
@@ -59,10 +62,9 @@ class ContainerBlockService extends BaseModelBlockService
     public function getDefaultSettings()
     {
         return array(
-            'title'  => null,
+            'title' => null,
             'layout' => '2-cols',
-            'class'  => ''
+            'class' => ''
         );
     }
-
 }
