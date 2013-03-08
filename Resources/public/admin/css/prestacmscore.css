@@ -9,38 +9,44 @@
 .sonata-bc .navbar li a.nav-menu-cms,
 .sonata-bc .navbar li.open a.nav-menu-cms,
 .sonata-bc .navbar a.nav-menu-cms:focus,
-.sonata-bc .navbar a.nav-menu-cms:hover{
+.sonata-bc .navbar a.nav-menu-cms:hover {
     background: url('/bundles/prestacmscore/admin/img/icons/cms-32.png') center left no-repeat;
 }
+
 .sonata-bc .navbar li a.nav-submenu-cms-websites,
 .sonata-bc .dropdown-menu .active>a.nav-submenu-cms-websites {
-    background: url('/bundles/prestacmscore/admin/img/icons/website-16.png')  10px center no-repeat;
+    background: url('/bundles/prestacmscore/admin/img/icons/website-16.png') 10px center no-repeat;
 }
+
 .sonata-bc .dropdown-menu li>a.nav-submenu-cms-websites:hover,
 .sonata-bc .dropdown-menu .active>a.nav-submenu-cms-websites:hover {
-    background: url('/bundles/prestacmscore/admin/img/icons/website-16.png')  10px center no-repeat;
-    background: url('/bundles/prestacmscore/admin/img/icons/website-16.png')  10px center no-repeat, -webkit-linear-gradient(white, #E5E5E5);
-    background: url('/bundles/prestacmscore/admin/img/icons/website-16.png')  10px center no-repeat, -moz-linear-gradient(white, #E5E5E5);
+    background: url('/bundles/prestacmscore/admin/img/icons/website-16.png') 10px center no-repeat;
+    background: url('/bundles/prestacmscore/admin/img/icons/website-16.png') 10px center no-repeat, -webkit-linear-gradient(white, #E5E5E5);
+    background: url('/bundles/prestacmscore/admin/img/icons/website-16.png') 10px center no-repeat, -moz-linear-gradient(white, #E5E5E5);
 }
+
 .sonata-bc .navbar li a.nav-submenu-cms-themes,
 .sonata-bc .dropdown-menu .active>a.nav-submenu-cms-themes {
-    background: url('/bundles/prestacmscore/admin/img/icons/theme-16.png')  10px center no-repeat;
+    background: url('/bundles/prestacmscore/admin/img/icons/theme-16.png') 10px center no-repeat;
 }
+
 .sonata-bc .dropdown-menu li>a.nav-submenu-cms-themes:hover,
 .sonata-bc .dropdown-menu .active>a.nav-submenu-cms-themes:hover {
-    background: url('/bundles/prestacmscore/admin/img/icons/theme-16.png')  10px center no-repeat;
-    background: url('/bundles/prestacmscore/admin/img/icons/theme-16.png')  10px center no-repeat, -webkit-linear-gradient(white, #E5E5E5);
-    background: url('/bundles/prestacmscore/admin/img/icons/theme-16.png')  10px center no-repeat, -moz-linear-gradient(white, #E5E5E5);
+    background: url('/bundles/prestacmscore/admin/img/icons/theme-16.png') 10px center no-repeat;
+    background: url('/bundles/prestacmscore/admin/img/icons/theme-16.png') 10px center no-repeat, -webkit-linear-gradient(white, #E5E5E5);
+    background: url('/bundles/prestacmscore/admin/img/icons/theme-16.png') 10px center no-repeat, -moz-linear-gradient(white, #E5E5E5);
 }
+
 .sonata-bc .navbar li a.nav-submenu-cms-pages,
 .sonata-bc .dropdown-menu .active>a.nav-submenu-cms-pages {
-    background: url('/bundles/prestacmscore/admin/img/icons/page-16.png')  10px center no-repeat;
+    background: url('/bundles/prestacmscore/admin/img/icons/page-16.png') 10px center no-repeat;
 }
+
 .sonata-bc .dropdown-menu li>a.nav-submenu-cms-pages:hover,
 .sonata-bc .dropdown-menu .active>a.nav-submenu-cms-pages:hover {
-    background: url('/bundles/prestacmscore/admin/img/icons/page-16.png')  10px center no-repeat;
-    background: url('/bundles/prestacmscore/admin/img/icons/page-16.png')  10px center no-repeat, -webkit-linear-gradient(white, #E5E5E5);
-    background: url('/bundles/prestacmscore/admin/img/icons/page-16.png')  10px center no-repeat, -moz-linear-gradient(white, #E5E5E5);
+    background: url('/bundles/prestacmscore/admin/img/icons/page-16.png') 10px center no-repeat;
+    background: url('/bundles/prestacmscore/admin/img/icons/page-16.png') 10px center no-repeat, -webkit-linear-gradient(white, #E5E5E5);
+    background: url('/bundles/prestacmscore/admin/img/icons/page-16.png') 10px center no-repeat, -moz-linear-gradient(white, #E5E5E5);
 }
 
 /*************************************
@@ -50,31 +56,35 @@
 div.dashboard-block-content div.block-content-block-website {
     background: url('/bundles/prestacmscore/admin/img/icons/website-48.png') no-repeat 0 7px transparent;
 }
+
 div.dashboard-block-content div.block-content-block-theme {
     background: url('/bundles/prestacmscore/admin/img/icons/theme-48.png') no-repeat 0 7px transparent;
 }
+
 div.dashboard-block-content div.block-content-block-page {
     background: url('/bundles/prestacmscore/admin/img/icons/page-48.png') no-repeat 0 7px transparent;
 }
 
-
 /*************************************
     Content administration
 *************************************/
-table.page-content-admin {}
+table.page-content-admin {
+}
+
 .sonata-bc table.page-content-admin tbody tr td,
 .sonata-bc table.page-content-admin tbody tr th,
 .sonata-bc table.page-content-admin tbody tr:hover td,
 .sonata-bc table.page-content-admin tbody tr:hover th {
-    background-color:#f7f7f5;
+    background-color: #f7f7f5;
 }
+
 table.page-content-admin div.page-zone {
     position: relative;
     border: 1px solid #ddd;
     border-radius: 5px;
     height: 100%;
     padding: 5px;
-    margin:5px;
+    margin: 5px;
     -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 0 #fff;
     -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 0 #fff;
     box-shadow: inset 0 1px 0 #fff, 0 1px 0 #fff;
@@ -85,11 +95,13 @@ table.page-content-admin div.page-zone {
     background: -o-linear-gradient(top, #deeffb 0%, #f2f9fd 100%);
     background: -ms-linear-gradient(top, #deeffb 0%, #f2f9fd 100%);
     background: linear-gradient(top, #deeffb 0%, #f2f9fd 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#deeffb', endColorstr='#f2f9fd', GradientType=0 );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#deeffb', endColorstr = '#f2f9fd', GradientType = 0);
 }
+
 table.page-content-admin div.page-zone.page-zone-disabled {
     background: #EEE;
 }
+
 table.page-content-admin div.page-zone h3 {
     font: bold 12px Arial, Helvetica, sans-serif;
     color: #666;
@@ -98,12 +110,14 @@ table.page-content-admin div.page-zone h3 {
     padding: 0 0 5px 0;
     text-transform: capitalize;
 }
+
 table.page-content-admin div.page-zone-block-container {
     border: 1px dashed #777;
     min-height: 40px;
     padding: 5px;
     margin-bottom: 5px;
 }
+
 table.page-content-admin div.page-zone-block {
     border: 1px solid #DDD;
     border-top: 0;
@@ -117,28 +131,33 @@ table.page-content-admin div.page-zone-block {
     margin-bottom: 5px;
     position: relative;
 }
+
 table.page-content-admin div.page-zone-block:hover {
     background: #FFF;
 }
+
 table.page-content-admin div.page-zone-block h4 {
     color: #666;
     float: left;
     margin: 0px;
     font-size: 13px;
 }
+
 table.page-content-admin div.page-zone-block div.block-content {
     clear: both;
     padding: 5px;
 }
+
 table.page-content-admin div.block-actions {
     position: absolute;
     top: 5px;
     right: 5px;
 }
+
 table.page-content-admin div.page-zone-block div.block-actions a {
-    text-decoration:none;
-    padding:1px 0 0 0;
-    float:left;
+    text-decoration: none;
+    padding: 1px 0 0 0;
+    float: left;
     height: 22px;
     width: 22px;
     margin-left: 5px;
@@ -146,47 +165,56 @@ table.page-content-admin div.page-zone-block div.block-actions a {
     border-radius: 3px 3px 3px 3px;
     cursor: pointer;
 }
+
 table.page-content-admin div.page-zone-block div.block-actions a:hover {
     box-shadow: 0px 2px 5px #666;
 }
+
 table.page-content-admin div.zone-actions {
     position: absolute;
     top: 5px;
     right: 10px;
 }
 
-
 a.action-edit {
     background: url('/bundles/prestacmscore/admin/img/icons/edit-icon.png') no-repeat center center transparent;
 }
+
 a.action-delete {
     background: url('/bundles/prestacmscore/admin/img/icons/delete-icon.png') no-repeat center center transparent;
 }
+
 .icon-add {
     background-image: url('/bundles/prestacmscore/admin/img/icons/add-icon.png') !important;
     background-position: -1px -1px !important;
 }
+
 table.page-content-admin td.empty, table.page-content-admin td.empty:hover {
     background: #F5F5F5;
 }
+
 div.block-settings {
     text-align: center;
     margin-top: 20px;
 }
+
 div.cms-block a.module-settings {
     background: url('/bundles/prestacmscore/admin/img/icons/settings-16.png') no-repeat left center #fff;
     color: #404040;
     padding-left: 20px;
     font-weight: bold;
 }
+
 div.cms-block a.module-settings:hover {
     background: url('/bundles/prestacmscore/admin/img/icons/settings-16.png') no-repeat left center #f7f7f7;
 }
+
 /* Listing */
 td.sonata-ba-list-field-screenshot {
     text-align: center !important;
     width: 420px;
 }
+
 img.sonata-ba-img-box {
     background: #FFF;
     padding: 5px;
@@ -198,16 +226,30 @@ img.sonata-ba-img-box {
 
 /* Sidebar */
 .sidebar .sonata-ba-side-menu {
-    padding-left: 8px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
 }
-#sidebar #website_selector,
-.sidebar #website_selector {
+
+#sidebar #website-selector,
+.sidebar #website-selector {
     width: auto;
+}
+
+.sonata-bc .sidebar #website-selector .navbar-inner {
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+/* Website selector */
+.sonata-bc .sidebar .navbar a.brand {
+    font-size: 15px;
+    text-transform: capitalize;
 }
 
 .block-preview {
     text-align: center;
 }
+
 .ui-sortable-helper {
     cursor: move;
 }
@@ -217,6 +259,7 @@ img.sonata-ba-img-box {
     width: 80% !important;
     left: 30% !important;
 }
+
 #modal-loader {
     text-align: center;
 }
@@ -226,11 +269,43 @@ div.cms-container div.row {
     margin-left: 0px;
     width: 100%;
 }
+
 .sonata-bc .row-fluid table div.cms-container div.row [class*=span] {
     display: inline-block;
 }
+
 div.cms-container div.row div.cms-container-block {
     text-align: center;
     padding: 25px 0px;
     border: 1px solid #e5e5e5;
+}
+
+/* Locale */
+a.locale {
+    width: 20px;
+    height: 20px;
+    padding: 10px 2px !important;
+    margin-right: 5px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+a.locale_fr {
+    background-image: url('/bundles/prestacmscore/admin/img/flags/fr.png');
+}
+
+a.locale_it {
+    background-image: url('/bundles/prestacmscore/admin/img/flags/it.png');
+}
+
+a.locale_nl {
+    background-image: url('/bundles/prestacmscore/admin/img/flags/nl.png');
+}
+
+a.locale_es {
+    background-image: url('/bundles/prestacmscore/admin/img/flags/es.png');
+}
+
+a.locale_en {
+    background-image: url('/bundles/prestacmscore/admin/img/flags/en.png');
 }
