@@ -128,9 +128,12 @@ abstract class BasePageFixture extends BaseFixture
                     $block->setIsDeletable($blockConfiguration['is_deletable']);
                     $block->setPosition($position);
                     $block->setIsActive(true);
-                    $block->setSettings($blockConfiguration['settings']);
 
                     $this->manager->persist($block);
+                    foreach ($locales as $locale) {
+                        $block->setSettings($blockConfiguration['settings']);
+                        $this->manager->bindTranslation($block, $locale);
+                    }
                 }
             }
         }
