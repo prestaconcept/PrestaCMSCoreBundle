@@ -33,6 +33,11 @@ abstract class BaseBlockService extends SonataBaseBlockService
     protected $template;
 
     /**
+     * @var string
+     */
+    protected $blockStyles;
+
+    /**
      * @param \Symfony\Component\Translation\Translator $translator
      */
     public function setTranslator($translator)
@@ -46,6 +51,22 @@ abstract class BaseBlockService extends SonataBaseBlockService
     public function getTranslator()
     {
         return $this->translator;
+    }
+
+    /**
+     * @param string $blockStyles
+     */
+    public function setBlockStyles($blockStyles)
+    {
+        $this->blockStyles = $blockStyles;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBlockStyles()
+    {
+        return $blockStyles;
     }
 
     /**
@@ -73,7 +94,9 @@ abstract class BaseBlockService extends SonataBaseBlockService
      */
     public function getDefaultSettings()
     {
-        return array();
+        return array(
+            'block_style' => null
+        );
     }
 
     /**
@@ -99,7 +122,20 @@ abstract class BaseBlockService extends SonataBaseBlockService
      */
     protected function getFormSettings(FormMapper $formMapper, BlockInterface $block)
     {
-        return array();
+        $formSettings = array();
+
+        if (count($this->getBlockStyles()) > 0) {
+            $formSettings[] = array(
+                'block_style',
+                'sonata_type_translatable_choice', 
+                array(
+                    'choices'   => $this->getBlockStyles(), 
+                    'label'     => $this->trans('form.label_block_style')
+                )
+            );
+        }
+
+        return $formSettings;
     }
 
     /**

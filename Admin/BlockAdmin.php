@@ -18,12 +18,43 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Block\BlockServiceManagerInterface;
 
 use Presta\CMSCoreBundle\Admin\BaseAdmin;
+use Presta\CMSCoreBundle\Model\WebsiteManager;
 
 /**
  * Admin definition for the Block class
  */
 class BlockAdmin extends BaseAdmin
 {
+    /**
+     * @var Presta\CMSCoreBundle\Model\WebsiteManager
+     */
+    protected $websiteManager;
+
+    /**
+     * @var array
+     */
+    protected $blockStyles;
+
+    /**
+     * Setter for websiteManager
+     *
+     * @param  WebsiteManager $websiteManager
+     */
+    public function setWebsiteManager(WebsiteManager $websiteManager)
+    {
+        $this->websiteManager = $websiteManager;
+    }
+
+    /**
+     * Setter for blockStyles
+     *
+     * @param array
+     */
+    public function setBlockStyles(array $blockStyles)
+    {
+        $this->blockStyles = $blockStyles;
+    }
+
     /**
      * @param \Sonata\BlockBundle\Block\BlockServiceManagerInterface $blockManager
      */
