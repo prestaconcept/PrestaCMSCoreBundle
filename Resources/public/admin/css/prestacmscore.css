@@ -238,13 +238,20 @@ img.sonata-ba-img-box {
 .sonata-bc .sidebar #website-selector .navbar-inner {
     padding-left: 7px;
     padding-right: 7px;
+    min-height: auto;
 }
 
 /* Website selector */
 .sonata-bc .sidebar .navbar a.brand {
     font-size: 15px;
     text-transform: capitalize;
+    padding-right: 20px;
 }
+.sonata-bc .sidebar .navbar #website-locale {
+    float: right;
+    margin: 0px;
+}
+
 
 .block-preview {
     text-align: center;
