@@ -39,11 +39,14 @@ class SimpleBlockService extends BaseModelBlockService
      */
     public function getDefaultSettings()
     {
-        return array(
-            'title' => $this->trans('block.default.title'),
-            'content' => $this->trans('block.default.content'),
-            'link_label' => null,
-            'link_destination' => null
+        return array_merge(
+            array(
+                'title' => $this->trans('block.default.title'),
+                'content' => $this->trans('block.default.content'),
+                'link_label' => null,
+                'link_destination' => null,
+            ),
+            parent::getDefaultSettings()
         );
     }
 
