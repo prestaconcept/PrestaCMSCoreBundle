@@ -48,6 +48,11 @@ class Theme extends ContainerBlock
     protected $adminStyle;
 
     /**
+     * @var array
+     */
+    protected $blockStyles;
+
+    /**
      * @var integer
      */
     protected $cols;
@@ -111,6 +116,30 @@ class Theme extends ContainerBlock
     public function getAdminStyle()
     {
         return $this->adminStyle;
+    }
+
+    /**
+     * @param string $blockStyle
+     */
+    public function addBlockStyle($blockStyle)
+    {
+        $this->blockStyles[] = $blockStyle;
+    }
+
+    /**
+     * @param array $blockStyles
+     */
+    public function setBlockStyles($blockStyles)
+    {
+        $this->blockStyles = $blockStyles;
+    }
+
+    /**
+     * @return array 
+     */
+    public function getBlockStyles()
+    {
+        return $this->blockStyles;
     }
 
     /**

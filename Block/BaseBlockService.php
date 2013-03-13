@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Block;
 
+use Symfony\Component\Translation\Translator;
 use Symfony\Component\HttpFoundation\Response;
 use Sonata\BlockBundle\Block\BaseBlockService as SonataBaseBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
@@ -23,7 +24,7 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 abstract class BaseBlockService extends SonataBaseBlockService
 {
     /**
-     * @var \Symfony\Component\Translation\Translator
+     * @var Translator
      */
     protected $translator;
 
@@ -33,7 +34,22 @@ abstract class BaseBlockService extends SonataBaseBlockService
     protected $template;
 
     /**
-     * @param \Symfony\Component\Translation\Translator $translator
+     * @var string
+     */
+    protected $preview;
+
+    /**
+     * @var string
+     */
+    protected $settingsRoute;
+
+    /**
+     * @var array
+     */
+    protected $blockStyles;
+
+    /**
+     * @param Translator $translator
      */
     public function setTranslator($translator)
     {
@@ -41,11 +57,27 @@ abstract class BaseBlockService extends SonataBaseBlockService
     }
 
     /**
-     * @return \Symfony\Component\Translation\Translator
+     * @return Translator
      */
     public function getTranslator()
     {
         return $this->translator;
+    }
+
+    /**
+     * @param array $blockStyles
+     */
+    public function setBlockStyles($blockStyles)
+    {
+        $this->blockStyles = $blockStyles;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBlockStyles()
+    {
+        return $this->blockStyles;
     }
 
     /**
@@ -60,11 +92,37 @@ abstract class BaseBlockService extends SonataBaseBlockService
     }
 
     /**
-     * Return block template
+     * Returns preview image path
+     *
+     * @return string
      */
-    public function getTemplate()
+    public function getPreview()
     {
-        //todo handle preview add configurable
+        return $this->preview;
+    }
+
+    /**
+     * Return route to module administration : for blocks displaying data administrate in a specific module
+     *
+     * @return string
+     */
+    public function getSettingsRoute()
+    {
+        return $this->settingsRoute;
+    }
+
+    /**
+     * Return block template
+     *
+     * @param  boolean $isAdminMode
+     * @return string
+     */
+    public function getTemplate($isAdminMode)
+    {
+        if ($isAdminMode && (!is_null($this->preview) || !is_null($this->settingsRoute))) {
+            return 'PrestaCMSCoreBundle:Admin/Block:block_admin.html.twig';
+        }
+
         return $this->template;
     }
 
@@ -79,25 +137,67 @@ abstract class BaseBlockService extends SonataBaseBlockService
     /**
      * Returns block settings for template
      *
-     * @param  \Sonata\BlockBundle\Model\BlockInterface $block
+     * @param  BlockInterface $block
      * @return array
      */
     public function getSettings(BlockInterface $block)
     {
-        $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
+        $settings = array_merge(
+            $this->getDefaultSettings(),
+            $block->getSettings(),
+            array(
+                'block_style' => null
+            )
+        );
 
-        //handle orm models loading!
         return $settings;
+    }
+
+    /**
+     * Return additional form settings
+     * Allow to customize base blocks classes like the model one
+     *
+     * @param  FormMapper      $formMapper
+     * @param  BlockInterface  $block
+     * @return array
+     */
+    protected function getAdditionalFormSettings(FormMapper $formMapper, BlockInterface $block)
+    {
+        $additionalFormSettings = array();
+
+        if (count($this->getBlockStyles()) > 0) {
+            $additionalFormSettings[] = array(
+                'block_style',
+                'sonata_type_translatable_choice',
+                array(
+                    'choices'   => $this->getBlockStyles(),
+                    'label'     => $this->trans('form.label_block_style')
+                )
+            );
+        }
+
+        return $additionalFormSettings;
     }
 
     /**
      * Returns form settings elements
      *
-     * @param  \Sonata\AdminBundle\Form\FormMapper      $formMapper
-     * @param  \Sonata\BlockBundle\Model\BlockInterface $block
+     * @param  FormMapper      $formMapper
+     * @param  BlockInterface  $block
      * @return array
      */
     protected function getFormSettings(FormMapper $formMapper, BlockInterface $block)
+    {
+        return array();
+    }
+
+    /**
+     * Return block specific data
+     *
+     * @param  BlockInterface $block
+     * @return array
+     */
+    protected function getAdditionalViewParameters(BlockInterface $block)
     {
         return array();
     }
@@ -130,7 +230,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
                     'settings',
                     'sonata_type_immutable_array',
                     array(
-                        'keys'  => $this->getFormSettings($formMapper, $block),
+                        'keys'  => array_merge($this->getFormSettings($formMapper, $block), $this->getAdditionalFormSettings($formMapper, $block)),
                         'label' => $this->trans('form.label_settings')
                     )
                 )
@@ -142,12 +242,26 @@ abstract class BaseBlockService extends SonataBaseBlockService
      */
     public function execute(BlockInterface $block, Response $response = null)
     {
+        $block->setSettings($this->getSettings($block));
+        $viewParams = array(
+            'block'     => $block,
+            'settings'  => $block->getSettings()
+        );
+
+        $viewParams += $this->getAdditionalViewParameters($block);
+
+        if ($block->isAdminMode()) {
+            if (!is_null($this->preview)) {
+                $viewParams['block_preview'] = $this->preview;
+            }
+            if (!is_null($this->settingsRoute)) {
+                $viewParams['settings_route'] = $this->settingsRoute;
+            }
+        }
+
         return $this->renderResponse(
-            $this->getTemplate(),
-            array(
-                'block'     => $block,
-                'settings'  => $this->getSettings($block)
-            ),
+            $this->getTemplate($block->isAdminMode()),
+            $viewParams,
             $response
         );
     }
@@ -164,6 +278,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
         foreach ($settings as $key => $value) {
             if ($value == null) {
                 unset($settings[$key]);
+                continue;
             }
         }
         $block->setSettings($settings);

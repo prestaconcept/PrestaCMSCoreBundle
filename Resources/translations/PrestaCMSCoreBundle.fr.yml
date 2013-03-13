@@ -17,7 +17,8 @@ zone.name.footer_right: Présentation de l'activité
 zone.name.left: Colonne gauche
 zone.name.right: Colonne droite
 block.title.presta_cms.block.simple: Block Simple
-
+block.title.presta_cms.block.sitemap: Block Sitemap
+block.title.presta_cms.block.container: Container
 
 theme.label.name: Nom
 theme.label.description: Description
@@ -107,3 +108,4 @@ locale.fr: Français
 locale.en: Anglais
 locale.it: Italien
 locale.de: Allemand
+

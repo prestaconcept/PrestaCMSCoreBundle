@@ -52,7 +52,7 @@ form.label_is_default: Défault
 form.label_is_active: Actif
 form.label_theme: Default language
 form.label_available_locales: Languages availables
-
+form.label_block_style: Block style
 
 list.label_theme: Theme
 list.label_host: Host
@@ -105,6 +105,7 @@ block.description.presta_cms.block.simple: Simple block
 block.description.presta_cms.block.page_children: Children pages list with tile and content
 
 presta_cms.block.page_children: Landing page
+
 
 
 block.default.title: Insert your title here

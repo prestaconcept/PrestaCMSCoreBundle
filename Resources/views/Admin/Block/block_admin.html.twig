@@ -1,0 +1,24 @@
+{% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
+
+{% block block %}
+    {% if (block_preview is defined) %}
+    <div class="block-preview">
+        <img src="{{ asset(block_preview) }}" />
+    </div>
+    {% endif %}
+    {% if (settings|length > 0) %}
+    <table class="form_view">
+        {% for key, setting in settings %}
+            <tr>
+                <th>{{ ['form.label_', key]|join|trans([], 'PrestaCMSCoreBundle') }}</th>
+                <td>{{ setting|raw }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    {% if (settings_route is defined) %}
+        <div class="block-settings">
+            <a href="{{ url(settings_route)}}" target="_blank" class="module-settings">{{ 'block.module.settings.link'|trans([], 'PrestaCMSCoreBundle')}}</a>
+        </div>
+    {% endif %}
+{% endblock %}

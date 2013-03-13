@@ -82,7 +82,13 @@ class PageTypeCMSPage implements PageTypeInterface
                         ->getRepository('Presta\CMSCoreBundle\Document\Page');
 
                     //If there is no corresponding data, initialisation with default configuration
-                    $draft = $repository->initializeForTemplate($draft, $this->themeManager->getPageTemplateConfiguration($draft->getTemplate()));
+                    $repository->initializeForTemplate($draft, $this->themeManager->getPageTemplateConfiguration($draft->getTemplate()));
+                    $this->container->get('doctrine_phpcr')->getManager()->clear();
+                    $draft = $this->container->get('doctrine_phpcr')->getManager()->findTranslation(
+                        'Presta\CMSCoreBundle\Document\Page',
+                        $page->getId(),
+                        $page->getLocale()
+                    );
                 }
 
                 return array(

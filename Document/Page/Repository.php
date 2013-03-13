@@ -33,6 +33,8 @@ class Repository extends BaseDocumentRepository
      */
     public function initializeForTemplate(Page $page, array $configuration)
     {
+        $locales = $this->getDocumentManager()->getLocalesFor($page);
+
         foreach ($configuration['zones'] as $zoneConfiguration) {
             if (count($zoneConfiguration['blocks']) == 0) {
                 continue;
@@ -42,9 +44,13 @@ class Repository extends BaseDocumentRepository
             $pageZone->setName($zoneConfiguration['name']);
             $this->getDocumentManager()->persist($pageZone);
             foreach ($zoneConfiguration['blocks'] as $blockConfiguration) {
+                $blockConfiguration += array(
+                    'settings' => array(),
+                    'is_editable' => true,
+                    'is_deletable'=> true
+                );
                 $block = new Block();
                 $block->setParent($pageZone);
-                $block->setLocale($page->getLocale());
                 $block->setType($blockConfiguration['type']);
                 if (strlen($blockConfiguration['name'])) {
                     $block->setName($blockConfiguration['name']);
@@ -55,12 +61,19 @@ class Repository extends BaseDocumentRepository
                 $block->setIsDeletable($blockConfiguration['is_deletable']);
                 $block->setPosition($blockConfiguration['position']);
                 $block->setIsActive(true);
-                $block->setSettings(array());
-                $pageZone->addBlock($block);
+
                 $this->getDocumentManager()->persist($block);
-                $page->addZone($pageZone);
+
+                foreach ($locales as $locale) {
+                    $block->setSettings($blockConfiguration['settings']);
+                    $this->getDocumentManager()->bindTranslation($block, $locale);
+                }
+                $pageZone->addBlock($block);
             }
+
+            $page->addZone($pageZone);
         }
+
         $this->getDocumentManager()->flush();
 
         return $page;

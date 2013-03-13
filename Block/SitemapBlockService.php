@@ -51,12 +51,9 @@ class SitemapBlockService extends BaseModelBlockService
      */
     protected function getFormSettings(FormMapper $formMapper, BlockInterface $block)
     {
-        return array_merge(
-            array(
-                array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
-                array('depth', 'number', array('label' => $this->trans('form.label_depth')))
-            ),
-            parent::getFormSettings($formMapper, $block)
+        return array(
+            array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
+            array('depth', 'number', array('label' => $this->trans('form.label_depth')))
         );
     }
 }
