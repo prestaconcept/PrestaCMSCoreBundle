@@ -2,6 +2,7 @@ Tests/Functional/config/parameters.yml
 build/
 vendor
 composer.phar
+composer.lock
 
 .idea/*
 app.sqlite

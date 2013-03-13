@@ -41,5 +41,11 @@ class ThemeTest extends BaseUnitTestCase
 
         $this->assertEquals(1, count($theme->getZones()));
         $this->assertEquals('content', $theme->getZones()->get('content')->getName());
+
+        $theme->setBlockStyles(array('info', 'notice'));
+        $this->assertEquals(2, count($theme->getBlockStyles()));
+
+        $theme->addBlockStyle('error');
+        $this->assertEquals(3, count($theme->getBlockStyles()));
     }
 }
