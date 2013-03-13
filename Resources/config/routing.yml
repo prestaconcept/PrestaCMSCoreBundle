@@ -40,6 +40,9 @@ presta_cms_page_website:
 presta_cms_page_edit:
     pattern:  /cms/page/edit
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:edit}
+presta_cms_page_tree:
+    pattern:  /cms/page/tree
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:renderPageTree}
 
 #presta_cms_page_revision_edit_block:
 #    pattern:  /cms/page/block-edit/{website_id}/{locale}/{id}

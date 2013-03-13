@@ -12,7 +12,8 @@ namespace Presta\CMSCoreBundle\Controller\Admin;
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 use Presta\CMSCoreBundle\Form\PageType;
 
-use Application\Presta\CMSCoreBundle\Entity\Page;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Page administration controller
@@ -142,15 +143,19 @@ class PageController extends AdminController
     /**
      * Allow us to render the tre in the website locale
      *
-     * @param $root
-     * @param $selected
-     * @param $locale
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function renderPageTreeAction ($root, $selected, $locale)
+    public function renderPageTreeAction (Request $request)
     {
+        $root = $request->query->get('root');
+        $selected = $request->query->get('selected') ?: $root;
+        $locale = $request->query->get('locale');
+
         //$selected is set to null cause it trigger the "select_node.jstree" event and reload the page
-        return $this->forward('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array('root' => $root, 'selected' => null, '_locale' => $locale));
+        $selected = null;
+
+        return $this->forward('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array(), array('root' => $root, 'selected' => $selected, '_locale' => $locale));
     }
 
     //	/**

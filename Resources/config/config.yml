@@ -91,7 +91,13 @@ sonata_doctrine_phpcr_admin:
         Presta\CMSCoreBundle\Document\Page:
             valid_children:
                 - Presta\CMSCoreBundle\Document\Page
-            image: '/bundles/symfonycmftreebrowser/images/d.png'
+            image: '/bundles/symfonycmftreebrowser/images/document.png'
+        Presta\CMSCoreBundle\Document\Navigation\RootMenuNode:
+            valid_children:
+                - Presta\CMSCoreBundle\Document\Page
+                - Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode
+                - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode
+            image: '/bundles/symfonycmftreebrowser/images/folder.png'
 
 sonata_seo:
     encoding: UTF-8

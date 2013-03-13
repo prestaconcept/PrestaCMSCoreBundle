@@ -12,7 +12,8 @@
         <div id="page-tree-container" class="control-group">
             <h4>{{ 'navigation.title'|trans({}, 'PrestaCMSCoreBundle') }}</h4>
 
-            {% render "PrestaCMSCoreBundle:Admin/Page:renderPageTree" with {'root': websiteId~"/menu", 'selected': '/' ~ menuItemId, 'locale': locale } %}
+            {% render url('presta_cms_page_tree', {'root': websiteId~"/menu", 'selected': '/' ~ menuItemId, 'locale': locale }) %}
+
 
             <script type="text/javascript">
                 $(document).ready(function() {
