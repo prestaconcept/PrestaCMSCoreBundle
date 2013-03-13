@@ -126,10 +126,23 @@ abstract class BaseBlockService extends SonataBaseBlockService
     }
 
     /**
+     * Return additional form settings
+     * Allow to customize base blocks classes like the model one
+     *
+     * @param  FormMapper      $formMapper
+     * @param  BlockInterface  $block
+     * @return array
+     */
+    protected function getAdditionalFormSettings(FormMapper $formMapper, BlockInterface $block)
+    {
+        return array();
+    }
+
+    /**
      * Returns form settings elements
      *
-     * @param  \Sonata\AdminBundle\Form\FormMapper      $formMapper
-     * @param  \Sonata\BlockBundle\Model\BlockInterface $block
+     * @param  FormMapper      $formMapper
+     * @param  BlockInterface  $block
      * @return array
      */
     protected function getFormSettings(FormMapper $formMapper, BlockInterface $block)
@@ -176,7 +189,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
                     'settings',
                     'sonata_type_immutable_array',
                     array(
-                        'keys'  => $this->getFormSettings($formMapper, $block),
+                        'keys'  => array_merge($this->getFormSettings($formMapper, $block), $this->getAdditionalFormSettings($formMapper, $block)),
                         'label' => $this->trans('form.label_settings')
                     )
                 )
@@ -195,7 +208,6 @@ abstract class BaseBlockService extends SonataBaseBlockService
         );
 
         $viewParams += $this->getAdditionalViewParameters($block);
-
 
         if ($block->isAdminMode()) {
             if (!is_null($this->preview)) {
@@ -225,6 +237,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
         foreach ($settings as $key => $value) {
             if ($value == null) {
                 unset($settings[$key]);
+                continue;
             }
         }
         $block->setSettings($settings);

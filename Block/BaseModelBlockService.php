@@ -63,9 +63,9 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
     }
 
     /**
-     * {@inheritdoc}
+     * Return form settings for linked models and content
      */
-    protected function getFormSettings(FormMapper $formMapper, BlockInterface $block)
+    protected function getAdditionalFormSettings(FormMapper $formMapper, BlockInterface $block)
     {
         $formSettings = array();
         foreach ($this->getModelFields() as $fieldName => $adminCode) {
