@@ -67,9 +67,13 @@ class Repository extends BaseDocumentRepository
             $websiteThemeZone->setName($zoneConfiguration['name']);
             $this->getDocumentManager()->persist($websiteThemeZone);
             foreach ($zoneConfiguration['blocks'] as $blockConfiguration) {
+                $blockConfiguration += array(
+                    'settings' => array(),
+                    'is_editable' => true,
+                    'is_deletable'=> true
+                );
                 $block = new Block();
                 $block->setParent($websiteThemeZone);
-                $block->setLocale($website->getLocale());
                 $block->setType($blockConfiguration['type']);
                 if (isset($blockConfiguration['name']) && strlen($blockConfiguration['name'])) {
                     $block->setName($blockConfiguration['name']);
@@ -80,11 +84,16 @@ class Repository extends BaseDocumentRepository
                 $block->setIsDeletable($blockConfiguration['is_deletable']);
                 $block->setPosition($blockConfiguration['position']);
                 $block->setIsActive(true);
-                $block->setSettings(array());
                 $this->getDocumentManager()->persist($block);
+
+                foreach ($website->getAvailableLocales() as $locale) {
+                    $block->setSettings($blockConfiguration['settings']);
+                    $this->getDocumentManager()->bindTranslation($block, $locale);
+                }
+
                 $websiteThemeZone->addBlock($block);
-                $websiteTheme->addZone($websiteThemeZone);
             }
+            $websiteTheme->addZone($websiteThemeZone);
         }
         $this->getDocumentManager()->flush();
 
