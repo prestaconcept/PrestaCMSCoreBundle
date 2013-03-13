@@ -156,6 +156,7 @@ class ThemeManager
         $configuration += array(
             'cols' => 12,
             'admin_style' => null,
+            'block_styles'  => array(),
             'zones' => array(),
             'page_template' => array()
         );
@@ -165,6 +166,7 @@ class ThemeManager
         $theme->setTemplate($configuration['template']);
         $theme->setScreenshot($configuration['screenshot']);
         $theme->setAdminStyle($configuration['admin_style']);
+        $theme->setBlockStyles($configuration['block_styles']);
         $theme->setCols($configuration['cols']);//var_dump(serialize(array('content'=>'<p>hello</p>')));die;
 
         if ($website != null) {

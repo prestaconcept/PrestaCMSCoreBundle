@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Block;
 
+use Symfony\Component\Translation\Translator;
 use Symfony\Component\HttpFoundation\Response;
 use Sonata\BlockBundle\Block\BaseBlockService as SonataBaseBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
@@ -23,7 +24,7 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 abstract class BaseBlockService extends SonataBaseBlockService
 {
     /**
-     * @var \Symfony\Component\Translation\Translator
+     * @var Translator
      */
     protected $translator;
 
@@ -43,7 +44,12 @@ abstract class BaseBlockService extends SonataBaseBlockService
     protected $settingsRoute;
 
     /**
-     * @param \Symfony\Component\Translation\Translator $translator
+     * @var array
+     */
+    protected $blockStyles;
+
+    /**
+     * @param Translator $translator
      */
     public function setTranslator($translator)
     {
@@ -51,11 +57,27 @@ abstract class BaseBlockService extends SonataBaseBlockService
     }
 
     /**
-     * @return \Symfony\Component\Translation\Translator
+     * @return Translator
      */
     public function getTranslator()
     {
         return $this->translator;
+    }
+
+    /**
+     * @param array $blockStyles
+     */
+    public function setBlockStyles($blockStyles)
+    {
+        $this->blockStyles = $blockStyles;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBlockStyles()
+    {
+        return $this->blockStyles;
     }
 
     /**
@@ -115,12 +137,18 @@ abstract class BaseBlockService extends SonataBaseBlockService
     /**
      * Returns block settings for template
      *
-     * @param  \Sonata\BlockBundle\Model\BlockInterface $block
+     * @param  BlockInterface $block
      * @return array
      */
     public function getSettings(BlockInterface $block)
     {
-        $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
+        $settings = array_merge(
+            $this->getDefaultSettings(),
+            $block->getSettings(),
+            array(
+                'block_style' => null
+            )
+        );
 
         return $settings;
     }
@@ -135,7 +163,20 @@ abstract class BaseBlockService extends SonataBaseBlockService
      */
     protected function getAdditionalFormSettings(FormMapper $formMapper, BlockInterface $block)
     {
-        return array();
+        $additionalFormSettings = array();
+
+        if (count($this->getBlockStyles()) > 0) {
+            $additionalFormSettings[] = array(
+                'block_style',
+                'sonata_type_translatable_choice',
+                array(
+                    'choices'   => $this->getBlockStyles(),
+                    'label'     => $this->trans('form.label_block_style')
+                )
+            );
+        }
+
+        return $additionalFormSettings;
     }
 
     /**
