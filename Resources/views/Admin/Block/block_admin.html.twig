@@ -10,7 +10,7 @@
     <table class="form_view">
         {% for key, setting in settings %}
             <tr>
-                <th>{{ ['block.label.', key]|join|trans([], 'PrestaCMSCoreBundle') }}</th>
+                <th>{{ ['form.label_', key]|join|trans([], 'PrestaCMSCoreBundle') }}</th>
                 <td>{{ setting|raw }}</td>
             </tr>
         {% endfor %}
