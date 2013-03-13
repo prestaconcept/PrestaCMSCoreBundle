@@ -1,15 +1,13 @@
 {% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
 
 {% block block %}
-    <div class="cms-block {{ settings.block_style }}">
-        <h2>{{ settings.title }}</h2>
-        <div class="content">
-            {{ settings.content|raw }}
-        </div>
-        {% if ((settings.link_label|length) and (settings.link_destination|length)) %}
-        <div class="link">
-            <a href="{{ path(settings.link_destination) }}">{{ settings.link_label }}</a>
-        </div>
-        {% endif %}
+    <h2>{{ settings.title }}</h2>
+    <div class="content">
+        {{ settings.content|raw }}
     </div>
+    {% if ((settings.link_label|length) and (settings.link_destination|length)) %}
+    <div class="link">
+        <a href="{{ path(settings.link_destination) }}">{{ settings.link_label }}</a>
+    </div>
+    {% endif %}
 {% endblock %}

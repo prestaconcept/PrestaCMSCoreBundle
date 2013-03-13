@@ -31,11 +31,6 @@ class BlockAdmin extends BaseAdmin
     protected $websiteManager;
 
     /**
-     * @var array
-     */
-    protected $blockStyles;
-
-    /**
      * Setter for websiteManager
      *
      * @param  WebsiteManager $websiteManager
@@ -43,16 +38,6 @@ class BlockAdmin extends BaseAdmin
     public function setWebsiteManager(WebsiteManager $websiteManager)
     {
         $this->websiteManager = $websiteManager;
-    }
-
-    /**
-     * Setter for blockStyles
-     *
-     * @param array
-     */
-    public function setBlockStyles(array $blockStyles)
-    {
-        $this->blockStyles = $blockStyles;
     }
 
     /**

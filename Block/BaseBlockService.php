@@ -33,7 +33,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
     protected $template;
 
     /**
-     * @var string
+     * @var array
      */
     protected $blockStyles;
 
@@ -94,9 +94,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
      */
     public function getDefaultSettings()
     {
-        return array(
-            'block_style' => null
-        );
+        return array();
     }
 
     /**
@@ -107,7 +105,13 @@ abstract class BaseBlockService extends SonataBaseBlockService
      */
     public function getSettings(BlockInterface $block)
     {
-        $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
+        $settings = array_merge(
+            $this->getDefaultSettings(),
+            $block->getSettings(),
+            array(
+                'block_style' => null
+            )
+        );
 
         //handle orm models loading!
         return $settings;
@@ -127,9 +131,9 @@ abstract class BaseBlockService extends SonataBaseBlockService
         if (count($this->getBlockStyles()) > 0) {
             $formSettings[] = array(
                 'block_style',
-                'sonata_type_translatable_choice', 
+                'sonata_type_translatable_choice',
                 array(
-                    'choices'   => $this->getBlockStyles(), 
+                    'choices'   => $this->getBlockStyles(),
                     'label'     => $this->trans('form.label_block_style')
                 )
             );
