@@ -18,12 +18,29 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Block\BlockServiceManagerInterface;
 
 use Presta\CMSCoreBundle\Admin\BaseAdmin;
+use Presta\CMSCoreBundle\Document\Theme;
+use Presta\CMSCoreBundle\Model\ThemeManager;
 
 /**
  * Admin definition for the Block class
  */
 class BlockAdmin extends BaseAdmin
 {
+    /**
+     * @var Presta\CMSCoreBundle\Model\ThemeManager
+     */
+    protected $themeManager;
+
+    /**
+     * Setter for themeManager
+     *
+     * @param  ThemeManager $themeManager
+     */
+    public function setThemeManager(ThemeManager $themeManager)
+    {
+        $this->themeManager = $themeManager;
+    }
+
     /**
      * @param \Sonata\BlockBundle\Block\BlockServiceManagerInterface $blockManager
      */
@@ -51,6 +68,11 @@ class BlockAdmin extends BaseAdmin
     {
         $block = $this->getSubject();
         $service = $this->blockManager->get($block);
+
+        $currentTheme = $this->themeManager->getCurrentTheme();
+        if ($currentTheme instanceof Theme) {
+            $service->setBlockStyles($currentTheme->getBlockStyles());
+        }
 
         if ($block->getId() > 0) {
             $service->buildEditForm($formMapper, $block);
