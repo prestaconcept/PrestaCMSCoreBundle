@@ -107,6 +107,7 @@ class BlockAdmin extends BaseAdmin
     public function getObject($id)
     {
         $block = parent::getObject($id);
+        $block->setAdminMode();
 
         $service = $this->blockManager->get($block);
         $service->load($block);
