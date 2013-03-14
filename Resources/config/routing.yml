@@ -1,9 +1,4 @@
 
-#Administration - website
-presta_cms_website:
-    pattern:  /cms/website
-    defaults: { _controller: PrestaCMSCoreBundle:Admin/Website:list, _sonata_admin: presta_cms.website.admin.website }
-
 #Administration - themes
 presta_cms_theme:
     pattern:  /cms/theme
@@ -44,28 +39,10 @@ presta_cms_page_tree:
     pattern:  /cms/page/tree
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:renderPageTree}
 
-#presta_cms_page_revision_edit_block:
-#    pattern:  /cms/page/block-edit/{website_id}/{locale}/{id}
-#    defaults: {_controller: PrestaCMSCoreBundle:Admin/PageRevisionBlock:edit, id: '', _sonata_admin: 'presta_cms.page.admin.bloc'}
-#    requirements:
-#        website_id:  \d+
-#        id: \d+
-#
-#presta_cms_page_revision_render_block:
-#    pattern:  /cms/page/block-render/{locale}/{id}
-#    defaults: {_controller: PrestaCMSCoreBundle:Admin/PageRevisionBlock:render, id: '', _sonata_admin: 'presta_cms.page.admin.bloc'}
-#    requirements:
-#        id: \d+
-
 #Administration - Import / Export
 presta_cms_page_selector:
     pattern:  /cms/page-selector/{website_id}/{locale}
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:selector, website_id: '', locale: ''}
-
-#Administration - Import / Export
-#presta_cms_data:
-#    pattern:  /cms/data/{website_id}/{locale}
-#    defaults: {_controller: PrestaCMSCoreBundle:Admin/Data:index, website_id: '', locale: ''}
 
 fos_js_routing:
     resource: @FOSJsRoutingBundle/Resources/config/routing/routing.xml
