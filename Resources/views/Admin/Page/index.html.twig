@@ -1,130 +1,84 @@
 {% extends base_template %}
 
 {% block stylesheets %}
-{{ parent() }}
-{% if (theme is defined) %}
-<link rel="stylesheet" href="{{ asset('' ~ theme.adminStyle) }}"></script>
-{% endif %}
+    {{ parent() }}
+    {% if (theme is defined) %}
+        <link rel="stylesheet" href="{{ asset('' ~ theme.adminStyle) }}"></script>
+    {% endif %}
 {% endblock %}
 
 {% block side_menu %}
-{% include 'PrestaCMSCoreBundle:Admin/Page:_sidebar.html.twig' %}
+    {% include 'PrestaCMSCoreBundle:Admin/Page:_sidebar.html.twig' %}
 {% endblock %}
 
 {% block title %}
-{% if (page) %}
-{{ page.title }}
-{% if (app.environment == 'dev') %}-{{ page.locale }}{% endif %}
-        {% else %}
+    {% if (page) %}
+        {{ page.title }} {% if (app.environment == 'dev') %}-{{ page.locale }}{% endif %}
+    {% else %}
         Pages
-        {% endif %}
-        {% endblock %}
+    {% endif %}
+{% endblock %}
 
-        {% block breadcrumb %}
-        < li > < a
-href = "{{ url('sonata_admin_dashboard') }}" >{{ 'breadcrumb.link_dashboard'|trans([], 'PrestaCMSCoreBundle') }} < /a><span class="divider">/ < /span></
-li >
-< li
-class
-= "active" > < a
-href = "{{ url('presta_cms_page') }}" >{{ 'breadcrumb.link_page_list'|trans([], 'PrestaCMSCoreBundle') }} < /a></
-li >
-{% if (page) %} < li
-class
-= "active" > < span
-class
-= "divider" > /</s
-pan > {{ page.title }} < /li>{% endif %}
+{% block breadcrumb %}
+    <li><a href="{{ url('sonata_admin_dashboard') }}">{{ 'breadcrumb.link_dashboard'|trans([], 'PrestaCMSCoreBundle') }}</a><span class="divider">/</span></li>
+    <li class="active"><a href="{{ url('presta_cms_page') }}">{{ 'breadcrumb.link_page_list'|trans([], 'PrestaCMSCoreBundle') }}</a></li>
+    {% if (page) %}<li class="active"><span class="divider">/</span> {{ page.title }} </li>{% endif %}
 {% endblock %}
 
 {%block actions %}
-{% if (page) %}
-< div
-class
-= "sonata-actions subnav" >
-        < div
-class
-= "" >
-        {#<a class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i>&nbsp;{{ 'button.delete'|trans }}</a>#}
-        {#<button class="btn" type="button"><i class=" icon-eye-open "></i>&nbsp;{{ 'button.preview'|trans }}</button>#}
-        {#<button class="btn btn-success" type="button"><i class="icon-retweet icon-white"></i>&nbsp;{{ 'button.publish'|trans }}</button>#}
-        < a
-class
-= "btn btn-primary"
-onclick = "$('#edit_form').submit();" > < i
-class
-= "icon-ok icon-white" > < /i>&nbsp;{{ 'button.save'|trans({}, 'admin') }}</
-a >
-        < /div>
-        < /div>
-{% endif %}
+    {% if (page) %}
+    <div class="sonata-actions subnav">
+        <div class="">
+            {#<a class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i>&nbsp;{{ 'button.delete'|trans }}</a>#}
+            {#<button class="btn" type="button"><i class=" icon-eye-open "></i>&nbsp;{{ 'button.preview'|trans }}</button>#}
+            {#<button class="btn btn-success" type="button"><i class="icon-retweet icon-white"></i>&nbsp;{{ 'button.publish'|trans }}</button>#}
+            <a class="btn btn-primary" onclick="$('#edit_form').submit();"><i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans({}, 'admin') }}</a>
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
-{% if (page) %}
-< ul
-class
-= "nav nav-tabs" >
-        {% for type, tab in pageEditTabs %}
-        < li
-class
-= "{% if (loop.index == 1) %}active{% endif %}" > < a
-href = "#{{ [type, '-', tab]|join }}"
-data - toggle = "tab" >{{ [type, '.', tab, '.title']|join|trans({}, 'PrestaCMSCoreBundle') }} < /a></
-li >
-        {% endfor %}
-        < li > < a
-href = "#seo"
-data - toggle = "tab" >{{ 'cms_page.seo.title'|trans({}, 'PrestaCMSCoreBundle') }} < /a></
-li >
-        {#<li><a href="#settings" data-toggle="tab">{{ 'cms_page.settings.title'|trans({}, 'PrestaCMSCoreBundle') }}</a></li>#}
-        < /ul>
+    {% if (page) %}
+        <ul class="nav nav-tabs">
+            {% for type, tab in pageEditTabs %}
+                <li class="{% if (loop.index == 1) %}active{% endif %}"><a href="#{{ [type, '-', tab]|join }}" data-toggle="tab">{{ [type, '.', tab, '.title']|join|trans({}, 'PrestaCMSCoreBundle') }}</a></li>
+            {% endfor %}
+            <li><a href="#seo" data-toggle="tab">{{ 'cms_page.seo.title'|trans({}, 'PrestaCMSCoreBundle') }}</a></li>
+            {#<li><a href="#settings" data-toggle="tab">{{ 'cms_page.settings.title'|trans({}, 'PrestaCMSCoreBundle') }}</a></li>#}
+        </ul>
 
-{% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+        {% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
 
-< div
-class
-= "tab-content" >
-        {% for type, tab in pageEditTabs %}
-        < div
-class
-= "tab-pane form-horizontal {% if (loop.index == 1) %}active{% endif %}"
-id = "{{ [type, '-', tab]|join }}" >
-        {% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'type': type, 'tab': tab, 'page': page} %}
-        < /div>
-        {% endfor %}
-        < div
-class
-= "tab-pane form-horizontal"
-id = "seo" >
-        < form
-id = "edit_form"
-class
-= "form-horizontal"
-method = "POST" >
-        < fieldset >
-        < legend >{{ 'cms_page.seo.title'|trans({}, 'PrestaCMSCoreBundle') }} < /legend>
-        < div
-class
-= "sonata-ba-collapsed-fields" >
-        {{ form_row(form.url)}}
-        {{ form_row(form.title)}}
-        {{ form_row(form.metaKeywords)}}
-        {{ form_row(form.metaDescription)}}
-        < /div>
-        < /fieldset>
-        {{ form_rest(form) }}
-        < /form>
-        < /div>
-        {#<div class="tab-pane form-horizontal" id="settings">#}
-        {#<fieldset>#}
-        {#<legend>{{ 'cms_page.settings.title'|trans({}, 'PrestaCMSCoreBundle') }}</legend>#}
-        {#{{ form_row(form.name)}}#}
-        {#{{ form_row(form.isActive)}}#}
-        {#{{ form_row(form.settings)}}#}
-        {#</fieldset>#}
-        {#</div>#}
+        <div class="tab-content">
+            {% for type, tab in pageEditTabs %}
+            <div class="tab-pane form-horizontal {% if (loop.index == 1) %}active{% endif %}" id="{{ [type, '-', tab]|join }}">
+                {% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'type': type, 'tab': tab, 'page': page} %}
+            </div>
+            {% endfor %}
+            <div class="tab-pane form-horizontal" id="seo">
+                <form id="edit_form" class="form-horizontal" method="POST">
+                    <fieldset>
+                        <legend>{{ 'cms_page.seo.title'|trans({}, 'PrestaCMSCoreBundle') }}</legend>
+                        <div class="sonata-ba-collapsed-fields">
+                            {{ form_row(form.url)}}
+                            {{ form_row(form.title)}}
+                            {{ form_row(form.metaKeywords)}}
+                            {{ form_row(form.metaDescription)}}
+                        </div>
+                    </fieldset>
+                    {{ form_rest(form) }}
+                </form>
+            </div>
+                {#<div class="tab-pane form-horizontal" id="settings">#}
+                    {#<fieldset>#}
+                        {#<legend>{{ 'cms_page.settings.title'|trans({}, 'PrestaCMSCoreBundle') }}</legend>#}
+                        {#{{ form_row(form.name)}}#}
+                        {#{{ form_row(form.isActive)}}#}
+                        {#{{ form_row(form.settings)}}#}
+                    {#</fieldset>#}
+                {#</div>#}
 
-        < /div>
-{% endif %}
+        </div>
+    {% endif %}
 {% endblock %}
