@@ -68,11 +68,12 @@ abstract class BaseAdmin extends BasePHPCRAdmin
     {
         $locale = $this->getObjectLocale();
         $object = $this->getDocumentManager()->findTranslation($this->getClass(), $id, $locale);
-        if (!is_null($locale)) {
-            //Here we have to consider the PHPCR fallback system and rest the locale
-            //in case translation does not exist
-            $this->getDocumentManager()->bindTranslation($object, $locale);
-        }
+
+        //        if (!is_null($locale)) {
+        //            //Here we have to consider the PHPCR fallback system and rest the locale
+        //            //in case translation does not exist
+        //            $this->getDocumentManager()->bindTranslation($object, $locale);
+        //        }
 
         return $object;
     }

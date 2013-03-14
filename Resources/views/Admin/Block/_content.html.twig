@@ -4,13 +4,15 @@
     </div>
     <div id="modal-body" class="modal-body">
         <div id="modal-loader">
-            <img src="{{ asset('bundles/prestacmscore/admin/img/popup-loader.gif') }}" />
+            <img src="{{ asset('bundles/prestacmscore/admin/img/popup-loader.gif') }}"/>
         </div>
         <div id="modal-content"></div>
     </div>
     <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal"><i class="icon-ok icon-remove"></i>&nbsp;{{ 'button.close'|trans({}, 'PrestaCMSCoreBundle') }}</a>
-        <a href="#" class="btn btn-primary" onclick="CMSContent.submitModalForm();"><i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans({}, 'PrestaCMSCoreBundle') }}</a>
+        <a href="#" class="btn" data-dismiss="modal"><i class="icon-ok icon-remove"></i>&nbsp;{{ 'button.close'|trans({}, 'PrestaCMSCoreBundle') }}
+        </a>
+        <a href="#" class="btn btn-primary" onclick="CMSContent.submitModalForm();"><i
+                class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans({}, 'PrestaCMSCoreBundle') }}</a>
     </div>
 </div>
 <script type="text/javascript" src="{{ asset('bundles/prestacmscore/admin/js/cms.js') }}"></script>
@@ -31,7 +33,7 @@
         );
     {% endif %}
     }
-    $(document).ready(function() {
+    $(document).ready(function () {
         CMSContentInit();
     });
 </script>
@@ -39,30 +41,34 @@
     <tr>
         {% set currentCol = 0 %}
         {% for zone in zones %}
-            {% if (currentCol == cols) %}
-                {% set currentCol = zone.cols %}
-                </tr>
-                <tr>
-            {% else %}
-                {% set currentCol = currentCol + zone.cols %}
-            {% endif %}
-            <td colspan="{{ zone.cols }}">
-                {% if (zone.name) %}
-                    <div id="zone_{{ zone.name }}" class="zone_{{ zone.name }} page-zone {% if (zone.blocks|length == 0 and zone.canAddBlock == false) %}page-zone-disabled{% endif %}">
-                        <h3>{{ ['zone.name.', zone.name]|join|trans([], 'PrestaCMSCoreBundle') }}</h3>
-                        {% if ((zone.blocks|length > 0 or zone.canAddBlock == true)) %}
+        {% if (currentCol == cols) %}
+        {% set currentCol = zone.cols %}
+    </tr>
+    <tr>
+        {% else %}
+            {% set currentCol = currentCol + zone.cols %}
+        {% endif %}
+        <td colspan="{{ zone.cols }}">
+            {% if (zone.name) %}
+                <div id="zone_{{ zone.name }}"
+                     class="zone_{{ zone.name }} page-zone {% if (zone.blocks|length == 0 and zone.canAddBlock == false) %}page-zone-disabled{% endif %}">
+                    <h3>{{ ['zone.name.', zone.name]|join|trans([], 'PrestaCMSCoreBundle') }}</h3>
+                    {% if ((zone.blocks|length > 0 or zone.canAddBlock == true)) %}
                         <div class="page-zone-block-container" id="cms-zone-{{ zone.htmlId }}">
                             {% if (zone.blocks) %}
                                 {% for block in zone.blocks %}
                                     {% do block.setAdminMode() %}
                                     <div class="page-zone-block">
-                                        <h4>{{ ['block.title.', block.type]|join|trans([], 'PrestaCMSCoreBundle') }}</h4>
+                                        <h4>{{ ['block.title.', block.type]|join|trans([], 'PrestaCMSCoreBundle') }}{% if (app.environment == 'dev') %} - {{ block.locale }}{% endif %}</h4>
+
                                         <div class="block-actions">
                                             {% if (block.isEditable) %}
                                                 <a block-id="{{ block.id }}" class="action-edit">&nbsp;</a>
                                             {% endif %}
                                             {% if (block.isDeletable) %}
-                                                <a block-id="{{ block.id }}" block-title="{{ ['block.title.', block.type]|join|trans([], 'PrestaCMSCoreBundle') }}" class="action-delete">&nbsp;</a>
+                                                <a block-id="{{ block.id }}"
+                                                   block-title="{{ ['block.title.', block.type]|join|trans([], 'PrestaCMSCoreBundle') }}"
+                                                   class="action-delete">&nbsp;</a>
                                             {% endif %}
                                         </div>
                                         <div id="block-content-{{ block.htmlId }}" class="block-content">
@@ -72,15 +78,15 @@
                                 {% endfor %}
                             {% endif %}
                         </div>
-                        {% endif %}
-                        {% if (zone.canAddBlock) %}
+                    {% endif %}
+                    {% if (zone.canAddBlock) %}
                         <div class="zone-actions">
                             <a class="btn action-add" zone-id="{{ zone.id }}"><i class="icon-plus"></i>&nbsp;</a>
                         </div>
-                        {% endif %}
-                    </div>
-                {% endif %}
-            </td>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </td>
         {% endfor %}
     </tr>
 </table>
