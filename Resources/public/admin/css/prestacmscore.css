@@ -238,7 +238,7 @@ img.sonata-ba-img-box {
 .sonata-bc .sidebar #website-selector .navbar-inner {
     padding-left: 7px;
     padding-right: 7px;
-    min-height: auto;
+    min-height: 40px;
 }
 
 /* Website selector */
