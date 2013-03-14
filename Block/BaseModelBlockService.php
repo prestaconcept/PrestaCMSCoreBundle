@@ -113,7 +113,8 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
             array(
                 'sonata_field_description' => $fieldDescription,
                 'class'                    => $modelAdmin->getClass(),
-                'model_manager'            => $modelAdmin->getModelManager()
+                'model_manager'            => $modelAdmin->getModelManager(),
+                'label'                     => $this->trans('form.label_' . $fieldName)
             )
         );
     }
