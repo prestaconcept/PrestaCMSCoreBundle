@@ -13,8 +13,8 @@
 
 {% block title %}
 {% if (page) %}
-{{ page.title }}{% if (app.environment == 'dev') %}
--{{ page.locale }}{% endif %}
+{{ page.title }}
+{% if (app.environment == 'dev') %}-{{ page.locale }}{% endif %}
         {% else %}
         Pages
         {% endif %}
