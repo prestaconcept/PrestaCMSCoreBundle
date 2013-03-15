@@ -13,10 +13,6 @@ use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 
 /**
  * Theme administration controller
- *
- * @package    PrestaCMS
- * @subpackage CoreBundle
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class ThemeController extends AdminController
 {
@@ -55,18 +51,14 @@ class ThemeController extends AdminController
      *
      * @return Response
      */
-    public function editAction($name, $websiteId = null, $locale = null)
+    public function editAction($name)
     {
-        $website = null;
-        if ($websiteId != null) {
-            $websiteId = '/website/' . $websiteId; //le slash ne passant pas au routing on rajoute le basePath
-            $website = $this->getWebsiteManager()->getWebsite(array('path' => $websiteId, 'locale' => $locale));
-        }
+        $website = $this->getWebsiteManager()->getCurrentWebsite();
         $viewParams = array(
-            'websiteId' => $websiteId,
-            'locale'    => $locale,
-            'website'   => $website,
-            'theme'     => $this->getThemeManager()->getTheme($name, $website)
+            'website' => $website,
+            'websiteId' => ($website) ? $website->getId() : null,
+            'locale'  => ($website) ? $website->getLocale() : null,
+            'theme'   => $this->getThemeManager()->getTheme($name, $website)
         );
 
         return $this->render('PrestaCMSCoreBundle:Admin/Theme:edit.html.twig', $viewParams);

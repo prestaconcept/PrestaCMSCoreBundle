@@ -43,16 +43,26 @@ class WebsiteListener
     {
         $request = $event->getRequest();
 
-        if (strpos($request->getPathInfo(), '/admin') === 0 || strpos($request->getPathInfo(), '/_wdt') === 0
+        if (strpos($request->getPathInfo(), '/_wdt') === 0
             || strpos($request->getPathInfo(), '/robots.txt') === 0 || strpos($request->getPathInfo(), '/css') === 0
             || strpos($request->getPathInfo(), '/js') === 0) {
             //For Front only
             return;
         }
 
-        //Load current website
-        $website = $this->websiteManager->loadWebsiteByHost($request->getHost());
+        if (strpos($request->getPathInfo(), '/admin') === 0) {
+            //Administration
+            //Page edition id = menuNode id
+            $id = $request->get('id', null);
+            $websiteId = $request->get('website', null);
+            $locale = $request->get('locale', null);
 
-        $request->setLocale($website->getLocale());
+            $this->websiteManager->loadWebsiteById($websiteId, $locale);
+        } else {
+            //Front case
+            //Load current website
+            $website = $this->websiteManager->loadWebsiteByHost($request->getHost());
+            $request->setLocale($website->getLocale());
+        }
     }
 }

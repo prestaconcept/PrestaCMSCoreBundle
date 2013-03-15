@@ -73,6 +73,14 @@ class ThemeManager
     }
 
     /**
+     * @return DocumentManager
+     */
+    public function getDocumentManager()
+    {
+        return $this->getModelManager()->getDocumentManager();
+    }
+
+    /**
      * Return Theme repository
      *
      * @return \Doctrine\ODM\PHPCR\DocumentRepository
@@ -153,6 +161,7 @@ class ThemeManager
      */
     protected function buildTheme(array $configuration, $website = null)
     {
+//        $locale = $website->getLocale();
         $configuration += array(
             'cols' => 12,
             'admin_style' => null,
@@ -182,6 +191,12 @@ class ThemeManager
             $zone->setConfiguration($zoneConfiguration);
             if (isset($zones[$zoneConfiguration['name']])) {
                 $zone->setBlocks($zones[$zoneConfiguration['name']]->getBlocks());
+                //Translation is not propagated to the children
+                //Should be corrected by https://github.com/doctrine/phpcr-odm/pull/237
+                //but not working now : 14/03/2013
+//                foreach ($zone->getBlocks() as $block) {
+//                    $this->getDocumentManager()->bindTranslation($block, $locale);
+//                }
             }
             $theme->addZone($zone);
         }

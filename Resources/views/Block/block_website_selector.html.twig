@@ -22,7 +22,7 @@
                         <ul id="website-locale" class="nav">
                             {% for locale in website.availableLocales %}
                                 <li class="locale locale_{{ locale }} {% if (settings.locale == locale) %} active{% endif %}">
-                                    <a href="{{ settings.url }}{{ website.id }}/{{ locale }}" class="locale locale_{{ locale }}"
+                                    <a href="{{ settings.url }}?website={{ website.id }}&locale={{ locale }}" class="locale locale_{{ locale }}"
                                        title="{{ ('locale.'~locale)|trans({}, 'PrestaCMSCoreBundle') }}"></a>
                                 </li>
                             {% endfor %}
@@ -36,7 +36,7 @@
                     {% for website in websites %}
                         <optgroup label="{{ website.name }}">
                             {% for locale in website.availableLocales %}
-                                <option value="{{ website.id }}/{{ locale }}" {% if (settings.website_id == website.id and settings.locale == locale) %} selected {% endif %}>{{ website.name }}
+                                <option value="{{ website.id }}&locale={{ locale }}" {% if (settings.website_id == website.id and settings.locale == locale) %} selected {% endif %}>{{ website.name }}
                                     - {{ locale|trans() }}</option>
                             {% endfor %}
                         </optgroup>
@@ -53,6 +53,6 @@
         if ($('#website_selector').val() == '') {
             return;
         }
-        window.location.href = '{{ settings.url }}' + $('#website_selector').val();
+        window.location.href = '{{ settings.url }}' + '?website=' + $('#website_selector').val();
     }
 </script>

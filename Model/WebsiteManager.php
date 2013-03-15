@@ -210,7 +210,7 @@ class WebsiteManager
      * @param  array   $hostConfiguration
      * @return Website
      */
-    public function getWebsite($hostConfiguration)
+    protected function loadWebsite($hostConfiguration)
     {
         $website = $this->getModelManager()->find(self::WEBSITE_CLASS, $hostConfiguration['path']);
 
@@ -247,13 +247,26 @@ class WebsiteManager
     public function loadWebsiteByHost($host)
     {
         if (isset($this->hosts[$host])) {
-            $website = $this->getWebsite($this->hosts[$host]);
+            $website = $this->loadWebsite($this->hosts[$host]);
         } else {
             throw new NotFoundHttpException('Website not found');
         }
-        $this->setCurrentWebsite($website);
 
         return $website;
+    }
+
+    /**
+     * Load current website based on its id and locale
+     *
+     * @param  $websiteId
+     * @param  $locale
+     * @return null|Website
+     */
+    public function loadWebsiteById($websiteId, $locale)
+    {
+        $params = array('path' => $websiteId, 'locale' => $locale);
+
+        return $this->loadWebsite($params);
     }
 
     /**

@@ -57,16 +57,17 @@ class PageController extends AdminController
     /**
      * Page administration main screen
      */
-    public function indexAction($websiteId, $locale)
+    public function indexAction()
     {
+        $website = $this->getWebsiteManager()->getCurrentWebsite();
         $viewParams = array(
-            'menuItemId' => null,  'websiteId' => $websiteId, 'locale' => $locale, 'navigations' => array(), 'page' => null, '_locale' => $this->getRequest()->get('_locale')
+            'menuItemId' => null,  'websiteId' => null, 'locale' => null, 'navigations' => array(), 'page' => null, '_locale' => $this->getRequest()->get('_locale')
         );
 
-        if ($websiteId != null) {
-            $websiteId = '/website/' . $websiteId; //todo !
-            $viewParams['websiteId'] = $websiteId;
-            $website = $this->getWebsiteManager()->getWebsite(array('path' => $websiteId, 'locale' => $locale));
+
+        if ($website != null) {
+            $viewParams['websiteId'] = $website->getId();
+            $viewParams['locale'] = $website->getLocale();
             $theme = $this->getThemeManager()->getTheme($website->getTheme());
             $viewParams['theme'] = $theme;
         }
