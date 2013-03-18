@@ -9,7 +9,7 @@
             <li>
                 <h3>{{ child.title }}</h3>
                 <p>{{ child.description }}</p>
-                <p><a href="{{ path(child) }}">{{ child.title }}</a></p>
+                <p><a href="{% if (block.isAdminMode) %}#{% else %}{{ path(child) }}{% endif %}">{{ child.title }}</a></p>
             </li>
             {%  endif %}
         {% endfor %}

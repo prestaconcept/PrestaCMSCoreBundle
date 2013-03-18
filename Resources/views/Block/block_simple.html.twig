@@ -7,7 +7,7 @@
     </div>
     {% if ((settings.link_label|length) and (settings.link_destination|length)) %}
     <div class="link">
-        <a href="{{ path(settings.link_destination) }}">{{ settings.link_label }}</a>
+        <a href="{% if (block.isAdminMode) %}#{% else %}{{ path(settings.link_destination) }}{% endif %}">{{ settings.link_label }}</a>
     </div>
     {% endif %}
 {% endblock %}
