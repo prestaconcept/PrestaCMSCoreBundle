@@ -122,6 +122,6 @@ services:
 
     presta_cms.listener.website:
         class: Presta\CMSCoreBundle\EventListener\WebsiteListener
-        arguments: [@presta_cms.website_manager]
+        arguments: [@presta_cms.website_manager, @kernel]
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 500 }
