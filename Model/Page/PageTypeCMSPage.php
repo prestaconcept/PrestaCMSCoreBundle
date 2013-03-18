@@ -90,11 +90,13 @@ class PageTypeCMSPage implements PageTypeInterface
                         $page->getLocale()
                     );
                 }
+                $website = $this->websiteManager->getCurrentWebsite();
 
                 return array(
                     'page' 	   => $draft,
                     'locale'   => $page->getLocale(),
-                    'website'  => $this->websiteManager->getCurrentWebsite(),
+                    'website'  => $website,
+                    'websiteId' => ($website) ? $website->getId() : null,
                     'template' => $this->themeManager->getPageTemplate($draft->getTemplate(), $draft)
                 );
                 break;

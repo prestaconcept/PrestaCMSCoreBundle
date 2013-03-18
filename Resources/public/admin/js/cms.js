@@ -76,7 +76,7 @@ var CMSContent = function() {
             $('#modal-content').hide();
             $('#modal').modal('show');
             
-            $('#modal-content').load(this._editBlocUrl + '?id=' + blockId, function() {
+            $('#modal-content').load(this._editBlocUrl + '&id=' + blockId, function() {
                 $('#modal-content div.form-actions').remove();
                 $('#modal-loader').hide();
                 $('#modal-content').show();
