@@ -175,7 +175,7 @@ class WebsiteManager
      *
      * @param $website
      */
-    public function setCurrentWebsite($website)
+    protected function setCurrentWebsite($website)
     {
         if (!$website instanceof Website) {
             return false;
