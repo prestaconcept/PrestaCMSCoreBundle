@@ -29,5 +29,5 @@
 {% endblock %}
 
 {% block item %}
-    <li><a href="{{ path(item) }}">{{ item.title }}</a></li>
+    <li><a href="{% if (block.isAdminMode) %}#{% else %}{{ path(item) }}{% endif %}">{{ item.title }}</a></li>
 {% endblock %}
