@@ -55,27 +55,6 @@ class PageController extends AdminController
     }
 
     /**
-     * Page administration main screen
-     */
-    public function indexAction()
-    {
-        $website = $this->getWebsiteManager()->getCurrentWebsite();
-        $viewParams = array(
-            'menuItemId' => null,  'websiteId' => null, 'locale' => null, 'navigations' => array(), 'page' => null, '_locale' => $this->getRequest()->get('_locale')
-        );
-
-
-        if ($website != null) {
-            $viewParams['websiteId'] = $website->getId();
-            $viewParams['locale'] = $website->getLocale();
-            $theme = $this->getThemeManager()->getTheme($website->getTheme());
-            $viewParams['theme'] = $theme;
-        }
-
-        return $this->render('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
-    }
-
-    /**
      * Page Edition
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -87,22 +66,18 @@ class PageController extends AdminController
 
         $page = $this->getPageManager()->getPageForMenu($menuItemId, $locale);
 
-        $website = $page->getParent()->getParent();
-        while (!$website instanceof \Presta\CMSCoreBundle\Document\Website) {
-            $website = $website->getParent();
-        }
-        $websiteId = $website->getId();
-        $this->getWebsiteManager()->setCurrentWebsite($website);
-
+        $website = $this->getWebsiteManager()->getCurrentWebsite();
         $theme = $this->getThemeManager()->getTheme($website->getTheme());
 
         $viewParams = array(
-            'menuItemId' => $menuItemId,  'websiteId' => $websiteId,
+            'menuItemId' => $menuItemId,
+            'websiteId' => $website->getId(),
             'locale' => $locale,
-            'page' => $page, '_locale' => $this->getRequest()->get('_locale'),
-            'translation_domain' => 'PrestaCMSCoreBundle'
+            'page' => $page,
+            '_locale' => $this->getRequest()->get('_locale'),
+            'translation_domain' => 'PrestaCMSCoreBundle',
+            'theme' => $theme
         );
-        $viewParams['theme'] = $theme;
 
         $viewParams['pageEditTabs'] = $this->getPageManager()->getType($page->getType())->getEditTabs();
 
