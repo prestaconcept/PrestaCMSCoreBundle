@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\HttpKernel\Kernel;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 
 /**
@@ -27,11 +28,18 @@ class WebsiteListener
     protected $websiteManager;
 
     /**
-     * @param $websiteManager
+     * @var string
      */
-    public function __construct($websiteManager)
+    protected $environment;
+
+    /**
+     * @param WebsiteManager $websiteManager
+     * @param Kernel $kernel
+     */
+    public function __construct(WebsiteManager $websiteManager, Kernel $kernel)
     {
-        $this->websiteManager  = $websiteManager;
+        $this->websiteManager = $websiteManager;
+        $this->environment = $kernel->getEnvironment();
     }
 
     /**
@@ -51,13 +59,14 @@ class WebsiteListener
         }
 
         if (strpos($request->getPathInfo(), '/admin') === 0) {
+            if ($this->websiteManager->getCurrentWebsite() != null) {
+                //Website is already loaded : this listener is triggered by every subrequests like {% render url() %}
+                return;
+            }
             //Administration
-            //Page edition id = menuNode id
-            $id = $request->get('id', null);
             $websiteId = $request->get('website', null);
             $locale = $request->get('locale', null);
-
-            $this->websiteManager->loadWebsiteById($websiteId, $locale);
+            $this->websiteManager->loadWebsiteById($websiteId, $locale, $this->environment);
         } else {
             //Front case
             //Load current website
