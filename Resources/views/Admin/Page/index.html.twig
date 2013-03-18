@@ -21,7 +21,7 @@
 
 {% block breadcrumb %}
     <li><a href="{{ url('sonata_admin_dashboard') }}">{{ 'breadcrumb.link_dashboard'|trans([], 'PrestaCMSCoreBundle') }}</a><span class="divider">/</span></li>
-    <li class="active"><a href="{{ url('presta_cms_page') }}">{{ 'breadcrumb.link_page_list'|trans([], 'PrestaCMSCoreBundle') }}</a></li>
+    <li class="active"><a href="{{ url('presta_cms_page_edit') }}">{{ 'breadcrumb.link_page_list'|trans([], 'PrestaCMSCoreBundle') }}</a></li>
     {% if (page) %}<li class="active"><span class="divider">/</span> {{ page.title }} </li>{% endif %}
 {% endblock %}
 

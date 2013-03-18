@@ -22,9 +22,6 @@ presta_cms_block_delete:
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:delete, _sonata_admin: presta_cms.admin.bloc}
 
 #Administration - pages
-presta_cms_page:
-    pattern:  /cms/page
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:index}
 presta_cms_page_edit:
     pattern:  /cms/page/edit
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:edit}

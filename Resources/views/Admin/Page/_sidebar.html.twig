@@ -1,11 +1,9 @@
 
 {{ sonata_block_render({
     'type': 'presta_cms.block.website.selector',
-    'settings': {'website_id' : websiteId, 'locale' : locale, 'url' : path('presta_cms_page'), 'with_fieldset': false }
+    'settings': {'website_id' : websiteId, 'locale' : locale, 'url' : path('presta_cms_page_edit'), 'with_fieldset': false }
 }) }}
-<script type="text/javascript">
-    var website_selector_url = "{{ path('presta_cms_page') }}";
-</script>
+
 <fieldset class="cms_page_tree">
     <legend>{{ 'cms_page_tree.title'|trans({}, 'PrestaCMSCoreBundle') }}</legend>
     {%  if (websiteId|length > 0) %}
