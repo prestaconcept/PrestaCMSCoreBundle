@@ -19,6 +19,7 @@ use Sonata\BlockBundle\Block\BlockServiceManagerInterface;
 
 use Presta\CMSCoreBundle\Admin\BaseAdmin;
 use Presta\CMSCoreBundle\Document\Theme;
+use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 
 /**
@@ -27,18 +28,23 @@ use Presta\CMSCoreBundle\Model\ThemeManager;
 class BlockAdmin extends BaseAdmin
 {
     /**
-     * @var Presta\CMSCoreBundle\Model\ThemeManager
+     * Return Website manager
+     *
+     * @return WebsiteManager
      */
-    protected $themeManager;
+    public function getWebsiteManager()
+    {
+        return $this->getConfigurationPool()->getContainer()->get('presta_cms.website_manager');
+    }
 
     /**
-     * Setter for themeManager
+     * Return Theme manager
      *
-     * @param  ThemeManager $themeManager
+     * @return ThemeManager
      */
-    public function setThemeManager(ThemeManager $themeManager)
+    public function getThemeManager()
     {
-        $this->themeManager = $themeManager;
+        return $this->getConfigurationPool()->getContainer()->get('presta_cms.theme_manager');
     }
 
     /**
@@ -47,6 +53,18 @@ class BlockAdmin extends BaseAdmin
     public function setBlockManager(BlockServiceManagerInterface $blockManager)
     {
         $this->blockManager = $blockManager;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function generateUrl($name, array $parameters = array(), $absolute = false)
+    {
+        if ($name == 'create' || $name == 'edit') {
+            $parameters = $parameters + array('website' => $this->getRequest()->get('website'));
+        }
+
+        return parent::generateUrl($name, $parameters, $absolute);
     }
 
     /**
@@ -69,7 +87,9 @@ class BlockAdmin extends BaseAdmin
         $block = $this->getSubject();
         $service = $this->blockManager->get($block);
 
-        $currentTheme = $this->themeManager->getCurrentTheme();
+        $website = $this->getWebsiteManager()->getCurrentWebsite();
+        $currentTheme = $this->getThemeManager()->getTheme($website->getTheme());
+
         if ($currentTheme instanceof Theme) {
             $service->setBlockStyles($currentTheme->getBlockStyles());
         }

@@ -69,13 +69,13 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
     {
         $formSettings = array();
         foreach ($this->getModelFields() as $fieldName => $adminCode) {
-            $formSettings[] = array($this->getModelBuilder($formMapper, $fieldName, $adminCode), null, array());
+            $formSettings[$fieldName] = array($this->getModelBuilder($formMapper, $fieldName, $adminCode), null, array());
         }
         foreach ($this->getContentModelFields() as $fieldName => $adminCode) {
-            $formSettings[] = array($this->getContentBrowserField($formMapper, $block, $fieldName, $adminCode), null, array());
+            $formSettings[$fieldName] = array($this->getContentBrowserField($formMapper, $block, $fieldName, $adminCode), null, array());
         }
 
-        return $formSettings;
+        return $formSettings + parent::getAdditionalFormSettings($formMapper, $block);
     }
 
     /**

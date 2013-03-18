@@ -26,6 +26,9 @@ block:
             block:
                 simple: Simple block
                 page_children: Children pages list with tile and content
+    style:
+        info: Informations
+        headline: Headline
 
 breadcrumb:
     link_dashboard: Dashboard

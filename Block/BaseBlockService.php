@@ -144,10 +144,11 @@ abstract class BaseBlockService extends SonataBaseBlockService
     {
         $settings = array_merge(
             $this->getDefaultSettings(),
-            $block->getSettings(),
-            array(
-                'block_style' => null
-            )
+            $block->getSettings()
+        );
+
+        $settings += array(
+            'block_style' => null
         );
 
         return $settings;
@@ -164,14 +165,21 @@ abstract class BaseBlockService extends SonataBaseBlockService
     protected function getAdditionalFormSettings(FormMapper $formMapper, BlockInterface $block)
     {
         $additionalFormSettings = array();
+        $blockStyleChoices = $this->getBlockStyles();
+        //Add prefix for translations
+        array_walk($blockStyleChoices, function(&$item) { $item = 'block.style.' . $item; });
+
+        $blockStyleChoices = array_combine($this->getBlockStyles(), $blockStyleChoices);
 
         if (count($this->getBlockStyles()) > 0) {
-            $additionalFormSettings[] = array(
+            $additionalFormSettings['block_style'] = array(
                 'block_style',
                 'sonata_type_translatable_choice',
                 array(
-                    'choices'   => $this->getBlockStyles(),
-                    'label'     => $this->trans('form.label_block_style')
+                    'required' => false,
+                    'choices'  => $blockStyleChoices,
+                    'catalogue'=> 'PrestaCMSCoreBundle',
+                    'label'    => $this->trans('form.label_block_style')
                 )
             );
         }
@@ -275,6 +283,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
     protected function flattenBlock(BlockInterface $block)
     {
         $settings = $block->getSettings();
+
         foreach ($settings as $key => $value) {
             if ($value == null) {
                 unset($settings[$key]);

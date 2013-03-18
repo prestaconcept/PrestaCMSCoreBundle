@@ -26,6 +26,9 @@ block:
             block:
                 simple: Bloc texte simple
                 page_children: Liste des pages filles avec titre et description
+    style:
+        info: Informations
+        headline: Headline
 
 breadcrumb:
     link_dashboard: Tableau de bord
