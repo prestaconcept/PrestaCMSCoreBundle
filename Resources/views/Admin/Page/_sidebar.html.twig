@@ -25,7 +25,7 @@
                             || data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Document_MultilangMenuNode')
                             && data.rslt.obj.attr("id") != '{{ menuItemId }}'
                         ) {
-                            var routing_defaults = {'locale': '{{ locale }}', '_locale': '{{ _locale }}'};
+                            var routing_defaults = {'locale': '{{ locale }}', '_locale': '{{ _locale }}', 'website': '{{ websiteId}}' };
                             routing_defaults["id"] = data.rslt.obj.attr("url_safe_id");
                             window.location = Routing.generate('presta_cms_page_edit', routing_defaults);
                         }
