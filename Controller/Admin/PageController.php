@@ -61,39 +61,44 @@ class PageController extends AdminController
      */
     public function editAction()
     {
-        $menuItemId = $this->getRequest()->get('id');
+        $menuItemId = $this->getRequest()->get('id', null);
         $locale = $this->getRequest()->get('locale');
 
-        $page = $this->getPageManager()->getPageForMenu($menuItemId, $locale);
-
-        $website = $this->getWebsiteManager()->getCurrentWebsite();
-        $theme = $this->getThemeManager()->getTheme($website->getTheme());
-
         $viewParams = array(
+            'websiteId'  => null,
             'menuItemId' => $menuItemId,
-            'websiteId' => $website->getId(),
-            'locale' => $locale,
-            'page' => $page,
+            'locale'  => $locale,
             '_locale' => $this->getRequest()->get('_locale'),
-            'translation_domain' => 'PrestaCMSCoreBundle',
-            'theme' => $theme
+            'page'  => null
         );
 
-        $viewParams['pageEditTabs'] = $this->getPageManager()->getType($page->getType())->getEditTabs();
+        $website = $this->getWebsiteManager()->getCurrentWebsite();
 
-        $form = $this->createForm(new PageType(), $page);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
-
-            if ($form->isValid()) {
-                $this->getPageManager()->update($page);
-                $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
-            } else {
-                $this->get('session')->setFlash('sonata_flash_error', 'flash_edit_error');
-            }
+        if ($website != null) {
+            $viewParams['websiteId'] = $website->getId();
+            $viewParams['locale'] = $website->getLocale();
+            $theme = $this->getThemeManager()->getTheme($website->getTheme());
+            $viewParams['theme'] = $theme;
         }
 
-        $viewParams['form'] = $form->createView();
+        if ($menuItemId != null) {
+            $page = $this->getPageManager()->getPageForMenu($menuItemId, $locale);
+            $viewParams['page'] = $page;
+            $viewParams['pageEditTabs'] = $this->getPageManager()->getType($page->getType())->getEditTabs();
+
+            $form = $this->createForm(new PageType(), $page);
+            if ($this->get('request')->getMethod() == 'POST') {
+                $form->bind($this->get('request'));
+
+                if ($form->isValid()) {
+                    $this->getPageManager()->update($page);
+                    $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
+                } else {
+                    $this->get('session')->setFlash('sonata_flash_error', 'flash_edit_error');
+                }
+            }
+            $viewParams['form'] = $form->createView();
+        }
 
         return $this->render('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
     }
