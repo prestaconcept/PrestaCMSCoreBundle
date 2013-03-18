@@ -161,7 +161,6 @@ class ThemeManager
      */
     protected function buildTheme(array $configuration, $website = null)
     {
-//        $locale = $website->getLocale();
         $configuration += array(
             'cols' => 12,
             'admin_style' => null,
@@ -179,6 +178,7 @@ class ThemeManager
         $theme->setCols($configuration['cols']);//var_dump(serialize(array('content'=>'<p>hello</p>')));die;
 
         if ($website != null) {
+            $locale = $website->getLocale();
             $zones = $this->getRepository()->getZones($configuration['name'], $website);
             if (count($zones) == 0) {
                 //If there is no corresponding data, initialisation with default configuration
@@ -194,9 +194,9 @@ class ThemeManager
                 //Translation is not propagated to the children
                 //Should be corrected by https://github.com/doctrine/phpcr-odm/pull/237
                 //but not working now : 14/03/2013
-//                foreach ($zone->getBlocks() as $block) {
-//                    $this->getDocumentManager()->bindTranslation($block, $locale);
-//                }
+                foreach ($zone->getBlocks() as $block) {
+                    $this->getDocumentManager()->bindTranslation($block, $locale);
+                }
             }
             $theme->addZone($zone);
         }
