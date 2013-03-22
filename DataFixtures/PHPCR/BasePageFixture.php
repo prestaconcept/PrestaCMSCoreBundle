@@ -131,7 +131,8 @@ abstract class BasePageFixture extends BaseFixture
 
                     $this->manager->persist($block);
                     foreach ($locales as $locale) {
-                        $block->setSettings($blockConfiguration['settings']);
+                        $settings = (isset($blockConfiguration['settings'][$locale])) ? $blockConfiguration['settings'][$locale] : $blockConfiguration['settings'];
+                        $block->setSettings($settings);
                         $this->manager->bindTranslation($block, $locale);
                     }
                 }
