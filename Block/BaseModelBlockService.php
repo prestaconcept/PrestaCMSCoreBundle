@@ -124,8 +124,15 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
      */
     public function load(BlockInterface $block)
     {
-        $modelFields = array_merge($this->getModelFields(), $this->getContentModelFields());
-        foreach ($modelFields as $fieldName => $adminCode) {
+        foreach ($this->getModelFields() as $fieldName => $adminCode) {
+            $model = $block->getSetting($fieldName, null);
+            if ($model) {
+                $modelAdmin = $this->getModelAdmin($adminCode);
+                $model = $modelAdmin->getModelManager()->find($modelAdmin->getClass(), $model, $block->getLocale());
+            }
+            $block->setSetting($fieldName, $model);
+        }
+        foreach ($this->getContentModelFields() as $fieldName => $adminCode) {
             $model = $block->getSetting($fieldName, null);
             if ($model) {
                 $modelAdmin = $this->getModelAdmin($adminCode);
@@ -133,7 +140,6 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
             }
             $block->setSetting($fieldName, $model);
         }
-
     }
 
     /**
