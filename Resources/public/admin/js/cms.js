@@ -148,7 +148,7 @@ var CMSContent = function() {
             $('#modal-content').hide();
             $('#modal-loader').show();
             // déclenche la sauvegarde du Tiny
-            //tinymce.triggerSave();
+            tinymce.triggerSave();
             $.ajax({
                 url: $('#modal form').attr('action'),
                 type: "POST",
