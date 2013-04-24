@@ -31,35 +31,30 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
     {
         $websiteManager = $this->getWebsiteManager();
 
-        $prestaconceptWebsite = $websiteManager->getWebsite(
-            array(
-                'path' => '/website/prestaconcept',
-                'locale' => 'fr',
-                'env'   => 'dev'
-            )
+        $websiteManager->setCurrentEnvironment('dev');
+        $prestaconceptWebsite = $websiteManager->loadWebsiteById(
+            '/website/prestaconcept',
+            'fr'
         );
         $this->assertEquals('dev', $websiteManager->getCurrentEnvironment());
         $this->assertEquals(true, $prestaconceptWebsite instanceof Website);
         $this->assertEquals('fr', $prestaconceptWebsite->getLocale());
 
-        $prestaconceptWebsite = $websiteManager->getWebsite(
-            array(
-                'path' => '/website/prestaconcept',
-                'locale' => 'en',
-                'env'   => 'prod'
-            )
+        $websiteManager->setCurrentEnvironment('prod');
+        $prestaconceptWebsite = $websiteManager->loadWebsiteById(
+            '/website/prestaconcept',
+            'en'
         );
         $this->assertEquals('prod', $websiteManager->getCurrentEnvironment());
         $this->assertEquals('en', $prestaconceptWebsite->getLocale());
 
-        $this->assertEquals(null, $websiteManager->getWebsite(array('path' => 'prestaconcept','locale' => 'fr','env'   => 'dev')));
+        $websiteManager->setCurrentEnvironment('dev');
+        $this->assertEquals(null, $websiteManager->loadWebsiteById('prestaconcept', 'fr'));
 
-        $liipWebsite = $websiteManager->getWebsite(
-            array(
-                'path' => '/website/liip',
-                'locale' => 'fr',
-                'env'   => 'dev'
-            )
+        $websiteManager->setCurrentEnvironment('dev');
+        $liipWebsite = $websiteManager->loadWebsiteById(
+            '/website/liip',
+            'fr'
         );
         $this->assertEquals('dev', $websiteManager->getCurrentEnvironment());
         $this->assertEquals('liip', $liipWebsite->getName());

@@ -40,13 +40,9 @@ class ThemeManagerTest extends BaseFunctionalTestCase
     {
         $websiteManager = $this->container->get('presta_cms.website_manager');
 
-        return $websiteManager->getWebsite(
-            array(
-                'path' => '/website/default',
-                'locale' => 'en',
-                'env'   => 'dev'
-            )
-        );
+        $websiteManager->setCurrentEnvironment('dev');
+        
+        return $websiteManager->loadWebsiteById('/website/default', 'en');
     }
 
     public function testGetThemeWithData()
