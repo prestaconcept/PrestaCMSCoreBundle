@@ -91,12 +91,4 @@ class WebsiteManagerTest extends BaseUnitTestCase
 
         //@next see to add exception on malformed configuration
     }
-
-    public function testSetCurrentWebsite()
-    {
-        $websiteManager = $this->getWebsiteManager();
-        $this->assertEquals(null, $websiteManager->getCurrentWebsite());
-        $websiteManager->setCurrentWebsite(null);
-        $this->assertEquals(null, $websiteManager->getCurrentWebsite());
-    }
 }
