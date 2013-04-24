@@ -167,7 +167,12 @@ abstract class BaseBlockService extends SonataBaseBlockService
         $additionalFormSettings = array();
         $blockStyleChoices = $this->getBlockStyles();
         //Add prefix for translations
-        array_walk($blockStyleChoices, function(&$item) { $item = 'block.style.' . $item; });
+        array_walk(
+            $blockStyleChoices,
+            function (&$item) {
+                $item = 'block.style.' . $item;
+            }
+        );
 
         $blockStyleChoices = array_combine($this->getBlockStyles(), $blockStyleChoices);
 
