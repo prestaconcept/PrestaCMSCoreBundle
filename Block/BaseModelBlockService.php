@@ -128,7 +128,12 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
             $model = $block->getSetting($fieldName, null);
             if ($model) {
                 $modelAdmin = $this->getModelAdmin($adminCode);
-                $model = $modelAdmin->getModelManager()->find($modelAdmin->getClass(), $model, $block->getLocale());
+                $modelClass = $modelAdmin->getClass();
+
+                // if model is not already load, do it
+                if (!$model instanceof $modelClass) {
+                    $model = $modelAdmin->getModelManager()->find($modelAdmin->getClass(), $model, $block->getLocale());
+                }
             }
             $block->setSetting($fieldName, $model);
         }
@@ -136,7 +141,12 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
             $model = $block->getSetting($fieldName, null);
             if ($model) {
                 $modelAdmin = $this->getModelAdmin($adminCode);
-                $model = $modelAdmin->getModelManager()->getDocumentManager()->findTranslation($modelAdmin->getClass(), $model, $block->getLocale());
+                $modelClass = $modelAdmin->getClass();
+
+                // if model is not already load, do it
+                if (!$model instanceof $modelClass) {
+                    $model = $modelAdmin->getModelManager()->getDocumentManager()->findTranslation($modelAdmin->getClass(), $model, $block->getLocale());
+                }
             }
             $block->setSetting($fieldName, $model);
         }
