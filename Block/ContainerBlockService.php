@@ -13,9 +13,6 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Presta\CMSCoreBundle\Block\BaseBlockService;
 
-
-use Symfony\Component\HttpFoundation\Response;
-
 /**
  * Container block
  *
