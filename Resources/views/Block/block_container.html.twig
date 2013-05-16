@@ -41,7 +41,7 @@
 {% import _self as prestacms %}
 
 {% block block %}
-<div id="zone_{{ containerId }}" class="cms-container {{ settings.class }}">
+<div id="zone_{{ containerId }}" class="cms-container {{ settings.layout }} {{ settings.class }}">
     <h2>{{ settings.title }}</h2>
     <div class="content">
         {% include 'PrestaCMSCoreBundle:Block/Container:' ~ settings.layout ~ '.html.twig' %}
