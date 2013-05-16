@@ -1,5 +1,3 @@
-
-
 <div class="page-zone-block">
     <h4>{{ ['block.title.', block.type]|join|trans([], 'PrestaCMSCoreBundle') }}</h4>
     <div class="block-actions">
@@ -7,10 +5,10 @@
             <a block-id="{{ block.id }}" class="action-edit">&nbsp;</a>
         {% endif %}
         {% if (block.isDeletable) %}
-            <a href="#" class="action-delete">&nbsp;</a>
+            <a block-id="{{ block.id }}" href="#" class="action-delete">&nbsp;</a>
         {% endif %}
     </div>
-    <div id="block-content-{{ block.htmlId }}" class="block-content">
+    <div id="block-content-{{ block.htmlId }}" class="cms-container-block">
         {{ sonata_block_render(block) }}
     </div>
 </div>
