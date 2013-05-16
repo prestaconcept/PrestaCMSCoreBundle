@@ -62,14 +62,14 @@ class PageController extends AdminController
     public function editAction()
     {
         $menuItemId = $this->getRequest()->get('id', null);
-        $locale = $this->getRequest()->get('locale');
+        $locale     = $this->getRequest()->get('locale');
 
         $viewParams = array(
-            'websiteId'  => null,
-            'menuItemId' => $menuItemId,
-            'locale'  => $locale,
-            '_locale' => $this->getRequest()->get('_locale'),
-            'page'  => null
+            'websiteId'     => null,
+            'menuItemId'    => $menuItemId,
+            'locale'        => $locale,
+            '_locale'       => $this->getRequest()->get('_locale'),
+            'page'          => null
         );
 
         $website = $this->getWebsiteManager()->getCurrentWebsite();
@@ -129,14 +129,14 @@ class PageController extends AdminController
      */
     public function renderPageTreeAction (Request $request)
     {
-        $root = $request->query->get('root');
-        $selected = $request->query->get('selected') ?: $root;
-        $locale = $request->query->get('locale');
+        $root       = $request->query->get('root');
+        $selected   = $request->query->get('selected') ?: $root;
+        $locale     = $request->query->get('locale');
 
         //$selected is set to null cause it trigger the "select_node.jstree" event and reload the page
-        $selected = null;
+        $selected   = null;
 
-        return $this->forward('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array(), array('root' => $root, 'selected' => $selected, '_locale' => $locale));
+        return $this->forward('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array('_locale' => $locale), array('root' => $root, 'selected' => $selected, '_locale' => $locale));
     }
 
     //	/**
