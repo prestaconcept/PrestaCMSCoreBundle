@@ -13,6 +13,9 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Presta\CMSCoreBundle\Block\BaseBlockService;
 
+
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * Container block
  *
@@ -49,7 +52,7 @@ class ContainerBlockService extends BaseBlockService
         return array_merge(
             array(
                 array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
-                array('layout', 'choice', array('required' => true, 'choices' => $this->getLayouts(), 'label' => $this->trans('form.label_layout')))
+                array('layout', 'choice', array('required' => true, 'choices' => array_combine($this->getLayouts(), $this->getLayouts()), 'label' => $this->trans('form.label_layout')))
             ),
             parent::getFormSettings($formMapper, $block)
         );
