@@ -5,7 +5,9 @@
             <a block-id="{{ block.id }}" class="action-edit">&nbsp;</a>
         {% endif %}
         {% if (block.isDeletable) %}
-            <a block-id="{{ block.id }}" href="#" class="action-delete">&nbsp;</a>
+            <a block-id="{{ block.id }}"
+               block-title="{{ ['block.title.', block.type]|join|trans([], 'PrestaCMSCoreBundle') }}"
+               class="action-delete">&nbsp;</a>
         {% endif %}
     </div>
     <div id="block-content-{{ block.htmlId }}">

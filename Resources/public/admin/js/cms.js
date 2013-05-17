@@ -185,6 +185,7 @@ var CMSContent = function() {
 
                             // override add button
                             parentBlock         = $(parentBlockId).parent('div').parent('div');
+                            parentBlock.html('');
                         }
 
                         parentBlock.append(html.content);
