@@ -44,17 +44,17 @@ var CMSContent = function() {
 
             $('body').on('click', 'a.action-add', function(e) {
                 e.preventDefault();
-                CMSContent.addBlock($(this).attr('zone-id'));          
+                CMSContent.addBlock($(this).attr('zone-id'));
             });
 
             $('body').on('click', 'a.action-container-add', function(e) {
                 e.preventDefault();
-                CMSContent.addContainerBlock($(this).attr('block-id'));                    
+                CMSContent.addContainerBlock($(this).attr('block-id'));
             });
 
             $('body').on('click', 'a.action-delete', function(e) {
                 e.preventDefault();
-                CMSContent.deleteBlock($(this).attr('block-id'), $(this).attr('block-title'));           
+                CMSContent.deleteBlock($(this).attr('block-id'), $(this).attr('block-title'));
             });
 
             // $( ".page-zone-block-container" ).sortable(
@@ -66,15 +66,8 @@ var CMSContent = function() {
         /**
          * Return url for block rendering
          */
-        getRenderBlocUrl : function (blockId, isAdminMode) {
-
-            url = this._renderBlockUrl + '?id=' + blockId;
-
-            if (isAdminMode != undefined) {
-                url += '&isAdminMode=1';
-            }
-
-            return url;
+        getRenderBlocUrl : function (blockId) {
+            return this._renderBlockUrl + '?id=' + blockId;
         },
 
         /**
@@ -172,19 +165,39 @@ var CMSContent = function() {
                     $('#modal').modal('hide');
                     CMSContentInit();
 
-                    //check action
-                    var blockContainerId    = html.objectId.replace(/\//g, '');
-                    blockContainerId        = blockContainerId.replace(/\_/g, '');
-                    blockContainerId        = '#block-content-' + blockContainerId.replace(/\./g, '');
+                    if (html.action == undefined) {
+                        html.action = 'edit';
+                    }
 
-                    // add block
-                    if (html.action != undefined && html.action == 'add') {
-                        $(blockContainerId).parent('div').parent('div').html(html.content);
-                        $(blockContainerId).effect("highlight", {}, 3000);
+                    if (html.action == 'add') {
+                        if (html.zone != undefined) {
+                            // add block in zone
+                            var parentBlockId   = html.zone.replace(/\//g, '');
+                            parentBlockId       = parentBlockId.replace(/\_/g, '');
+                            parentBlockId       = '#cms-zone-' + parentBlockId.replace(/\./g, '');
+                            parentBlock         = $(parentBlockId);
 
-                    } else {
-                        $(blockContainerId).load(CMSContent.getRenderBlocUrl(html.objectId, true), function() {
-                            $(blockContainerId).effect("highlight", {}, 3000);
+                        } else {
+                            // add block in container
+                            var parentBlockId   = html.objectId.replace(/\//g, '');
+                            parentBlockId       = parentBlockId.replace(/\_/g, '');
+                            parentBlockId       = '#block-content-' + parentBlockId.replace(/\./g, '');
+
+                            // override add button
+                            parentBlock         = $(parentBlockId).parent('div').parent('div');
+                        }
+
+                        parentBlock.append(html.content);
+                        parentBlock.effect("highlight", {}, 3000);
+
+                    } else if (html.action == 'edit') {
+                        // refresh block after edit action
+                        var parentBlockId    = html.objectId.replace(/\//g, '');
+                        parentBlockId        = parentBlockId.replace(/\_/g, '');
+                        parentBlockId        = '#block-content-' + parentBlockId.replace(/\./g, '');
+
+                        $(parentBlockId).load(CMSContent.getRenderBlocUrl(html.objectId), function() {
+                            $(parentBlockId).effect("highlight", {}, 3000);
                         });
                     }
 

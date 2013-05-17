@@ -120,7 +120,6 @@ table.page-content-admin div.page-zone-block-container {
 
 table.page-content-admin div.page-zone-block {
     border: 1px solid #DDD;
-    border-top: 0;
     background: white;
     text-align: left;
     -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 0 #fff;
@@ -182,6 +181,10 @@ a.action-edit {
 
 a.action-delete {
     background: url('/bundles/prestacmscore/admin/img/icons/delete-icon.png') no-repeat center center transparent;
+}
+
+a.action-container-add {
+
 }
 
 .icon-add {
