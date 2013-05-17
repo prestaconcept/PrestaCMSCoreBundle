@@ -76,6 +76,8 @@ class BlockController extends CRUDController
             $manager->create($block);
 
             if ($this->isXmlHttpRequest()) {
+                $block->setAdminMode();
+                
                 return $this->renderJson(
                     array(
                         'result' => 'ok',
@@ -125,10 +127,11 @@ class BlockController extends CRUDController
             if ($this->isXmlHttpRequest()) {
                 return $this->renderJson(
                     array(
-                        'result' => 'ok',
-                        'action' => 'delete',
-                        'zone' => $block->getParent()->getId(),
-                        'block' => $block->getId()
+                        'result'    => 'ok',
+                        'action'    => 'delete',
+                        'zone'      => $block->getParent()->getId(),
+                        'block'     => $block->getId(),
+                        'content'   => $this->renderView('PrestaCMSCoreBundle:Admin/Block:delete_block_content.html.twig', array('block' => $block)),
                     )
                 );
             }
