@@ -32,40 +32,44 @@ var CMSContent = function() {
          * Initialisation
          */
         init : function (editBlocUrl, renderBlockUrl, addBlockUrl, deleteBlockUrl) {
-            this._editBlocUrl = editBlocUrl;
-            this._renderBlockUrl = renderBlockUrl;
-            this._addBlocUrl = addBlockUrl;
-            this._deleteBlocUrl = deleteBlockUrl;
+            this._editBlocUrl       = editBlocUrl;
+            this._renderBlockUrl    = renderBlockUrl;
+            this._addBlocUrl        = addBlockUrl;
+            this._deleteBlocUrl     = deleteBlockUrl;
             
-            $('a.action-edit').click(function(e) {
+            $('body').on('click', 'a.action-edit', function(e) {
                 e.preventDefault();
                 CMSContent.editBlock($(this).attr('block-id'));                    
             });
-            $('a.action-add').click(function(e) {
+
+            $('body').on('click', 'a.action-add', function(e) {
                 e.preventDefault();
                 CMSContent.addBlock($(this).attr('zone-id'));
             });
-            $('a.action-container-add').click(function(e) {
+
+            $('body').on('click', 'a.action-container-add', function(e) {
                 e.preventDefault();
                 CMSContent.addContainerBlock($(this).attr('block-id'));
             });
-            $('a.action-delete').click(function(e) {
+
+            $('body').on('click', 'a.action-delete', function(e) {
                 e.preventDefault();
                 CMSContent.deleteBlock($(this).attr('block-id'), $(this).attr('block-title'));
             });
 
-//                $( ".page-zone-block-container" ).sortable(
-//                    { cursor: "move" }
-//                );
-//                $( ".page-zone-block-container" ).disableSelection();
-
+            // $( ".page-zone-block-container" ).sortable(
+            //     { cursor: "move" }
+            // );
+            // $( ".page-zone-block-container" ).disableSelection();
         },
+
         /**
          * Return url for block rendering
          */
         getRenderBlocUrl : function (blockId) {
             return this._renderBlockUrl + '?id=' + blockId;
         },
+
         /**
          * Handle block edit button click
          * Load Modal Edition
@@ -83,6 +87,7 @@ var CMSContent = function() {
                 initWysiwyg();
             });
         },
+
         /**
          * Handle block add button click
          * Load Modal
@@ -99,6 +104,7 @@ var CMSContent = function() {
                 $('#modal-content').show();
             });
         },
+
         /**
          * Handle block add button click
          * Load Modal
@@ -115,12 +121,12 @@ var CMSContent = function() {
                 $('#modal-content').show();
             });
         },
+
         /**
          * Handle block add button click
          * Load Modal
          */
         deleteBlock : function (blockId, message) {
-
             if (confirm(message)) {
                 $.ajax({
                     url: this._deleteBlocUrl + '?id=' + blockId,
@@ -131,24 +137,23 @@ var CMSContent = function() {
                         var blockContainerId = html.block.replace(/\//g, '');
                         blockContainerId = blockContainerId.replace(/\_/g, '');
                         blockContainerId = '#block-content-' + blockContainerId.replace(/\./g, '');
-                        $(blockContainerId).parent().remove();
-
-                        var zoneContainerId = html.zone.replace(/\//g, '');
-                        zoneContainerId = zoneContainerId.replace(/\_/g, '');
-                        zoneContainerId = '#cms-zone-' + zoneContainerId.replace(/\./g, '');
-                        $(zoneContainerId).effect("highlight", {}, 3000);
+                        $(blockContainerId).parent('.page-zone-block').html(html.content);
+                        $(blockContainerId).effect("highlight", {}, 3000);
                     }
                 });
             }
         },
+
         /**
          * Submit Modal Edition form and update content
          */
         submitModalForm : function () {
             $('#modal-content').hide();
             $('#modal-loader').show();
+
             // déclenche la sauvegarde du Tiny
-            tinymce.triggerSave();
+            wysiwygTriggerSave();
+
             $.ajax({
                 url: $('#modal form').attr('action'),
                 type: "POST",
@@ -159,23 +164,43 @@ var CMSContent = function() {
                     $('#modal-content').html('');
                     $('#modal').modal('hide');
                     CMSContentInit();
-                    //check action
-                    if (html.action != undefined) {
-                        if (html.action == 'add') {
-                            var zoneContainerId = html.zone.replace(/\//g, '');
-                            zoneContainerId = zoneContainerId.replace(/\_/g, '');
-                            zoneContainerId = '#cms-zone-' + zoneContainerId.replace(/\./g, '');
-                            $(zoneContainerId).append(html.content);
-                            $(zoneContainerId).effect("highlight", {}, 3000);
-                            return;
-                        }
+
+                    if (html.action == undefined) {
+                        html.action = 'edit';
                     }
-                    var blockContainerId = html.objectId.replace(/\//g, '');
-                    blockContainerId = blockContainerId.replace(/\_/g, '');
-                    blockContainerId = '#block-content-' + blockContainerId.replace(/\./g, '');
-                    $(blockContainerId).load(CMSContent.getRenderBlocUrl(html.objectId), function() {
-                        $(blockContainerId).effect("highlight", {}, 3000);
-                    });
+
+                    if (html.action == 'add') {
+                        if (html.zone != undefined) {
+                            // add block in zone
+                            var parentBlockId   = html.zone.replace(/\//g, '');
+                            parentBlockId       = parentBlockId.replace(/\_/g, '');
+                            parentBlockId       = '#cms-zone-' + parentBlockId.replace(/\./g, '');
+                            parentBlock         = $(parentBlockId);
+
+                        } else {
+                            // add block in container
+                            var parentBlockId   = html.objectId.replace(/\//g, '');
+                            parentBlockId       = parentBlockId.replace(/\_/g, '');
+                            parentBlockId       = '#block-content-' + parentBlockId.replace(/\./g, '');
+
+                            // override add button
+                            parentBlock         = $(parentBlockId).parent('div').parent('div');
+                        }
+
+                        parentBlock.append(html.content);
+                        parentBlock.effect("highlight", {}, 3000);
+
+                    } else if (html.action == 'edit') {
+                        // refresh block after edit action
+                        var parentBlockId    = html.objectId.replace(/\//g, '');
+                        parentBlockId        = parentBlockId.replace(/\_/g, '');
+                        parentBlockId        = '#block-content-' + parentBlockId.replace(/\./g, '');
+
+                        $(parentBlockId).load(CMSContent.getRenderBlocUrl(html.objectId), function() {
+                            $(parentBlockId).effect("highlight", {}, 3000);
+                        });
+                    }
+
                 } else {
                     //If an error occurs, we rediplay the form
                     $('#modal-content').html(html);

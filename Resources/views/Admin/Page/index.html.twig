@@ -53,7 +53,7 @@
         <div class="tab-content">
             {% for type, tab in pageEditTabs %}
             <div class="tab-pane form-horizontal {% if (loop.index == 1) %}active{% endif %}" id="{{ [type, '-', tab]|join }}">
-                {% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'type': type, 'tab': tab, 'page': page} %}
+                {% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'_locale': locale, 'type': type, 'tab': tab, 'page': page} %}
             </div>
             {% endfor %}
             <div class="tab-pane form-horizontal" id="seo">
