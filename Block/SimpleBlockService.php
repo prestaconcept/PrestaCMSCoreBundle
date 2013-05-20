@@ -42,7 +42,6 @@ class SimpleBlockService extends BaseModelBlockService
     {
         return array(
             'title' => $this->trans('block.default.title'),
-            'title_level' => $this->trans('block.default.title_level'),
             'content' => $this->trans('block.default.content'),
             'link_label' => null,
             'link_destination' => null
@@ -56,27 +55,8 @@ class SimpleBlockService extends BaseModelBlockService
     {
         return array(
             array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
-            array(
-                'title_level', 
-                'choice', 
-                array(
-                    'required'  => true,
-                    'choices'   => array_combine($this->getTitleLevels(), $this->getTitleLevels()),
-                    'label'     => $this->trans('form.label_title_level')
-                )
-            ),
             array('content', 'textarea', array('attr' => array(), 'label' => $this->trans('form.label_content'))),
             array('link_label', 'text', array('required' => false, 'label' => $this->trans('form.label_link_label')))
         );
-    }
-
-    /**
-     * Returns available title levels
-     *
-     * @return array
-     */
-    protected function getTitleLevels()
-    {
-        return array('h1', 'h2', 'h3', 'h4', 'h5', 'h6');
     }
 }

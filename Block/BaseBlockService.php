@@ -81,6 +81,16 @@ abstract class BaseBlockService extends SonataBaseBlockService
     }
 
     /**
+     * Returns available title levels
+     *
+     * @return array
+     */
+    protected function getTitleLevels()
+    {
+        return array('h1', 'h2', 'h3', 'h4', 'h5', 'h6');
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getCacheKeys(BlockInterface $block)
@@ -148,7 +158,8 @@ abstract class BaseBlockService extends SonataBaseBlockService
         );
 
         $settings += array(
-            'block_style' => null
+            'block_style' => null,
+            'title_level' => null,
         );
 
         return $settings;
@@ -165,6 +176,8 @@ abstract class BaseBlockService extends SonataBaseBlockService
     protected function getAdditionalFormSettings(FormMapper $formMapper, BlockInterface $block)
     {
         $additionalFormSettings = array();
+
+        // Block Styles
         $blockStyleChoices = $this->getBlockStyles();
         //Add prefix for translations
         array_walk(
@@ -175,7 +188,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
         );
 
         $blockStyleChoices = array_combine($this->getBlockStyles(), $blockStyleChoices);
-
+        
         if (count($this->getBlockStyles()) > 0) {
             $additionalFormSettings['block_style'] = array(
                 'block_style',
@@ -185,6 +198,31 @@ abstract class BaseBlockService extends SonataBaseBlockService
                     'choices'  => $blockStyleChoices,
                     'catalogue'=> 'PrestaCMSCoreBundle',
                     'label'    => $this->trans('form.label_block_style')
+                )
+            );
+        }
+
+        // Title level
+        $titleLevelChoices = $this->getTitleLevels();
+        //Add prefix for translations
+        array_walk(
+            $titleLevelChoices,
+            function (&$item) {
+                $item = 'title.level.'.$item;
+            }
+        );
+
+        $titleLevelChoices = array_combine($this->getTitleLevels(), $titleLevelChoices);
+
+        if (count($this->getTitleLevels()) > 0) {
+            $additionalFormSettings['title_level'] = array(
+                'title_level',
+                'sonata_type_translatable_choice',
+                array(
+                    'required' => true,
+                    'choices'  => $titleLevelChoices,
+                    'catalogue'=> 'PrestaCMSCoreBundle',
+                    'label'    => $this->trans('form.label_title_level')
                 )
             );
         }
