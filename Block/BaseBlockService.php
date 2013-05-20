@@ -159,7 +159,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
 
         $settings += array(
             'block_style' => null,
-            'title_level' => null,
+            'title_level' => 'h2',
         );
 
         return $settings;
@@ -188,7 +188,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
         );
 
         $blockStyleChoices = array_combine($this->getBlockStyles(), $blockStyleChoices);
-        
+
         if (count($this->getBlockStyles()) > 0) {
             $additionalFormSettings['block_style'] = array(
                 'block_style',
