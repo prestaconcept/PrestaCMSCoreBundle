@@ -2,7 +2,7 @@
 
 {% block block %}
     {% if (settings.title|length) %}
-        <h2 class="cms-block-title">{{ settings.title }}</h2>
+        <{{ settings.title_level }} class="cms-block-title">{{ settings.title }}</{{ settings.title_level }}>
     {% endif %}
 
     {% if (settings.content|length) %}

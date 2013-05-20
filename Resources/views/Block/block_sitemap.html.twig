@@ -1,7 +1,7 @@
 {% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
 
 {% block block %}
-    <h2>{{ settings.title }}</h2>
+    <{{ settings.title_level }}>{{ settings.title }}</{{ settings.title_level }}>
     {% if (settings.root_node|length) %}
     {% set item = settings.root_node %}
     {% set depth = settings.depth %}

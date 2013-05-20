@@ -43,7 +43,7 @@
 {% block block %}
 <div id="zone_{{ containerId }}" class="cms-container cms-container-{{ settings.layout }} {{ settings.class }}">
     {% if(settings.title|length) %}
-        <h2 class="cms-container-title">{{ settings.title }}</h2>
+        <{{ settings.title_level }} class="cms-container-title">{{ settings.title }}</{{ settings.title_level }}>
     {% endif %}
 
     <div class="cms-container-content">
