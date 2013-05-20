@@ -1,9 +1,17 @@
 {% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
 
 {% block block %}
-    <h2>{{ settings.title }}</h2>
-    {{ settings.content|raw }}
-    <ul class="page-children">
+    {% if (settings.title|length) %}
+        <h2 class="cms-block-title">{{ settings.title }}</h2>
+    {% endif %}
+
+    {% if (settings.content|length) %}
+        <div class="cms-block-content">
+            {{ settings.content|raw }}
+        </div>
+    {% endif %}
+
+    <ul class="cms-block-page-children-container">
         {% for child in cmf_children(settings.page) %}
             {%  if child.title is defined %}
             <li>
