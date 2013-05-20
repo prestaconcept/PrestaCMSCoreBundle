@@ -103,6 +103,7 @@ form:
     label_settings: Paramétrage
     label_theme: Thème
     label_title: Titre
+    label_title_level: Niveau du titre
 
 form_site:
     label_general: Général
