@@ -1,13 +1,19 @@
 {% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
 
 {% block block %}
-    <h2>{{ settings.title }}</h2>
-    <div class="content">
-        {{ settings.content|raw }}
-    </div>
+    {% if (settings.title|length) %}
+        <h3 class="cms-block-title">{{ settings.title }}</h3>
+    {% endif %}
+
+    {% if (settings.content|length) %}
+        <div class="cms-block-content">
+            {{ settings.content|raw }}
+        </div>
+    {% endif %}
+
     {% if ((settings.link_label|length) and (settings.link_destination|length)) %}
-    <div class="link">
-        <a href="{% if (block.isAdminMode) %}#{% else %}{{ path(settings.link_destination) }}{% endif %}">{{ settings.link_label }}</a>
-    </div>
+        <div class="cms-block-link-container">
+            <a href="{% if (block.isAdminMode) %}#{% else %}{{ path(settings.link_destination) }}{% endif %}">{{ settings.link_label }}</a>
+        </div>
     {% endif %}
 {% endblock %}
