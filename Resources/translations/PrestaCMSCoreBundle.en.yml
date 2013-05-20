@@ -103,6 +103,7 @@ form:
     label_settings: Settings
     label_theme: Default language
     label_title: Title
+    label_title_level: Title level
 
 form_site:
     label_general: General

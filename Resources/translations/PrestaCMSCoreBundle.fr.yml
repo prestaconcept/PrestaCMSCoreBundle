@@ -103,6 +103,7 @@ form:
     label_settings: Paramétrage
     label_theme: Thème
     label_title: Titre
+    label_title_level: Niveau du titre
 
 form_site:
     label_general: Général
@@ -152,6 +153,15 @@ theme:
         page_templates: Gabarits de page
         content: Contenu
         general: Informations générales
+
+title:
+    level:
+        h1: h1
+        h2: h2
+        h3: h3
+        h4: h4
+        h5: h5
+        h6: h6
 
 zone:
     name:
