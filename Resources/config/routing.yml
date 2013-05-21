@@ -28,6 +28,9 @@ presta_cms_page_edit:
 presta_cms_page_tree:
     pattern:  /cms/page/tree
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:renderPageTree}
+presta_cms_page_clear_cache:
+    pattern:  /cms/page/clear_cache
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:clearCache}
 
 #Administration - Import / Export
 presta_cms_page_selector:

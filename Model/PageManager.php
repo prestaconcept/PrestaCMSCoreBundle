@@ -169,4 +169,13 @@ class PageManager
     {
         return $this->currentPage;
     }
+
+    /**
+     * @param $id
+     * @return \Presta\CMSCoreBundle\Document\Page
+     */
+    public function getPageById($id)
+    {
+        return $this->getDocumentManager()->find(null, $id);
+    }
 }

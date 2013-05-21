@@ -31,8 +31,9 @@
         <div class="">
             {#<a class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i>&nbsp;{{ 'button.delete'|trans }}</a>#}
             {#<button class="btn" type="button"><i class=" icon-eye-open "></i>&nbsp;{{ 'button.preview'|trans }}</button>#}
-            {#<button class="btn btn-success" type="button"><i class="icon-retweet icon-white"></i>&nbsp;{{ 'button.publish'|trans }}</button>#}
-            <a class="btn btn-primary" onclick="$('#edit_form').submit();"><i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans({}, 'admin') }}</a>
+
+            <a class="btn btn-success" href="{{ path('presta_cms_page_clear_cache', {'id': page.id}) }}"><i class="icon-retweet icon-white"></i>&nbsp;{{ 'button.clear_cache'|trans({}, 'PrestaCMSCoreBundle') }}</a>
+            <a class="btn btn-primary" onclick="$('#edit_form').submit();"><i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans({}, 'PrestaCMSCoreBundle') }}</a>
         </div>
     </div>
     {% endif %}

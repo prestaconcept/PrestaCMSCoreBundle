@@ -99,6 +99,7 @@ abstract class BasePageFixture extends BaseFixture
         $page->setIsActive(true);
         $page->setType($pageConfiguration['type']);
         $page->setTemplate($pageConfiguration['template']);
+        $page->setLastCacheModifiedDate(new \DateTime());
         $this->manager->persist($page);
 
         $meta = $pageConfiguration['meta'];

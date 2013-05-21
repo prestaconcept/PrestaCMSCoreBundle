@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  *
@@ -61,6 +62,14 @@ class PageController extends Controller
             throw new NotFoundHttpException('Content not found');
         }
 
+        //Cache validation
+        $response = new Response();
+        $response->setPublic();
+        $response->setLastModified($contentDocument->getLastCacheModifiedDate());
+        if ($response->isNotModified($this->getRequest())) {
+            return $response;
+        }
+
         $website = $this->getWebsiteManager()->getCurrentWebsite();
 
         $theme = $this->getThemeManager()->getTheme($website->getTheme(), $website);
@@ -99,6 +108,6 @@ class PageController extends Controller
         //des partie du layout librement
         $template = $viewParams['template'];
 
-        return $this->render($template, $viewParams);
+        return $this->render($template, $viewParams, $response);
     }
 }

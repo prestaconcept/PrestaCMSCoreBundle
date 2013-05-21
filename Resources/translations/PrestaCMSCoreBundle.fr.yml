@@ -43,6 +43,7 @@ breadcrumb:
 button:
     close: Fermer
     save: Sauvegarder
+    clear_cache: Vider le cache
 
 cms_page:
     content:
