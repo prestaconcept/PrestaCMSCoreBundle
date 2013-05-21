@@ -77,6 +77,11 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      */
     protected $children;
 
+    /**
+     * @PHPCRODM\Date()
+     */
+    protected $lastCacheModifiedDate;
+
     public function __construct()
     {
         $this->isActive = true;
@@ -300,5 +305,21 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
         }
 
         return $this->url;
+    }
+
+    /**
+     * @param Date $lastCacheModifiedDate
+     */
+    public function setLastCacheModifiedDate($lastCacheModifiedDate)
+    {
+        $this->lastCacheModifiedDate = $lastCacheModifiedDate;
+    }
+
+    /**
+     * @return Date
+     */
+    public function getLastCacheModifiedDate()
+    {
+        return $this->lastCacheModifiedDate;
     }
 }
