@@ -14,6 +14,7 @@ use Presta\CMSCoreBundle\Form\PageType;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Page administration controller
@@ -165,4 +166,29 @@ class PageController extends AdminController
     //		}
     //		return $this->render('PrestaCMSCoreBundle:Admin/Page:selector.html.twig', $viewParams);
     //	}
+
+    /**
+     * Clear page cache
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function clearCacheAction()
+    {
+        $pageId = $this->getRequest()->get('id', null);
+        $page   = $this->getPageManager()->getPageById($pageId);
+
+        if ($page == null) {
+            throw new NotFoundHttpException();
+        }
+
+        //To clear the front cache, we just need to update the LastCacheModifiedDate of the page
+        //Front cache validation noticed that cache should be recomputed
+        $page->setLastCacheModifiedDate(new \DateTime());
+        $this->getPageManager()->update($page);
+
+        $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
+
+
+        return $this->redirect($this->getRequest()->headers->get('referer'));
+    }
 }
