@@ -71,7 +71,7 @@ class PageManager
     protected function getRepository()
     {
         if ($this->repository == null) {
-            $this->repository = $this->getDocumentManager->getRepository('Presta\CMSCoreBundle\Document\Page');
+            $this->repository = $this->getDocumentManager()->getRepository('Presta\CMSCoreBundle\Document\Page');
         }
 
         return $this->repository;
