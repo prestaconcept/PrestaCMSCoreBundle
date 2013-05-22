@@ -30,10 +30,9 @@
     <div class="sonata-actions subnav">
         <div class="">
             {#<a class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i>&nbsp;{{ 'button.delete'|trans }}</a>#}
-            {#<button class="btn" type="button"><i class=" icon-eye-open "></i>&nbsp;{{ 'button.preview'|trans }}</button>#}
 
+            <a class="btn btn-info" target="_blank" href="{{ pageFrontUrl }}"><i class=" icon-eye-open "></i>&nbsp;{{ 'button.preview'|trans({}, 'PrestaCMSCoreBundle') }}</a>
             <a class="btn btn-success" href="{{ path('presta_cms_page_clear_cache', {'id': page.id}) }}"><i class="icon-retweet icon-white"></i>&nbsp;{{ 'button.clear_cache'|trans({}, 'PrestaCMSCoreBundle') }}</a>
-            <a class="btn btn-primary" onclick="$('#edit_form').submit();"><i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans({}, 'PrestaCMSCoreBundle') }}</a>
         </div>
     </div>
     {% endif %}
@@ -66,6 +65,13 @@
                             {{ form_row(form.title)}}
                             {{ form_row(form.metaKeywords)}}
                             {{ form_row(form.metaDescription)}}
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <a class="btn btn-primary" onclick="$('#edit_form').submit();">
+                                    <i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans({}, 'PrestaCMSCoreBundle') }}
+                                </a>
+                            </div>
                         </div>
                     </fieldset>
                     {{ form_rest(form) }}

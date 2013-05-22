@@ -62,14 +62,15 @@ class PageController extends AdminController
      */
     public function editAction()
     {
-        $menuItemId = $this->getRequest()->get('id', null);
-        $locale     = $this->getRequest()->get('locale');
+        $request    = $this->getRequest();
+        $menuItemId = $request->get('id', null);
+        $locale     = $request->get('locale', null);
 
         $viewParams = array(
             'websiteId'     => null,
             'menuItemId'    => $menuItemId,
             'locale'        => $locale,
-            '_locale'       => $this->getRequest()->get('_locale'),
+            '_locale'       => $request->get('_locale'),
             'page'          => null
         );
 
@@ -83,16 +84,19 @@ class PageController extends AdminController
         }
 
         if ($menuItemId != null) {
-            $page = $this->getPageManager()->getPageForMenu($menuItemId, $locale);
+            $pageManager = $this->getPageManager();
+            $page = $pageManager->getPageForMenu($menuItemId, $locale);
             $viewParams['page'] = $page;
-            $viewParams['pageEditTabs'] = $this->getPageManager()->getType($page->getType())->getEditTabs();
+            $viewParams['pageFrontUrl'] = $request->getScheme() . '://' . $this->getWebsiteManager()->getHostForWebsite($website, $locale, $this->get('kernel')->getEnvironment()) . $pageManager->getPageUrl($page);
+            $viewParams['pageFrontUrl'] .= '?token=' . $pageManager->getToken($page);
+            $viewParams['pageEditTabs'] = $pageManager->getType($page->getType())->getEditTabs();
 
             $form = $this->createForm(new PageType(), $page);
             if ($this->get('request')->getMethod() == 'POST') {
                 $form->bind($this->get('request'));
 
                 if ($form->isValid()) {
-                    $this->getPageManager()->update($page);
+                    $pageManager->update($page);
                     $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
                 } else {
                     $this->get('session')->setFlash('sonata_flash_error', 'flash_edit_error');
