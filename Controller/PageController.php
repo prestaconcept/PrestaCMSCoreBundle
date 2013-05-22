@@ -61,27 +61,30 @@ class PageController extends Controller
         if (!$contentDocument) {
             throw new NotFoundHttpException('Content not found');
         }
+        $request     = $this->getRequest();
+        $pageManager = $this->getPageManager();
 
         //Cache validation
         $response = new Response();
         $response->setPublic();
         $response->setLastModified($contentDocument->getLastCacheModifiedDate());
-        if ($response->isNotModified($this->getRequest())) {
+        $previewToken = $request->get('token', null);
+        $isPreviewMode = ($previewToken != null && $pageManager->isValidToken($contentDocument, $previewToken));
+
+        if ($response->isNotModified($request) && $isPreviewMode == false) {
             return $response;
         }
 
         $website = $this->getWebsiteManager()->getCurrentWebsite();
-
-        $theme = $this->getThemeManager()->getTheme($website->getTheme(), $website);
+        $theme   = $this->getThemeManager()->getTheme($website->getTheme(), $website);
 
         //If document load doesn't have the same locale as the website
         //Try to redirect on the translated page
         if ($contentDocument->getLocale() != $website->getLocale()) {
-            var_dump('on est pas sur la bonne locale, @todo impl?menter la redirection ou g?rer ?a plus haut dans le routing');
+            throw new NotFoundHttpException('Content not found for this locale');
         }
         //Check if the document is publish and load the good version
         //todo when jackaplone implements it
-
 
         $seoPage = $this->get('sonata.seo.page');
 
@@ -90,7 +93,6 @@ class PageController extends Controller
             ->addMeta('name', 'keywords', $contentDocument->getMetaKeywords())
             ->addMeta('name', 'description', $contentDocument->getMetaDescription());
 
-
         $viewParams = array(
             'base_template' => $theme->getTemplate(),
             'website' => $website,
@@ -98,8 +100,9 @@ class PageController extends Controller
             'theme' => $theme,
             'page'  => $contentDocument
         );
-        $this->getPageManager()->setCurrentPage($contentDocument);
-        $pageType = $this->getPageManager()->getType($contentDocument->getType());
+
+        $pageManager->setCurrentPage($contentDocument);
+        $pageType = $pageManager->getType($contentDocument->getType());
         if ($pageType != null) {
             $viewParams = array_merge($viewParams, $pageType->getData($contentDocument));
         }
@@ -107,6 +110,11 @@ class PageController extends Controller
         //on doit charger directement le tempalte pour que ce denier puisse surcharge
         //des partie du layout librement
         $template = $viewParams['template'];
+
+        if ($isPreviewMode) {
+            //In preview we need to remove the cache data form the response
+            $response = null;
+        }
 
         return $this->render($template, $viewParams, $response);
     }

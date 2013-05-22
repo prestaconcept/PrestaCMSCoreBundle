@@ -178,4 +178,41 @@ class PageManager
     {
         return $this->getDocumentManager()->find(null, $id);
     }
+
+    /**
+     * Return token : use it to validate risky action
+     *
+     * @param $page
+     */
+    public function getToken($page)
+    {
+        return md5($page->getId() . $page->getType() . $this->container->getParameter('secret'));
+    }
+
+    /**
+     * Check if token is valid
+     *
+     * @param  \Presta\CMSCoreBundle\Document\Page $page
+     * @param  string $token
+     * @return boolean
+     */
+    public function isValidToken($page, $token)
+    {
+        return ($token == $this->getToken($page));
+    }
+
+    /**
+     * Return page full url
+     *
+     * @param \Presta\CMSCoreBundle\Document\Page $page
+     * @return string
+     */
+    public function getPageUrl($page)
+    {
+        return str_replace(
+            $page->getRoute()->getPrefix(),
+            '',
+            $page->getRoute()->getId()
+        );
+    }
 }

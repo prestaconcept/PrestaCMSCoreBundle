@@ -1,4 +1,5 @@
 {% extends base_template %}
+{% trans_default_domain "PrestaCMSCoreBundle" %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -20,8 +21,8 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ url('sonata_admin_dashboard') }}">{{ 'breadcrumb.link_dashboard'|trans([], 'PrestaCMSCoreBundle') }}</a><span class="divider">/</span></li>
-    <li class="active"><a href="{{ url('presta_cms_page_edit') }}">{{ 'breadcrumb.link_page_list'|trans([], 'PrestaCMSCoreBundle') }}</a></li>
+    <li><a href="{{ url('sonata_admin_dashboard') }}">{{ 'breadcrumb.link_dashboard'|trans }}</a><span class="divider">/</span></li>
+    <li class="active"><a href="{{ url('presta_cms_page_edit') }}">{{ 'breadcrumb.link_page_list'|trans }}</a></li>
     {% if (page) %}<li class="active"><span class="divider">/</span> {{ page.title }} </li>{% endif %}
 {% endblock %}
 
@@ -30,10 +31,9 @@
     <div class="sonata-actions subnav">
         <div class="">
             {#<a class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i>&nbsp;{{ 'button.delete'|trans }}</a>#}
-            {#<button class="btn" type="button"><i class=" icon-eye-open "></i>&nbsp;{{ 'button.preview'|trans }}</button>#}
 
-            <a class="btn btn-success" href="{{ path('presta_cms_page_clear_cache', {'id': page.id}) }}"><i class="icon-retweet icon-white"></i>&nbsp;{{ 'button.clear_cache'|trans({}, 'PrestaCMSCoreBundle') }}</a>
-            <a class="btn btn-primary" onclick="$('#edit_form').submit();"><i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans({}, 'PrestaCMSCoreBundle') }}</a>
+            <a class="btn btn-info" target="_blank" href="{{ pageFrontUrl }}"><i class=" icon-eye-open "></i>&nbsp;{{ 'button.preview'|trans }}</a>
+            <a class="btn btn-success" href="{{ path('presta_cms_page_clear_cache', {'id': page.id}) }}"><i class="icon-retweet icon-white"></i>&nbsp;{{ 'button.clear_cache'|trans }}</a>
         </div>
     </div>
     {% endif %}
@@ -43,10 +43,10 @@
     {% if (page) %}
         <ul class="nav nav-tabs">
             {% for type, tab in pageEditTabs %}
-                <li class="{% if (loop.index == 1) %}active{% endif %}"><a href="#{{ [type, '-', tab]|join }}" data-toggle="tab">{{ [type, '.', tab, '.title']|join|trans({}, 'PrestaCMSCoreBundle') }}</a></li>
+                <li class="{% if (loop.index == 1) %}active{% endif %}"><a href="#{{ [type, '-', tab]|join }}" data-toggle="tab">{{ [type, '.', tab, '.title']|join|trans }}</a></li>
             {% endfor %}
-            <li><a href="#seo" data-toggle="tab">{{ 'cms_page.seo.title'|trans({}, 'PrestaCMSCoreBundle') }}</a></li>
-            {#<li><a href="#settings" data-toggle="tab">{{ 'cms_page.settings.title'|trans({}, 'PrestaCMSCoreBundle') }}</a></li>#}
+            <li><a href="#seo" data-toggle="tab">{{ 'cms_page.seo.title'|trans }}</a></li>
+            {#<li><a href="#settings" data-toggle="tab">{{ 'cms_page.settings.title'|trans }}</a></li>#}
         </ul>
 
         {% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
@@ -60,12 +60,19 @@
             <div class="tab-pane form-horizontal" id="seo">
                 <form id="edit_form" class="form-horizontal" method="POST">
                     <fieldset>
-                        <legend>{{ 'cms_page.seo.title'|trans({}, 'PrestaCMSCoreBundle') }}</legend>
+                        <legend>{{ 'cms_page.seo.title'|trans }}</legend>
                         <div class="sonata-ba-collapsed-fields">
                             {{ form_row(form.url)}}
                             {{ form_row(form.title)}}
                             {{ form_row(form.metaKeywords)}}
                             {{ form_row(form.metaDescription)}}
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <a class="btn btn-primary" onclick="$('#edit_form').submit();">
+                                    <i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans }}
+                                </a>
+                            </div>
                         </div>
                     </fieldset>
                     {{ form_rest(form) }}
@@ -73,7 +80,7 @@
             </div>
                 {#<div class="tab-pane form-horizontal" id="settings">#}
                     {#<fieldset>#}
-                        {#<legend>{{ 'cms_page.settings.title'|trans({}, 'PrestaCMSCoreBundle') }}</legend>#}
+                        {#<legend>{{ 'cms_page.settings.title'|trans }}</legend>#}
                         {#{{ form_row(form.name)}}#}
                         {#{{ form_row(form.isActive)}}#}
                         {#{{ form_row(form.settings)}}#}
