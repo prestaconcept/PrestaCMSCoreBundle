@@ -123,10 +123,18 @@ services:
     presta_cms.page_type.cms_page:
       class: Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage
       arguments: [@service_container, @presta_cms.website_manager, @presta_cms.theme_manager]
-      
-    #Events
+
+    #Event Listener
     presta_cms.listener.website:
         class: Presta\CMSCoreBundle\EventListener\WebsiteListener
         arguments: [@presta_cms.website_manager, @kernel]
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 500 }
+
+    presta_cms.listener.action_listener:
+        class: Presta\CMSCoreBundle\EventListener\PageOperationListener
+        arguments: []
+        tags:
+            - { name: kernel.event_listener, event: presta_cms.page.creation, method: onPageCreation }
+            - { name: kernel.event_listener, event: presta_cms.page.update,   method: onPageUpdate }
+            - { name: kernel.event_listener, event: presta_cms.page.deletion, method: onPageDeletion }
