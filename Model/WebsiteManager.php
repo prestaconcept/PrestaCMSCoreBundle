@@ -256,6 +256,25 @@ class WebsiteManager
     }
 
     /**
+     * Return front host for a website : used to open front url from the backend
+     *
+     * @param  Website $website
+     * @param  string  $locale
+     * @param  string  $env
+     * @return string
+     */
+    public function getHostForWebsite($website, $locale, $env)
+    {
+        foreach ($this->hosts as $host) {
+            if ($host['path'] == $website->getId() && $host['locale'] == $locale && $host['env'] == $env) {
+                return $host['host'];
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Load current website based on its id and locale
      *
      * @param  $websiteId

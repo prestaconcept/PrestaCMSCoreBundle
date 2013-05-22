@@ -43,6 +43,8 @@ breadcrumb:
 button:
     close: Close
     save: Save
+    clear_cache: Clear cache
+    preview: Preview
 
 cms_page:
     content:

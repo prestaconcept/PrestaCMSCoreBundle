@@ -44,6 +44,7 @@ button:
     close: Fermer
     save: Sauvegarder
     clear_cache: Vider le cache
+    preview: Aperçu
 
 cms_page:
     content:
