@@ -29,12 +29,9 @@
 {%block actions %}
     {% if (page) %}
     <div class="sonata-actions subnav">
-        <div class="">
-            {#<a class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i>&nbsp;{{ 'button.delete'|trans }}</a>#}
-
-            <a class="btn btn-info" target="_blank" href="{{ pageFrontUrl }}"><i class=" icon-eye-open "></i>&nbsp;{{ 'button.preview'|trans }}</a>
-            <a class="btn btn-success" href="{{ path('presta_cms_page_clear_cache', {'id': page.id}) }}"><i class="icon-retweet icon-white"></i>&nbsp;{{ 'button.clear_cache'|trans }}</a>
-        </div>
+        <a class="btn btn-danger" href="{{ path('presta_cms_page_delete', {'id': page.id}) }}"><i class="icon-remove icon-white"></i>&nbsp;{{ 'button.delete'|trans }}</a>
+        <a class="btn btn-info" target="_blank" href="{{ pageFrontUrl }}"><i class=" icon-eye-open "></i>&nbsp;{{ 'button.preview'|trans }}</a>
+        <a class="btn btn-success" href="{{ path('presta_cms_page_clear_cache', {'id': page.id}) }}"><i class="icon-retweet icon-white"></i>&nbsp;{{ 'button.clear_cache'|trans }}</a>
     </div>
     {% endif %}
 {% endblock %}

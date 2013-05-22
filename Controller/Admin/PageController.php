@@ -12,6 +12,7 @@ namespace Presta\CMSCoreBundle\Controller\Admin;
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 use Presta\CMSCoreBundle\Form\PageType;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -194,5 +195,37 @@ class PageController extends AdminController
 
 
         return $this->redirect($this->getRequest()->headers->get('referer'));
+    }
+
+    /**
+     * Delete a page
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteAction()
+    {
+        $pageId = $this->getRequest()->get('id', null);
+        $page   = $this->getPageManager()->getPageById($pageId);
+
+        if ($page == null) {
+            throw new NotFoundHttpException();
+        }
+
+        if ($this->getRequest()->getMethod() == 'DELETE') {
+            try {
+                $this->getPageManager()->delete($page);
+                $this->get('session')->setFlash('sonata_flash_success', 'flash_delete_success');
+            } catch (ModelManagerException $e) {
+                $this->get('session')->setFlash('sonata_flash_error', 'flash_delete_error');
+            }
+
+            return $this->redirect($this->generateUrl('presta_cms_page_edit'));
+        }
+
+        $viewParams = array(
+            'page' => $page
+        );
+
+        return $this->render('PrestaCMSCoreBundle:Admin/Page:delete.html.twig', $viewParams);
     }
 }

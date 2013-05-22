@@ -126,6 +126,17 @@ class PageManager
     }
 
     /**
+     * Delete a page
+     *
+     * @param Page $page
+     */
+    public function delete($page)
+    {
+        $this->getDocumentManager()->remove($page);
+        $this->getDocumentManager()->flush();
+    }
+
+    /**
      * Reference a new page type service
      *
      * @param  string                                  $idType

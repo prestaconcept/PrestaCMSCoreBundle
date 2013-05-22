@@ -37,6 +37,7 @@ breadcrumb:
     link_website_create: CMS - Création d'un site
     link_theme_list: CMS - Liste des thèmes
     link_page_list: CMS - Liste des pages
+    link_page_delete: Suppression définitive d'une page
     link_block_edit: Edition d'un bloc
     link_block_list: Liste de blocs
 
@@ -45,6 +46,7 @@ button:
     save: Sauvegarder
     clear_cache: Vider le cache
     preview: Aperçu
+    delete: Supprimer
 
 cms_page:
     content:
@@ -72,6 +74,9 @@ cms_page:
             label:
                 name: Nom
                 is_active: Active
+    delete:
+        confirmation: Etes-vous sûr de vouloir supprimer définitivement cette page et toutes ses sous pages ?
+        data_to_be_deleted: Vous êtes sur le point de supprimer définitivement les pages suivantes :
 
 cms_page_tree:
     title: Pages
