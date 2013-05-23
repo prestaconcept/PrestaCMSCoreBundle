@@ -1,0 +1,49 @@
+{% extends base_template %}
+{% trans_default_domain "PrestaCMSCoreBundle" %}
+
+
+{% block breadcrumb %}
+    <li><a href="{{ url('sonata_admin_dashboard') }}">{{ 'breadcrumb.link_dashboard'|trans }}</a><span class="divider">/</span></li>
+    <li class="active"><a href="{{ url('presta_cms_page_edit') }}">{{ 'breadcrumb.link_page_list'|trans }}</a></li>
+    <li class="active"><span class="divider">/</span> {{ 'breadcrumb.link_page_delete'|trans }} </li>
+{% endblock %}
+
+{% block actions %}
+    <div class="sonata-actions">
+        <a class="btn sonata-action-element" href="{{ url('presta_cms_page_edit') }}">
+            <i class="icon-list"></i>
+            {{ 'link_action_list'|trans({}, 'SonataAdminBundle') }}</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="sonata-ba-delete">
+
+        <h1>{{ 'title_delete'|trans({}, 'SonataAdminBundle') }}</h1>
+
+        <p>{{ 'cms_page.delete.data_to_be_deleted'|trans }}</p>
+
+        {{ page.title }}
+        <ul>
+            {% for child in page.getChildren %}
+                <li>{{ child.title }}</li>
+            {% endfor %}
+        </ul>
+
+        <p>{{ 'cms_page.delete.confirmation'|trans }}</p>
+
+        <div class="well form-actions">
+            <form method="POST" action="{{ path('presta_cms_page_delete', {'id': page.id}) }}">
+                <input type="hidden" value="DELETE" name="_method" />
+
+                <input type="submit" class="btn btn-danger" value="{{ 'btn_delete'|trans({}, 'SonataAdminBundle') }}" />
+
+                    {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
+
+                    <a class="btn sonata-action-element" href="{{ url('presta_cms_page_edit') }}">
+                        <i class="icon-list"></i>
+                        {{ 'link_action_list'|trans({}, 'SonataAdminBundle') }}</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

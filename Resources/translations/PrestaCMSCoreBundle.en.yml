@@ -45,6 +45,7 @@ button:
     save: Save
     clear_cache: Clear cache
     preview: Preview
+    delete: Delete
 
 cms_page:
     content:

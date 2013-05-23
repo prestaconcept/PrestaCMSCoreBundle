@@ -9,8 +9,9 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
-use Application\Presta\CMSCoreBundle\Entity\Website;
+use Application\Presta\CMSCoreBundle\Document\Website;
 
+use Presta\CMSCoreBundle\Event\PageDeletionEvent;
 use Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem;
 use Presta\CMSCoreBundle\Document\Page;
 use Doctrine\ODM\PHPCR\DocumentManager;
@@ -122,6 +123,23 @@ class PageManager
 
         $this->getDocumentManager()->persist($route);
         $this->getDocumentManager()->persist($page);
+        $this->getDocumentManager()->flush();
+    }
+
+    /**
+     * Delete a page
+     *
+     * @param Page $page
+     */
+    public function delete($page)
+    {
+        $this->container->get('event_dispatcher')->dispatch(
+            PageDeletionEvent::EVENT_NAME,
+            new PageDeletionEvent($page)
+        );
+
+        //We need to delete the main document after deleting every referrers
+        $this->getDocumentManager()->remove($page);
         $this->getDocumentManager()->flush();
     }
 
