@@ -9,15 +9,19 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
+use Application\Presta\CMSCoreBundle\Document\Website;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\PHPCR\DocumentRepository;
 use Presta\CMSCoreBundle\Event\PageDeletionEvent;
 use Presta\CMSCoreBundle\Exception\Page\PageTypeNotFoundException;
 use Presta\CMSCoreBundle\Event\PageUpdateEvent;
+use Presta\CMSCoreBundle\Exception\Page\PageTypeNotFoundException;
 use Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem;
 use Presta\CMSCoreBundle\Document\Page;
 use Doctrine\ODM\PHPCR\DocumentManager;
 use Presta\CMSCoreBundle\Model\Page\PageTypeInterface;
+use Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode;
 use Symfony\Component\DependencyInjection\Container;
 use Presta\CMSCoreBundle\Document\Page\Repository;
 
@@ -81,8 +85,8 @@ class PageManager
     /**
      * Load a page corresponding to a menu node
      *
-     * @param  string $menuNodeId
-     * @param  string $locale
+     * @param  MenuNode $menuNodeId
+     * @param  string   $locale
      * @return Page
      */
     public function getPageForMenu($menuNodeId, $locale)
