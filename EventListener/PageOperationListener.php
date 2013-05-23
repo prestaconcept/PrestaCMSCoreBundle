@@ -9,21 +9,45 @@
  */
 namespace Presta\CMSCoreBundle\EventListener;
 
+use Doctrine\ODM\PHPCR\DocumentManager;
 use Presta\CMSCoreBundle\Event\PageCreationEvent;
 use Presta\CMSCoreBundle\Event\PageDeletionEvent;
 use Presta\CMSCoreBundle\Event\PageUpdateEvent;
+use Presta\CMSCoreBundle\Model\MenuManager;
+use Presta\CMSCoreBundle\Model\RouteManager;
+use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Handle page operations
  *
- * @package    PrestaCMS
- * @subpackage CoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class PageOperationListener
 {
+    /**
+     * @var DocumentManager
+     */
+    protected $documentManager;
+
+    /**
+     * @var RouteManager
+     */
+    protected $routeManager;
+
+    /**
+     * @var MenuManager
+     */
+    protected $menuManager;
+
+    public function __construct(ModelManagerInterface $modelManager, RouteManager $routeManager, MenuManager $menuManager)
+    {
+        $this->documentManager  = $modelManager->getDocumentManager();
+        $this->routeManager     = $routeManager;
+        $this->menuManager      = $menuManager;
+    }
+
     /**
      * @param PageCreationEvent $event
      */
@@ -45,9 +69,15 @@ class PageOperationListener
      */
     public function onPageDeletion(PageDeletionEvent $event)
     {
-        //Remove corresponding MenuNodes
+        $page = $event->getPage();
 
-        //Remove corresponding routes
-        var_dump($event);die;
+        //Remove corresponding MenuNodes and routes
+        $referrers = $this->documentManager->getReferrers($page);
+
+        foreach ($referrers as $referrer) {
+            $this->documentManager->remove($referrer);
+        }
+
+        $this->documentManager->flush();
     }
 }
