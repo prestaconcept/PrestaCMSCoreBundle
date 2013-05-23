@@ -49,6 +49,16 @@ class WebsiteManager
     protected $websites;
 
     /**
+     * @var string
+     */
+    protected $defaultWebsiteId;
+
+    /**
+     * @var string
+     */
+    protected $defaultLocale;
+
+    /**
      * @var Website
      */
     protected $currentWebsite;
@@ -202,6 +212,38 @@ class WebsiteManager
     public function setCurrentEnvironment($currentEnvironment)
     {
         $this->currentEnvironment = $currentEnvironment;
+    }
+
+    /**
+     * @param string $defaultLocale
+     */
+    public function setDefaultLocale($defaultLocale)
+    {
+        $this->defaultLocale = $defaultLocale;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultLocale()
+    {
+        return $this->defaultLocale;
+    }
+
+    /**
+     * @param string $defaultWebsiteId
+     */
+    public function setDefaultWebsiteId($defaultWebsiteId)
+    {
+        $this->defaultWebsiteId = $defaultWebsiteId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultWebsiteId()
+    {
+        return $this->defaultWebsiteId;
     }
 
     /**

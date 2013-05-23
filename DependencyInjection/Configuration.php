@@ -33,6 +33,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('default_website')->end()
+                ->scalarNode('default_locale')->end()
                 ->arrayNode('websites')
                     ->prototype('array')
                         ->children()

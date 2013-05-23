@@ -40,6 +40,11 @@ class PrestaCMSCoreExtension extends Extension
 
         //Init website configuration
         $websiteManager = $container->getDefinition('presta_cms.website_manager');
+        if (isset($config['default_website']) && isset($config['default_locale'])) {
+            $websiteManager->addMethodCall('setDefaultWebsiteId', array($config['default_website']));
+            $websiteManager->addMethodCall('setDefaultLocale', array($config['default_locale']));
+        }
+
         if (isset($config['websites']) && is_array($config['websites'])) {
             foreach ($config['websites'] as $websiteConfiguration) {
                 $websiteManager->addMethodCall('registerWebsite', array($websiteConfiguration));
