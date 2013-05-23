@@ -76,6 +76,12 @@ class WebsiteListener
                 //Load website based on user last choice
                 $websiteId = $this->session->get(self::SESSION_WEBSITE_FIELD);
                 $locale    = $this->session->get(self::SESSION_LOCALE_FIELD);
+
+                if ($websiteId == null) {
+                    //For the first time we load the default website
+                    $websiteId = $this->websiteManager->getDefaultWebsiteId();
+                    $locale    = $this->websiteManager->getDefaultLocale();
+                }
             }
 
             $website = $this->websiteManager->loadWebsiteById($websiteId, $locale, $this->environment);
