@@ -13,6 +13,7 @@
         <parameter key="presta_cms.zone.factory.class">Presta\CMSCoreBundle\Factory\ZoneFactory</parameter>
         <parameter key="presta_cms.route.factory.class">Presta\CMSCoreBundle\Factory\RouteFactory</parameter>
         <parameter key="presta_cms.menu.factory.class">Presta\CMSCoreBundle\Factory\MenuFactory</parameter>
+        <parameter key="presta_cms.data_collector.class">Presta\CMSCoreBundle\DataCollector\CMSDataCollector</parameter>
     </parameters>
 
     <services>
@@ -95,6 +96,16 @@
             <call method="setMenuNodeClassName">
                 <argument>%presta_cms.model.menu_node.class%</argument>
             </call>
+        </service>
+
+        <service id="presta_cms.data_collector" class="%presta_cms.data_collector.class%">
+            <argument type="service" id="presta_cms.website_manager"/>
+            <argument type="service" id="presta_cms.theme_manager"/>
+            <argument type="service" id="presta_cms.page_manager"/>
+            <tag name="data_collector"
+                template="PrestaCMSCoreBundle:Collector:cms.html.twig"
+                id="presta_cms_data_collector"
+            />
         </service>
     </services>
 </container>
