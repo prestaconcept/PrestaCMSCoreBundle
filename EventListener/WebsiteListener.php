@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Kernel;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 
@@ -22,6 +23,9 @@ use Presta\CMSCoreBundle\Model\WebsiteManager;
  */
 class WebsiteListener
 {
+    const SESSION_WEBSITE_FIELD = 'presta_cms.website';
+    const SESSION_LOCALE_FIELD  = 'presta_cms.locale';
+
     /**
      * @var WebsiteManager
      */
@@ -36,10 +40,11 @@ class WebsiteListener
      * @param WebsiteManager $websiteManager
      * @param Kernel $kernel
      */
-    public function __construct(WebsiteManager $websiteManager, Kernel $kernel)
+    public function __construct(WebsiteManager $websiteManager, Kernel $kernel, Session $session)
     {
         $this->websiteManager = $websiteManager;
-        $this->environment = $kernel->getEnvironment();
+        $this->environment    = $kernel->getEnvironment();
+        $this->session        = $session;
     }
 
     /**
@@ -64,9 +69,21 @@ class WebsiteListener
                 return;
             }
             //Administration
-            $websiteId = $request->get('website', null);
-            $locale = $request->get('locale', null);
-            $this->websiteManager->loadWebsiteById($websiteId, $locale, $this->environment);
+            $websiteId  = $request->get('website', null);
+            $locale     = $request->get('locale', null);
+
+            if ($websiteId == null) {
+                //Load website based on user last choice
+                $websiteId = $this->session->get(self::SESSION_WEBSITE_FIELD);
+                $locale    = $this->session->get(self::SESSION_LOCALE_FIELD);
+            }
+
+            $website = $this->websiteManager->loadWebsiteById($websiteId, $locale, $this->environment);
+
+            if ($website != null) {
+                $this->session->set(self::SESSION_WEBSITE_FIELD, $website->getId());
+                $this->session->set(self::SESSION_LOCALE_FIELD, $website->getLocale());
+            }
         } else {
             //Front case
             //Load current website
