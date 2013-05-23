@@ -39,8 +39,8 @@
 {% block content %}
     {% if (page) %}
         <ul class="nav nav-tabs">
-            {% for type, tab in pageEditTabs %}
-                <li class="{% if (loop.index == 1) %}active{% endif %}"><a href="#{{ [type, '-', tab]|join }}" data-toggle="tab">{{ [type, '.', tab, '.title']|join|trans }}</a></li>
+            {% for tab in pageEditTabs %}
+                <li class="{% if (loop.index == 1) %}active{% endif %}"><a href="#{{ ['cms-page-', tab]|join }}" data-toggle="tab">{{ ['cms_page.', tab, '.title']|join|trans }}</a></li>
             {% endfor %}
             <li><a href="#seo" data-toggle="tab">{{ 'cms_page.seo.title'|trans }}</a></li>
             {#<li><a href="#settings" data-toggle="tab">{{ 'cms_page.settings.title'|trans }}</a></li>#}
@@ -49,9 +49,9 @@
         {% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
 
         <div class="tab-content">
-            {% for type, tab in pageEditTabs %}
-            <div class="tab-pane form-horizontal {% if (loop.index == 1) %}active{% endif %}" id="{{ [type, '-', tab]|join }}">
-                {% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'_locale': locale, 'type': type, 'tab': tab, 'page': page} %}
+            {% for tab in pageEditTabs %}
+            <div class="tab-pane form-horizontal {% if (loop.index == 1) %}active{% endif %}" id="{{ ['cms-page-', tab]|join }}">
+                {% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'_locale': locale, 'tab': tab, 'page': page} %}
             </div>
             {% endfor %}
             <div class="tab-pane form-horizontal" id="seo">
