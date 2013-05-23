@@ -120,9 +120,10 @@ services:
 
     #Page Types
     presta_cms.page_type.cms_page:
-      class: Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage
-      arguments: [@service_container, @presta_cms.website_manager, @presta_cms.theme_manager]
-
+        class: Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage
+        arguments: [@service_container, @presta_cms.website_manager, @presta_cms.theme_manager]
+        tags:
+            - {name: presta_cms.page_type}
     #Event Listener
     presta_cms.listener.website:
         class: Presta\CMSCoreBundle\EventListener\WebsiteListener

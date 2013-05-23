@@ -11,28 +11,32 @@ namespace Presta\CMSCoreBundle\Model;
 
 use Application\Presta\CMSCoreBundle\Document\Website;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ODM\PHPCR\DocumentRepository;
 use Presta\CMSCoreBundle\Event\PageDeletionEvent;
 use Presta\CMSCoreBundle\Event\PageUpdateEvent;
+use Presta\CMSCoreBundle\Exception\Page\PageTypeNotFoundException;
 use Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem;
 use Presta\CMSCoreBundle\Document\Page;
 use Doctrine\ODM\PHPCR\DocumentManager;
+use Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode;
+use Symfony\Component\DependencyInjection\Container;
+use Presta\CMSCoreBundle\Document\Page\Repository;
 
 /**
  * Page Manager
  *
- * @package    PrestaCMS
- * @subpackage CoreBundle
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class PageManager
 {
     /**
-     * @var Symfony\Component\DependencyInjection\Container
+     * @var Container
      */
     protected $container;
 
     /**
-     * @var Presta\CMSCoreBundle\Repository\PageRepository
+     * @var Repository
      */
     protected $repository;
 
@@ -42,19 +46,16 @@ class PageManager
     protected $currentPage;
 
     /**
-     * @var array
+     * @var ArrayCollection
      */
-    protected $types;
+    protected $pageTypes;
 
     public function __construct($container)
     {
-        $this->container = $container;
-        $this->websites = null;
+        $this->container  = $container;
+        $this->websites   = null;
         $this->repository = null;
-        $this->types = array(
-            //todo inject via config
-            'cms_page' => 'presta_cms.page_type.cms_page',
-        );
+        $this->pageTypes  = new ArrayCollection();
     }
 
     /**
@@ -68,7 +69,7 @@ class PageManager
     /**
      * Return website repository
      *
-     * @return
+     * @return DocumentRepository
      */
     protected function getRepository()
     {
@@ -80,15 +81,15 @@ class PageManager
     }
 
     /**
-     * Load a page corresponding to a menu item
+     * Load a page corresponding to a menu node
      *
-     * @param  MenuItem $menuItemId
+     * @param  MenuNode $menuNodeId
      * @param  string   $locale
      * @return Page
      */
-    public function getPageForMenu($menuItemId, $locale)
+    public function getPageForMenu($menuNodeId, $locale)
     {
-        $menuItem = $this->getDocumentManager()->findTranslation(null, $menuItemId, $locale);
+        $menuItem = $this->getDocumentManager()->findTranslation(null, $menuNodeId, $locale);
         $page = $menuItem->getContent();
 
         //Page is already in the menu locale
@@ -143,13 +144,12 @@ class PageManager
     /**
      * Reference a new page type service
      *
-     * @param  string                                  $idType
-     * @param  string                                  $typeServiceId
-     * @return \Presta\CMSCoreBundle\Model\PageManager
+     * @param  string $pageTypeId
+     * @return PageManager
      */
-    public function addType($idType, $typeServiceId)
+    public function addPageType($pageTypeId)
     {
-        $this->types[$idType] = $typeServiceId;
+        $this->pageTypes->add($pageTypeId);
 
         return $this;
     }
@@ -157,20 +157,20 @@ class PageManager
     /**
      * Return corresponding page type service
      *
-     * @param  string                                                 $idType
-     * @return false|Presta\CMSCoreBundle\Model\PagePageTypeInterface
+     * @param  string $idType
+     * @return PagePageTypeInterface
      */
-    public function getType($idType)
+    public function getPageType($pageTypeId)
     {
-        if (isset($this->types[$idType])) {
-            return $this->container->get($this->types[$idType]);
+        if (!$this->pageTypes->contains($pageTypeId)) {
+            throw new PageTypeNotFoundException($pageTypeId);
         }
 
-        return false;
+        return $this->container->get($pageTypeId);
     }
 
     /**
-     * @param \Presta\CMSCoreBundle\Document\Page $currentPage
+     * @param Page $currentPage
      */
     public function setCurrentPage($currentPage)
     {
@@ -178,7 +178,7 @@ class PageManager
     }
 
     /**
-     * @return \Presta\CMSCoreBundle\Document\Page
+     * @return Page
      */
     public function getCurrentPage()
     {
@@ -187,7 +187,7 @@ class PageManager
 
     /**
      * @param $id
-     * @return \Presta\CMSCoreBundle\Document\Page
+     * @return Page
      */
     public function getPageById($id)
     {
@@ -207,7 +207,7 @@ class PageManager
     /**
      * Check if token is valid
      *
-     * @param  \Presta\CMSCoreBundle\Document\Page $page
+     * @param  Page $page
      * @param  string $token
      * @return boolean
      */

@@ -89,10 +89,10 @@ class PageController extends AdminController
         $website = $this->getWebsiteManager()->getCurrentWebsite();
 
         if ($website != null) {
-            $viewParams['websiteId'] = $website->getId();
-            $viewParams['locale'] = $website->getLocale();
             $theme = $this->getThemeManager()->getTheme($website->getTheme());
-            $viewParams['theme'] = $theme;
+            $viewParams['websiteId'] = $website->getId();
+            $viewParams['locale']    = $website->getLocale();
+            $viewParams['theme']     = $theme;
         }
 
         if ($menuItemId != null) {
@@ -128,14 +128,13 @@ class PageController extends AdminController
      *
      * Action rendered in main edit template
      *
-     * @param  string   $type
      * @param  string   $tab
      * @param  Page     $page
      * @return Response
      */
-    public function renderEditTabAction($type, $tab, $page)
+    public function renderEditTabAction($tab, $page)
     {
-        $pageType   = $this->getPageManager()->getType($type);
+        $pageType   = $this->getPageManager()->getPageType($page->getType());
         $viewParams = $pageType->getEditTabData($tab, $page);
 
         return $this->render($pageType->getEditTabTemplate($tab), $viewParams);

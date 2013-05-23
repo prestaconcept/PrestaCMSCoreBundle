@@ -12,16 +12,14 @@ namespace Presta\CMSCoreBundle\Model\Page;
 /**
  * Page type interface
  *
- * @package    PrestaCMS
- * @subpackage CoreBundle
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 interface PageTypeInterface
 {
     /**
      * @return string
      */
-    public function getName();
+    public function getId();
 
     /**
      * Returns the default settings link to the service
@@ -31,7 +29,7 @@ interface PageTypeInterface
     public function getDefaultSettings();
 
     /**
-     * Returns type specific tabs for page edtion
+     * Returns type specific tabs for page edition
      *
      * @return array
      */

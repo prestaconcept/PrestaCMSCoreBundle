@@ -14,6 +14,7 @@ use Doctrine\ODM\PHPCR\Document\Generic;
 use Presta\CMSCoreBundle\Document\Page;
 use Presta\CMSCoreBundle\Document\Zone;
 use Presta\CMSCoreBundle\Document\Block;
+use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
 
 /**
  * Base fixtures methods to easily create pages
@@ -42,7 +43,7 @@ abstract class BasePageFixture extends BaseFixture
     protected function configurePage(array $page)
     {
         $page += array(
-            'type' => 'cms_page',
+            'type' => PageTypeCMSPage::SERVICE_ID,
             'meta' => array('title' => array(), 'keywords' => array(), 'description' => array()),
             'template' => $this->defaultTemplate,
             'zones' => null,
