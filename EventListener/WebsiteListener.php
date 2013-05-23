@@ -17,9 +17,7 @@ use Presta\CMSCoreBundle\Model\WebsiteManager;
 /**
  * Handle website selection based on request
  *
- * @package    PrestaCMS
- * @subpackage CoreBundle
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class WebsiteListener
 {
@@ -35,6 +33,11 @@ class WebsiteListener
      * @var string
      */
     protected $environment;
+
+    /**
+     * @var Session
+     */
+    protected $session;
 
     /**
      * @param WebsiteManager $websiteManager
