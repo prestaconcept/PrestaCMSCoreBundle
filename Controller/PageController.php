@@ -102,7 +102,7 @@ class PageController extends Controller
         );
 
         $pageManager->setCurrentPage($contentDocument);
-        $pageType = $pageManager->getType($contentDocument->getType());
+        $pageType = $pageManager->getPageType($contentDocument->getType());
         if ($pageType != null) {
             $viewParams = array_merge($viewParams, $pageType->getData($contentDocument));
         }
