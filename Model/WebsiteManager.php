@@ -319,13 +319,18 @@ class WebsiteManager
     /**
      * Load current website based on its id and locale
      *
-     * @param  $websiteId
-     * @param  $locale
+     * @param  int      $websiteId
+     * @param  string   $locale
+     * @param  string   $environment
      * @return null|Website
      */
-    public function loadWebsiteById($websiteId, $locale)
+    public function loadWebsiteById($websiteId, $locale, $environment)
     {
-        $params = array('path' => $websiteId, 'locale' => $locale);
+        $params = array(
+            'path'      => $websiteId,
+            'locale'    => $locale,
+            'env'       => $environment
+        );
 
         return $this->loadWebsite($params);
     }
