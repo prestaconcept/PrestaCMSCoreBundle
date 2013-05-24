@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle;
 
+use Presta\CMSCoreBundle\DependencyInjection\Compiler\PageTypeCompilerPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -32,5 +33,6 @@ class PrestaCMSCoreBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new BlockCompilerPass());
+        $container->addCompilerPass(new PageTypeCompilerPass());
     }
 }

@@ -9,6 +9,10 @@
  */
 namespace Presta\CMSCoreBundle\Model\Page;
 
+use Presta\CMSCoreBundle\Model\ThemeManager;
+use Presta\CMSCoreBundle\Model\WebsiteManager;
+use Symfony\Component\DependencyInjection\Container;
+
 /**
  * Base page type for CMS
  *
@@ -17,25 +21,26 @@ namespace Presta\CMSCoreBundle\Model\Page;
 class PageTypeCMSPage implements PageTypeInterface
 {
     const TAB_CONTENT = 'content';
+    const SERVICE_ID  = 'presta_cms.page_type.cms_page';
 
     /**
-     * @var Symfony\Component\DependencyInjection\Container
+     * @var Container
      */
     protected $container;
 
     /**
-     * @var Presta\CMSCoreBundle\Model\WebsiteManager
+     * @var WebsiteManager
      */
     protected $websiteManager;
 
     /**
-     * @var Presta\CMSCoreBundle\Model\ThemeManager
+     * @var ThemeManager
      */
     protected $themeManager;
 
-    public function __construct($container, $websiteManager, $themeManager)
+    public function __construct(Container $container, WebsiteManager $websiteManager, ThemeManager $themeManager)
     {
-        $this->container = $container;
+        $this->container      = $container;
         $this->websiteManager = $websiteManager;
         $this->themeManager   = $themeManager;
     }
@@ -43,9 +48,9 @@ class PageTypeCMSPage implements PageTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getId()
     {
-        return 'cms_page';
+        return self::SERVICE_ID;
     }
 
     /**

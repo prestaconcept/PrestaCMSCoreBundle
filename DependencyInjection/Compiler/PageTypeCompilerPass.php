@@ -15,28 +15,27 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class BlockCompilerPass implements CompilerPassInterface
+class PageTypeCompilerPass implements CompilerPassInterface
 {
     /**
      * {@inherited}
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('presta_cms.block_manager')) {
+        if (!$container->hasDefinition('presta_cms.page_manager')) {
             return;
         }
 
         $definition = $container->getDefinition(
-            'presta_cms.block_manager'
+            'presta_cms.page_manager'
         );
 
         $taggedServices = $container->findTaggedServiceIds(
-            'presta_cms.block'
+            'presta_cms.page_type'
         );
-
         foreach ($taggedServices as $id => $attributes) {
             $definition->addMethodCall(
-                'addBlock',
+                'addPageType',
                 array($id)
             );
         }

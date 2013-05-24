@@ -78,10 +78,10 @@ class PageController extends AdminController
         $website = $this->getWebsiteManager()->getCurrentWebsite();
 
         if ($website != null) {
-            $viewParams['websiteId'] = $website->getId();
-            $viewParams['locale'] = $website->getLocale();
             $theme = $this->getThemeManager()->getTheme($website->getTheme());
-            $viewParams['theme'] = $theme;
+            $viewParams['websiteId'] = $website->getId();
+            $viewParams['locale']    = $website->getLocale();
+            $viewParams['theme']     = $theme;
         }
 
         if ($menuItemId != null) {
@@ -90,7 +90,7 @@ class PageController extends AdminController
             $viewParams['page'] = $page;
             $viewParams['pageFrontUrl'] = $request->getScheme() . '://' . $this->getWebsiteManager()->getHostForWebsite($website, $locale, $this->get('kernel')->getEnvironment()) . $pageManager->getPageUrl($page);
             $viewParams['pageFrontUrl'] .= '?token=' . $pageManager->getToken($page);
-            $viewParams['pageEditTabs'] = $pageManager->getType($page->getType())->getEditTabs();
+            $viewParams['pageEditTabs'] = $pageManager->getPageType($page->getType())->getEditTabs();
 
             $form = $this->createForm(new PageType(), $page);
             if ($this->get('request')->getMethod() == 'POST') {
@@ -114,14 +114,13 @@ class PageController extends AdminController
      *
      * Action rendered in main edit template
      *
-     * @param  string   $type
      * @param  string   $tab
      * @param  Page     $page
      * @return Response
      */
-    public function renderEditTabAction($type, $tab, $page)
+    public function renderEditTabAction($tab, $page)
     {
-        $pageType   = $this->getPageManager()->getType($type);
+        $pageType   = $this->getPageManager()->getPageType($page->getType());
         $viewParams = $pageType->getEditTabData($tab, $page);
 
         return $this->render($pageType->getEditTabTemplate($tab), $viewParams);
