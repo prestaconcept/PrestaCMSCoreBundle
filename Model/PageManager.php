@@ -9,16 +9,13 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
-use Application\Presta\CMSCoreBundle\Document\Website;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\PHPCR\DocumentRepository;
 use Presta\CMSCoreBundle\Event\PageDeletionEvent;
 use Presta\CMSCoreBundle\Exception\Page\PageTypeNotFoundException;
-use Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem;
 use Presta\CMSCoreBundle\Document\Page;
 use Doctrine\ODM\PHPCR\DocumentManager;
-use Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode;
+use Presta\CMSCoreBundle\Model\Page\PageTypeInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Presta\CMSCoreBundle\Document\Page\Repository;
 
@@ -66,7 +63,7 @@ class PageManager
     }
 
     /**
-     * Return website repository
+     * Return Page repository
      *
      * @return DocumentRepository
      */
@@ -82,14 +79,14 @@ class PageManager
     /**
      * Load a page corresponding to a menu node
      *
-     * @param  MenuNode $menuNodeId
-     * @param  string   $locale
+     * @param  string $menuNodeId
+     * @param  string $locale
      * @return Page
      */
     public function getPageForMenu($menuNodeId, $locale)
     {
-        $menuItem = $this->getDocumentManager()->findTranslation(null, $menuNodeId, $locale);
-        $page = $menuItem->getContent();
+        $menuNode = $this->getDocumentManager()->findTranslation(null, $menuNodeId, $locale);
+        $page     = $menuNode->getContent();
 
         //Page is already in the menu locale
         //$this->getDocumentManager()->bindTranslation($page, $locale);
@@ -161,7 +158,7 @@ class PageManager
      * Return corresponding page type service
      *
      * @param  string $idType
-     * @return PagePageTypeInterface
+     * @return PageTypeInterface
      */
     public function getPageType($pageTypeId)
     {
@@ -189,7 +186,9 @@ class PageManager
     }
 
     /**
-     * @param $id
+     * Get a Page by id
+     *
+     * @param  $id
      * @return Page
      */
     public function getPageById($id)
