@@ -3,6 +3,7 @@
  * This file is part of the Presta Bundle project.
  *
  * @author David Epely <depely@prestaconcept.net>
+ * @author Alain Flaus <aflaus@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,10 +11,18 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Symfony\Cmf\Component\Routing\RouteProviderInterface;
+use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route;
+use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute;
+
+use Sonata\AdminBundle\Model\ModelManagerInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 use Presta\CMSCoreBundle\Document\Website;
+use Presta\CMSCoreBundle\Document\Page;
 
 /**
  * Description of RouteManager
@@ -29,9 +38,20 @@ class RouteManager
      */
     protected $routeProvider;
 
-    public function __construct(RouteProviderInterface $routeProvider)
+    /**
+     * @var \Doctrine\Common\Persistence\ObjectManager
+     */
+    protected $documentManager;
+
+    /**
+     * Constructor
+     * 
+     * @param RouteProviderInterface $routeProvider
+     */
+    public function __construct(RouteProviderInterface $routeProvider, ModelManagerInterface $modelManager)
     {
-        $this->routeProvider = $routeProvider;
+        $this->routeProvider    = $routeProvider;
+        $this->documentManager  = $modelManager->getDocumentManager();
     }
 
     /**
@@ -72,5 +92,96 @@ class RouteManager
         }
 
         return $routeCollection;
+    }
+
+    /**
+     * Update page routing
+     * 
+     * @param  Page   $page
+     */
+    public function updatePageRouting(Page $page)
+    {
+        $currentRoute = $this->getRouteForPage($page);
+        
+        // if page url has change
+        if ($page->getUrl() != $currentRoute->getName()) {
+
+            // search previous redirect route with same name exist, remove it
+            $previousRedirectRoute = $this->getMatchingRedirectRouteForPage($page);
+            if (!is_null($previousRedirectRoute)) {
+                $this->documentManager->remove($previousRedirectRoute);
+
+            } else {
+                // create new redirect route for old url
+                $redirectRoute = new RedirectRoute();
+                $redirectRoute->setName($currentRoute->getName());
+                // @todo set redirectRoute id
+
+                $this->documentManager->persist($redirectRoute);
+            }
+
+            // update current route with new page url
+            $currentRoute->setName($page->getUrl());
+
+            $this->documentManager->persist($currentRoute);
+            $this->documentManager->flush();
+        }
+    }
+
+    /**
+     * Return page route
+     * 
+     * @param  Page     $page
+     * @param  string   $locale
+     * @return RouteObjectInterface|null
+     */
+    public function getRouteForPage(Page $page, $locale = null)
+    {
+        $route = null;
+
+        if (is_null($locale)) {
+            $locale = $page->getLocale();
+        }
+
+        foreach ($page->getRoutes() as $pageRoute) {
+            if ($pageRoute->getDefault('_locale') == $locale) {
+                $route = $pageRoute;
+            }
+        }
+
+        return $route;
+    }
+
+    /**
+     * Return all redirect routes for a page
+     * 
+     * @param  Page $page
+     * @return RouteCollection $redirectRoutes
+     */
+    public function getRedirectRouteForPage(Page $page)
+    {
+        $redirectRoutes = new RouteCollection();
+
+        // get all RedirectRoute for current page
+        foreach ($page->getRoutes() as $route) {
+            if ($route instanceof RedirectRouteInterface) {
+                $redirectRoutes->add($route->getRouteName(), $route);
+            }
+        }
+
+        return $redirectRoutes;
+    }
+
+    /**
+     * Return matching redirectRoute with current page url
+     * 
+     * @param  Page   $page
+     * @return RouteObjectInterface|null
+     */
+    public function getMatchingRedirectRouteForPage(Page $page)
+    {
+        $redirectRoutes = $this->getRedirectRouteForPage($page);
+
+        return $redirectRoutes->get($page->getUrl());
     }
 }
