@@ -14,6 +14,8 @@ use Doctrine\ODM\PHPCR\DocumentRepository;
 use Presta\CMSCoreBundle\Event\PageDeletionEvent;
 use Presta\CMSCoreBundle\Event\PageUpdateEvent;
 use Presta\CMSCoreBundle\Exception\Page\PageTypeNotFoundException;
+use Presta\CMSCoreBundle\Event\PageUpdateEvent;
+use Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem;
 use Presta\CMSCoreBundle\Document\Page;
 use Doctrine\ODM\PHPCR\DocumentManager;
 use Presta\CMSCoreBundle\Model\Page\PageTypeInterface;
