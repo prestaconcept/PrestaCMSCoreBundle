@@ -11,6 +11,7 @@ namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 use Presta\CMSCoreBundle\Form\PageType;
+use Presta\CMSCoreBundle\Document\Page;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,6 +58,16 @@ class PageController extends AdminController
     }
 
     /**
+     * Return Route manager
+     *
+     * @return Presta\CMSCoreBundle\Model\RouteManager
+     */
+    public function getRouteManager()
+    {
+        return $this->get('presta_cms.route_manager');
+    }
+
+    /**
      * Page Edition
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -85,11 +96,14 @@ class PageController extends AdminController
         }
 
         if ($menuItemId != null) {
-            $pageManager = $this->getPageManager();
+            $pageManager    = $this->getPageManager();
+            $routeManager   = $this->getRouteManager();
+
             $page = $pageManager->getPageForMenu($menuItemId, $locale);
-            $viewParams['page'] = $page;
-            $viewParams['pageFrontUrl'] = $request->getScheme() . '://' . $this->getWebsiteManager()->getHostForWebsite($website, $locale, $this->get('kernel')->getEnvironment()) . $pageManager->getPageUrl($page);
-            $viewParams['pageFrontUrl'] .= '?token=' . $pageManager->getToken($page);
+            $page->setUrl($routeManager->getRouteForPage($page, $locale)->getName());
+
+            $viewParams['page']         = $page;
+            $viewParams['pageFrontUrl'] = $this->getFrontUrlPreviewForPage($page, $locale);
             $viewParams['pageEditTabs'] = $pageManager->getPageType($page->getType())->getEditTabs();
 
             $form = $this->createForm(new PageType(), $page);
@@ -124,6 +138,28 @@ class PageController extends AdminController
         $viewParams = $pageType->getEditTabData($tab, $page);
 
         return $this->render($pageType->getEditTabTemplate($tab), $viewParams);
+    }
+
+    /**
+     * Render page routing information like redirect
+     * 
+     * @param  Page   $page
+     * @return Response
+     */
+    public function renderRoutingAction(Page $page)
+    {
+        // Get all redirect route name
+        $redirectRouteNames = array();
+        foreach($this->getRouteManager()->getRedirectRouteForPage($page) as $redirectRoute) {
+            $redirectRouteNames[] = $redirectRoute->getName();
+        }
+
+        $viewParams = array(
+            'currentRouteName'      => $this->getFrontUrlForPage($page, null, true),
+            'redirectRouteNames'    => $redirectRouteNames,
+        );
+
+        return $this->render('PrestaCMSCoreBundle:Admin/Page:routing.html.twig', $viewParams);
     }
 
     /**
@@ -192,7 +228,6 @@ class PageController extends AdminController
 
         $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
 
-
         return $this->redirect($this->getRequest()->headers->get('referer'));
     }
 
@@ -226,5 +261,47 @@ class PageController extends AdminController
         );
 
         return $this->render('PrestaCMSCoreBundle:Admin/Page:delete.html.twig', $viewParams);
+    }
+
+    /**
+     * Return page front url
+     * 
+     * @param  Page     $page
+     * @param  string   $locale
+     * @param  boolean  $absolute
+     * @return string
+     */
+    public function getFrontUrlForPage(Page $page, $locale = null, $absolute = false)
+    {
+        if (is_null($locale)) {
+            $locale = $this->getWebsiteManager()->getCurrentWebsite()->getLocale();
+        }
+
+        if ($absolute) {
+            $baseUrl = $this->getWebsiteManager()->getBaseUrlForLocale($locale);
+        }
+
+        $route      = $this->getRouteManager()->getRouteForPage($page, $locale);
+        $pageUrl    = str_replace(
+            $route->getPrefix(),
+            '',
+            $route->getId()
+        );
+
+        return $baseUrl . $pageUrl;
+    }
+
+    /**
+     * Return page front preview url (page front url with token)
+     * 
+     * @param  Page     $page
+     * @param  string   $locale
+     * @return string
+     */
+    public function getFrontUrlPreviewForPage(Page $page, $locale)
+    {
+        $url = $this->getFrontUrlForPage($page, $locale, true);
+
+        return $url . '?token=' . $this->getPageManager()->getToken($page);
     }
 }
