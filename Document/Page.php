@@ -269,20 +269,6 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
     }
 
     /**
-     * @return bool|\Symfony\Component\Routing\Route
-     */
-    public function getRoute()
-    {
-        foreach ($this->getRoutes() as $route) {
-            if ($route->getDefault('_locale') == $this->getLocale()) {
-                return $route;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * @param string $url
      */
     public function setUrl($url)
@@ -295,16 +281,7 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      */
     public function getUrl()
     {
-        if (!$this->url) {
-            $route = $this->getRoute();
-            if ($route != false) {
-                $this->url = $route->getName();
-            } else {
-                $this->url = false;
-            }
-        }
-
-        return $this->url;
+        return (isset($this->url)) ? $this->url : null;
     }
 
     /**
