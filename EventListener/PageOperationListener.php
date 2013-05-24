@@ -61,7 +61,10 @@ class PageOperationListener
      */
     public function onPageUpdate(PageUpdateEvent $event)
     {
-        //Check route change and create corresponding redirects github #10
+        $page = $event->getPage();
+
+        // update page routing (manage redirect route)
+        $this->routeManager->updatePageRouting($page);
     }
 
     /**

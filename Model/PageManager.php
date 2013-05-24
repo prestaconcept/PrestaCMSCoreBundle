@@ -12,6 +12,7 @@ namespace Presta\CMSCoreBundle\Model;
 use Application\Presta\CMSCoreBundle\Document\Website;
 
 use Presta\CMSCoreBundle\Event\PageDeletionEvent;
+use Presta\CMSCoreBundle\Event\PageUpdateEvent;
 use Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem;
 use Presta\CMSCoreBundle\Document\Page;
 use Doctrine\ODM\PHPCR\DocumentManager;
@@ -113,17 +114,13 @@ class PageManager
      */
     public function update($page)
     {
-        //Update corresponding route
-        $route = $page->getRoute();
-        $route->setName($page->getUrl());
-
-        //todo voir pour faire mieux :
-        //création d'une redirection pour l'ancien url
-        //pas de modification de la home sinon ça case le prefix des routes!
-
-        $this->getDocumentManager()->persist($route);
         $this->getDocumentManager()->persist($page);
         $this->getDocumentManager()->flush();
+
+        $this->container->get('event_dispatcher')->dispatch(
+            PageUpdateEvent::EVENT_NAME,
+            new PageUpdateEvent($page)
+        );
     }
 
     /**
@@ -217,20 +214,5 @@ class PageManager
     public function isValidToken($page, $token)
     {
         return ($token == $this->getToken($page));
-    }
-
-    /**
-     * Return page full url
-     *
-     * @param \Presta\CMSCoreBundle\Document\Page $page
-     * @return string
-     */
-    public function getPageUrl($page)
-    {
-        return str_replace(
-            $page->getRoute()->getPrefix(),
-            '',
-            $page->getRoute()->getId()
-        );
     }
 }
