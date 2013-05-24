@@ -61,7 +61,12 @@ cms_page:
             updated_at: Update at
             user: Users
             actions: Actions
+    routing:
+        title: Routing
     select_website: Select a website
+    url:
+        current: Current url
+        redirect: Redirect
     form:
         seo:
             label:
