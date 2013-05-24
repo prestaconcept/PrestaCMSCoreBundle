@@ -41,41 +41,41 @@ services:
 #        - [ setBlockManager, [ @sonata.block.manager ] ]
 
     #CMS Block service
+    presta_cms.block.base:
+        abstract:  true
+        arguments: [cms_core_editor, @templating]
+        calls:
+            - [ setTranslator, [ @translator ] ]
     presta_cms.block.simple:
         class: Presta\CMSCoreBundle\Block\SimpleBlockService
+        parent: presta_cms.block.base
         tags:
             - {name: sonata.block}
             - {name: presta_cms.block}
-        arguments: [cms_core_editor, @templating]
         calls:
             - [ setContainer, [@service_container] ]
-            - [ setTranslator, [ @translator ] ]
     presta_cms.block.page_children:
         class: Presta\CMSCoreBundle\Block\PageChildrenBlockService
+        parent: presta_cms.block.base
         tags:
             - {name: sonata.block}
             - {name: presta_cms.block}
-        arguments: [cms_core_editor, @templating]
         calls:
-            - [ setTranslator, [ @translator ] ]
             - [ setPageManager, [ @presta_cms.page_manager ] ]
     presta_cms.block.sitemap:
         class: Presta\CMSCoreBundle\Block\SitemapBlockService
+        parent: presta_cms.block.base
         tags:
             - {name: sonata.block}
             - {name: presta_cms.block}
-        arguments: [cms_core_editor, @templating]
         calls:
             - [ setContainer, [@service_container] ]
-            - [ setTranslator, [ @translator ] ]
     presta_cms.block.container:
         class: Presta\CMSCoreBundle\Block\ContainerBlockService
+        parent: presta_cms.block.base
         tags:
             - {name: sonata.block}
             - {name: presta_cms.block}
-        arguments: [cms_core_editor, @templating]
-        calls:
-            - [ setTranslator, [ @translator ] ]
 
     #Block service
     presta_cms.block.dashboard.cms:
