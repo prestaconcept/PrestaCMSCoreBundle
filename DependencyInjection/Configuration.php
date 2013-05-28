@@ -111,7 +111,6 @@ class Configuration implements ConfigurationInterface
                                                     ->scalarNode('can_add_block')->defaultValue(false)->end()
                                                     ->scalarNode('can_sort_block')->defaultValue(false)->end()
                                                     ->arrayNode('blocks')
-                                                        ->requiresAtLeastOneElement()
                                                         ->prototype('array')
                                                             ->children()
                                                                 ->scalarNode('name')->defaultValue('')->end()
