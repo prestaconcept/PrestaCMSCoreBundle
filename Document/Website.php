@@ -21,6 +21,7 @@ use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
 class Website
 {
     const WEBSITE_PREFIX    = 'website';
+    const THEME_PREFIX      = 'theme';
     const ROUTE_PREFIX      = 'route';
     const MENU_PREFIX       = 'menu';
     const PAGE_PREFIX       = 'page';

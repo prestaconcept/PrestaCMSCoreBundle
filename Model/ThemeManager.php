@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Sonata\AdminBundle\Model\ModelManagerInterface;
+use Presta\CMSCoreBundle\Document\Website;
 use Presta\CMSCoreBundle\Document\Theme;
 use Presta\CMSCoreBundle\Document\Zone;
 
@@ -178,11 +179,17 @@ class ThemeManager
         $theme->setCols($configuration['cols']);//var_dump(serialize(array('content'=>'<p>hello</p>')));die;
 
         if ($website != null) {
+            $themeNode = $this->getDocumentManager()->find(
+                'Presta\CMSCoreBundle\Document\Theme',
+                $website->getId() . DIRECTORY_SEPARATOR . Website::THEME_PREFIX . DIRECTORY_SEPARATOR . $configuration['name']
+            );
             $locale = $website->getLocale();
-            $zones = $this->getRepository()->getZones($configuration['name'], $website);
-            if (count($zones) == 0) {
+
+            if ($themeNode == null) {
                 //If there is no corresponding data, initialisation with default configuration
                 $zones = $this->getRepository()->initializeForWebsite($website, $configuration);
+            } else {
+                $zones = $this->getRepository()->getZones($configuration['name'], $website);
             }
         }
 
