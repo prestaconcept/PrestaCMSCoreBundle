@@ -111,6 +111,7 @@ services:
         class: Presta\CMSCoreBundle\Model\RouteManager
         arguments: []
         calls:
+            - [ setModelManager, [ @sonata.admin.manager.doctrine_phpcr ] ]
             - [ setRouteProvider, [@symfony_cmf_routing_extra.default_route_provider] ]
 
     presta_cms.block_manager:
