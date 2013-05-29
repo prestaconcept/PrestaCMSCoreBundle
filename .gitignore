@@ -1,3 +1,4 @@
+phpunit.xml
 Tests/Functional/config/parameters.yml
 build/
 vendor

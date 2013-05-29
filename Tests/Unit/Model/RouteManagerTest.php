@@ -27,7 +27,8 @@ class RouteManagerTest extends \PHPUnit_Framework_Testcase
     public function setUp()
     {
         $rp = $this->getMock('Symfony\Cmf\Component\Routing\RouteProviderInterface');
-        $this->routeManager = new RouteManager($rp);
+        $this->routeManager = new RouteManager();
+        $this->routeManager->setRouteProvider($rp);
     }
 
     /**

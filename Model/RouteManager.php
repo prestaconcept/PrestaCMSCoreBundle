@@ -39,19 +39,13 @@ class RouteManager
     protected $routeProvider;
 
     /**
-     * @var \Doctrine\Common\Persistence\ObjectManager
-     */
-    protected $documentManager;
-
-    /**
-     * Constructor
+     * Setter
      * 
      * @param RouteProviderInterface $routeProvider
      */
-    public function __construct(RouteProviderInterface $routeProvider, ModelManagerInterface $modelManager)
+    public function setRouteProvider(RouteProviderInterface $routeProvider)
     {
         $this->routeProvider    = $routeProvider;
-        $this->documentManager  = $modelManager->getDocumentManager();
     }
 
     /**

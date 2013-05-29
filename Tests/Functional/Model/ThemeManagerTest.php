@@ -42,7 +42,7 @@ class ThemeManagerTest extends BaseFunctionalTestCase
 
         $websiteManager->setCurrentEnvironment('dev');
         
-        return $websiteManager->loadWebsiteById('/website/default', 'en');
+        return $websiteManager->loadWebsiteById('/website/default', 'en', 'dev');
     }
 
     public function testGetThemeWithData()
