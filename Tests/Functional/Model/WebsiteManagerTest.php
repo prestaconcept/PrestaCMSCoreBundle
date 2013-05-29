@@ -34,7 +34,8 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
         $websiteManager->setCurrentEnvironment('dev');
         $prestaconceptWebsite = $websiteManager->loadWebsiteById(
             '/website/prestaconcept',
-            'fr'
+            'fr',
+            'dev'
         );
         $this->assertEquals('dev', $websiteManager->getCurrentEnvironment());
         $this->assertEquals(true, $prestaconceptWebsite instanceof Website);
@@ -43,18 +44,20 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
         $websiteManager->setCurrentEnvironment('prod');
         $prestaconceptWebsite = $websiteManager->loadWebsiteById(
             '/website/prestaconcept',
-            'en'
+            'en',
+            'prod'
         );
         $this->assertEquals('prod', $websiteManager->getCurrentEnvironment());
         $this->assertEquals('en', $prestaconceptWebsite->getLocale());
 
         $websiteManager->setCurrentEnvironment('dev');
-        $this->assertEquals(null, $websiteManager->loadWebsiteById('prestaconcept', 'fr'));
+        $this->assertEquals(null, $websiteManager->loadWebsiteById('prestaconcept', 'fr', 'dev'));
 
         $websiteManager->setCurrentEnvironment('dev');
         $liipWebsite = $websiteManager->loadWebsiteById(
             '/website/liip',
-            'fr'
+            'fr',
+            'dev'
         );
         $this->assertEquals('dev', $websiteManager->getCurrentEnvironment());
         $this->assertEquals('liip', $liipWebsite->getName());

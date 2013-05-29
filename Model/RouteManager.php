@@ -29,7 +29,12 @@ class RouteManager
      */
     protected $routeProvider;
 
-    public function __construct(RouteProviderInterface $routeProvider)
+    /**
+     * Setter
+     * 
+     * @param RouteProviderInterface $routeProvider
+     */
+    public function setRouteProvider(RouteProviderInterface $routeProvider)
     {
         $this->routeProvider = $routeProvider;
     }
