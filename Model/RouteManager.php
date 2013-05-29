@@ -34,9 +34,24 @@ use Presta\CMSCoreBundle\Document\Page;
 class RouteManager
 {
     /**
+     * @var ModelManagerInterface
+     */
+    protected $modelManager;
+
+    /**
      * @var RouteProviderInterface
      */
     protected $routeProvider;
+
+    /**
+     * Setter
+     * 
+     * @param ModelManagerInterface $modelManager
+     */
+    public function setModelManager(ModelManagerInterface $modelManager)
+    {
+        $this->modelManager = $modelManager;
+    }
 
     /**
      * Setter
@@ -45,7 +60,17 @@ class RouteManager
      */
     public function setRouteProvider(RouteProviderInterface $routeProvider)
     {
-        $this->routeProvider    = $routeProvider;
+        $this->routeProvider = $routeProvider;
+    }
+
+    /**
+     * Getter
+     * 
+     * @return DocumentManager
+     */
+    public function getDocumentManager()
+    {
+        return $this->modelManager->getDocumentManager();
     }
 
     /**
@@ -103,7 +128,7 @@ class RouteManager
             // search previous redirect route with same name exist, remove it
             $previousRedirectRoute = $this->getMatchingRedirectRouteForPage($page);
             if (!is_null($previousRedirectRoute)) {
-                $this->documentManager->remove($previousRedirectRoute);
+                $this->getDocumentManager()->remove($previousRedirectRoute);
 
             } else {
                 // create new redirect route for old url
@@ -111,14 +136,14 @@ class RouteManager
                 $redirectRoute->setName($currentRoute->getName());
                 // @todo set redirectRoute id
 
-                $this->documentManager->persist($redirectRoute);
+                $this->getDocumentManager()->persist($redirectRoute);
             }
 
             // update current route with new page url
             $currentRoute->setName($page->getUrl());
 
-            $this->documentManager->persist($currentRoute);
-            $this->documentManager->flush();
+            $this->getDocumentManager()->persist($currentRoute);
+            $this->getDocumentManager()->flush();
         }
     }
 
