@@ -120,31 +120,66 @@ class RouteManager
      */
     public function updatePageRouting(Page $page)
     {
-        $currentRoute = $this->getRouteForPage($page);
+        $mainRoute = $this->getRouteForPage($page);
         
         // if page url has change
-        if ($page->getUrl() != $currentRoute->getName()) {
+        if ($page->getUrl() != $mainRoute->getName()) {
 
             // search previous redirect route with same name exist, remove it
             $previousRedirectRoute = $this->getMatchingRedirectRouteForPage($page);
             if (!is_null($previousRedirectRoute)) {
                 $this->getDocumentManager()->remove($previousRedirectRoute);
 
-            } else {
-                // create new redirect route for old url
-                $redirectRoute = new RedirectRoute();
-                $redirectRoute->setName($currentRoute->getName());
-                // @todo set redirectRoute id
+                // move page
+                $this->getDocumentManager()->move($mainRoute, self::generateNewPath($mainRoute, $page->getUrl()));
 
-                $this->getDocumentManager()->persist($redirectRoute);
+            } else {
+                // list redirect route to create them with current url after move
+                $redirectRoutes = array();
+                $this->indexRedirectRouteToCreate($redirectRoutes, $mainRoute);
+
+                // move page
+                $this->getDocumentManager()->move($mainRoute, self::generateNewPath($mainRoute, $page->getUrl()));
+
+                // persist redirect
+                foreach ($redirectRoutes as $redirectRoute) {
+                    $this->getDocumentManager()->persist($redirectRoute);
+                }
             }
 
-            // update current route with new page url
-            $currentRoute->setName($page->getUrl());
-
-            $this->getDocumentManager()->persist($currentRoute);
             $this->getDocumentManager()->flush();
         }
+    }
+
+    /**
+     * Update current route with new page url
+     * 
+     * @param  RouteObjectInterface $mainRoute
+     * @param  string $newUrl
+     */
+    static public function generateNewPath(RouteObjectInterface $mainRoute, $newUrl)
+    {
+        return str_replace($mainRoute->getName(), $newUrl, $mainRoute->getId());
+    }
+
+    /**
+     * Generate redirect route for a route and all its children
+     *
+     * @param  array                    $redirectRoutes
+     * @param  RouteObjectInterface     $route
+     */
+    public function indexRedirectRouteToCreate(array &$redirectRoutes, RouteObjectInterface $route)
+    {
+        // create new redirect route for old url
+        $redirectRoute = new RedirectRoute();
+        $redirectRoute->setRouteName($route->getName());
+        $redirectRoute->setRouteTarget($route);
+
+        foreach ($route->getRouteChildren() as $routeChild) {
+            $this->indexRedirectRouteToCreate($redirectRoutes, $routeChild);
+        }
+
+        $redirectRoutes[] = $redirectRoute;
     }
 
     /**
