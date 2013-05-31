@@ -1,15 +1,10 @@
 {% trans_default_domain "PrestaCMSCoreBundle" %}
 
 <fieldset>
-    <legend>{{ 'cms_page.routing.title'|trans }}</legend>
-    <table>
-        <tr>
-            <th>{{ 'cms_page.url.current'|trans }}</th>
-            <td>{{ currentRouteName }}</td>
-        </tr>
+    <legend>{{ 'cms_page.url.redirect'|trans }}</legend>
+    <ul>
         {% for routeName in redirectRouteNames %}
-            <th>{{ 'cms_page.url.redirect'|trans }}</th>
-            <td>{{ routeName }}</td>
+            <li>{{ routeName }}</li>
         {% endfor %}
-    </table>
+    </ul>
 </fieldset>

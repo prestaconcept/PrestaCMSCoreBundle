@@ -155,8 +155,7 @@ class PageController extends AdminController
         }
 
         $viewParams = array(
-            'currentRouteName'      => $this->getFrontUrlForPage($page, null, true),
-            'redirectRouteNames'    => $redirectRouteNames,
+            'redirectRouteNames' => $redirectRouteNames,
         );
 
         return $this->render('PrestaCMSCoreBundle:Admin/Page:routing.html.twig', $viewParams);
