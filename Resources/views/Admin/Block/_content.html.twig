@@ -63,12 +63,12 @@
 
                                         <div class="block-actions">
                                             {% if (block.isEditable) %}
-                                                <a block-id="{{ block.id }}" class="action-edit">&nbsp;</a>
+                                                <a block-id="{{ block.id }}" class="btn action-edit"><i class="icon-edit"></i></a>
                                             {% endif %}
                                             {% if (block.isDeletable) %}
                                                 <a block-id="{{ block.id }}"
                                                    block-title="{{ ['block.title.', block.type]|join|trans([], 'PrestaCMSCoreBundle') }}"
-                                                   class="action-delete">&nbsp;</a>
+                                                   class="btn action-delete"><i class="icon-trash"></i></a>
                                             {% endif %}
                                         </div>
                                         <div id="block-content-{{ block.htmlId }}" class="block-content">
