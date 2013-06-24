@@ -1,11 +1,18 @@
 {% extends base_template %}
 {% trans_default_domain "PrestaCMSCoreBundle" %}
+{% block html_attributes %}ng-app="PrestaCMS.Page"{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     {% if (theme is defined) %}
         <link rel="stylesheet" href="{{ asset('' ~ theme.adminStyle) }}"></script>
     {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/prestacmscore/admin/libs/angularjs/angular.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/prestacmscore/admin/js/page/ng-seo.js') }}"></script>
 {% endblock %}
 
 {% block side_menu %}
@@ -55,12 +62,37 @@
                 {% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'_locale': locale, 'tab': tab, 'page': page} %}
             </div>
             {% endfor %}
-            <div class="tab-pane form-horizontal" id="seo">
+            <div class="tab-pane form-horizontal" id="seo" ng-controller="SeoController">
                 <form id="edit_form" class="form-horizontal" method="POST">
                     <fieldset>
                         <legend>{{ 'cms_page.seo.title'|trans }}</legend>
                         <div class="sonata-ba-collapsed-fields">
-                            {{ form_row(form.url)}}
+
+                            <div class="control-group" id="sonata-ba-field-container-page_url" ng-show="!urlCompleMode">
+                                {{ form_label(form.urlRelative)}}
+                                {{ form_errors(form.urlRelative) }}
+                                <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+                                    <input type="text" id="page_urlRelative" name="page[urlRelative]" value="{{ page.urlRelative }}" ng-model="urlRelative" >
+                                    <span class="help-block">{{ 'cms_page.form.seo.label.url_complete' | trans }} : {% verbatim %}{{ pathComplete }}{{ urlRelative | cleanUrl }}{% endverbatim %}</span>
+                                </div>
+                            </div>
+
+                            <div class="control-group" id="sonata-ba-field-container-page_url" ng-show="urlCompleMode">
+                                {{ form_label(form.urlComplete)}}
+                                {{ form_errors(form.urlComplete) }}
+                                <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+                                    <input type="text" id="page_urlComplete" name="page[urlComplete]" value="{{ page.urlComplete }}" ng-model="urlComplete" >
+                                    <span class="help-block">{{ 'cms_page.form.seo.help.url_complete' | trans }}</span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+                                    <label class="checkbox">
+                                        <input type="checkbox" ng-model="urlCompleMode" /> {{ 'cms_page.form.seo.label.url_complete_mode' | trans }}
+                                    </label>
+                                </div>
+                            </div>
+
                             {{ form_row(form.title)}}
                             {{ form_row(form.metaKeywords)}}
                             {{ form_row(form.metaDescription)}}
@@ -73,7 +105,7 @@
                             </div>
                         </div>
                     </fieldset>
-                    {{ form_rest(form) }}
+                    {{ form_row(form._token) }}
                 </form>
             </div>
             <div class="tab-pane form-horizontal" id="routing">
