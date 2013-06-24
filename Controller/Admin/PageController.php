@@ -100,7 +100,33 @@ class PageController extends AdminController
             $routeManager   = $this->getRouteManager();
 
             $page = $pageManager->getPageForMenu($menuItemId, $locale);
-            $page->setUrl($routeManager->getRouteForPage($page, $locale)->getName());
+
+            //Initialize routing data
+            $correspondingRoute = $routeManager->getRouteForPage($page, $locale);
+
+            //base route case
+            if ($correspondingRoute->getPrefix() == $correspondingRoute->getId()) {
+                $page->setUrlRelative('');
+                $page->setPathComplete('');
+                $page->setUrlComplete('');
+            } else {
+                $page->setUrlRelative($correspondingRoute->getName());
+
+                if ($page->isUrlCompleteMode()) {
+                    $page->setPathComplete('todo/');
+                } else {
+                    $page->setPathComplete(str_replace(
+                        $correspondingRoute->getPrefix(),
+                        '',
+                        $correspondingRoute->getParent()->getId() . '/'
+                    ));
+                }
+                $page->setUrlComplete(str_replace(
+                    $correspondingRoute->getPrefix(),
+                    '',
+                    $correspondingRoute->getId()
+                ));
+            }
 
             $viewParams['page']         = $page;
             $viewParams['pageFrontUrl'] = $this->getFrontUrlPreviewForPage($page, $locale);

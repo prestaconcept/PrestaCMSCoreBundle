@@ -9,10 +9,12 @@ var PrestaCMSCore = {};
 
 PrestaCMSCore.PageModule = angular.module('PrestaCMS.Page', [])
     .controller('SeoController', function($scope) {
-        $scope.urlRelative   = 'url.html';
-        $scope.pathComplete  = 'www.mysote.com/path/';
-        $scope.urlComplete   = 'www.mysote.com/path/' + $scope.urlRelative;
-        $scope.urlCompleMode = true;
+        $scope.init = function(urlRelative, pathComplete, urlComplete, isUrlCompleteMode) {
+            $scope.urlRelative       = urlRelative;
+            $scope.pathComplete      = pathComplete;
+            $scope.urlComplete       = urlComplete;
+            $scope.isUrlCompleteMode = isUrlCompleteMode;
+        };
     })
     .filter('cleanUrl', function () {
         return function (input) {

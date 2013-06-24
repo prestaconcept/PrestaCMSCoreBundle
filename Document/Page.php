@@ -34,7 +34,25 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      * This is not store in database, it's used to pass data form the form to the route
      * @var string
      */
-    protected $url;
+    protected $urlRelative;
+
+    /**
+     * This is not store in database, it's used to pass data form the form to the route
+     * @var string
+     */
+    protected $pathComplete;
+
+    /**
+     * This is not store in database, it's used to pass data form the form to the route
+     * @var string
+     */
+    protected $urlComplete;
+
+    /**
+     * @var boolean $isUrlCompleteMode
+     * @PHPCRODM\Boolean(translated=true)
+     */
+    protected $isUrlCompleteMode;
 
     /**
      * @var string $metaKeywords
@@ -269,19 +287,67 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
     }
 
     /**
-     * @param string $url
+     * @param string $urlRelative
      */
-    public function setUrl($url)
+    public function setUrlRelative($urlRelative)
     {
-        $this->url = $url;
+        $this->urlRelative = $urlRelative;
     }
 
     /**
-     * @return bool|string
+     * @return string
      */
-    public function getUrl()
+    public function getPathComplete()
     {
-        return (isset($this->url)) ? $this->url : null;
+        return (isset($this->pathComplete)) ? $this->pathComplete : null;
+    }
+
+    /**
+     * @param string $pathComplete
+     */
+    public function setPathComplete($pathComplete)
+    {
+        $this->pathComplete = $pathComplete;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlRelative()
+    {
+        return (isset($this->urlRelative)) ? $this->urlRelative : null;
+    }
+
+    /**
+     * @param string $urlComplete
+     */
+    public function setUrlComplete($urlComplete)
+    {
+        $this->urlComplete = $urlComplete;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlComplete()
+    {
+        return (isset($this->urlComplete)) ? $this->urlComplete : null;
+    }
+
+    /**
+     * @param boolean $isUrlCompleteMode
+     */
+    public function setIsUrlCompleteMode($isUrlCompleteMode)
+    {
+        $this->isUrlCompleteMode = $isUrlCompleteMode;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isUrlCompleteMode()
+    {
+        return $this->isUrlCompleteMode;
     }
 
     /**
