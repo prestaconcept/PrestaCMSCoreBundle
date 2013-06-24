@@ -18,7 +18,9 @@
     {% endif %}
     {% if (settings_route is defined) %}
         <div class="block-settings">
-            <a href="{{ url(settings_route)}}" target="_blank" class="module-settings">{{ 'block.module.settings.link'|trans([], 'PrestaCMSCoreBundle')}}</a>
+            <a href="{{ url(settings_route)}}" target="_blank" class="module-settings">
+                <i class="icon-wrench"></i>&nbsp;{{ 'block.module.settings.link'|trans([], 'PrestaCMSCoreBundle')}}
+            </a>
         </div>
     {% endif %}
 {% endblock %}
