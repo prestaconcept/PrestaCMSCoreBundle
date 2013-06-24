@@ -1,0 +1,187 @@
+/**
+ * @package    Presta
+ * @subpackage CMSCoreBundle
+ * @author     Nicolas Bastien <nbastien@prestaconcept.net>
+ */
+@import './bootstrap/mixins.less';
+@import './variables.less';
+@import './sidebar.less';
+
+/*************************************
+    Content administration
+*************************************/
+.sonata-bc table.page-content-admin {
+
+    tbody tr {
+
+        td, th, &:hover td, &:hover th {
+            background-color: @contentBackgroundColor;
+        }
+
+        td.empty, td.empty:hover {
+            background: #F5F5F5;
+        }
+
+        div.page-zone {
+
+            border: 1px solid @zoneBorderColor;
+            height: 100%;
+            padding: 5px;
+            margin: 5px;
+
+            .border-radius(5px);
+            #gradient > .vertical(@zoneBackgroundColorFrom, @zoneBackgroundColorTo);
+
+            &.page-zone-disabled {
+                background: @zoneDisabledBackgroundColor;
+            }
+
+            h3 {
+                font: bold 12px Arial, Helvetica, sans-serif;
+                color: #666;
+                text-shadow: 1px 1px 0 #fff;
+                text-align: center;
+                padding: 0 0 5px 0;
+                text-transform: capitalize;
+            }
+
+            div.zone-actions {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+            }
+
+            div.page-zone-block-container {
+                border: 1px dashed #777;
+                min-height: 40px;
+                padding: 5px;
+                margin-bottom: 5px;
+
+                div.page-zone-block {
+                    border: 1px solid @blockBorderColor;
+                    background: white;
+                    text-align: left;
+                    -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 0 #fff;
+                    -webkit-box-shadow: inset 0 1px 0 white, 0 1px 0 white;
+                    box-shadow: inset 0 1px 0 white, 0 1px 0 white;
+                    background: #fff;
+                    padding: 10px;
+                    margin-bottom: 5px;
+                    position: relative;
+
+                    &:hover {
+                        border: 1px solid #aaa;
+                    }
+
+                    h4 {
+                        color: #666;
+                        float: left;
+                        margin: 0px;
+                        font-size: 13px;
+                    }
+
+                    div.block-content {
+                        clear: both;
+                        padding: 5px;
+
+                        .block-preview {
+                            text-align: center;
+                            margin-bottom: 15px;
+                        }
+                    }
+
+                    div.block-actions {
+                        position: absolute;
+                        top: 5px;
+                        right: 5px;
+
+                        a {
+                            float: left;
+                        }
+                    }
+
+                    div.block-settings {
+                        text-align: center;
+                        margin-top: 20px;
+
+                        a.module-settings {
+                            color: #404040;
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Listing */
+td.sonata-ba-list-field-screenshot {
+    text-align: center !important;
+    width: 420px;
+}
+
+img.sonata-ba-img-box {
+    background: #FFF;
+    padding: 5px;
+    border: 1px solid #D4D4D4;
+    .box-shadow(0 13px 5px -10px #AAA);
+}
+
+/* Modal */
+.sonata-bc .modal-large {
+    width: 80% !important;
+    left: 30% !important;
+}
+
+#modal-loader {
+    text-align: center;
+}
+
+/* Container */
+.sonata-bc .row-fluid table div.cms-container {
+    div.row {
+        margin-left: 0px;
+        width: 100%;
+
+        [class*=span] {
+            display: inline-block;
+        }
+
+        div.cms-container-block {
+            text-align: center;
+            padding: 25px 0px;
+            border: 1px solid @blockBorderColor;
+        }
+    }
+}
+
+/* Locale */
+a.locale {
+    width: 20px;
+    height: 20px;
+    padding: 10px 2px !important;
+    margin-right: 5px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+a.locale_fr {
+    background-image: url('/bundles/prestacmscore/admin/img/flags/fr.png');
+}
+
+a.locale_it {
+    background-image: url('/bundles/prestacmscore/admin/img/flags/it.png');
+}
+
+a.locale_nl {
+    background-image: url('/bundles/prestacmscore/admin/img/flags/nl.png');
+}
+
+a.locale_es {
+    background-image: url('/bundles/prestacmscore/admin/img/flags/es.png');
+}
+
+a.locale_en {
+    background-image: url('/bundles/prestacmscore/admin/img/flags/en.png');
+}
