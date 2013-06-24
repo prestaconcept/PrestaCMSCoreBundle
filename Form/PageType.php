@@ -55,8 +55,9 @@ class PageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        //SEO
-            ->add('url', null, array('label' => 'cms_page.form.seo.label.url'))
+            //SEO
+            ->add('urlRelative', null, array('label' => 'cms_page.form.seo.label.url_relative', 'required' => false))
+            ->add('urlComplete', null, array('label' => 'cms_page.form.seo.label.url_complete', 'required' => false))
             ->add('title', null, array('label' => 'cms_page.form.seo.label.title'))
             ->add('metaKeywords', null, array('label' => 'cms_page.form.seo.label.meta_keywords'))
             ->add('metaDescription', 'textarea', array('label' => 'cms_page.form.seo.label.meta_description'))
