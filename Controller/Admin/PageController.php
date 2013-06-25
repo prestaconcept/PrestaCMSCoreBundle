@@ -102,6 +102,7 @@ class PageController extends AdminController
             $page = $pageManager->getPageForMenu($menuItemId, $locale);
 
             //Initialize routing data
+            $routeManager->setBaseUrl($this->getWebsiteManager()->getBaseUrlForLocale($locale));
             $correspondingRoute = $routeManager->getRouteForPage($page, $locale);
 
             //base route case

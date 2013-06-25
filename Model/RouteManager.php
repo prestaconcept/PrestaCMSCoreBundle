@@ -43,6 +43,11 @@ class RouteManager
     protected $routeProvider;
 
     /**
+     * @var string
+     */
+    protected $baseUrl;
+
+    /**
      * Setter
      * 
      * @param ModelManagerInterface $modelManager
@@ -60,6 +65,22 @@ class RouteManager
     public function setRouteProvider(RouteProviderInterface $routeProvider)
     {
         $this->routeProvider = $routeProvider;
+    }
+
+    /**
+     * @param string $baseUrl
+     */
+    public function setBaseUrl($baseUrl)
+    {
+        $this->baseUrl = $baseUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBaseUrl()
+    {
+        return $this->baseUrl;
     }
 
     /**
@@ -117,7 +138,7 @@ class RouteManager
      *
      * @param Page $page
      */
-    public function updatePageRoutingUrlComplete(Page $page)
+    protected function updatePageRoutingUrlComplete(Page $page)
     {
         $pageRoute      = $this->getRouteForPage($page);
         $newRoutePath   = $pageRoute->getPrefix() . $page->getUrlComplete();
@@ -135,7 +156,7 @@ class RouteManager
      *
      * @param  Page   $page
      */
-    public function updatePageRoutingUrlRelative(Page $page)
+    protected function updatePageRoutingUrlRelative(Page $page)
     {
         $pageRoute      = $this->getRouteForPage($page);
         $parentPage     = $page->getParent();
@@ -151,27 +172,66 @@ class RouteManager
     }
 
     /**
-     * Move an existing route to a new path
+     * Generate the list of redirection
      *
-     * @todo handle redirects
+     * @param  Route $oldRoute
+     * @param  $newRouteUrl
+     * @return array
+     */
+    protected function generateRedirectionList(Route $oldRoute, $newRouteUrl)
+    {
+        $redirectionList = array();
+        $redirectionList[$oldRoute->getId()] = $newRouteUrl;
+
+        foreach ($oldRoute->getRouteChildren() as $oldRouteChild) {
+            $redirectionList += $this->generateRedirectionList($oldRouteChild, $newRouteUrl . '/' . $oldRouteChild->getName());
+        }
+
+        return $redirectionList;
+    }
+
+    /**
+     * Generate RedirectRoutes for the redirections
+     *
+     * @param array $redirectionList
+     */
+    protected function generateRedirections(array $redirectionList)
+    {
+        //Not working : right now DoctrineDBAL Client throws an exception cause it considers that there is node duplication
+        //DocumentManager::clear does not solve the problem
+        return;
+
+        foreach ($redirectionList as $oldId => $newUrl) {
+            $redirectRoute = new RedirectRoute();
+            $redirectRoute->setId($oldId);
+            $redirectRoute->setUri($newUrl);
+            $this->getDocumentManager()->persist($redirectRoute);
+        }
+
+        $this->getDocumentManager()->flush();
+    }
+
+    /**
+     * Move an existing route to a new path
      *
      * @param Route  $oldRoute
      * @param string $newRoutePath
      */
-    public function moveRoute(Route $oldRoute, $newRoutePath)
+    protected function moveRoute(Route $oldRoute, $newRoutePath)
     {
         $page = $oldRoute->getRouteContent();
+
         $parentUrl  = substr($page->getUrlComplete(), 0, strrpos($page->getUrlComplete(), '/'));
         $parentPath = $oldRoute->getPrefix() . $parentUrl;
 
         //Check if redirect already exists
-        $oldRouteName = $oldRoute->getName();
-        $oldRouteParentId = $oldRoute->getParent()->getId();
-        $oldRedirect  = $this->getDocumentManager()->find('Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute', $newRoutePath);
+        $oldRedirect = $this->getDocumentManager()->find('Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute', $newRoutePath);
         if ($oldRedirect != null) {
             $this->getDocumentManager()->remove($oldRedirect);
             $this->getDocumentManager()->flush();
         }
+        $newRouteUrl = $this->getBaseUrl() . str_replace($oldRoute->getPrefix(), '', $newRoutePath);
+        $redirectionList = $this->generateRedirectionList($oldRoute, $newRouteUrl);
 
         $newRouteParent = $this->getDocumentManager()->find(null, $parentPath);
         if ($newRouteParent == null) {
@@ -183,24 +243,8 @@ class RouteManager
         $this->getDocumentManager()->move($oldRoute, $newRoutePath);
         $this->getDocumentManager()->flush();
 
-        //Refresh useful node
-        $newRoute = $this->getDocumentManager()->find(null, $oldRoute->getId());
-        $oldRouteParent = $this->getDocumentManager()->find(null, $oldRouteParentId);
-
-        //Create redirect from old url to the new one
-        $redirectRoute = new RedirectRoute();
-        $redirectRoute->setPosition($oldRouteParent, $oldRouteName);
-        $redirectRoute->setRouteTarget($newRoute);
-        $redirectRoute->setDefaults($newRoute->getDefaults());
-        $redirectRoute->setRequirements($newRoute->getRequirements());
-        $redirectRoute->setVariablePattern($newRoute->getVariablePattern());
-
-        //NBN : Error item already exist (?)
-//        $this->getDocumentManager()->persist($redirectRoute);
-//        $this->getDocumentManager()->flush();
-
-        //Todo handle 301 for all children
-
+        //Now old route is moved so we can persist the new redirects
+        $this->generateRedirections($redirectionList);
     }
 
     /**
@@ -215,56 +259,6 @@ class RouteManager
         }
 
         return $this->updatePageRoutingUrlRelative($page);
-
-        // if page url has change
-        if ($page->getUrlRelative() != $mainRoute->getName()) {
-
-            // search previous redirect route with same name exist
-            $previousRedirectRoute = $this->getMatchingRedirectRouteForPage($page);
-            if (!is_null($previousRedirectRoute)) {
-                // if exist, remove it
-                $this->getDocumentManager()->remove($previousRedirectRoute);
-
-                // move page with children
-                $this->getDocumentManager()->move($mainRoute, self::generateNewPath($mainRoute, $page->getUrl()));
-                $this->getDocumentManager()->flush();
-
-            } else {
-                // @todo : refactor this step to not use temporary node 
-                
-                // create temporary parent node for redirect route 
-                $tmpRedirectRoute = new Route();
-                $tmpRedirectRoute->setName('redirect');
-                $tmpRedirectRoute->setParent($mainRoute->getParent());
-
-                $this->getDocumentManager()->persist($tmpRedirectRoute);
-                $this->getDocumentManager()->flush();
-
-                // create redirect route as children of redirect node
-                $this->createRedirectRoute($mainRoute, $tmpRedirectRoute);
-                $this->getDocumentManager()->flush();
-
-                // move page with children
-                $this->getDocumentManager()->move($mainRoute, self::generateNewPath($mainRoute, $page->getUrl()));
-                $this->getDocumentManager()->flush();
-
-                // clear DocumentManager because move does not update the Id fields of child documents
-                $this->getDocumentManager()->clear();
-                $tmpRedirectRoute = $this->getDocumentManager()->find('Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route', $tmpRedirectRoute->getId());
-
-                // remove redirect from redirect route path
-                foreach ($tmpRedirectRoute->getRouteChildren() as $routeChild) {
-                    $this->getDocumentManager()->move($routeChild, str_replace('/redirect', '', $routeChild->getId()));
-                    $this->getDocumentManager()->flush();
-                }
-
-                // remove temporary parent node for redirect route 
-                $this->getDocumentManager()->remove($tmpRedirectRoute);
-                $this->getDocumentManager()->flush();
-            }
-
-            $this->getDocumentManager()->flush();
-        }
     }
 
     /**
@@ -345,18 +339,5 @@ class RouteManager
         }
 
         return $redirectRoutes;
-    }
-
-    /**
-     * Return matching redirectRoute with current page url
-     * 
-     * @param  Page   $page
-     * @return RouteObjectInterface|null
-     */
-    public function getMatchingRedirectRouteForPage(Page $page)
-    {
-        $redirectRoutes = $this->getRedirectRouteForPage($page);
-
-        return $redirectRoutes->get(str_replace('-', '_', $page->getUrl()));
     }
 }
