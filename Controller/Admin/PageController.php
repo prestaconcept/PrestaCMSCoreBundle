@@ -113,7 +113,12 @@ class PageController extends AdminController
                 $page->setUrlRelative($correspondingRoute->getName());
 
                 if ($page->isUrlCompleteMode()) {
-                    $page->setPathComplete('todo/');
+                    $pageParentRoute = $routeManager->getRouteForPage($page->getParent(), $locale);
+                    $page->setPathComplete(str_replace(
+                        $pageParentRoute->getPrefix(),
+                        '',
+                        $pageParentRoute->getId() . '/'
+                    ));
                 } else {
                     $page->setPathComplete(str_replace(
                         $correspondingRoute->getPrefix(),
