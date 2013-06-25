@@ -291,6 +291,9 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      */
     public function setUrlRelative($urlRelative)
     {
+        if (strpos($urlRelative, '/') !== 0) {
+            $urlRelative = '/' . $urlRelative;
+        }
         $this->urlRelative = $urlRelative;
     }
 
@@ -323,6 +326,9 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      */
     public function setUrlComplete($urlComplete)
     {
+        if (strpos($urlComplete, '/') !== 0) {
+            $urlComplete = '/' . $urlComplete;
+        }
         $this->urlComplete = $urlComplete;
     }
 
@@ -347,7 +353,7 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      */
     public function isUrlCompleteMode()
     {
-        return $this->isUrlCompleteMode;
+        return (bool)$this->isUrlCompleteMode;
     }
 
     /**
