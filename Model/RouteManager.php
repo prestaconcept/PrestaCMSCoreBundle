@@ -10,6 +10,7 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
+use PHPCR\Util\NodeHelper;
 use Symfony\Cmf\Component\Routing\RouteProviderInterface;
 use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
@@ -27,8 +28,6 @@ use Presta\CMSCoreBundle\Document\Page;
 /**
  * Description of RouteManager
  *
- * @package    PrestaCMS
- * @subpackage CoreBundle
  * @author David Epely <depely@prestaconcept.net>
  */
 class RouteManager
@@ -114,16 +113,111 @@ class RouteManager
     }
 
     /**
+     * Update page routing for a complete url
+     *
+     * @param Page $page
+     */
+    public function updatePageRoutingUrlComplete(Page $page)
+    {
+        $pageRoute      = $this->getRouteForPage($page);
+        $newRoutePath   = $pageRoute->getPrefix() . $page->getUrlComplete();
+
+        if ($pageRoute->getId() == $newRoutePath) {
+            //Url didn't change
+            return;
+        }
+
+        return $this->moveRoute($pageRoute, $newRoutePath);
+    }
+
+    /**
+     * Update page routing for a relative url
+     *
+     * @param  Page   $page
+     */
+    public function updatePageRoutingUrlRelative(Page $page)
+    {
+        $pageRoute      = $this->getRouteForPage($page);
+        $parentPage     = $page->getParent();
+        $parentRoute    = $this->getRouteForPage($parentPage);
+        $newRoutePath   = $parentRoute->getId() . $page->getUrlRelative();
+
+        if ($pageRoute->getId() == $newRoutePath) {
+            //Url didn't change
+            return;
+        }
+
+        return $this->moveRoute($pageRoute, $newRoutePath);
+    }
+
+    /**
+     * Move an existing route to a new path
+     *
+     * @todo handle redirects
+     *
+     * @param Route  $oldRoute
+     * @param string $newRoutePath
+     */
+    public function moveRoute(Route $oldRoute, $newRoutePath)
+    {
+        $page = $oldRoute->getRouteContent();
+        $parentUrl  = substr($page->getUrlComplete(), 0, strrpos($page->getUrlComplete(), '/'));
+        $parentPath = $oldRoute->getPrefix() . $parentUrl;
+
+        //Check if redirect already exists
+        $oldRouteName = $oldRoute->getName();
+        $oldRouteParentId = $oldRoute->getParent()->getId();
+        $oldRedirect  = $this->getDocumentManager()->find('Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute', $newRoutePath);
+        if ($oldRedirect != null) {
+            $this->getDocumentManager()->remove($oldRedirect);
+            $this->getDocumentManager()->flush();
+        }
+
+        $newRouteParent = $this->getDocumentManager()->find(null, $parentPath);
+        if ($newRouteParent == null) {
+            //Create new route parent
+            $session = $this->getDocumentManager()->getPhpcrSession();
+            NodeHelper::createPath($session, $parentPath);
+        }
+        //Create new route
+        $this->getDocumentManager()->move($oldRoute, $newRoutePath);
+        $this->getDocumentManager()->flush();
+
+        //Refresh useful node
+        $newRoute = $this->getDocumentManager()->find(null, $oldRoute->getId());
+        $oldRouteParent = $this->getDocumentManager()->find(null, $oldRouteParentId);
+
+        //Create redirect from old url to the new one
+        $redirectRoute = new RedirectRoute();
+        $redirectRoute->setPosition($oldRouteParent, $oldRouteName);
+        $redirectRoute->setRouteTarget($newRoute);
+        $redirectRoute->setDefaults($newRoute->getDefaults());
+        $redirectRoute->setRequirements($newRoute->getRequirements());
+        $redirectRoute->setVariablePattern($newRoute->getVariablePattern());
+
+        //NBN : Error item already exist (?)
+//        $this->getDocumentManager()->persist($redirectRoute);
+//        $this->getDocumentManager()->flush();
+
+        //Todo handle 301 for all children
+
+    }
+
+    /**
      * Update page routing
      * 
      * @param  Page   $page
      */
     public function updatePageRouting(Page $page)
     {
-        $mainRoute = $this->getRouteForPage($page);
-        
+        if ($page->isUrlCompleteMode()) {
+            return $this->updatePageRoutingUrlComplete($page);
+        }
+
+        return $this->updatePageRoutingUrlRelative($page);
+
         // if page url has change
-        if ($page->getUrl() != $mainRoute->getName()) {
+        if ($page->getUrlRelative() != $mainRoute->getName()) {
 
             // search previous redirect route with same name exist
             $previousRedirectRoute = $this->getMatchingRedirectRouteForPage($page);
