@@ -63,7 +63,7 @@
             </div>
             {% endfor %}
             <div class="tab-pane form-horizontal" id="seo" ng-controller="SeoController"
-                 ng-init="init('{{ page.urlRelative }}', '{{ page.pathComplete }}', '{{ page.urlComplete }}', '{{ page.isUrlCompleteMode }}')">
+                 ng-init="init('{{ page.urlRelative }}', '{{ page.pathComplete }}', '{{ page.urlComplete }}', {% if (page.isUrlCompleteMode) %} true {% else %} false {% endif %})">
 
                 <form id="edit_form" class="form-horizontal" method="POST">
                     <fieldset>
