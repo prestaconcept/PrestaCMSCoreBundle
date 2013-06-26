@@ -134,10 +134,6 @@ class PageController extends AdminController
                 ));
             }
 
-            $viewParams['page']         = $page;
-            $viewParams['pageFrontUrl'] = $this->getFrontUrlPreviewForPage($page, $locale);
-            $viewParams['pageEditTabs'] = $pageManager->getPageType($page->getType())->getEditTabs();
-
             $form = $this->createForm(new PageType(), $page);
             if ($this->get('request')->getMethod() == 'POST') {
                 $form->bind($this->get('request'));
@@ -150,6 +146,9 @@ class PageController extends AdminController
                 }
             }
             $viewParams['form'] = $form->createView();
+            $viewParams['page'] = $page;
+            $viewParams['pageFrontUrl'] = $this->getFrontUrlPreviewForPage($page, $locale);
+            $viewParams['pageEditTabs'] = $pageManager->getPageType($page->getType())->getEditTabs();
         }
 
         return $this->render('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
