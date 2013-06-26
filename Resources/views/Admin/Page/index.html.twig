@@ -36,9 +36,9 @@
 {%block actions %}
     {% if (page) %}
     <div class="sonata-actions subnav">
-        <a class="btn btn-danger" href="{{ path('presta_cms_page_delete', {'id': page.id}) }}"><i class="icon-remove icon-white"></i>&nbsp;{{ 'button.delete'|trans }}</a>
-        <a class="btn btn-info" target="_blank" href="{{ pageFrontUrl }}"><i class=" icon-eye-open "></i>&nbsp;{{ 'button.preview'|trans }}</a>
-        <a class="btn btn-success" href="{{ path('presta_cms_page_clear_cache', {'id': page.id}) }}"><i class="icon-retweet icon-white"></i>&nbsp;{{ 'button.clear_cache'|trans }}</a>
+        <a class="btn" href="{{ path('presta_cms_page_delete', {'id': page.id}) }}"><i class="icon-trash"></i>&nbsp;{{ 'button.delete'|trans }}</a>
+        <a class="btn" target="_blank" href="{{ pageFrontUrl }}"><i class="icon-eye-open"></i>&nbsp;{{ 'button.preview'|trans }}</a>
+        <a class="btn btn-success" href="{{ path('presta_cms_page_clear_cache', {'id': page.id}) }}"><i class="icon-refresh"></i>&nbsp;{{ 'button.clear_cache'|trans }}</a>
     </div>
     {% endif %}
 {% endblock %}
@@ -56,7 +56,7 @@
 
         {% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
 
-        <div class="tab-content">
+        <div class="tab-content sonata-ba-form">
             {% for tab in pageEditTabs %}
             <div class="tab-pane form-horizontal {% if (loop.index == 1) %}active{% endif %}" id="{{ ['cms-page-', tab]|join }}">
                 {% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'_locale': locale, 'tab': tab, 'page': page} %}
