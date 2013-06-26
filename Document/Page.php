@@ -34,7 +34,25 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
      * This is not store in database, it's used to pass data form the form to the route
      * @var string
      */
-    protected $url;
+    protected $urlRelative;
+
+    /**
+     * This is not store in database, it's used to pass data form the form to the route
+     * @var string
+     */
+    protected $pathComplete;
+
+    /**
+     * This is not store in database, it's used to pass data form the form to the route
+     * @var string
+     */
+    protected $urlComplete;
+
+    /**
+     * @var boolean $isUrlCompleteMode
+     * @PHPCRODM\Boolean(translated=true)
+     */
+    protected $isUrlCompleteMode;
 
     /**
      * @var string $metaKeywords
@@ -269,42 +287,73 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
     }
 
     /**
-     * @return bool|\Symfony\Component\Routing\Route
+     * @param string $urlRelative
      */
-    public function getRoute()
+    public function setUrlRelative($urlRelative)
     {
-        foreach ($this->getRoutes() as $route) {
-            if ($route->getDefault('_locale') == $this->getLocale()) {
-                return $route;
-            }
+        if (strpos($urlRelative, '/') !== 0) {
+            $urlRelative = '/' . $urlRelative;
         }
-
-        return false;
+        $this->urlRelative = $urlRelative;
     }
 
     /**
-     * @param string $url
+     * @return string
      */
-    public function setUrl($url)
+    public function getPathComplete()
     {
-        $this->url = $url;
+        return (isset($this->pathComplete)) ? $this->pathComplete : null;
     }
 
     /**
-     * @return bool|string
+     * @param string $pathComplete
      */
-    public function getUrl()
+    public function setPathComplete($pathComplete)
     {
-        if (!$this->url) {
-            $route = $this->getRoute();
-            if ($route != false) {
-                $this->url = $route->getName();
-            } else {
-                $this->url = false;
-            }
-        }
+        $this->pathComplete = $pathComplete;
+    }
 
-        return $this->url;
+    /**
+     * @return string
+     */
+    public function getUrlRelative()
+    {
+        return (isset($this->urlRelative)) ? $this->urlRelative : null;
+    }
+
+    /**
+     * @param string $urlComplete
+     */
+    public function setUrlComplete($urlComplete)
+    {
+        if (strpos($urlComplete, '/') !== 0) {
+            $urlComplete = '/' . $urlComplete;
+        }
+        $this->urlComplete = $urlComplete;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlComplete()
+    {
+        return (isset($this->urlComplete)) ? $this->urlComplete : null;
+    }
+
+    /**
+     * @param boolean $isUrlCompleteMode
+     */
+    public function setIsUrlCompleteMode($isUrlCompleteMode)
+    {
+        $this->isUrlCompleteMode = $isUrlCompleteMode;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isUrlCompleteMode()
+    {
+        return (bool)$this->isUrlCompleteMode;
     }
 
     /**

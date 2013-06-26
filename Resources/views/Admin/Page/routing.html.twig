@@ -1,0 +1,10 @@
+{% trans_default_domain "PrestaCMSCoreBundle" %}
+
+<fieldset>
+    <legend>{{ 'cms_page.url.redirect'|trans }}</legend>
+    <ul>
+        {% for routeName in redirectRouteNames %}
+            <li>{{ routeName }}</li>
+        {% endfor %}
+    </ul>
+</fieldset>

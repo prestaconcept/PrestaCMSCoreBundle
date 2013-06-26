@@ -62,14 +62,23 @@ cms_page:
             updated_at: Modifié le
             user: Utilisateur
             actions: Actions
+    routing:
+        title: Routing
     select_website: Sélectionner un site
+    url:
+        current: Url actuel
+        redirect: Redirection
     form:
         seo:
             label:
-                url: Url
+                url_relative: Url relative
+                url_complete: Url complète
+                url_complete_mode: Mode url complète
                 title: Titre
                 meta_keywords: Keywords
                 meta_description: Description
+            help:
+                url_complete: chemin complet depuis la racine du site
         settings:
             label:
                 name: Nom
