@@ -83,21 +83,21 @@ sonata_doctrine_phpcr_admin:
         Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode:
             valid_children:
                 - Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode
-            image: 'data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+            image: '/bundles/prestacmscore/admin/img/1x1.png'
         Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode:
             valid_children:
                 - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode
-            image: 'data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+            image: '/bundles/prestacmscore/admin/img/1x1.png'
         Presta\CMSCoreBundle\Document\Page:
             valid_children:
                 - Presta\CMSCoreBundle\Document\Page
-            image: 'data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+            image: '/bundles/prestacmscore/admin/img/1x1.png'
         Presta\CMSCoreBundle\Document\Navigation\RootMenuNode:
             valid_children:
                 - Presta\CMSCoreBundle\Document\Page
                 - Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode
                 - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode
-            image: 'data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+            image: '/bundles/prestacmscore/admin/img/1x1.png'
 
 sonata_seo:
     encoding: UTF-8
