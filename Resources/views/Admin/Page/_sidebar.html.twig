@@ -5,13 +5,12 @@
 }) }}
 
 <fieldset class="cms_page_tree">
-    <legend>{{ 'cms_page_tree.title'|trans({}, 'PrestaCMSCoreBundle') }}</legend>
+    {#<legend>{{ 'cms_page_tree.title'|trans({}, 'PrestaCMSCoreBundle') }}</legend>#}
     {%  if (websiteId|length > 0) %}
         <div id="page-tree-container" class="control-group">
             <h4>{{ 'navigation.title'|trans({}, 'PrestaCMSCoreBundle') }}</h4>
 
             {% render url('presta_cms_page_tree', {'root': websiteId~"/menu", 'selected': '/' ~ menuItemId, 'locale': locale }) %}
-
 
             <script type="text/javascript">
                 $(document).ready(function() {

@@ -1,21 +1,52 @@
 
-/* Website selector */
-.sonata-bc .sidebar #website-selector {
 
-    a.brand {
-        font-size: 15px;
-        text-transform: capitalize;
-        padding-right: 20px;
+.sonata-bc .sidebar {
+
+    #website-selector {
+        /* Website selector */
+        a.brand {
+            font-size: 15px;
+            text-transform: capitalize;
+            padding-right: 20px;
+        }
+
+        #website-locale {
+            float: right;
+            margin: 0px;
+        }
+
+        .navbar-inner {
+            padding-left: 7px;
+            padding-right: 7px;
+            min-height: 40px;
+        }
     }
 
-    #website-locale {
-        float: right;
-        margin: 0px;
-    }
+    .jstree {
 
-    .navbar-inner {
-        padding-left: 7px;
-        padding-right: 7px;
-        min-height: 40px;
+        > ul > li > a, > ul > li > a:hover,
+        > ul > li > a.jstree-hovered, > ul > li > a.jstree-hovered:hover {
+            font-weight: bold;
+            color: @jstreeNavigationColor;
+            background: @jstreeNavigationBackground;
+            padding: 8px 5px;
+            width: 100%;
+            font-size: 13px;
+        }
+
+        a, .jstree-hovered, .jstree-clicked {
+            padding: 0px;
+
+            &:hover {
+                padding: 0px;
+                background: transparent;
+                border: none;
+                font-weight: bold;
+            }
+
+            ins {
+                width: 0px;
+            }
+        }
     }
 }
