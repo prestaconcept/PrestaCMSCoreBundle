@@ -1,3 +1,4 @@
+{% trans_default_domain "PrestaCMSCoreBundle" %}
 <div id="modal" class="modal modal-large hide">
     <div class="modal-header">
         <h3 id="modal-title">{{ 'modal.edit.block.title'|trans({}, 'PrestaCMSCoreBundle') }}</h3>
@@ -63,12 +64,18 @@
 
                                         <div class="block-actions">
                                             {% if (block.isEditable) %}
-                                                <a block-id="{{ block.id }}" class="btn action-edit"><i class="icon-edit"></i></a>
+                                                <a block-id="{{ block.id }}" class="btn btn-tooltip action-edit"
+                                                   data-toggle="tooltip" title="{{ 'button.block.edit.tooltip'|trans }}">
+                                                    <i class="icon-edit"></i>
+                                                </a>
                                             {% endif %}
                                             {% if (block.isDeletable) %}
                                                 <a block-id="{{ block.id }}"
-                                                   block-title="{{ ['block.title.', block.type]|join|trans([], 'PrestaCMSCoreBundle') }}"
-                                                   class="btn action-delete"><i class="icon-trash"></i></a>
+                                                   block-title="{{ ['block.title.', block.type]|join|trans }}"
+                                                   class="btn  btn-tooltip action-delete"
+                                                   data-toggle="tooltip" title="{{ 'button.block.delete.tooltip'|trans }}">
+                                                    <i class="icon-trash"></i>
+                                                </a>
                                             {% endif %}
                                         </div>
                                         <div id="block-content-{{ block.htmlId }}" class="block-content">

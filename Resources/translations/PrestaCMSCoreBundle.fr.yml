@@ -44,12 +44,16 @@ breadcrumb:
 button:
     close: Fermer
     save: Sauvegarder
-    clear_cache: Vider le cache
-    clear_cache.tooltip: Vider le cache afin que vos modification soient visibles sur le front
-    preview: Aperçu
-    preview.tooltip: Aperçu sur le front de la version actuelle
-    delete: Supprimer
-    delete.tooltip: Supprimer cette page ainsi que toutes ses pages filles
+    page:
+        clear_cache: Vider le cache
+        clear_cache.tooltip: Vider le cache afin que vos modification soient visibles sur le front
+        preview: Aperçu
+        preview.tooltip: Aperçu sur le front de la version actuelle
+        delete: Supprimer
+        delete.tooltip: Supprimer cette page ainsi que toutes ses pages filles
+    block:
+        edit.tooltip: Modifier ce block
+        delete.tooltip: Supprimer ce block
 
 cms_page:
     content:

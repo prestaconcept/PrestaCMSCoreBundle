@@ -37,16 +37,16 @@
     {% if (page) %}
     <div class="sonata-actions subnav">
         <a class="btn btn-tooltip" href="{{ path('presta_cms_page_delete', {'id': page.id}) }}"
-           data-toggle="tooltip" title="{{ 'button.delete.tooltip'|trans }}">
-            <i class="icon-trash"></i>&nbsp;{{ 'button.delete'|trans }}
+           data-toggle="tooltip" title="{{ 'button.page.delete.tooltip'|trans }}">
+            <i class="icon-trash"></i>&nbsp;{{ 'button.page.delete'|trans }}
         </a>
         <a class="btn btn-tooltip" target="_blank" href="{{ pageFrontUrl }}"
-           data-toggle="tooltip" title="{{ 'button.preview.tooltip'|trans }}">
-            <i class="icon-eye-open"></i>&nbsp;{{ 'button.preview'|trans }}
+           data-toggle="tooltip" title="{{ 'button.page.preview.tooltip'|trans }}">
+            <i class="icon-eye-open"></i>&nbsp;{{ 'button.page.preview'|trans }}
         </a>
         <a class="btn btn-success btn-tooltip" href="{{ path('presta_cms_page_clear_cache', {'id': page.id}) }}"
-           data-toggle="tooltip" title="{{ 'button.clear_cache.tooltip'|trans }}">
-            <i class="icon-refresh"></i>&nbsp;{{ 'button.clear_cache'|trans }}
+           data-toggle="tooltip" title="{{ 'button.page.clear_cache.tooltip'|trans }}">
+            <i class="icon-refresh"></i>&nbsp;{{ 'button.page.clear_cache'|trans }}
         </a>
     </div>
     {% endif %}
