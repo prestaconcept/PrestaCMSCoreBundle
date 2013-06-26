@@ -44,8 +44,11 @@ button:
     close: Close
     save: Save
     clear_cache: Clear cache
+    clear_cache.tooltip: Clear cache to see your modification on front
     preview: Preview
+    preview.tooltip: Preview your modification on front
     delete: Delete
+    delete.tooltip: Delete this page and all its children
 
 cms_page:
     content:
