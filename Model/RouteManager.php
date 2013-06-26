@@ -148,6 +148,17 @@ class RouteManager
             return;
         }
 
+        //Check if parent route exists
+        $parentUrl  = substr($page->getUrlComplete(), 0, strrpos($page->getUrlComplete(), '/'));
+        $parentPath = $pageRoute->getPrefix() . $parentUrl;
+
+        $newRouteParent = $this->getDocumentManager()->find(null, $parentPath);
+        if ($newRouteParent == null) {
+            //Create new route parent
+            $session = $this->getDocumentManager()->getPhpcrSession();
+            NodeHelper::createPath($session, $parentPath);
+        }
+
         return $this->moveRoute($pageRoute, $newRoutePath);
     }
 
@@ -219,11 +230,6 @@ class RouteManager
      */
     protected function moveRoute(Route $oldRoute, $newRoutePath)
     {
-        $page = $oldRoute->getRouteContent();
-
-        $parentUrl  = substr($page->getUrlComplete(), 0, strrpos($page->getUrlComplete(), '/'));
-        $parentPath = $oldRoute->getPrefix() . $parentUrl;
-
         //Check if redirect already exists
         $oldRedirect = $this->getDocumentManager()->find('Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute', $newRoutePath);
         if ($oldRedirect != null) {
@@ -233,12 +239,6 @@ class RouteManager
         $newRouteUrl = $this->getBaseUrl() . str_replace($oldRoute->getPrefix(), '', $newRoutePath);
         $redirectionList = $this->generateRedirectionList($oldRoute, $newRouteUrl);
 
-        $newRouteParent = $this->getDocumentManager()->find(null, $parentPath);
-        if ($newRouteParent == null) {
-            //Create new route parent
-            $session = $this->getDocumentManager()->getPhpcrSession();
-            NodeHelper::createPath($session, $parentPath);
-        }
         //Create new route
         $this->getDocumentManager()->move($oldRoute, $newRoutePath);
         $this->getDocumentManager()->flush();
