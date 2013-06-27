@@ -252,4 +252,12 @@ class Website
     {
         return $this->getPath() . DIRECTORY_SEPARATOR . self::MENU_PREFIX;
     }
+
+    /**
+     * @return string
+     */
+    public function getPageRoot()
+    {
+        return $this->getPath() . DIRECTORY_SEPARATOR . self::PAGE_PREFIX;
+    }
 }

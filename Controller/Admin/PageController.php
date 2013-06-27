@@ -13,10 +13,16 @@ use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 use Presta\CMSCoreBundle\Form\PageType;
 use Presta\CMSCoreBundle\Document\Page;
 
+use Presta\CMSCoreBundle\Model\MenuManager;
+use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
+use Presta\CMSCoreBundle\Model\PageManager;
+use Presta\CMSCoreBundle\Model\RouteManager;
+use Presta\CMSCoreBundle\Model\ThemeManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Translation\Translator;
 
 /**
  * Page administration controller
@@ -40,7 +46,7 @@ class PageController extends AdminController
     /**
      * Return Theme manager
      *
-     * @return Presta\CMSCoreBundle\Model\ThemeManager
+     * @return ThemeManager
      */
     public function getThemeManager()
     {
@@ -50,7 +56,7 @@ class PageController extends AdminController
     /**
      * Return Page manager
      *
-     * @return Presta\CMSCoreBundle\Model\PageManager
+     * @return PageManager
      */
     public function getPageManager()
     {
@@ -60,11 +66,21 @@ class PageController extends AdminController
     /**
      * Return Route manager
      *
-     * @return Presta\CMSCoreBundle\Model\RouteManager
+     * @return RouteManager
      */
     public function getRouteManager()
     {
         return $this->get('presta_cms.route_manager');
+    }
+
+    /**
+     * Return Menu manager
+     *
+     * @return MenuManager
+     */
+    public function getMenuManager()
+    {
+        return $this->get('presta_cms.menu_manager');
     }
 
     /**
@@ -333,5 +349,117 @@ class PageController extends AdminController
         $url = $this->getFrontUrlForPage($page, $locale, true);
 
         return $url . '?token=' . $this->getPageManager()->getToken($page);
+    }
+
+    /**
+     * Create a new page
+     *
+     * @param  Request $request
+     * @return Response
+     */
+    public function addAction(Request $request)
+    {
+        $website = $this->getWebsiteManager()->getCurrentWebsite();
+        $locale  = $website->getLocale();
+        $rootId  = $request->get('rootId', null);
+
+        $pageTemplates = array_keys($this->getThemeManager()->getPageTemplates($website->getTheme()));
+        $pageTemplateChoices = array_combine($pageTemplates, $pageTemplates);
+
+        $page = new Page();
+        $formBuilder = $this->createFormBuilder($page);
+
+        if ($rootId == null) {
+            $formBuilder->add(
+                'root',
+                'choice',
+                array(
+                    'mapped'   => false,
+                    'label'    => $this->trans('cms_page.form.page.label.root'),
+                    'choices'  => $this->getMenuManager()->getNavigationRootsForWebsite($website),
+                    'required' => true
+                )
+            );
+        } else {
+            $formBuilder->add('root', 'hidden', array('mapped' => false, 'data' => $rootId));
+        }
+
+        $formBuilder
+            ->add('name', null, array('label' => $this->trans('cms_page.form.page.label.name'), 'required' => true))
+            ->add('menuTitle', null, array('label' => $this->trans('cms_page.form.menu.label.title'), 'mapped' => false, 'required' => true))
+            ->add(
+                'template',
+                'choice',
+                array(
+                    'label'    => $this->trans('cms_page.form.page.label.template'),
+                    'choices'  => $pageTemplateChoices,
+                    'required' => true
+                )
+            );
+
+        $form = $formBuilder->getForm();
+
+        if ($request->getMethod() == 'POST') {
+
+            $form->bind($request);
+
+            $urlParams = array(
+                'locale'  => $locale,
+                '_locale' => $request->getLocale(),
+                'website' => $website->getId()
+            );
+
+            //load page parent
+            $root = $form->get('root')->getData();
+            $parentMenu = $this->getPageManager()->getDocumentManager()->find(null, $root);
+
+            if ($parentMenu->getContent() == null) {
+                $page->setParent($this->getPageManager()->getDocumentManager()->find(null, $website->getPageRoot()));
+            } else {
+                $page->setParent($parentMenu->getContent());
+            }
+
+            if ($form->isValid() || true) {
+                //NBN : Here form validation does not work due to cmf constraints
+                //(?) bug in symfony cascade validation ?
+
+                $menuTitle = $form->get('menuTitle')->getData();
+                $page->setTitle($menuTitle);
+                $page->setLocale($locale);
+                $page->setIsActive(true);
+                $page->setType(PageTypeCMSPage::SERVICE_ID);
+                $page->setLastCacheModifiedDate(new \DateTime());
+
+                //Create page
+                $this->getPageManager()->create($page);
+
+                //Create associated menu entry
+                $menuNode = $this->getMenuManager()->create($parentMenu, $page->getName(), $menuTitle, $page);
+
+                //id for redirection
+                $urlParams['id'] = $menuNode->getId();
+
+                $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
+            } else {
+                $this->get('session')->setFlash('sonata_flash_error', 'flash_edit_error');
+            }
+
+            if ($this->isXmlHttpRequest()) {
+                return $this->renderJson(
+                    array(
+                        'result'    => 'ok',
+                        'action'    => 'refresh',
+                        'location'  => $this->generateUrl('presta_cms_page_edit', $urlParams),
+                    )
+                );
+            }
+        }
+
+        $viewParams = array(
+            'form'   => $form->createView(),
+            'rootId' => $rootId
+        );
+
+        return $this->render('PrestaCMSCoreBundle:Admin/Page:add.html.twig', $viewParams);
     }
 }

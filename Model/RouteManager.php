@@ -262,6 +262,36 @@ class RouteManager
     }
 
     /**
+     * Create route for a new page
+     *
+     * @param  Page $page
+     * @return Route
+     */
+    public function createPageRouting(Page $page)
+    {
+        $route = new Route();
+
+        $parentPage = $page->getParent();
+        if ($parentPage instanceof Page) {
+            $parentRoute = $this->getRouteForPage($parentPage);
+            $route->setPosition($parentRoute, $page->getName());
+        } else {
+            //if page is not a child, its routing is under website root node
+            $id = str_replace(Website::PAGE_PREFIX, Website::ROUTE_PREFIX, $page->getId());
+            $route->setId($id, $page->getName());
+        }
+
+        $route->setDefault('_locale', $page->getLocale());
+        $route->setRequirement('_locale', $page->getLocale());
+        $route->setRouteContent($page);
+
+        $this->getDocumentManager()->persist($route);
+        $this->getDocumentManager()->flush();
+
+        return $route;
+    }
+
+    /**
      * Generate new route path
      * 
      * @param  RouteObjectInterface $mainRoute
