@@ -15,8 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Base controller for administration
  *
- * @package    Presta
- * @subpackage SonataAdminBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 abstract class BaseController extends sfController
@@ -66,5 +64,41 @@ abstract class BaseController extends sfController
         $parameters['admin_pool']    = $this->get('sonata.admin.pool');
 
         return parent::render($view, $parameters, $response);
+    }
+
+    /**
+     * @param mixed   $data
+     * @param integer $status
+     * @param array   $headers
+     *
+     * @return Response with json encoded data
+     */
+    public function renderJson($data, $status = 200, $headers = array())
+    {
+        // fake content-type so browser does not show the download popup when this
+        // response is rendered through an iframe (used by the jquery.form.js plugin)
+        //  => don't know yet if it is the best solution
+        if ($this->get('request')->get('_xml_http_request')
+            && strpos($this->get('request')->headers->get('Content-Type'), 'multipart/form-data') === 0) {
+            $headers['Content-Type'] = 'text/plain';
+        } else {
+            $headers['Content-Type'] = 'application/json';
+        }
+
+        return new Response(json_encode($data), $status, $headers);
+    }
+
+    /**
+     * Translate a message
+     *
+     * @param  $message
+     * @return string
+     */
+    public function trans($message, array $parameters = array(), $domain = 'PrestaCMSCoreBundle', $locale = null)
+    {
+        /** @var Translator $translator */
+        $translator = $this->get('translator');
+
+        return $translator->trans($message, $parameters, $domain, $locale);
     }
 }

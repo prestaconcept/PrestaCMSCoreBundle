@@ -147,7 +147,7 @@ class ThemeManager
     }
 
     /**
-     * @return \Presta\CMSCoreBundle\Model\Theme
+     * @return Theme
      */
     public function getCurrentTheme()
     {

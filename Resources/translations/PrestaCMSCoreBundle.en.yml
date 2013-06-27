@@ -50,11 +50,15 @@ button:
         preview.tooltip: Preview your modification on front
         delete: Delete
         delete.tooltip: Delete this page and all its children
+        add.tooltip: Create a new page
+        add_subpage.tooltip: Create a new subpage
     block:
         edit.tooltip: Edit block content
         delete.tooltip: Delete this block
 
 cms_page:
+    add:
+        title: Add a page
     content:
         title: Content
     seo:
@@ -75,6 +79,11 @@ cms_page:
         current: Current url
         redirect: Redirect
     form:
+        page:
+            label:
+                root: Parent
+                name: Id
+                template: Template
         seo:
             label:
                 url_relative: Relative url
@@ -89,6 +98,10 @@ cms_page:
             label:
                 name: Name
                 is_active: Active
+        menu:
+            label:
+                title: Menu entry
+                parent: Parent
 
 cms_page_tree:
     title: Pages

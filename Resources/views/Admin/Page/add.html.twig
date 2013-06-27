@@ -1,0 +1,11 @@
+{% trans_default_domain "PrestaCMSCoreBundle" %}
+{% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+<form id="edit_form" action="{{ path('presta_cms_page_add', {'rootId': rootId}) }}" class="form-horizontal" method="post" {{ form_enctype(form) }}>
+    <fieldset>
+        <legend>{{ 'cms_page.add.title'|trans }}</legend>
+        <div class="sonata-ba-collapsed-fields">
+            {{ form_widget(form)}}
+        </div>
+    </fieldset>
+</form>

@@ -34,6 +34,9 @@ presta_cms_page_clear_cache:
 presta_cms_page_delete:
     pattern:  /cms/page/delete
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:delete}
+presta_cms_page_add:
+    pattern:  /cms/page/add
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:add}
 
 #Administration - Import / Export
 presta_cms_page_selector:
