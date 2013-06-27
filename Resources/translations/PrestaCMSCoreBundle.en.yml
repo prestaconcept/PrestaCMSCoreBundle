@@ -50,11 +50,14 @@ button:
         preview.tooltip: Preview your modification on front
         delete: Delete
         delete.tooltip: Delete this page and all its children
+        add.tooltip: Create a new page
     block:
         edit.tooltip: Edit block content
         delete.tooltip: Delete this block
 
 cms_page:
+    add:
+        title: Add a page
     content:
         title: Content
     seo:
@@ -89,6 +92,10 @@ cms_page:
             label:
                 name: Name
                 is_active: Active
+        menu:
+            label:
+                title: Menu entry
+                parent: Parent
 
 cms_page_tree:
     title: Pages

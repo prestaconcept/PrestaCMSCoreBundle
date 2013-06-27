@@ -51,11 +51,14 @@ button:
         preview.tooltip: Aperçu sur le front de la version actuelle
         delete: Supprimer
         delete.tooltip: Supprimer cette page ainsi que toutes ses pages filles
+        add.tooltip: Créer une nouvelle page
     block:
         edit.tooltip: Modifier ce block
         delete.tooltip: Supprimer ce block
 
 cms_page:
+    add:
+        title: Ajouter une page
     content:
         title: Contenu
     seo:
@@ -76,6 +79,11 @@ cms_page:
         current: Url actuel
         redirect: Redirection
     form:
+        page:
+            label:
+                root: Parent
+                name: Identifiant
+                template: Template
         seo:
             label:
                 url_relative: Url relative
@@ -90,6 +98,10 @@ cms_page:
             label:
                 name: Nom
                 is_active: Active
+        menu:
+            label:
+                title: Titre de menu
+                parent: Parent
     delete:
         confirmation: Etes-vous sûr de vouloir supprimer définitivement cette page et toutes ses sous pages ?
         data_to_be_deleted: Vous êtes sur le point de supprimer définitivement les pages suivantes :

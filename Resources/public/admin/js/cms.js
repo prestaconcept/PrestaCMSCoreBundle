@@ -25,21 +25,27 @@ var CMSContent = function() {
     /**
      * Url for block rendering
      */
-    var _renderBlockUrl;   
-   
+    var _renderBlockUrl;
+
+    /**
+     * Url for block rendering
+     */
+    var _addPageUrl;
+
     return {
         /**
          * Initialisation
          */
-        init : function (editBlocUrl, renderBlockUrl, addBlockUrl, deleteBlockUrl) {
+        init : function (editBlocUrl, renderBlockUrl, addBlockUrl, deleteBlockUrl, addPageUrl) {
             this._editBlocUrl       = editBlocUrl;
             this._renderBlockUrl    = renderBlockUrl;
             this._addBlocUrl        = addBlockUrl;
             this._deleteBlocUrl     = deleteBlockUrl;
+            this._addPageUrl        = addPageUrl;
             
             $('body').on('click', 'a.action-edit', function(e) {
                 e.preventDefault();
-                CMSContent.editBlock($(this).attr('block-id'));                    
+                CMSContent.editBlock($(this).attr('block-id'));
             });
 
             $('body').on('click', 'a.action-add', function(e) {
@@ -55,6 +61,11 @@ var CMSContent = function() {
             $('body').on('click', 'a.action-delete', function(e) {
                 e.preventDefault();
                 CMSContent.deleteBlock($(this).attr('block-id'), $(this).attr('block-title'));
+            });
+
+            $('body').on('click', 'a.action-add-page', function(e) {
+                e.preventDefault();
+                CMSContent.addPage();
             });
 
             // $( ".page-zone-block-container" ).sortable(
@@ -145,6 +156,22 @@ var CMSContent = function() {
         },
 
         /**
+         * Add a new page
+         */
+        addPage: function () {
+            $('#modal-loader').show();
+            $('#modal-content').html('');
+            $('#modal-content').hide();
+            $('#modal').modal('show');
+
+            $('#modal-content').load(this._addPageUrl, function() {
+                $('#modal-content div.form-actions').remove();
+                $('#modal-loader').hide();
+                $('#modal-content').show();
+            });
+        },
+
+        /**
          * Submit Modal Edition form and update content
          */
         submitModalForm : function () {
@@ -167,6 +194,10 @@ var CMSContent = function() {
 
                     if (html.action == undefined) {
                         html.action = 'edit';
+                    }
+
+                    if (html.action == 'refresh') {
+                        return document.location = html.location;
                     }
 
                     if (html.action == 'add') {

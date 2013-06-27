@@ -1,8 +1,8 @@
 {% trans_default_domain "PrestaCMSCoreBundle" %}
 <div id="modal" class="modal modal-large hide">
-    <div class="modal-header">
-        <h3 id="modal-title">{{ 'modal.edit.block.title'|trans({}, 'PrestaCMSCoreBundle') }}</h3>
-    </div>
+    {#<div class="modal-header">#}
+        {#<h3 id="modal-title">{{ 'modal.edit.block.title'|trans({}, 'PrestaCMSCoreBundle') }}</h3>#}
+    {#</div>#}
     <div id="modal-body" class="modal-body">
         <div id="modal-loader">
             <img src="{{ asset('bundles/prestacmscore/admin/img/popup-loader.gif') }}"/>
@@ -30,7 +30,8 @@
                 "{{ path('presta_cms_block_edit', { 'locale': locale, 'website': websiteId }) }}",
                 "{{ path('presta_cms_block_render', { 'locale': locale }) }}",
                 "{{ path('presta_cms_block_add', { 'locale': locale }) }}",
-                "{{ path('presta_cms_block_delete') }}"
+                "{{ path('presta_cms_block_delete') }}",
+                "{{ path('presta_cms_page_add') }}"
         );
     {% endif %}
     }

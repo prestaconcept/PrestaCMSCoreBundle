@@ -11,6 +11,7 @@ namespace Presta\CMSCoreBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\PHPCR\DocumentRepository;
+use Presta\CMSCoreBundle\Event\PageCreationEvent;
 use Presta\CMSCoreBundle\Event\PageDeletionEvent;
 use Presta\CMSCoreBundle\Exception\Page\PageTypeNotFoundException;
 use Presta\CMSCoreBundle\Event\PageUpdateEvent;
@@ -107,7 +108,23 @@ class PageManager
     }
 
     /**
-     * Update page
+     * Create a page
+     *
+     * @param Page $page
+     */
+    public function create($page)
+    {
+        $this->getDocumentManager()->persist($page);
+        $this->getDocumentManager()->flush();
+
+        $this->container->get('event_dispatcher')->dispatch(
+            PageCreationEvent::EVENT_NAME,
+            new PageCreationEvent($page)
+        );
+    }
+
+    /**
+     * Update a page
      *
      * @param Page $page
      */
