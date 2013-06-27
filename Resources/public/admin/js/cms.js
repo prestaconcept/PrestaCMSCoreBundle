@@ -188,16 +188,17 @@ var CMSContent = function() {
             }).done(function( html ) {
                 //If succesfull we only get a return code in JSON
                 if (html.result != undefined) {
+
+                    if (html.action == 'refresh') {
+                        return document.location = html.location;
+                    }
+
                     $('#modal-content').html('');
                     $('#modal').modal('hide');
                     CMSContentInit();
 
                     if (html.action == undefined) {
                         html.action = 'edit';
-                    }
-
-                    if (html.action == 'refresh') {
-                        return document.location = html.location;
                     }
 
                     if (html.action == 'add') {
