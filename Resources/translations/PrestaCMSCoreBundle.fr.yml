@@ -52,6 +52,7 @@ button:
         delete: Supprimer
         delete.tooltip: Supprimer cette page ainsi que toutes ses pages filles
         add.tooltip: Créer une nouvelle page
+        add_subpage.tooltip: Créer une nouvelle sous page
     block:
         edit.tooltip: Modifier ce block
         delete.tooltip: Supprimer ce block

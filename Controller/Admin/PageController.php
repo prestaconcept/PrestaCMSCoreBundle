@@ -361,7 +361,7 @@ class PageController extends AdminController
     {
         $website = $this->getWebsiteManager()->getCurrentWebsite();
         $locale  = $website->getLocale();
-        $root    = $request->get('root');
+        $rootId  = $request->get('rootId', null);
 
         $pageTemplates = array_keys($this->getThemeManager()->getPageTemplates($website->getTheme()));
         $pageTemplateChoices = array_combine($pageTemplates, $pageTemplates);
@@ -369,7 +369,7 @@ class PageController extends AdminController
         $page = new Page();
         $formBuilder = $this->createFormBuilder($page);
 
-        if ($root == null) {
+        if ($rootId == null) {
             $formBuilder->add(
                 'root',
                 'choice',
@@ -380,6 +380,8 @@ class PageController extends AdminController
                     'required' => true
                 )
             );
+        } else {
+            $formBuilder->add('root', 'hidden', array('mapped' => false, 'data' => $rootId));
         }
 
         $formBuilder
@@ -397,9 +399,9 @@ class PageController extends AdminController
 
         $form = $formBuilder->getForm();
 
-        if ($this->get('request')->getMethod() == 'POST') {
+        if ($request->getMethod() == 'POST') {
 
-            $form->bind($this->get('request'));
+            $form->bind($request);
 
             $urlParams = array(
                 'locale'  => $locale,
@@ -408,9 +410,7 @@ class PageController extends AdminController
             );
 
             //load page parent
-            if ($root == null) {
-                $root = $form->get('root')->getData();
-            }
+            $root = $form->get('root')->getData();
             $parentMenu = $this->getPageManager()->getDocumentManager()->find(null, $root);
 
             if ($parentMenu->getContent() == null) {
@@ -455,6 +455,11 @@ class PageController extends AdminController
             }
         }
 
-        return $this->render('PrestaCMSCoreBundle:Admin/Page:add.html.twig', array('form' => $form->createView()));
+        $viewParams = array(
+            'form'   => $form->createView(),
+            'rootId' => $rootId
+        );
+
+        return $this->render('PrestaCMSCoreBundle:Admin/Page:add.html.twig', $viewParams);
     }
 }

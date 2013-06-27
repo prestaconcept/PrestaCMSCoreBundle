@@ -65,7 +65,7 @@ var CMSContent = function() {
 
             $('body').on('click', 'a.action-add-page', function(e) {
                 e.preventDefault();
-                CMSContent.addPage();
+                CMSContent.addPage($(this).attr('root-id'));
             });
 
             // $( ".page-zone-block-container" ).sortable(
@@ -158,13 +158,18 @@ var CMSContent = function() {
         /**
          * Add a new page
          */
-        addPage: function () {
+        addPage: function (rootId) {
             $('#modal-loader').show();
             $('#modal-content').html('');
             $('#modal-content').hide();
             $('#modal').modal('show');
 
-            $('#modal-content').load(this._addPageUrl, function() {
+            var url = this._addPageUrl;
+            if (rootId != undefined) {
+                url += '?rootId=' + rootId;
+            }
+
+            $('#modal-content').load(url, function() {
                 $('#modal-content div.form-actions').remove();
                 $('#modal-loader').hide();
                 $('#modal-content').show();

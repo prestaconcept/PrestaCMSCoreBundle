@@ -51,6 +51,7 @@ button:
         delete: Delete
         delete.tooltip: Delete this page and all its children
         add.tooltip: Create a new page
+        add_subpage.tooltip: Create a new subpage
     block:
         edit.tooltip: Edit block content
         delete.tooltip: Delete this block
@@ -78,6 +79,11 @@ cms_page:
         current: Current url
         redirect: Redirect
     form:
+        page:
+            label:
+                root: Parent
+                name: Id
+                template: Template
         seo:
             label:
                 url_relative: Relative url
