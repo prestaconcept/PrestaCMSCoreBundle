@@ -13,6 +13,7 @@ use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 use Presta\CMSCoreBundle\Form\PageType;
 use Presta\CMSCoreBundle\Document\Page;
 
+use Presta\CMSCoreBundle\Model\MenuManager;
 use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
 use Presta\CMSCoreBundle\Model\PageManager;
 use Presta\CMSCoreBundle\Model\RouteManager;
@@ -410,12 +411,6 @@ class PageController extends AdminController
         $form = $formBuilder->getForm();
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $menuTitle = $form->get('menuTitle')->getData();
-            $page->setTitle($menuTitle);
-            $page->setLocale($locale);
-            $page->setIsActive(true);
-            $page->setType(PageTypeCMSPage::SERVICE_ID);
-            $page->setLastCacheModifiedDate(new \DateTime());
 
             $form->bind($this->get('request'));
 
@@ -424,8 +419,6 @@ class PageController extends AdminController
                 '_locale' => $request->getLocale(),
                 'website' => $website->getId()
             );
-
-
 
             //load page parent
             if ($root == null) {
@@ -442,6 +435,13 @@ class PageController extends AdminController
             if ($form->isValid() || true) {
                 //NBN : Here form validation does not work due to cmf constraints
                 //(?) bug in symfony cascade validation ?
+
+                $menuTitle = $form->get('menuTitle')->getData();
+                $page->setTitle($menuTitle);
+                $page->setLocale($locale);
+                $page->setIsActive(true);
+                $page->setType(PageTypeCMSPage::SERVICE_ID);
+                $page->setLastCacheModifiedDate(new \DateTime());
 
                 //Create page
                 $this->getPageManager()->create($page);
