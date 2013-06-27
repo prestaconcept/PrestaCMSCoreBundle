@@ -351,35 +351,36 @@ class PageController extends AdminController
         return $url . '?token=' . $this->getPageManager()->getToken($page);
     }
 
+    /**
+     * Create a new page
+     *
+     * @param  Request $request
+     * @return Response
+     */
     public function addAction(Request $request)
     {
         $website = $this->getWebsiteManager()->getCurrentWebsite();
         $locale  = $website->getLocale();
         $root    = $request->get('root');
 
-        $page = new Page();
-//        $page->setName($pageConfiguration['name']);
-//        $page->setParent($root);
-
         $pageTemplates = array_keys($this->getThemeManager()->getPageTemplates($website->getTheme()));
         $pageTemplateChoices = array_combine($pageTemplates, $pageTemplates);
 
+        $page = new Page();
         $formBuilder = $this->createFormBuilder($page);
-
 
         if ($root == null) {
             $formBuilder->add(
                 'root',
                 'choice',
                 array(
-                    'mapped' => false,
-                    'label' => $this->trans('cms_page.form.page.label.root'),
-                    'choices' => $this->getMenuManager()->getNavigationRootsForWebsite($website),
+                    'mapped'   => false,
+                    'label'    => $this->trans('cms_page.form.page.label.root'),
+                    'choices'  => $this->getMenuManager()->getNavigationRootsForWebsite($website),
                     'required' => true
                 )
             );
         }
-
 
         $formBuilder
             ->add('name', null, array('label' => $this->trans('cms_page.form.page.label.name'), 'required' => true))
@@ -388,25 +389,11 @@ class PageController extends AdminController
                 'template',
                 'choice',
                 array(
-                    'label' => $this->trans('cms_page.form.page.label.template'),
-                    'choices' => $pageTemplateChoices,
+                    'label'    => $this->trans('cms_page.form.page.label.template'),
+                    'choices'  => $pageTemplateChoices,
                     'required' => true
                 )
-            )
-
-//            ->add(
-//                'menuParent',
-//                'doctrine_phpcr_odm_tree',
-//                array(
-//                    'label' => 'cms_page.form.menu.label.parent',
-//                    'required' => false,
-//                    'choice_list' => array(),
-//                    'model_manager' => $this->get('sonata.admin.manager.doctrine_phpcr'),
-//                    'root_node'=> '/website/prestaconcept/menu/main',
-//                    'class' => 'Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode'
-//                )
-//            )
-            ;
+            );
 
         $form = $formBuilder->getForm();
 
@@ -414,7 +401,7 @@ class PageController extends AdminController
 
             $form->bind($this->get('request'));
 
-            $viewParams = array(
+            $urlParams = array(
                 'locale'  => $locale,
                 '_locale' => $request->getLocale(),
                 'website' => $website->getId()
@@ -450,16 +437,11 @@ class PageController extends AdminController
                 $menuNode = $this->getMenuManager()->create($parentMenu, $page->getName(), $menuTitle, $page);
 
                 //id for redirection
-                $viewParams['id'] = $menuNode->getId();
+                $urlParams['id'] = $menuNode->getId();
 
                 $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
             } else {
                 $this->get('session')->setFlash('sonata_flash_error', 'flash_edit_error');
-
-                var_dump(
-                    $form->getErrorsAsString()
-//                    $form->getViewData()
-                );die;
             }
 
             if ($this->isXmlHttpRequest()) {
@@ -467,16 +449,12 @@ class PageController extends AdminController
                     array(
                         'result'    => 'ok',
                         'action'    => 'refresh',
-                        'location'  => $this->generateUrl('presta_cms_page_edit', $viewParams),
+                        'location'  => $this->generateUrl('presta_cms_page_edit', $urlParams),
                     )
                 );
             }
-
         }
-        $viewParams = array(
-            'form' => $form->createView()
-        );
 
-        return $this->render('PrestaCMSCoreBundle:Admin/Page:add.html.twig', $viewParams);
+        return $this->render('PrestaCMSCoreBundle:Admin/Page:add.html.twig', array('form' => $form->createView()));
     }
 }
