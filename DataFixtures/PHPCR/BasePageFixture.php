@@ -18,6 +18,8 @@ use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
 
 /**
  * Base fixtures methods to easily create pages
+ *
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 abstract class BasePageFixture extends BaseFixture
 {
@@ -43,10 +45,10 @@ abstract class BasePageFixture extends BaseFixture
     protected function configurePage(array $page)
     {
         $page += array(
-            'type' => PageTypeCMSPage::SERVICE_ID,
-            'meta' => array('title' => array(), 'keywords' => array(), 'description' => array()),
+            'type'     => PageTypeCMSPage::SERVICE_ID,
+            'meta'     => array('title' => array(), 'keywords' => array(), 'description' => array()),
             'template' => $this->defaultTemplate,
-            'zones' => null,
+            'zones'    => null,
             'children' => null
         );
         $page = $this->configureZones($page);
@@ -71,10 +73,11 @@ abstract class BasePageFixture extends BaseFixture
     protected function configureBlock(array $block)
     {
         $block += array(
-            'name' => null,
-            'is_editable' => false,
+            'name'         => null,
+            'is_editable'  => false,
             'is_deletable' => false,
-            'settings' => array()
+            'settings'     => array(),
+            'children'     => array()
         );
         if (!is_array($block['settings'])) {
             $block['settings'] = array();
@@ -121,22 +124,7 @@ abstract class BasePageFixture extends BaseFixture
                 $pageZone->setName($zoneName);
                 $this->manager->persist($pageZone);
                 foreach ($zone as $position => $blockConfiguration) {
-                    $blockConfiguration = $this->configureBlock($blockConfiguration);
-                    $block = new Block();
-                    $block->setParent($pageZone);
-                    $block->setType($blockConfiguration['type']);
-                    $block->setName((strlen($blockConfiguration['name'])) ? $blockConfiguration['name'] : $blockConfiguration['type'] . '-' . $position);
-                    $block->setIsEditable($blockConfiguration['is_editable']);
-                    $block->setIsDeletable($blockConfiguration['is_deletable']);
-                    $block->setPosition($position);
-                    $block->setIsActive(true);
-
-                    $this->manager->persist($block);
-                    foreach ($locales as $locale) {
-                        $settings = (isset($blockConfiguration['settings'][$locale])) ? $blockConfiguration['settings'][$locale] : $blockConfiguration['settings'];
-                        $block->setSettings($settings);
-                        $this->manager->bindTranslation($block, $locale);
-                    }
+                    $this->createBlock($blockConfiguration, $pageZone, $position);
                 }
             }
         }
@@ -148,5 +136,39 @@ abstract class BasePageFixture extends BaseFixture
         }
 
         return $page;
+    }
+
+    /**
+     * Create a block
+     *
+     * @param $blockConfiguration
+     * @param $parent
+     * @param $position
+     * @return Block
+     */
+    protected function createBlock($blockConfiguration, $parent, $position)
+    {
+        $blockConfiguration = $this->configureBlock($blockConfiguration);
+        $block = new Block();
+        $block->setParent($parent);
+        $block->setType($blockConfiguration['type']);
+        $block->setName((strlen($blockConfiguration['name'])) ? $blockConfiguration['name'] : $blockConfiguration['type'] . '-' . $position);
+        $block->setIsEditable($blockConfiguration['is_editable']);
+        $block->setIsDeletable($blockConfiguration['is_deletable']);
+        $block->setPosition($position);
+        $block->setIsActive(true);
+
+        $this->manager->persist($block);
+        foreach ($this->getLocales() as $locale) {
+            $settings = (isset($blockConfiguration['settings'][$locale])) ? $blockConfiguration['settings'][$locale] : $blockConfiguration['settings'];
+            $block->setSettings($settings);
+            $this->manager->bindTranslation($block, $locale);
+        }
+
+        foreach ($blockConfiguration['children'] as $position => $childConfiguration) {
+            $this->createBlock($childConfiguration, $block, $position);
+        }
+
+        return $block;
     }
 }
