@@ -28,7 +28,6 @@ class PageTreeModelType extends AbstractType
 
     public function setTree(TreeInterface $tree)
     {
-        var_dump(get_class($tree));
         $this->tree = $tree;
     }
 
