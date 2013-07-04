@@ -141,3 +141,20 @@ services:
             - { name: kernel.event_listener, event: presta_cms.page.creation, method: onPageCreation }
             - { name: kernel.event_listener, event: presta_cms.page.update,   method: onPageUpdate }
             - { name: kernel.event_listener, event: presta_cms.page.deletion, method: onPageDeletion }
+
+    presta_cms_tree_browser.page_tree:
+        class: Presta\CMSCoreBundle\Tree\PageTree
+        parent: symfony_cmf_tree_browser.phpcr_tree
+        tags:
+            - { name: symfony_cmf.tree, alias: presta_cms_page_tree }
+        arguments:
+            - @doctrine_phpcr
+            - #empty parameter
+
+    presta_cms.sonata.admin.doctrine_phpcr.form.type.tree_model:
+        class: Presta\CMSCoreBundle\Form\Type\PageTreeModelType
+        tags:
+            - { name: form.type, alias: presta_cms_doctrine_phpcr_odm_page_tree }
+        calls:
+            - [ setDefaults, [ %sonata_admin_doctrine_phpcr.tree_block.defaults% ] ]
+            - [ setTree, [ @presta_cms_tree_browser.page_tree ] ]
