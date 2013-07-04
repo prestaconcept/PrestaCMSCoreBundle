@@ -103,3 +103,8 @@ sonata_seo:
     encoding: UTF-8
     page:
         title: PrestaCMS by PrestaConcept
+
+twig:
+    form:
+        resources:
+            - 'PrestaCMSCoreBundle:Form:fields.html.twig'
