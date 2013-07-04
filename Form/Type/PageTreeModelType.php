@@ -2,7 +2,7 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Alain Flaus <aflaus@prestaconcept.net>
+ * (c) PrestaConcept http://www.prestaconcept.net
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -21,6 +21,8 @@ use Symfony\Cmf\Bundle\TreeBrowserBundle\Tree\TreeInterface;
  * 
  * @todo: search better way to init service to use symfony standard
  * FormType extension
+ *
+ * @author  Alain Flaus <aflaus@prestaconcept.net>
  */
 class PageTreeModelType extends TreeModelType
 {
