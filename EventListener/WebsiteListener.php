@@ -97,7 +97,10 @@ class WebsiteListener
             //Front case
             //Load current website
             $website = $this->websiteManager->loadWebsiteByHost($request->getHost());
-            $request->setLocale($website->getLocale());
+
+            if ($website != null) {
+                $request->setLocale($website->getLocale());
+            }
         }
     }
 }
