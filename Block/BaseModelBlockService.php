@@ -184,7 +184,7 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
 
         return $formMapper->create(
             $filedName,
-            'doctrine_phpcr_odm_tree',
+            'presta_cms_doctrine_phpcr_odm_page_tree',
             array(
                 'required' => false,
                 'choice_list' => array(),
