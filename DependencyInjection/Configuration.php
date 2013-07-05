@@ -133,6 +133,11 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->arrayNode('cache')
+                    ->children()
+                        ->booleanNode('enabled')->end()
+                    ->end()
+                ->end()
             ->end()
         ->end();
 
