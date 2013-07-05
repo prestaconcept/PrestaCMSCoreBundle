@@ -135,7 +135,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->arrayNode('cache')
                     ->children()
-                        ->booleanNode('enabled')->end()
+                        ->booleanNode('enabled')->defaultFalse()->end()
                     ->end()
                 ->end()
             ->end()

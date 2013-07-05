@@ -16,10 +16,6 @@ assetic:
     bundles:
         - PrestaCMSCoreBundle
 
-presta_cms_core:
-    cache:
-        enabled: false
-
 sonata_block:
     default_contexts: [cms]
     blocks:

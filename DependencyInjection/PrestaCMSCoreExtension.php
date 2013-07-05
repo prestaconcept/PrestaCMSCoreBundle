@@ -58,6 +58,7 @@ class PrestaCMSCoreExtension extends Extension
         }
 
         // Set cache parameter
-        $container->setParameter('presta_cms_core.cache.enabled', $config['cache']['enabled']);
+        $presta_cms_core_cache_enabled = isset($config['cache']['enabled']) ? $config['cache']['enabled'] : false;
+        $container->setParameter('presta_cms_core.cache.enabled', $presta_cms_core_cache_enabled);
     }
 }
