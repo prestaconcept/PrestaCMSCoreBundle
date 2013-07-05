@@ -2,7 +2,7 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept http://www.prestaconcept.net
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,9 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- *
- * @package    PrestaCMS
- * @subpackage CoreBundle
+ * Page controller
+ * 
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * @author Alain Flaus <aflaus@prestaconcept.net>
  */
 class PageController extends Controller
 {
