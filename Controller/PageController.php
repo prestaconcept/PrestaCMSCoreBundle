@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -68,10 +69,10 @@ class PageController extends Controller
         $response = new Response();
         $response->setPublic();
         $response->setLastModified($contentDocument->getLastCacheModifiedDate());
-        $previewToken = $request->get('token', null);
-        $isPreviewMode = ($previewToken != null && $pageManager->isValidToken($contentDocument, $previewToken));
+        $previewToken   = $request->get('token', null);
+        $isPreviewMode  = ($previewToken != null && $pageManager->isValidToken($contentDocument, $previewToken));
 
-        if ($response->isNotModified($request) && $isPreviewMode == false) {
+        if ($this->isValidResponse($request, $response, $isPreviewMode)) {
             return $response;
         }
 
@@ -117,5 +118,20 @@ class PageController extends Controller
         }
 
         return $this->render($template, $viewParams, $response);
+    }
+
+    /**
+     * Check is response is still valid or if we need to refresh it
+     *
+     * @param   Request     $request
+     * @param   Response    $response
+     * @param   boolean     $isPreviewMode
+     * @return  boolean
+     */
+    protected function isValidResponse(Request $request, Response $response, $isPreviewMode)
+    {
+        $isCacheEnabled = $this->container->getParameter('presta_cms_core.cache.enabled');
+
+        return $isCacheEnabled && $response->isNotModified($request) && $isPreviewMode == false;
     }
 }
