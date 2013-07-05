@@ -1,16 +1,17 @@
 navigation:
-  cms:
-    label: CMS
-    websites:
-      label: Sites
-      description: Gestion des sites
-    themes:
-      label: Thèmes
-      description: Gestion des thèmes
-    pages:
-      label: Pages
-      description: Gestion du contenu
+    cms:
+        label: CMS
+        websites:
+            label: Sites
+            description: Gestion des sites
+        themes:
+            label: Thèmes
+            description: Gestion des thèmes
+        pages:
+            label: Pages
+            description: Gestion du contenu
 
-button.save : Enregistrer
-button.close : Fermer
-button.delete : Supprimer
+button:
+    save: Enregistrer
+    close: Fermer
+    delete: Supprimer
