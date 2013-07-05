@@ -290,8 +290,6 @@ class WebsiteManager
     {
         if (isset($this->hosts[$host])) {
             $website = $this->loadWebsite($this->hosts[$host]);
-        } else {
-            throw new NotFoundHttpException('Website not found');
         }
 
         return $website;
