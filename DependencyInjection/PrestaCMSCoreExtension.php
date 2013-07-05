@@ -56,5 +56,8 @@ class PrestaCMSCoreExtension extends Extension
         foreach ($config['themes'] as $themeConfiguration) {
             $themeManager->addMethodCall('addThemeConfiguration', array($themeConfiguration));
         }
+
+        // Set cache parameter
+        $container->setParameter('presta_cms_core.cache.enabled', $config['cache']['enabled']);
     }
 }
