@@ -2,7 +2,7 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * (c) Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept http://www.prestaconcept.net
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,12 +10,14 @@
 namespace Presta\CMSCoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- *
- * @package    PrestaCMS
- * @subpackage CoreBundle
+ * Page controller
+ * 
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * @author Alain Flaus <aflaus@prestaconcept.net>
  */
 class PageController extends Controller
 {
@@ -68,10 +70,11 @@ class PageController extends Controller
         $response = new Response();
         $response->setPublic();
         $response->setLastModified($contentDocument->getLastCacheModifiedDate());
-        $previewToken = $request->get('token', null);
-        $isPreviewMode = ($previewToken != null && $pageManager->isValidToken($contentDocument, $previewToken));
+        $previewToken   = $request->get('token', null);
+        $isPreviewMode  = ($previewToken != null && $pageManager->isValidToken($contentDocument, $previewToken));
+        $isCacheEnabled = ($isPreviewMode == false && $this->container->getParameter('presta_cms_core.cache.enabled'));
 
-        if ($response->isNotModified($request) && $isPreviewMode == false) {
+        if ($response->isNotModified($request) && $isCacheEnabled) {
             return $response;
         }
 
@@ -111,8 +114,8 @@ class PageController extends Controller
         //des partie du layout librement
         $template = $viewParams['template'];
 
-        if ($isPreviewMode) {
-            //In preview we need to remove the cache data form the response
+        if (!$isCacheEnabled) {
+            //If cache is disabled we need to remove the cache data form the response
             $response = null;
         }
 
