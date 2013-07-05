@@ -72,8 +72,9 @@ class PageController extends Controller
         $response->setLastModified($contentDocument->getLastCacheModifiedDate());
         $previewToken   = $request->get('token', null);
         $isPreviewMode  = ($previewToken != null && $pageManager->isValidToken($contentDocument, $previewToken));
+        $isCacheEnabled = ($isPreviewMode == false && $this->container->getParameter('presta_cms_core.cache.enabled'));
 
-        if ($this->isValidResponse($request, $response, $isPreviewMode)) {
+        if ($response->isNotModified($request) && $isCacheEnabled) {
             return $response;
         }
 
@@ -113,26 +114,11 @@ class PageController extends Controller
         //des partie du layout librement
         $template = $viewParams['template'];
 
-        if ($isPreviewMode) {
-            //In preview we need to remove the cache data form the response
+        if (!$isCacheEnabled) {
+            //If cache is disabled we need to remove the cache data form the response
             $response = null;
         }
 
         return $this->render($template, $viewParams, $response);
-    }
-
-    /**
-     * Check is response is still valid or if we need to refresh it
-     *
-     * @param   Request     $request
-     * @param   Response    $response
-     * @param   boolean     $isPreviewMode
-     * @return  boolean
-     */
-    protected function isValidResponse(Request $request, Response $response, $isPreviewMode)
-    {
-        $isCacheEnabled = $this->container->getParameter('presta_cms_core.cache.enabled');
-
-        return $isCacheEnabled && $response->isNotModified($request) && $isPreviewMode == false;
     }
 }
