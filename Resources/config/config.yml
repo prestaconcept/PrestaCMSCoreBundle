@@ -26,12 +26,6 @@ sonata_block:
             id: '/cms'
             contexts:   [admin]
 
-sonata_admin:
-  dashboard:
-      blocks:
-          - { position: right, type: presta_cms.block.dashboard.cms }
-
-
 symfony_cmf_routing_extra:
     chain:
         routers_by_id:
