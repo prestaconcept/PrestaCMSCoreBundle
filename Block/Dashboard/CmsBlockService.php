@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Block\Dashboard;
 
+use Sonata\BlockBundle\Block\BlockContextInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
@@ -51,9 +52,9 @@ class CmsBlockService extends BaseBlockService
     /**
      * {@inheritdoc}
      */
-    public function execute(BlockInterface $block, Response $response = null)
+    public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
+        $settings = array_merge($this->getDefaultSettings(), $blockContext->getSettings());
 
         $bundles = $this->pool->getContainer()->getParameter('kernel.bundles');
         if (isset($bundles['PrestaSonataAdminBundle'])) {
@@ -65,7 +66,8 @@ class CmsBlockService extends BaseBlockService
         return $this->renderResponse(
             $template,
             array(
-                'block'     => $block,
+                'block_context'  => $blockContext,
+                'block'     => $blockContext->getBlock(),
                 'blockId'   => 'block-cms',
                 'websiteAdmin' => $this->pool->getAdminByAdminCode('presta_cms.website.admin.website'),
                 'settings'  => $settings

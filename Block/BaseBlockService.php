@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Block;
 
+use Sonata\BlockBundle\Block\BlockContextInterface;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\HttpFoundation\Response;
 use Sonata\BlockBundle\Block\BaseBlockService as SonataBaseBlockService;
@@ -147,14 +148,14 @@ abstract class BaseBlockService extends SonataBaseBlockService
     /**
      * Returns block settings for template
      *
-     * @param  BlockInterface $block
+     * @param  BlockContextInterface $blockContext
      * @return array
      */
-    public function getSettings(BlockInterface $block)
+    public function getSettings(BlockContextInterface $blockContext)
     {
         $settings = array_merge(
             $this->getDefaultSettings(),
-            $block->getSettings()
+            $blockContext->getSettings()
         );
 
         $settings += array(
@@ -291,10 +292,12 @@ abstract class BaseBlockService extends SonataBaseBlockService
     /**
      * {@inheritdoc}
      */
-    public function execute(BlockInterface $block, Response $response = null)
+    public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
+        $block = $blockContext->getBlock();
         $block->setSettings($this->getSettings($block));
         $viewParams = array(
+            'block_context'  => $blockContext,
             'block'     => $block,
             'settings'  => $block->getSettings()
         );
