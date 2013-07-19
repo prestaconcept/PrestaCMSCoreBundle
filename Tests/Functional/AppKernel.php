@@ -52,9 +52,9 @@ class AppKernel extends Kernel
             new \Sonata\SeoBundle\SonataSeoBundle(),
             new \Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
 
-            new \Symfony\Cmf\Bundle\RoutingExtraBundle\SymfonyCmfRoutingExtraBundle(),
-            new \Symfony\Cmf\Bundle\TreeBrowserBundle\SymfonyCmfTreeBrowserBundle(),
-            new \Symfony\Cmf\Bundle\MenuBundle\SymfonyCmfMenuBundle(),
+            new \Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
+            new \Symfony\Cmf\Bundle\TreeBrowserBundle\CmfTreeBrowserBundle(),
+            new \Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
 
             new \Presta\CMSCoreBundle\PrestaCMSCoreBundle(),
         );

@@ -26,16 +26,16 @@ sonata_block:
             id: '/cms'
             contexts:   [admin]
 
-symfony_cmf_routing_extra:
+cmf_routing:
     chain:
         routers_by_id:
-            symfony_cmf_routing_extra.dynamic_router: 20
+            cmf_routing.dynamic_router: 20
             router.default: 100
     dynamic:
         enabled: true
         controllers_by_class:
             Presta\CMSCoreBundle\Document\Page: presta_cms.page.controller:renderAction
-            Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute:  symfony_cmf_routing_extra.redirect_controller:redirectAction
+            Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute:  cmf_routing.redirect_controller:redirectAction
 #        templates_by_class:
 #            Symfony\Cmf\Bundle\ContentBundle\Document\MultilangStaticContent: PrestaCMSCoreBundle:Page:index.html.twig
 
@@ -44,11 +44,11 @@ symfony_cmf_routing_extra:
 knp_menu:
     twig: true
 
-symfony_cmf_menu:
+cmf_menu:
     multilang:
-      locales: %locales%
+        locales: %locales%
 
-symfony_cmf_tree_browser:
+cmf_tree_browser:
     session_name:  default
 
 fos_js_routing:

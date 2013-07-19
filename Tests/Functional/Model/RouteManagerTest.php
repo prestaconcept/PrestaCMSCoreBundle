@@ -11,7 +11,7 @@ namespace Presta\CMSCoreBundle\Tests\Functional\Model;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Presta\CMSCoreBundle\Tests\Functional\BaseFunctionalTestCase;
-use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route;
+use Symfony\Cmf\Bundle\RoutingBundle\Document\Route;
 
 /**
  * RouteManager functionnal test class

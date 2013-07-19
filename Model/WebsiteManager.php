@@ -11,7 +11,7 @@ namespace Presta\CMSCoreBundle\Model;
 
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Presta\CMSCoreBundle\Document\Website;
-use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RouteProvider;
+use Symfony\Cmf\Bundle\RoutingBundle\Document\RouteProvider;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -29,12 +29,12 @@ class WebsiteManager
     protected $modelManager;
 
     /**
-     * @var \Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RouteProvider
+     * @var \Symfony\Cmf\Bundle\RoutingBundle\Document\RouteProvider
      */
     protected $routeProvider;
 
     /**
-     * @var \Symfony\Cmf\Bundle\RoutingExtraBundle\Listener\IdPrefix
+     * @var \Symfony\Cmf\Bundle\RoutingBundle\Listener\IdPrefix
      */
     protected $routeListener;
 
@@ -98,7 +98,7 @@ class WebsiteManager
     }
 
     /**
-     * @param \Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RouteProvider $routeProvider
+     * @param \Symfony\Cmf\Bundle\RoutingBundle\Document\RouteProvider $routeProvider
      */
     public function setRouteProvider(RouteProvider $routeProvider)
     {
@@ -289,10 +289,10 @@ class WebsiteManager
     public function loadWebsiteByHost($host)
     {
         if (isset($this->hosts[$host])) {
-            $website = $this->loadWebsite($this->hosts[$host]);
+            return $this->loadWebsite($this->hosts[$host]);
         }
 
-        return $website;
+        return false;
     }
 
     /**
@@ -311,7 +311,7 @@ class WebsiteManager
             }
         }
 
-        return null;
+        return false;
     }
 
     /**

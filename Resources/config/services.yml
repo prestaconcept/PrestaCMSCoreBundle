@@ -95,9 +95,9 @@ services:
         arguments: []
         calls:
             - [ setModelManager, [ @sonata.admin.manager.doctrine_phpcr ] ]
-            - [ setRouteProvider, [ @symfony_cmf_routing_extra.default_route_provider ] ]
-            - [ setRouteListener, [ @symfony_cmf_routing_extra.phpcrodm_route_idprefix_listener ] ]
-            - [ setMenuProvider, [ @symfony_cmf_menu.provider]]
+            - [ setRouteProvider, [ @cmf_routing.default_route_provider ] ]
+            - [ setRouteListener, [ @cmf_routing.phpcrodm_route_idprefix_listener ] ]
+            - [ setMenuProvider, [ @cmf_menu.provider]]
     presta_cms.theme_manager:
         class: Presta\CMSCoreBundle\Model\ThemeManager
         arguments: []
@@ -112,7 +112,7 @@ services:
         arguments: []
         calls:
             - [ setModelManager, [ @sonata.admin.manager.doctrine_phpcr ] ]
-            - [ setRouteProvider, [@symfony_cmf_routing_extra.default_route_provider] ]
+            - [ setRouteProvider, [@cmf_routing.default_route_provider] ]
 
     presta_cms.block_manager:
         class: Presta\CMSCoreBundle\Model\BlockManager
@@ -144,9 +144,9 @@ services:
 
     presta_cms_tree_browser.page_tree:
         class: Presta\CMSCoreBundle\Tree\PageTree
-        parent: symfony_cmf_tree_browser.phpcr_tree
+        parent: cmf_tree_browser.phpcr_tree
         tags:
-            - { name: symfony_cmf.tree, alias: presta_cms_page_tree }
+            - { name: cmf.tree, alias: presta_cms_page_tree }
         arguments:
             - @doctrine_phpcr
             - #empty parameter

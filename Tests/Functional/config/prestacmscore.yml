@@ -48,7 +48,7 @@ symfony_cmf_routing_extra:
         enabled: true
         controllers_by_class:
             Presta\CMSCoreBundle\Document\Page: presta_cms.page.controller:renderAction
-            Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute:  symfony_cmf_routing_extra.redirect_controller:redirectAction
+            Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute:  cmf_routing.redirect_controller:redirectAction
 
 knp_menu:
     twig: true
