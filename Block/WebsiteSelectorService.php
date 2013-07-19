@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Block;
 
+use Sonata\BlockBundle\Block\BlockContextInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
@@ -16,6 +17,7 @@ use Sonata\BlockBundle\Model\BlockInterface;
 
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Presta\CMSCoreBundle\Block\BaseBlockService;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Blok Website Selector
@@ -52,24 +54,29 @@ class WebsiteSelectorService extends BaseBlockService
     /**
      * {@inheritdoc}
      */
-    public function getDefaultSettings()
+    public function setDefaultSettings(OptionsResolverInterface $resolver)
     {
-        return array('with_fieldset' => true);
+        $resolver->setDefaults(
+            array(
+                'with_fieldset' => true,
+                'website_id'    => null,
+                'locale'        => null,
+                'url'           => null
+            )
+        );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function execute(BlockInterface $block, Response $response = null)
+    public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
-
         return $this->renderResponse(
             'PrestaCMSCoreBundle:Block:block_website_selector.html.twig',
             array(
                 'websites'  => $this->websiteManager->getAvailableWebsites(),
                 'hasMultipleWebsite' => $this->websiteManager->hasMultipleWebsite(),
-                'settings'  => $settings
+                'settings'  => $blockContext->getSettings()
             ),
             $response
         );

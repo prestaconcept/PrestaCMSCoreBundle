@@ -82,10 +82,9 @@
         <fieldset>
             <legend>{{ 'theme.label.content'|trans([], 'PrestaCMSCoreBundle') }}</legend>
             <div class="sonata-ba-collapsed-fields">
-                {{ sonata_block_render({
-                    'type': 'presta_cms.block.website.selector',
-                    'settings': {'website_id' : websiteId, 'locale' : locale, 'with_fieldset' : false, 'url' : path('presta_cms_theme_edit', { 'name': theme.name }) }
-                }) }}
+                {{ sonata_block_render({'type': 'presta_cms.block.website.selector'},
+                    {'website_id' : websiteId, 'with_fieldset' : false, 'url' : path('presta_cms_theme_edit', { 'name': theme.name }) }
+                ) }}
                 {% set zones = theme.zones %}
                 {% set cols  = theme.cols %}
                 {% include 'PrestaCMSCoreBundle:Admin/Block:_content.html.twig' with {'origin': 'theme'}  %}
