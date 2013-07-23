@@ -301,7 +301,10 @@ abstract class BaseBlockService extends SonataBaseBlockService
 
         $viewParams += $this->getAdditionalViewParameters($block);
 
-        if ($block->isAdminMode()) {
+        //if block is called by "type" directlyfrom the template, isAdminMode doesn't exist
+        $isAdminMode = (method_exists($block, 'isAdminMode') && $block->isAdminMode());
+
+        if ($isAdminMode) {
             if (!is_null($this->preview)) {
                 $viewParams['block_preview'] = $this->preview;
             }
@@ -311,7 +314,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
         }
 
         return $this->renderResponse(
-            $this->getTemplate($block->isAdminMode()),
+            $this->getTemplate($isAdminMode),
             $viewParams,
             $response
         );
