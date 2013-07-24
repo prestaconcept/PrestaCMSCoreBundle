@@ -289,10 +289,10 @@ class WebsiteManager
     public function loadWebsiteByHost($host)
     {
         if (isset($this->hosts[$host])) {
-            $website = $this->loadWebsite($this->hosts[$host]);
+            return $this->loadWebsite($this->hosts[$host]);
         }
 
-        return $website;
+        return null;
     }
 
     /**
