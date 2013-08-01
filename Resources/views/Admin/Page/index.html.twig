@@ -76,7 +76,8 @@
         <div class="tab-content sonata-ba-form">
             {% for tab in pageEditTabs %}
             <div class="tab-pane form-horizontal {% if (loop.index == 1) %}active{% endif %}" id="{{ ['cms-page-', tab]|join }}">
-                {% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'_locale': locale, 'tab': tab, 'page': page} %}
+                {#{% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'_locale': locale, 'tab': tab, 'page': page} %}#}
+                {{ render(controller('PrestaCMSCoreBundle:Admin/Page:renderEditTab', {'_locale': locale, 'tab': tab, 'page': page})) }}
             </div>
             {% endfor %}
             <div class="tab-pane form-horizontal" id="seo" ng-controller="SeoController"
