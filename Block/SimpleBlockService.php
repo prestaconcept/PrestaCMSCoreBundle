@@ -14,6 +14,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Model\BlockInterface;
 
 use Presta\CMSCoreBundle\Block\BaseModelBlockService;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Simple block with a title and content
@@ -38,13 +39,15 @@ class SimpleBlockService extends BaseModelBlockService
     /**
      * {@inheritdoc}
      */
-    public function getDefaultSettings()
+    public function setDefaultSettings(OptionsResolverInterface $resolver)
     {
-        return array(
-            'title' => $this->trans('block.default.title'),
-            'content' => $this->trans('block.default.content'),
-            'link_label' => null,
-            'link_destination' => null
+        $resolver->setDefaults(
+            array(
+                'title'             => $this->trans('block.default.title'),
+                'content'           => $this->trans('block.default.content'),
+                'link_label'        => null,
+                'link_destination'  => null
+            )
         );
     }
 

@@ -155,7 +155,8 @@ abstract class BaseBlockService extends SonataBaseBlockService
     {
         $settings = array_merge(
             $this->getDefaultSettings(),
-            $blockContext->getSettings()
+            $blockContext->getSettings(),
+            $blockContext->getBlock()->getSettings()
         );
 
         $settings += array(
@@ -295,7 +296,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         $block = $blockContext->getBlock();
-        $block->setSettings($this->getSettings($block));
+        $block->setSettings($this->getSettings($blockContext));
         $viewParams = array(
             'block_context'  => $blockContext,
             'block'     => $block,
