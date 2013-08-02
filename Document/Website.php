@@ -16,7 +16,6 @@ use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
  *
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  *
- * @PHPCRODM\Document(referenceable=true, translator="attribute", repositoryClass="Presta\CMSCoreBundle\Document\Website\Repository")
  */
 class Website
 {
@@ -29,37 +28,32 @@ class Website
     /**
      * to create the document at the specified location. read only for existing documents.
      *
-     * @PHPCRODM\Id
      */
-    protected $path;
+    protected $id;
 
-    /**
-     * @PHPCRODM\Node
-     */
-    public $node;
+//    /**
+//     * @PHPCRODM\Node
+//     */
+//    public $node;
 
     /**
      * @var string $locale
      *
-     * @PHPCRODM\Locale
      */
     protected $locale;
 
     /**
      * @var string $theme
-     * @PHPCRODM\String(translated=true)
      */
     protected $theme;
 
     /**
      * @var string $name
-     * @PHPCRODM\String()
      */
     protected $name;
 
     /**
      * @var boolean $active
-     * @PHPCRODM\Boolean(translated=true)
      */
     protected $active;
 
@@ -70,13 +64,11 @@ class Website
 
     /**
      * @var string $defaultLocale
-     * @PHPCRODM\String()
      */
     protected $defaultLocale;
 
     /**
      * @var array $availableLocales
-     * @PHPCRODM\String(multivalue=true)
      */
     protected $availableLocales;
 
@@ -226,7 +218,7 @@ class Website
      */
     public function setPath($path)
     {
-        $this->path = $path;
+        $this->id = $path;
     }
 
     /**
@@ -234,7 +226,7 @@ class Website
      */
     public function getPath()
     {
-        return $this->path;
+        return $this->id;
     }
 
     /**

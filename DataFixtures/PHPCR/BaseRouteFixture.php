@@ -71,7 +71,7 @@ abstract class BaseRouteFixture extends BaseFixture
                 $route->setDefault($key, $value);
             }
         }
-        $route->setRouteContent($content);
+        $route->setContent($content);
         $this->manager->persist($route);
 
         return $route;

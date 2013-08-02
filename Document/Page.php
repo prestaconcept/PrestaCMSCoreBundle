@@ -9,11 +9,11 @@
  */
 namespace Presta\CMSCoreBundle\Document;
 
-use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use Symfony\Cmf\Bundle\ContentBundle\Document\MultilangStaticContent;
-use Symfony\Cmf\Component\Routing\RouteAwareInterface;
+use Doctrine\ODM\PHPCR\ChildrenCollection;
+use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 
 /**
  * Page Document
@@ -22,13 +22,38 @@ use Symfony\Cmf\Component\Routing\RouteAwareInterface;
  *
  * @todo refactor children and zone storing so everything is not loaded each time: use filter on children annotation ?
  *
- * @PHPCRODM\Document(referenceable=true, translator="attribute", repositoryClass="Presta\CMSCoreBundle\Document\Page\Repository")
  */
-class Page extends MultilangStaticContent implements RouteAwareInterface
+class Page
+    //extends StaticContent
+    //implements RouteObjectInterface
 {
     const STATUS_DRAFT      = 'draft';
     const STATUS_PUBLISHED  = 'published';
     const STATUS_ARCHIVE    = 'archive';
+
+    /**
+     * Primary identifier, details depend on storage layer.
+     */
+    protected $id;
+
+    /**
+     * PHPCR parent document
+     *
+     * @var string
+     */
+    protected $parent;
+
+    /**
+     * PHPCR document name
+     *
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $title;
 
     /**
      * This is not store in database, it's used to pass data form the form to the route
@@ -50,48 +75,46 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
 
     /**
      * @var boolean $isUrlCompleteMode
-     * @PHPCRODM\Boolean(translated=true)
      */
     protected $isUrlCompleteMode;
 
     /**
      * @var string $metaKeywords
-     * @PHPCRODM\String(translated=true)
      */
     protected $metaKeywords;
 
     /**
      * @var string $metaDescription
-     * @PHPCRODM\String(translated=true)
      */
     protected $metaDescription;
 
     /**
      * @var string $type
-     * @PHPCRODM\String(translated=true)
      */
     protected $type;
 
     /**
      * @var string $type
-     * @PHPCRODM\String(translated=true)
      */
     protected $status;
 
     /**
+     *  @var string
+     */
+    protected $locale;
+
+    /**
      * @var boolean $isActive
-     * @PHPCRODM\Boolean(translated=true)
      */
     protected $isActive;
 
     /**
      * @var string $template
-     * @PHPCRODM\String(translated=true)
      */
     protected $template;
 
     /**
-     * @PHPCRODM\Children(fetchDepth=3)
+     * @var ChildrenCollection
      */
     protected $children;
 
@@ -103,18 +126,78 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
     public function __construct()
     {
         $this->isActive = true;
-        $this->children = new ArrayCollection();
+//        $this->children = new ArrayCollection();
     }
 
     /**
-     * Return Page id
-     * used to flatten block
+     * Explicitly set the primary id, if the storage layer permits this.
      *
-     * @return string
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
      */
     public function getId()
     {
-        return $this->getPath();
+        return $this->id;
+    }
+
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param string $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 
     /**
@@ -147,9 +230,9 @@ class Page extends MultilangStaticContent implements RouteAwareInterface
     /**
      * Sets the children
      *
-     * @param $children ArrayCollection
+     * @param $children ChildrenCollection
      */
-    public function setChildren(ArrayCollection $children)
+    public function setChildren(ChildrenCollection $children)
     {
         $this->children = $children;
     }

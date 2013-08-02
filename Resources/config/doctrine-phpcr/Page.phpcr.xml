@@ -1,0 +1,35 @@
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/phpcr-odm/phpcr-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/phpcr-odm/phpcr-mapping
+        https://github.com/doctrine/phpcr-odm/raw/master/doctrine-phpcr-odm-mapping.xsd"
+        >
+
+    <document
+        name="Presta\CMSCoreBundle\Document\Page"
+        repository-class="Presta\CMSCoreBundle\Document\Page\Repository"
+        translator="attribute"
+        referenceable="true"
+        >
+        <id name="id">
+            <generator strategy="PARENT"/>
+        </id>
+        <nodename name="name"/>
+        <parent-document name="parent"/>
+
+        <locale name="locale"/>
+
+        <field name="title" type="string" translated="true"/>
+
+        <field name="isUrlCompleteMode" type="boolean" translated="true"/>
+        <field name="metaKeywords" type="string" translated="true"/>
+        <field name="metaDescription" type="string" translated="true"/>
+        <field name="type" type="string" translated="true"/>
+        <field name="status" type="string" translated="true"/>
+        <field name="isActive" type="boolean" translated="true"/>
+        <field name="template" type="string" translated="true"/>
+        <field name="children" type="children" translated="true"/>
+
+    </document>
+
+</doctrine-mapping>

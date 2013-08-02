@@ -9,7 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Document;
 
-use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
 
 use Presta\CMSCoreBundle\Document\Website;
 use Presta\CMSCoreBundle\Model\Template;
@@ -19,11 +18,7 @@ use Symfony\Cmf\Bundle\BlockBundle\Document\ContainerBlock;
 /**
  * Theme Document child of a website : Zone container + configuration
  *
- * @package    Presta
- * @subpackage CMSCoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
- *
- * @PHPCRODM\Document(referenceable=true, repositoryClass="Presta\CMSCoreBundle\Document\Theme\Repository")
  */
 class Theme extends ContainerBlock
 {

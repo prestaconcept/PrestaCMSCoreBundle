@@ -9,16 +9,16 @@
  */
 namespace Presta\CMSCoreBundle\DataFixtures\PHPCR;
 
-use Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode;
-use Presta\CMSCoreBundle\Document\Navigation\RootMenuNode;
+use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
+use Presta\CMSCoreBundle\Document\NavigationRootMenuNode;
 
 /**
  * Base fixtures methods to easily create menu
  */
 abstract class BaseMenuFixture extends BaseFixture
 {
-    const NAVIGATION_ROOT_MENU_NODE_CLASS = '\Presta\CMSCoreBundle\Document\Navigation\RootMenuNode';
-    const MENU_NODE_CLASS = '\Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode';
+    const NAVIGATION_ROOT_MENU_NODE_CLASS = '\Presta\CMSCoreBundle\Document\NavigationRootMenuNode';
+    const MENU_NODE_CLASS = '\Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode';
 
     /**
      * {@inheritdoc}
@@ -79,7 +79,7 @@ abstract class BaseMenuFixture extends BaseFixture
     protected function createMenuNode($parent, $name, $label, $content, $uri = null, $route = null, $type = null)
     {
         if ($type == null) {
-            $type = self::MENU_NODE_CLASS;
+            $type = self::NAVIGATION_ROOT_MENU_NODE_CLASS;
         }
 
         $menuNode = new $type();
@@ -99,7 +99,11 @@ abstract class BaseMenuFixture extends BaseFixture
         if (is_array($label)) {
             foreach ($label as $locale => $l) {
                 $menuNode->setLabel($l);
-                $this->manager->bindTranslation($menuNode, $locale);
+                //@todo
+                //[Doctrine\ODM\PHPCR\PHPCRException]
+                //This document is not translatable, do not use bindTranslation: Main navigation (/website/sandbox/menu/main)
+
+                //$this->manager->bindTranslation($menuNode, $locale);
             }
         } else {
             $menuNode->setLabel($label);

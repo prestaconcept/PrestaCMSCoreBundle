@@ -12,7 +12,7 @@ namespace Presta\CMSCoreBundle\Model;
 use Presta\CMSCoreBundle\Document\Navigation\RootMenuNode;
 use Presta\CMSCoreBundle\Document\Website;
 use Sonata\AdminBundle\Model\ModelManagerInterface;
-use Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode;
+use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
 
 /**
  * Menu Manager
@@ -69,11 +69,11 @@ class MenuManager
      * @param  null $uri
      * @param  null $route
      * @param  null $type
-     * @return MultilangMenuNode
+     * @return MenuNode
      */
     public function create($parent, $name, $label, $content, $uri = null, $route = null, $type = null)
     {
-        $menuNode = new MultilangMenuNode();
+        $menuNode = new MenuNode();
         $menuNode->setParent($parent);
         $menuNode->setName($name);
 

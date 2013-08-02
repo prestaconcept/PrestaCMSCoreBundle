@@ -1,0 +1,19 @@
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/phpcr-odm/phpcr-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/phpcr-odm/phpcr-mapping
+        https://github.com/doctrine/phpcr-odm/raw/master/doctrine-phpcr-odm-mapping.xsd"
+        >
+
+    <document
+            name="Presta\CMSCoreBundle\Document\NavigationRootMenuNode"
+            translator="attribute"
+            >
+        <locale name="locale"/>
+
+        <field name="label" type="string" translated="true"/>
+        <field name="uri" type="string" translated="true"/>
+
+    </document>
+
+</doctrine-mapping>

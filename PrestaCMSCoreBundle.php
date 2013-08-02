@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle;
 
+use Doctrine\Bundle\PHPCRBundle\DependencyInjection\Compiler\DoctrinePhpcrMappingsPass;
 use Presta\CMSCoreBundle\DependencyInjection\Compiler\PageTypeCompilerPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -34,5 +35,16 @@ class PrestaCMSCoreBundle extends Bundle
 
         $container->addCompilerPass(new BlockCompilerPass());
         $container->addCompilerPass(new PageTypeCompilerPass());
+
+        if (class_exists('Doctrine\Bundle\PHPCRBundle\DependencyInjection\Compiler\DoctrinePhpcrMappingsPass')) {
+            $container->addCompilerPass(
+                DoctrinePhpcrMappingsPass::createXmlMappingDriver(
+                    array(
+                        realpath(__DIR__ . '/Resources/config/doctrine-phpcr') => 'Presta\CMSCoreBundle\Document',
+                    ),
+                    array('cmf_content.manager_name')
+                )
+            );
+        }
     }
 }
