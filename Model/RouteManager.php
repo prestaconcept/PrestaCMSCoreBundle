@@ -16,8 +16,8 @@ use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 
 use Symfony\Component\Routing\RouteCollection;
-use Symfony\Cmf\Bundle\RoutingBundle\Document\Route;
-use Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute;
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
 
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -231,7 +231,7 @@ class RouteManager
     protected function moveRoute(Route $oldRoute, $newRoutePath)
     {
         //Check if redirect already exists
-        $oldRedirect = $this->getDocumentManager()->find('Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute', $newRoutePath);
+        $oldRedirect = $this->getDocumentManager()->find('Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute', $newRoutePath);
         if ($oldRedirect != null) {
             $this->getDocumentManager()->remove($oldRedirect);
             $this->getDocumentManager()->flush();

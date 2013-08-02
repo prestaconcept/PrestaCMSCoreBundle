@@ -11,7 +11,7 @@ namespace Presta\CMSCoreBundle\Model;
 
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Presta\CMSCoreBundle\Document\Website;
-use Symfony\Cmf\Bundle\RoutingBundle\Document\RouteProvider;
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -29,7 +29,7 @@ class WebsiteManager
     protected $modelManager;
 
     /**
-     * @var \Symfony\Cmf\Bundle\RoutingBundle\Document\RouteProvider
+     * @var \Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider
      */
     protected $routeProvider;
 
@@ -98,7 +98,7 @@ class WebsiteManager
     }
 
     /**
-     * @param \Symfony\Cmf\Bundle\RoutingBundle\Document\RouteProvider $routeProvider
+     * @param \Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider $routeProvider
      */
     public function setRouteProvider(RouteProvider $routeProvider)
     {

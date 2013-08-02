@@ -9,7 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\DataFixtures\PHPCR;
 
-use Symfony\Cmf\Bundle\RoutingBundle\Document\Route;
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
 use Presta\CMSCoreBundle\Document\Page;
 
@@ -55,7 +55,7 @@ abstract class BaseRouteFixture extends BaseFixture
      * @param $name
      * @param $content
      * @param $locale
-     * @return \Symfony\Cmf\Bundle\RoutingBundle\Document\Route
+     * @return \Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route
      */
     protected function createRoute($root, $name, $content, $locale, $urlPattern = null, $urlDefault = null)
     {

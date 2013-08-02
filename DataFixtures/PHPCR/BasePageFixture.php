@@ -110,6 +110,7 @@ abstract class BasePageFixture extends BaseFixture
         $locales = $this->getLocales();
 
         foreach ($locales as $locale) {
+            $page->setLocale($locale);
             $page->setTitle(isset($meta['title'][$locale]) ? $meta['title'][$locale] : '');
             $page->setMetaDescription(isset($meta['description'][$locale]) ? $meta['description'][$locale] : '');
             $page->setMetaKeywords(isset($meta['keywords'][$locale]) ? $meta['keywords'][$locale] : '');

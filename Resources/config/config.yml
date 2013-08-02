@@ -33,11 +33,14 @@ cmf_routing:
             router.default: 100
     dynamic:
         enabled: true
+        persistence:
+            phpcr:
+                enabled: true
         controllers_by_class:
             Presta\CMSCoreBundle\Document\Page: presta_cms.page.controller:renderAction
-            Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute:  cmf_routing.redirect_controller:redirectAction
+            Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute:  cmf_routing.redirect_controller:redirectAction
 #        templates_by_class:
-#            Symfony\Cmf\Bundle\ContentBundle\Document\MultilangStaticContent: PrestaCMSCoreBundle:Page:index.html.twig
+#            Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\MultilangStaticContent: PrestaCMSCoreBundle:Page:index.html.twig
 
 #        routing_repositoryroot: /website/prestaconcept/route
 
@@ -47,6 +50,9 @@ knp_menu:
 cmf_menu:
     multilang:
         locales: %locales%
+    persistence:
+        phpcr:
+            enabled: true
 
 cmf_tree_browser:
     session_name:  default

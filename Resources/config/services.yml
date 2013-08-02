@@ -95,7 +95,7 @@ services:
         arguments: []
         calls:
             - [ setModelManager, [ @sonata.admin.manager.doctrine_phpcr ] ]
-            - [ setRouteProvider, [ @cmf_routing.default_route_provider ] ]
+            - [ setRouteProvider, [ @cmf_routing.route_provider ] ]
             - [ setRouteListener, [ @cmf_routing.phpcrodm_route_idprefix_listener ] ]
             - [ setMenuProvider, [ @cmf_menu.provider]]
     presta_cms.theme_manager:
@@ -112,7 +112,7 @@ services:
         arguments: []
         calls:
             - [ setModelManager, [ @sonata.admin.manager.doctrine_phpcr ] ]
-            - [ setRouteProvider, [@cmf_routing.default_route_provider] ]
+            - [ setRouteProvider, [@cmf_routing.route_provider] ]
 
     presta_cms.block_manager:
         class: Presta\CMSCoreBundle\Model\BlockManager
