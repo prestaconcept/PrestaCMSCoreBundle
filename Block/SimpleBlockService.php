@@ -39,15 +39,13 @@ class SimpleBlockService extends BaseModelBlockService
     /**
      * {@inheritdoc}
      */
-    public function setDefaultSettings(OptionsResolverInterface $resolver)
+    public function getDefaultSettings()
     {
-        $resolver->setDefaults(
-            array(
-                'title'             => $this->trans('block.default.title'),
-                'content'           => $this->trans('block.default.content'),
-                'link_label'        => null,
-                'link_destination'  => null
-            )
+        return array(
+            'title'             => $this->trans('block.default.title'),
+            'content'           => $this->trans('block.default.content'),
+            'link_label'        => null,
+            'link_destination'  => null
         );
     }
 

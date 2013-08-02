@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Block;
 
 use Sonata\BlockBundle\Block\BlockContextInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\HttpFoundation\Response;
 use Sonata\BlockBundle\Block\BaseBlockService as SonataBaseBlockService;
@@ -146,6 +147,16 @@ abstract class BaseBlockService extends SonataBaseBlockService
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function setDefaultSettings(OptionsResolverInterface $resolver)
+    {
+        $settings = $this->getDefaultSettings() + array('block_style' => null, 'title_level' => 'h2');
+
+        $resolver->setDefaults($settings);
+    }
+
+    /**
      * Returns block settings for template
      *
      * @param  BlockContextInterface $blockContext
@@ -159,10 +170,10 @@ abstract class BaseBlockService extends SonataBaseBlockService
             $blockContext->getBlock()->getSettings()
         );
 
-        $settings += array(
-            'block_style' => null,
-            'title_level' => 'h2',
-        );
+//        $settings += array(
+//            'block_style' => null,
+//            'title_level' => 'h2',
+//        );
 
         return $settings;
     }

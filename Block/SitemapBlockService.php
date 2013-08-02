@@ -38,14 +38,12 @@ class SitemapBlockService extends BaseModelBlockService
     /**
      * {@inheritdoc}
      */
-    public function setDefaultSettings(OptionsResolverInterface $resolver)
+    public function getDefaultSettings()
     {
-        $resolver->setDefaults(
-            array(
-                'title'     => $this->trans('block.default.title'),
-                'root_node' => null,
-                'depth'     => 1
-            )
+        return array(
+            'title'     => $this->trans('block.default.title'),
+            'root_node' => null,
+            'depth'     => 1
         );
     }
 
