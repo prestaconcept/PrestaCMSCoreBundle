@@ -18,5 +18,4 @@ use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu as BaseMenu;
 class Menu extends BaseMenu
 {
     //in the future will store additional features like can add : remove children...
-    protected $labelx;
 }

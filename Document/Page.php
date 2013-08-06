@@ -94,9 +94,9 @@ class Page
     protected $type;
 
     /**
-     * @var string $type
+     * @var string $status
      */
-    protected $status;
+    protected $status = self::STATUS_PUBLISHED;
 
     /**
      *  @var string
