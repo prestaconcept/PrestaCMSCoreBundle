@@ -47,6 +47,14 @@ cmf_routing:
 knp_menu:
     twig: true
 
+cmf_core:
+    multilang:
+        locales: %locales%
+
+cmf_block:
+    multilang:
+        locales: %locales%
+
 cmf_menu:
     multilang:
         locales: %locales%
