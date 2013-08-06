@@ -19,16 +19,16 @@
 
         <locale name="locale"/>
 
-        <field name="title" type="string" translated="true"/>
+        <field name="title" type="string" translated="true" nullable="false"/>
 
-        <field name="isUrlCompleteMode" type="boolean" translated="true"/>
-        <field name="metaKeywords" type="string" translated="true"/>
-        <field name="metaDescription" type="string" translated="true"/>
-        <field name="type" type="string" translated="true"/>
-        <field name="status" type="string" translated="true"/>
-        <field name="isActive" type="boolean" translated="true"/>
-        <field name="template" type="string" translated="true"/>
-        <field name="children" type="children" translated="true"/>
+        <field name="isUrlCompleteMode" type="boolean" translated="true" nullable="false"/>
+        <field name="metaKeywords" type="string" translated="true" nullable="false"/>
+        <field name="metaDescription" type="string" translated="true" nullable="false"/>
+        <field name="type" type="string" translated="true" nullable="false"/>
+        <field name="status" type="string" translated="true" nullable="false"/>
+        <field name="isActive" type="boolean" translated="true" nullable="false"/>
+        <field name="template" type="string" translated="true" nullable="false"/>
+        <field name="children" type="children" translated="true" nullable="false"/>
 
     </document>
 

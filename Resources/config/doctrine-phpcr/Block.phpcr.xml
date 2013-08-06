@@ -14,11 +14,11 @@
 
         <locale name="locale"/>
 
-        <field name="type" type="string" translated="true"/>
-        <field name="isEditable" type="boolean" translated="true"/>
-        <field name="isDeletable" type="boolean" translated="true"/>
-        <field name="isActive" type="boolean" translated="true"/>
-        <field name="settings" type="string" assoc=""/>
+        <field name="type" type="string" translated="true" nullable="false"/>
+        <field name="isEditable" type="boolean" translated="true" nullable="false"/>
+        <field name="isDeletable" type="boolean" translated="true" nullable="false"/>
+        <field name="isActive" type="boolean" translated="true" nullable="false"/>
+        <field name="settings" type="string" assoc="" translated="true" nullable="false"/>
 
     </document>
 
