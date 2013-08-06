@@ -118,8 +118,6 @@ abstract class BaseMenuFixture extends BaseFixture
      */
     protected function createNavigationRootNode($parent, $name, $label, $contentPath)
     {
-        //Due to https://github.com/symfony-cmf/MenuBundle/pull/37/files
-        //we have to link every menu node to a route
-        return $this->createMenuNode($parent, $name, $label, $this->manager->find(null, $contentPath . '/home'), null, null, self::MENU_CLASS);
+        return $this->createMenuNode($parent, $name, $label, null, null, null, self::MENU_CLASS);
     }
 }
