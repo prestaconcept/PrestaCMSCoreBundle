@@ -9,8 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Document;
 
-use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
-
 /**
  * Website Document
  *

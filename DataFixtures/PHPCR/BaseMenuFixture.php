@@ -9,16 +9,13 @@
  */
 namespace Presta\CMSCoreBundle\DataFixtures\PHPCR;
 
-use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
-use Presta\CMSCoreBundle\Document\NavigationRootMenuNode;
-
 /**
  * Base fixtures methods to easily create menu
  */
 abstract class BaseMenuFixture extends BaseFixture
 {
-    const NAVIGATION_ROOT_MENU_NODE_CLASS = '\Presta\CMSCoreBundle\Document\NavigationRootMenuNode';
-    const MENU_NODE_CLASS = '\Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode';
+    const MENU_CLASS        = '\Presta\CMSCoreBundle\Document\Menu';
+    const MENU_NODE_CLASS   = '\Presta\CMSCoreBundle\Document\MenuNode';
 
     /**
      * {@inheritdoc}
@@ -79,7 +76,7 @@ abstract class BaseMenuFixture extends BaseFixture
     protected function createMenuNode($parent, $name, $label, $content, $uri = null, $route = null, $type = null)
     {
         if ($type == null) {
-            $type = self::NAVIGATION_ROOT_MENU_NODE_CLASS;
+            $type = self::MENU_NODE_CLASS;
         }
 
         $menuNode = new $type();
@@ -102,8 +99,7 @@ abstract class BaseMenuFixture extends BaseFixture
                 //@todo
                 //[Doctrine\ODM\PHPCR\PHPCRException]
                 //This document is not translatable, do not use bindTranslation: Main navigation (/website/sandbox/menu/main)
-
-                //$this->manager->bindTranslation($menuNode, $locale);
+                $this->manager->bindTranslation($menuNode, $locale);
             }
         } else {
             $menuNode->setLabel($label);
@@ -124,6 +120,6 @@ abstract class BaseMenuFixture extends BaseFixture
     {
         //Due to https://github.com/symfony-cmf/MenuBundle/pull/37/files
         //we have to link every menu node to a route
-        return $this->createMenuNode($parent, $name, $label, $this->manager->find(null, $contentPath . '/home'), null, null, self::NAVIGATION_ROOT_MENU_NODE_CLASS);
+        return $this->createMenuNode($parent, $name, $label, $this->manager->find(null, $contentPath . '/home'), null, null, self::MENU_CLASS);
     }
 }

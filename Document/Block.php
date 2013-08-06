@@ -9,8 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Document;
 
-use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
-
 use Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock as CmfBaseBlock;
 
 /**
@@ -19,26 +17,21 @@ use Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock as CmfBaseBlock;
  * @package    Presta
  * @subpackage CMSCoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
- *
- * @PHPCRODM\Document(referenceable=true, translator="attribute", repositoryClass="Presta\CMSCoreBundle\Document\Block\Repository")
- */
+ * */
 class Block extends CmfBaseBlock
 {
     /**
      * @var boolean
-     * @PHPCRODM\Boolean(translated=true)
      */
     protected $isEditable;
 
     /**
      * @var boolean
-     * @PHPCRODM\Boolean(translated=true)
      */
     protected $isDeletable;
 
     /**
      * @var boolean $isActive
-     * @PHPCRODM\Boolean(translated=true)
      */
     protected $isActive = true;
 
@@ -48,18 +41,17 @@ class Block extends CmfBaseBlock
     protected $isAdminMode = false;
 
     /**
-     * @PHPCRODM\String()
+     * @var string
      */
     protected $type;
 
     /**
-     * @PHPCRODM\String(translated=true)
+     * @var string
      */
     protected $settings;
 
     /**
      * @var string
-     * @PHPCRODM\Locale
      */
     protected $locale;
 

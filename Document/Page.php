@@ -126,7 +126,7 @@ class Page
     public function __construct()
     {
         $this->isActive = true;
-//        $this->children = new ArrayCollection();
+        $this->children = array();
     }
 
     /**
@@ -220,6 +220,10 @@ class Page
      */
     public function getChildren()
     {
+        if (count($this->children) == 0) {
+            return $this->children;
+        }
+
         return $this->children->filter(
             function ($e) {
                 return $e instanceof Page;
@@ -264,6 +268,10 @@ class Page
      */
     public function getZones()
     {
+        if (count($this->children) == 0) {
+            return $this->children;
+        }
+
         return $this->children->filter(
             function ($e) {
                 return $e instanceof Zone;

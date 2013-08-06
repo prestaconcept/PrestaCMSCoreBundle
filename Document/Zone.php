@@ -9,8 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Document;
 
-use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
-
 use Symfony\Cmf\Bundle\BlockBundle\Document\ContainerBlock;
 
 /**
@@ -18,7 +16,6 @@ use Symfony\Cmf\Bundle\BlockBundle\Document\ContainerBlock;
  *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  *
- * @PHPCRODM\Document(referenceable=true)
  */
 class Zone extends ContainerBlock
 {

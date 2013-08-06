@@ -9,13 +9,14 @@
  */
 namespace Presta\CMSCoreBundle\Document;
 
-use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
+use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu as BaseMenu;
 
 /**
  * Navigation Root Node
  *
  */
-class NavigationRootMenuNode extends MenuNode
+class Menu extends BaseMenu
 {
     //in the future will store additional features like can add : remove children...
+    protected $labelx;
 }

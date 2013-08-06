@@ -6,14 +6,8 @@
         >
 
     <document
-            name="Presta\CMSCoreBundle\Document\NavigationRootMenuNode"
-            translator="attribute"
+            name="Presta\CMSCoreBundle\Document\MenuNode"
             >
-        <locale name="locale"/>
-
-        <field name="label" type="string" translated="true"/>
-        <field name="uri" type="string" translated="true"/>
-
     </document>
 
 </doctrine-mapping>
