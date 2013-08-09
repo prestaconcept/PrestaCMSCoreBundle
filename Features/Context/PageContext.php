@@ -1,0 +1,134 @@
+<?php
+
+namespace Presta\CMSCoreBundle\Features\Context;
+
+use Behat\Behat\Context\BehatContext;
+use Behat\Gherkin\Node\TableNode;
+use Behat\Behat\Exception\PendingException;
+use Behat\Mink\Exception\ExpectationException;
+use Behat\Mink\Exception\ElementNotFoundException;
+use Behat\MinkExtension\Context\MinkContext;
+use Behat\Symfony2Extension\Context\KernelAwareInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
+
+use Presta\CMSCoreBundle\Document\Theme;
+
+/**
+ * Description of ThemeContext
+ *
+ * @author David Epely <depely@prestaconcept.net>
+ */
+class PageContext extends BehatContext
+{
+    /**
+     * @Then /^I should see the "([^"]*)" website selection and a link with selected locale "([^"]*)"$/
+     */
+    public function iShouldSeeTheWebsiteSelectionAndALinkWithSelectedLocale($arg1, $arg2)
+    {
+        $this->getMainContext()->assertElementContainsText("#website-selector", $arg1);
+        $this->getMainContext()->assertElementContainsText("#website-selector div:contains($arg1) ul li.active", $arg2);
+    }
+
+    /**
+     * @Given /^I should see a tree of pages$/
+     */
+    public function iShouldSeeATreeOfPages()
+    {
+        //tmp fake working page using sandbox demo
+        $this->getMainContext()->visit("http://sandbox.prestacms.com/admin/cms/page/website/sandbox/en");
+        
+        $this->getMainContext()->assertElementContainsText("h1", "Pages");
+        $this->getMainContext()->assertElementContainsText("#page-tree-container h4", "Navigation");
+        $this->getMainContext()->getSession()->wait(2, '(window.jQuery("#tree ul").length > 0)');
+        $this->getMainContext()->assertNumElements(2, "#tree ul li");
+        
+        $js = <<<JS
+                var assert = require("assert");
+                
+                try {
+                    assert.equal(browser.text("h1"), "Pages");
+                    assert.equal(browser.text("#page-tree-container h4"), "Navigation");
+                } catch(err) {
+                    stream.end(JSON.stringify(err.toString()));
+                }
+                
+                stream.end();
+JS;
+        $out = $this->getMainContext()
+                ->getSession('zombie')
+                ->getDriver()
+                ->getServer()
+                ->evalJs($js);
+        
+        if (!empty($out)) {
+            $e = json_decode($out);
+            throw new ExpectationException($e, $this->getMainContext()->getSession('zombie'));
+        }
+    }
+    
+    
+    /**
+     * @Given /^I press "([^"]*)" block edit button$/
+     */
+    public function iPressBlockEditButton($arg1)
+    {
+        $session = $this->getMainContext()->getSession();
+        $element = $session->getPage()->find('css', "#cms-zone-websitesandboxpagehomecontent .page-zone-block:first-child a.action-edit");
+        
+        if (!$element) {
+            throw new ElementNotFoundException($session);
+        }
+        
+        $element->click();
+    }
+
+    
+
+    /**
+     * @Then /^I should see a list of blocks$/
+     */
+    public function iShouldSeeAListOfBlocks()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^I should see a form with block configuration$/
+     */
+    public function iShouldSeeAFormWithBlockConfiguration()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^I should see the block highlighted$/
+     */
+    public function iShouldSeeTheBlockHighlighted()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^I should see a form for seo configuration$/
+     */
+    public function iShouldSeeAFormForSeoConfiguration()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^I should see a form for sub page creation$/
+     */
+    public function iShouldSeeAFormForSubPageCreation()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^I should see the sub-home page$/
+     */
+    public function iShouldSeeTheSubHomePage()
+    {
+        throw new PendingException();
+    }
+}

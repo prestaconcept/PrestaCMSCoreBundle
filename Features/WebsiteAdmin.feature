@@ -3,25 +3,26 @@ Feature: Website Administration
     As an admin
     I need to be able to list, read and update websites
 
+Background:
+    Given application is initialized
+    And I am logged in as "admin" with the password "adminpass"
+
 Scenario: An admin see a list of websites
     Given I visit the admin dashboard
-    And I am logged in as "admin" with the password "admin"
-    And there are themes:
-        | name      |
-        | creative  |
-        | bootstrap |
-
-    And there are websites:
-        | name                      | locales   | theme     |
-        | sandbox.cms               | fr, en    | creative  |
-        | prestaconcept.net         | fr        | creative  |
-    
     When I follow "Websites"
-    Then I should see 2 websites 
-    And when I follow "sandbox.cms show"
+    Then I should see 1 websites
+
+Scenario: An admin view details of a website
+    Given I am on "/admin/presta/cmscore/website/list"
+    When I follow "sandbox" website "Show"
     Then I should see the sandbox website configuration
-    And when I follow "edit"
+    
+Scenario: An admin edit a website
+    Given I am on "/admin/presta/cmscore/website/list"
+    When I follow "sandbox" website "Edit"
     Then I should see the form to edit "sandbox" website
-    And I should see a link selected locale "en"
-    And when I follow "update" with { theme: bootstrap }
+    And I should see a link with selected locale "en"
+    And I fill in the following:
+        | Theme | creative |
+    And I press "Update"
     Then I should see "Item has been successfully updated."

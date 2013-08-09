@@ -2,7 +2,7 @@
 /**
  * This file is part of the Presta Bundle project.
  *
- * @author David Epely depely@prestaconcept.net>
+ * @author David Epely <depely@prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -43,6 +43,19 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
     public function __construct(array $parameters)
     {
         $this->parameters = $parameters;
+        
+        $this->useContext('theme', new ThemeContext);
+        $this->useContext('website', new WebsiteContext);
+        $this->useContext('page', new PageContext);
+    }
+    
+    /**
+     * @Given /^application is initialized$/
+     */
+    public function applicationIsInitialized()
+    {
+        //TODO: behat should be run under prestaCms Full stack
+        //waiting for fixtures loading system from @nbastien
     }
 
     /**
@@ -56,24 +69,12 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
         $this->kernel = $kernel;
     }
 
-    //
-    // Place your definition and hook methods here:
-    //
-    //    /**
-    //     * @Given /^I have done something with "([^"]*)"$/
-    //     */
-    //    public function iHaveDoneSomethingWith($argument)
-    //    {
-    //        $container = $this->kernel->getContainer();
-    //        $container->get('some_service')->doSomethingWith($argument);
-    //    }
-
     /**
      * @Given /^I visit the admin dashboard$/
      */
     public function iVisitTheAdminDashboard()
     {
-        $this->visit('/admin/en');
+        $this->visit('/admin');
     }
 
     /**
@@ -81,58 +82,21 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
      */
     public function iAmLoggedInAsWithThePassword($arg1, $arg2)
     {
-        $this->visit('/admin/en/login');
-
-        $this->fillField('username', $arg1);
-        $this->fillField('password', $arg2);
-        $this->pressButton('_submit');
+            $this->getSession()->setBasicAuth($arg1, $arg2);
     }
 
     /**
-     * @Given /^there are websites:$/
+     * @return Doctrine\Bundle\DoctrineBundle\Registry
      */
-    public function thereAreWebsites(TableNode $table)
-    {
-        $dm = $this->getDocumentManager();
-        $lines = $table->getRows();
-
-        //remove first heading line
-        array_shift($lines);
-        try {
-            foreach ($lines as $row) {
-                $locales = array_map('trim', explode(',', $row[1]));
-                $website = new Website();
-                $website->setName($row[0]);
-                $website->setLocale(reset($locales));
-                $website->setAvailableLocales($locales);
-                $dm->persist($website);
-            }
-
-            $dm->flush();
-        } catch (\Exception $e) {
-            //websites already exists
-        }
-    }
-
-    /**
-     * @Then /^I should see (\d+) websites$/
-     */
-    public function iShouldSeeWebsites($arg1)
-    {
-        $this->assertNumElements($arg1, 'table > tbody tr');
-    }
-
-    protected function logLastResponse()
-    {
-        file_put_contents('behat.out.html', $this->getSession()->getPage()->getContent());
-    }
-
     protected function getDoctrine()
     {
         return $this->kernel->getContainer()->get('doctrine');
     }
 
-    protected function getDocumentManager()
+    /**
+     * @return Doctrine\ODM\PHPCR\DocumentManager
+     */
+    public function getDocumentManager()
     {
         return $this->kernel->getContainer()->get('doctrine_phpcr.odm.default_document_manager');
     }
