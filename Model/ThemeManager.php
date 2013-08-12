@@ -183,30 +183,27 @@ class ThemeManager
                 'Presta\CMSCoreBundle\Document\Theme',
                 $website->getId() . DIRECTORY_SEPARATOR . Website::THEME_PREFIX . DIRECTORY_SEPARATOR . $configuration['name']
             );
-            $locale = $website->getLocale();
 
             if ($themeNode == null) {
                 //If there is no corresponding data, initialisation with default configuration
-                $zones = $this->getRepository()->initializeForWebsite($website, $configuration);
-            } else {
-                $zones = $this->getRepository()->getZones($configuration['name'], $website);
+                $this->getRepository()->initializeForWebsite($website, $configuration);
             }
+
+            $zones = $this->getRepository()->getZones($theme->getName(), $website);
         }
 
         foreach ($configuration['zones'] as $zoneConfiguration) {
-            $zone = new Zone($zoneConfiguration['name']);
-            $zone->setConfiguration($zoneConfiguration);
-            if (isset($zones[$zoneConfiguration['name']])) {
-                $zone->setBlocks($zones[$zoneConfiguration['name']]->getBlocks());
-                //Translation is not propagated to the children
-                //Should be corrected by https://github.com/doctrine/phpcr-odm/pull/237
-                //but not working now : 14/03/2013
-                foreach ($zone->getBlocks() as $block) {
-                    $this->getDocumentManager()->bindTranslation($block, $locale);
-                }
+
+            if (!isset($zones[$zoneConfiguration['name']])) {
+                $zone = new Zone($zoneConfiguration['name']);
+            } else {
+                $zone = $zones[$zoneConfiguration['name']];
             }
+
+            $zone->setConfiguration($zoneConfiguration);
             $theme->addZone($zone);
         }
+
         foreach ($configuration['page_template'] as $templateName => $templateConfiguration) {
             $template = new Template($templateName, $templateConfiguration['path']);
             $theme->addPageTemplate($template);

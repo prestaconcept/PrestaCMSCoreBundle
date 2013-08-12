@@ -9,7 +9,12 @@
  */
 namespace Presta\CMSCoreBundle\Document;
 
-use Symfony\Cmf\Bundle\BlockBundle\Document\ContainerBlock;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ODM\PHPCR\ChildrenCollection;
+use Sonata\BlockBundle\Model\BlockInterface;
+use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock;
+use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ContainerBlock;
+use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 
 /**
  * Zone : Block container

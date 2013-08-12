@@ -9,31 +9,32 @@
  */
 namespace Presta\CMSCoreBundle\Document;
 
-use Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock as CmfBaseBlock;
+use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock;
+use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 
 /**
  * BaseBlock Model
  *
- * @package    Presta
- * @subpackage CMSCoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  * */
-class Block extends CmfBaseBlock
+class Block extends AbstractBlock implements TranslatableInterface
 {
     /**
      * @var boolean
      */
-    protected $isEditable;
+    protected $isEditable = true;
 
     /**
      * @var boolean
      */
-    protected $isDeletable;
+    protected $isDeletable = true;
 
     /**
      * @var boolean $isActive
      */
     protected $isActive = true;
+
+    protected $enabled = true;
 
     /**
      * @var bool

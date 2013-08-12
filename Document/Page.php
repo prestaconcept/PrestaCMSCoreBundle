@@ -13,7 +13,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ODM\PHPCR\ChildrenCollection;
 use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
+use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
+use Symfony\Cmf\Bundle\MenuBundle\Model\MenuNodeReferrersInterface;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
+use Knp\Menu\NodeInterface;
 
 /**
  * Page Document
@@ -23,9 +27,10 @@ use Symfony\Cmf\Component\Routing\RouteObjectInterface;
  * @todo refactor children and zone storing so everything is not loaded each time: use filter on children annotation ?
  *
  */
-class Page
-    //extends StaticContent
-    //implements RouteObjectInterface
+class Page implements
+        MenuNodeReferrersInterface,
+    RouteReferrersInterface,
+    TranslatableInterface
 {
     const STATUS_DRAFT      = 'draft';
     const STATUS_PUBLISHED  = 'published';
@@ -119,6 +124,16 @@ class Page
     protected $children;
 
     /**
+     * @var RouteObjectInterface[]
+     */
+    protected $routes;
+
+    /**
+     * MenuNode[]
+     */
+    protected $menuNodes;
+
+    /**
      * @PHPCRODM\Date()
      */
     protected $lastCacheModifiedDate;
@@ -127,6 +142,9 @@ class Page
     {
         $this->isActive = true;
         $this->children = array();
+
+        $this->routes = new ArrayCollection();
+        $this->menus = new ArrayCollection();
     }
 
     /**
@@ -461,5 +479,53 @@ class Page
     public function getLastCacheModifiedDate()
     {
         return $this->lastCacheModifiedDate;
+    }
+
+    /**
+     * @param Route $route
+     */
+    public function addRoute($route)
+    {
+        $this->routes->add($route);
+    }
+
+    /**
+     * @param Route $route
+     */
+    public function removeRoute($route)
+    {
+        $this->routes->removeElement($route);
+    }
+
+    /**
+     * @return \Symfony\Component\Routing\Route[] Route instances that point to this content
+     */
+    public function getRoutes()
+    {
+        return $this->routes;
+    }
+
+    /**
+     * @param MenuNode $menu
+     */
+    public function addMenuNode(NodeInterface $menu)
+    {
+        $this->menuNodes->add($menu);
+    }
+
+    /**
+     * @param MenuNode $menu
+     */
+    public function removeMenuNode(NodeInterface $menu)
+    {
+        $this->menuNodes->removeElement($menu);
+    }
+
+    /**
+     * @return ArrayCollection of MenuNode that point to this content
+     */
+    public function getMenuNodes()
+    {
+        return $this->menuNodes;
     }
 }

@@ -32,12 +32,15 @@ class Repository extends BaseDocumentRepository
      */
     public function getZones($themeName, $website)
     {
+        $zones = array();
         $websiteTheme = $this->getDocumentManager()->find('Presta\CMSCoreBundle\Document\Theme', $website->getId() . '/theme/' . $themeName);
         if ($websiteTheme != null) {
-            return $websiteTheme->getZones();
+            foreach ($websiteTheme->getZones() as $zone) {
+                $zones[$zone->getName()] = $zone;
+            }
         }
 
-        return array();
+        return $zones;
     }
 
     /**

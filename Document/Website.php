@@ -9,13 +9,15 @@
  */
 namespace Presta\CMSCoreBundle\Document;
 
+use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
+
 /**
  * Website Document
  *
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  *
  */
-class Website
+class Website implements TranslatableInterface
 {
     const WEBSITE_PREFIX    = 'website';
     const THEME_PREFIX      = 'theme';

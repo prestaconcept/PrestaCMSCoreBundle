@@ -9,18 +9,18 @@
  */
 namespace Presta\CMSCoreBundle\Document;
 
-
 use Presta\CMSCoreBundle\Document\Website;
 use Presta\CMSCoreBundle\Model\Template;
 
-use Symfony\Cmf\Bundle\BlockBundle\Document\ContainerBlock;
+use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ContainerBlock;
+use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 
 /**
  * Theme Document child of a website : Zone container + configuration
  *
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class Theme extends ContainerBlock
+class Theme extends ContainerBlock  implements TranslatableInterface
 {
     /**
      * @var string
