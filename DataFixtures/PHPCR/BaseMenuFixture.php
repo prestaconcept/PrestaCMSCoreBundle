@@ -96,9 +96,6 @@ abstract class BaseMenuFixture extends BaseFixture
         if (is_array($label)) {
             foreach ($label as $locale => $l) {
                 $menuNode->setLabel($l);
-                //@todo
-                //[Doctrine\ODM\PHPCR\PHPCRException]
-                //This document is not translatable, do not use bindTranslation: Main navigation (/website/sandbox/menu/main)
                 $this->manager->bindTranslation($menuNode, $locale);
             }
         } else {
