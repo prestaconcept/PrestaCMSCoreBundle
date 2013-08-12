@@ -38,7 +38,7 @@ cmf_routing:
                 enabled: true
         controllers_by_class:
             Presta\CMSCoreBundle\Document\Page: presta_cms.page.controller:renderAction
-            Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute:  cmf_routing.redirect_controller:redirectAction
+            Symfony\Cmf\Component\Routing\RedirectRouteInterface:  cmf_routing.redirect_controller:redirectAction
 #        templates_by_class:
 #            Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\MultilangStaticContent: PrestaCMSCoreBundle:Page:index.html.twig
 
@@ -48,12 +48,20 @@ knp_menu:
     twig: true
 
 cmf_core:
+    publish_workflow:
+        enabled: false
     multilang:
         locales: %locales%
+    persistence:
+        phpcr:
+            enabled: true
 
 cmf_block:
     multilang:
         locales: %locales%
+    persistence:
+        phpcr:
+            enabled: true
 
 cmf_menu:
     multilang:
