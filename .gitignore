@@ -3,7 +3,6 @@ Tests/Functional/config/parameters.yml
 build/
 vendor
 composer.phar
-composer.lock
 Tests/Resources/app/cache
 Tests/Resources/app/logs
 
