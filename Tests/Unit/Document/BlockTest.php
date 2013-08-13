@@ -29,13 +29,13 @@ class BlockTest extends BaseUnitTestCase
         $block->setAdminMode();
         $this->assertEquals(true, $block->isAdminMode());
 
-        $this->assertEquals(false, $block->isEditable());
-        $block->setIsEditable(true);
         $this->assertEquals(true, $block->isEditable());
+        $block->setIsEditable(false);
+        $this->assertEquals(false, $block->isEditable());
 
-        $this->assertEquals(false, $block->isDeletable());
-        $block->setIsDeletable(true);
         $this->assertEquals(true, $block->isDeletable());
+        $block->setIsDeletable(false);
+        $this->assertEquals(false, $block->isDeletable());
 
         $block->setLocale('en');
         $this->assertEquals('en', $block->getLocale());

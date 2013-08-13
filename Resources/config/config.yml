@@ -1,20 +1,9 @@
-imports:
-#     - { resource: '@PrestaAssetTinymceBundle/Resources/config/config.yml' }
-#     - { resource: 'theme_default.yml' }
-
-
-doctrine:
-    orm:
-        entity_managers:
-            default:
-                mappings:
-                    PrestaCMSCoreBundle: ~
 
 
 # Assetic Configuration
-assetic:
-    bundles:
-        - PrestaCMSCoreBundle
+#assetic:
+#    bundles:
+#        - PrestaCMSCoreBundle
 
 sonata_block:
     default_contexts: [cms]

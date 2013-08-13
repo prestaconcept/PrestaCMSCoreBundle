@@ -99,11 +99,6 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
 
         $this->assertEquals($liipWebsite, $websiteManager->getCurrentWebsite());
 
-        try {
-            $defaultWebsite = $websiteManager->loadWebsiteByHost('www.no-website.com');
-        } catch (NotFoundHttpException $e) {
-            return;
-        }
-        $this->fail('Should trigger exception Webiste not found');
+        $this->assertEquals(false, $websiteManager->loadWebsiteByHost('www.no-website.com'));
     }
 }

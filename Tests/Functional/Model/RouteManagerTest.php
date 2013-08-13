@@ -28,15 +28,15 @@ class RouteManagerTest extends BaseFunctionalTestCase
         return $this->container->get('presta_cms.route_manager');
     }
 
-    public function testIndexRedirectRouteToCreate()
-    {
-        $redirectRoutes = array();
-        $route          = $this->generateRouteHierarchy();
-
-        $this->getRouteManager()->indexRedirectRouteToCreate($redirectRoutes, $route);
-
-        $this->assertEquals(3, count($redirectRoutes));
-    }
+//    public function testIndexRedirectRouteToCreate()
+//    {
+//        $redirectRoutes = array();
+//        $route          = $this->generateRouteHierarchy();
+//
+//        $this->getRouteManager()->indexRedirectRouteToCreate($redirectRoutes, $route);
+//
+//        $this->assertEquals(3, count($redirectRoutes));
+//    }
 
     public function testGenerateNewPath()
     {

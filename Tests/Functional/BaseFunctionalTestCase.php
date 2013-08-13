@@ -9,19 +9,22 @@
  */
 namespace Presta\CMSCoreBundle\Tests\Functional;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+use Symfony\Cmf\Component\Testing\Functional\BaseTestCase as CmfBaseFunctionalTestCase;
 use PHPCR\Util\NodeHelper;
 use Doctrine\Common\DataFixtures\Purger\PHPCRPurger;
 use Symfony\Component\Yaml\Parser;
 
 use Presta\CMSCoreBundle\Document\Website;
 
+require __DIR__ . '/../Resources/app/AppKernel.php';
+
 /**
  * Base test case for all functional tests
  *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class BaseFunctionalTestCase extends WebTestCase
+class BaseFunctionalTestCase extends CmfBaseFunctionalTestCase
 {
     /**
      * @var \Symfony\Component\DependencyInjection\Container
@@ -38,9 +41,7 @@ class BaseFunctionalTestCase extends WebTestCase
      */
     protected static function createKernel(array $options = array())
     {
-        return new AppKernel(
-            isset($options['config']) ? $options['config'] : 'default.yml'
-        );
+        return new \AppKernel('test', true);
     }
 
     /**
@@ -49,7 +50,6 @@ class BaseFunctionalTestCase extends WebTestCase
     protected function init()
     {
         self::$kernel = self::createKernel();
-        self::$kernel->init();
         self::$kernel->boot();
 
         $this->container = self::$kernel->getContainer();
