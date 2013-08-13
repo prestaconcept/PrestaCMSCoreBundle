@@ -15,7 +15,6 @@ before_script:
   - phpenv rehash
   - wget http://getcomposer.org/composer.phar
   - composer require symfony/symfony:${SYMFONY_VERSION}
-  - cp ./Tests/Functional/config/parameters.yml.dist ./Tests/Functional/config/parameters.yml
   - vendor/symfony-cmf/testing/bin/travis/phpcr_odm_doctrine_dbal.sh
 
 
