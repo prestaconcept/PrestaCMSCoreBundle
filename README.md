@@ -1,6 +1,8 @@
 Presta CMS Core Bundle  [![Build Status](https://secure.travis-ci.org/prestaconcept/PrestaCMSCoreBundle.png?branch=master)](http://travis-ci.org/prestaconcept/PrestaCMSCoreBundle)
 =============
 
+### [WIP] We are working on the 2.3 release it depends on Symfony CMF release which is not stable yet
+
 This bundle contains the main logic of Presta CMS.
 
 PrestaCMS is based on Symfony CMF bundles.
@@ -13,6 +15,12 @@ If you want to have some informations about the projet progession you can regist
 #Overview #
 
 For a ready to use demonstration of PrestaCMS you should check the [prestacms-sandox available on github](https://github.com/prestaconcept/prestacms-sandbox).
+
+## Requirements
+
+* Symfony 2.2.x
+* See also the `require` section of [composer.json](composer.json)
+
 
 ## Features: ##
 
@@ -28,26 +36,25 @@ For a ready to use demonstration of PrestaCMS you should check the [prestacms-sa
 
 ## Documentation ##
 
-1.  [Set-up](https://github.com/prestaconcept/PrestaCMSCoreBundle/blob/master/Resources/docs/1-Set-up.md)
-2.  Getting start with PrestaCMS
-3.  How to create a block
-4.  How to Create a new theme
-5.  [How to configure a new website](https://github.com/prestaconcept/PrestaCMSCoreBundle/blob/master/Resources/docs/5-Website-configuration.md)
-6.  How to create complex page layout
-7.  How to link CMS with other bundles
-8.  ...
-
+[WIP] waiting for 2.3 release
 
 
 ## Ask for help ##
 
 If you need help about this project you can [post a message on our google group](https://groups.google.com/forum/?hl=fr&fromgroups#!forum/prestacms-devs)
 
+## Contributing
 
+Pull requests are welcome.
+
+
+Thanks to
+[everyone who has contributed](https://github.com/PrestaCMSCoreBundle/graphs/contributors) already.
 
 ---
 
 *This project is supported by [PrestaConcept](http://www.prestaconcept.net)*
 
+Released under the MIT License
 
 
