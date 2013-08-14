@@ -9,6 +9,9 @@
  */
 namespace Presta\CMSCoreBundle\Tests\Unit;
 
+if (!defined('FIXTURES_DIR')) {
+    define('FIXTURES_DIR', realpath(__DIR__.'/../Resources/DataFixtures/data/') . '/');
+}
 /**
  * Base test case for all unit tests
  *

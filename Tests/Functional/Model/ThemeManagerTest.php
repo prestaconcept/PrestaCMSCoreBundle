@@ -27,7 +27,7 @@ class ThemeManagerTest extends BaseFunctionalTestCase
         $themeManager = $this->container->get('presta_cms.manager.theme');
 
         $yaml = new Parser();
-        $datas = $yaml->parse(file_get_contents(__DIR__ . '/../../Functional/fixtures/themes.yml'));
+        $datas = $yaml->parse(file_get_contents(FIXTURES_DIR . 'themes.yml'));
 
         foreach ($datas['themes'] as $themeConfiguration) {
             $themeManager->addThemeConfiguration($themeConfiguration);

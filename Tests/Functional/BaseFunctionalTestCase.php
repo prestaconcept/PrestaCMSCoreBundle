@@ -19,6 +19,10 @@ use Presta\CMSCoreBundle\Document\Website;
 
 require __DIR__ . '/../Resources/app/AppKernel.php';
 
+if (!defined('FIXTURES_DIR')) {
+    define('FIXTURES_DIR', realpath(__DIR__.'/../Resources/DataFixtures/data/') . '/');
+}
+
 /**
  * Base test case for all functional tests
  *
@@ -73,7 +77,7 @@ class BaseFunctionalTestCase extends CmfBaseFunctionalTestCase
         NodeHelper::createPath($session, $basePath);
 
         $yaml = new Parser();
-        $datas = $yaml->parse(file_get_contents(__DIR__ . '/fixtures/websites.yml'));
+        $datas = $yaml->parse(file_get_contents(FIXTURES_DIR . 'websites.yml'));
 
         foreach ($datas['websites'] as $configuration) {
             $website = $this->createWebsite($configuration);

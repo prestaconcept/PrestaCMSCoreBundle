@@ -20,8 +20,6 @@ themes:
                         is_editable: true
                         is_deletable: false
                         position: 10
-
-
             navigation:
                 rows: 1
                 cols: 12

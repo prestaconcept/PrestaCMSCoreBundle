@@ -58,7 +58,7 @@ class WebsiteManagerTest extends BaseUnitTestCase
         $this->assertEquals(false, $websiteManager->hasMultipleWebsite());
 
         //Load sandbox website
-        $this->loadWebsites(__DIR__ . '/../../Functional/config/prestacmscore.yml');
+        $this->loadWebsites(__DIR__ . '/../../Resources/app/config/prestacmscore.yml');
 
         $this->assertEquals(false, $websiteManager->hasMultipleWebsite());
 
@@ -72,7 +72,7 @@ class WebsiteManagerTest extends BaseUnitTestCase
         $websiteManager = $this->getWebsiteManager();
 
         //Load sandbox website
-        $this->loadWebsites(__DIR__ . '/../../Functional/config/prestacmscore.yml');
+        $this->loadWebsites(__DIR__ . '/../../Resources/app/config/prestacmscore.yml');
         $this->loadWebsites(__DIR__ . '/../fixtures/websites.yml');
 
         $this->assertEquals(true, $websiteManager->hasHostRegistered('www.prestaconcept.net'));
