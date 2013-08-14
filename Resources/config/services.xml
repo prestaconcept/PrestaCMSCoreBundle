@@ -6,6 +6,8 @@
 
     <parameters>
         <parameter key="presta_cms.page.controller.class">Presta\CMSCoreBundle\Controller\PageController</parameter>
+        <parameter key="presta_cms.website.factory.class">Presta\CMSCoreBundle\Factory\WebsiteFactory</parameter>
+        <parameter key="presta_cms.theme.factory.class">Presta\CMSCoreBundle\Factory\ThemeFactory</parameter>
     </parameters>
 
     <services>
@@ -39,5 +41,27 @@
                 <argument type="service" id="presta_cms_tree_browser.page_tree" />
             </call>
         </service>
+
+        <service id="presta_cms.website.factory" class="%presta_cms.website.factory.class%">
+            <argument type="service" id="doctrine_phpcr"/>
+            <call method="setManagerName">
+                <argument>%presta_cms.persistence.phpcr.manager_name%</argument>
+            </call>
+            <call method="setModelClassName">
+                <argument>%presta_cms.model.website.class%</argument>
+            </call>
+        </service>
+
+        <service id="presta_cms.theme.factory" class="%presta_cms.theme.factory.class%">
+            <argument type="service" id="doctrine_phpcr"/>
+            <call method="setManagerName">
+                <argument>%presta_cms.persistence.phpcr.manager_name%</argument>
+            </call>
+            <call method="setModelClassName">
+                <argument>%presta_cms.model.theme.class%</argument>
+            </call>
+        </service>
+
+
     </services>
 </container>

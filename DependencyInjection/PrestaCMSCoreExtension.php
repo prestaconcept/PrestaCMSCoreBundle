@@ -43,6 +43,12 @@ class PrestaCMSCoreExtension extends Extension
         $loader->load('listener.xml');
         $loader->load('services.xml');
 
+        //Prepare for dynamic persistence layer
+        $container->setParameter(
+            'presta_cms.persistence.phpcr.manager_name',
+            null
+        );
+
         //Init website configuration
         $websiteManager = $container->getDefinition('presta_cms.manager.website');
         if (isset($config['default_website']) && isset($config['default_locale'])) {

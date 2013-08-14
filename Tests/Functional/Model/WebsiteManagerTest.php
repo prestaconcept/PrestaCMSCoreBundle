@@ -12,7 +12,7 @@ namespace Presta\CMSCoreBundle\Tests\Functional\Model;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Presta\CMSCoreBundle\Tests\Functional\BaseFunctionalTestCase;
 
-use Presta\CMSCoreBundle\Document\Website;
+use Presta\CMSCoreBundle\Model\Website;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>

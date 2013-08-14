@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Tests\Functional;
 
 
+use Presta\CMSCoreBundle\Factory\ModelFactoryInterface;
 use Symfony\Cmf\Component\Testing\Functional\BaseTestCase as CmfBaseFunctionalTestCase;
 use PHPCR\Util\NodeHelper;
 use Doctrine\Common\DataFixtures\Purger\PHPCRPurger;
@@ -48,6 +49,12 @@ class BaseFunctionalTestCase extends CmfBaseFunctionalTestCase
         return new \AppKernel('test', true);
     }
 
+    protected function setUp()
+    {
+        $this->init();
+        $this->loadFixtures();
+    }
+
     /**
      * Init kernel and container
      */
@@ -61,11 +68,18 @@ class BaseFunctionalTestCase extends CmfBaseFunctionalTestCase
     }
 
     /**
+     * @return ModelFactoryInterface
+     */
+    protected function getWebsiteFactory()
+    {
+        return $this->container->get('presta_cms.website.factory');
+    }
+
+    /**
      * Load test fixtures
      */
     protected function loadFixtures()
     {
-
         $session = self::$kernel->getContainer()->get('doctrine_phpcr.session');
 
         $purger = new PHPCRPurger($this->documentManager);
@@ -80,40 +94,10 @@ class BaseFunctionalTestCase extends CmfBaseFunctionalTestCase
         $datas = $yaml->parse(file_get_contents(FIXTURES_DIR . 'websites.yml'));
 
         foreach ($datas['websites'] as $configuration) {
-            $website = $this->createWebsite($configuration);
+            $website = $this->getWebsiteFactory()->create($configuration);
         }
 
         // Commit $document and $block to the database
         $this->documentManager->flush();
-    }
-
-    protected function setUp()
-    {
-        $this->init();
-        $this->loadFixtures();
-    }
-
-    /**
-     * Create a website
-     *
-     * @param  array                                  $configuration
-     * @return \Presta\CMSCoreBundle\Document\Website
-     */
-    protected function createWebsite(array $configuration)
-    {
-        $website = new Website();
-        $website->setPath($configuration['path']);
-        $website->setName($configuration['name']);
-        $website->setAvailableLocales($configuration['available_locales']);
-        $website->setDefaultLocale($configuration['default_locale']);
-        $website->setTheme($configuration['theme']);
-
-        $this->documentManager->persist($website);
-
-        foreach ($configuration['available_locales'] as $locale) {
-            $this->documentManager->bindTranslation($website, $locale);
-        }
-
-        return $website;
     }
 }
