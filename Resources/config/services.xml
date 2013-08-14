@@ -36,7 +36,7 @@
                 <argument>%sonata_admin_doctrine_phpcr.tree_block.defaults%</argument>
             </call>
             <call method="setTree">
-                <argument type="service" id="presta_cms_tree_browser.page_tree " />
+                <argument type="service" id="presta_cms_tree_browser.page_tree" />
             </call>
         </service>
     </services>
