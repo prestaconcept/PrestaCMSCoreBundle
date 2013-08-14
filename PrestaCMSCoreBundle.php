@@ -40,7 +40,8 @@ class PrestaCMSCoreBundle extends Bundle
             $container->addCompilerPass(
                 DoctrinePhpcrMappingsPass::createXmlMappingDriver(
                     array(
-                        realpath(__DIR__ . '/Resources/config/doctrine-phpcr') => 'Presta\CMSCoreBundle\Document',
+                        realpath(__DIR__ . '/Resources/config/doctrine-model') => 'Presta\CMSCoreBundle\Model',
+                        realpath(__DIR__ . '/Resources/config/doctrine-phpcr') => 'Presta\CMSCoreBundle\Doctrine\Phpcr',
                     ),
                     array('cmf_content.manager_name')
                 )

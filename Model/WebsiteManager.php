@@ -10,7 +10,7 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Sonata\AdminBundle\Model\ModelManagerInterface;
-use Presta\CMSCoreBundle\Document\Website;
+use Presta\CMSCoreBundle\Model\Website;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class WebsiteManager
 {
-    const WEBSITE_CLASS = 'Presta\CMSCoreBundle\Document\Website';
+    const WEBSITE_CLASS = 'Presta\CMSCoreBundle\Doctrine\Phpcr\Website';
 
     /**
      * @var \Sonata\AdminBundle\Model\ModelManagerInterface

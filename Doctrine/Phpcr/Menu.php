@@ -7,15 +7,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Presta\CMSCoreBundle\Document;
+namespace Presta\CMSCoreBundle\Doctrine\Phpcr;
 
-use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode as BaseMenuNode;
+use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu as BaseMenu;
 
 /**
- * Menu node
+ * Navigation Root Node
  *
  */
-class MenuNode extends BaseMenuNode
+class Menu extends BaseMenu
 {
     //in the future will store additional features like can add : remove children...
 }

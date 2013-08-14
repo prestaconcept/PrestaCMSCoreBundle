@@ -22,7 +22,6 @@ use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use Presta\CMSCoreBundle\Document\Website;
 use Presta\CMSCoreBundle\Document\Page;
 
 /**
@@ -94,7 +93,7 @@ class RouteManager
     }
 
     /**
-     * @param  \Presta\CMSCoreBundle\Document\Website $website
+     * @param  Website $website
      * @return RouteCollection
      */
     public function findRoutesByWebsite(Website $website)

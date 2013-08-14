@@ -7,17 +7,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Presta\CMSCoreBundle\Document;
+namespace Presta\CMSCoreBundle\Doctrine\Phpcr;
 
 use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
+use Presta\CMSCoreBundle\Model\Website as WebsiteModel;
 
 /**
- * Website Document
- *
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
- *
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class Website implements TranslatableInterface
+class Website extends WebsiteModel
 {
     const WEBSITE_PREFIX    = 'website';
     const THEME_PREFIX      = 'theme';
@@ -25,32 +23,14 @@ class Website implements TranslatableInterface
     const MENU_PREFIX       = 'menu';
     const PAGE_PREFIX       = 'page';
 
-    /**
-     * to create the document at the specified location. read only for existing documents.
-     *
-     */
-    protected $id;
+
 
 //    /**
 //     * @PHPCRODM\Node
 //     */
 //    public $node;
 
-    /**
-     * @var string $locale
-     *
-     */
-    protected $locale;
 
-    /**
-     * @var string $theme
-     */
-    protected $theme;
-
-    /**
-     * @var string $name
-     */
-    protected $name;
 
     /**
      * @var boolean $active
@@ -67,10 +47,7 @@ class Website implements TranslatableInterface
      */
     protected $defaultLocale;
 
-    /**
-     * @var array $availableLocales
-     */
-    protected $availableLocales;
+
 
     public function __construct()
     {
@@ -79,15 +56,7 @@ class Website implements TranslatableInterface
         $this->availableLocales = array();
     }
 
-    /**
-     * Used by Admin edition
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getName();
-    }
+
 
     /**
      * @return string
@@ -133,21 +102,7 @@ class Website implements TranslatableInterface
         return $this->defaultLocale;
     }
 
-    /**
-     * @param string $locale
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-    }
 
-    /**
-     * @return string
-     */
-    public function getLocale()
-    {
-        return $this->locale;
-    }
 
     /**
      * @param boolean $isActive

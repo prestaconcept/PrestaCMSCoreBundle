@@ -6,8 +6,8 @@
         >
 
     <document
-            name="Presta\CMSCoreBundle\Document\Theme"
-            repository-class="Presta\CMSCoreBundle\Document\Theme\Repository"
+            name="Presta\CMSCoreBundle\Doctrine\Phpcr\Theme"
+            repository-class="Presta\CMSCoreBundle\Doctrine\Phpcr\Theme\Repository"
             referenceable="true"
             >
 

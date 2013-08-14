@@ -6,7 +6,7 @@
         >
 
     <document
-            name="Presta\CMSCoreBundle\Document\Zone"
+            name="Presta\CMSCoreBundle\Doctrine\Phpcr\Zone"
             referenceable="true"
             >
 

@@ -9,8 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
-use Presta\CMSCoreBundle\Document\Navigation\RootMenuNode;
-use Presta\CMSCoreBundle\Document\Website;
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
 

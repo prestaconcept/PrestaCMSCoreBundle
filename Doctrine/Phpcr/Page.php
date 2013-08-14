@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Presta\CMSCoreBundle\Document;
+namespace Presta\CMSCoreBundle\Doctrine\Phpcr;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -18,6 +18,7 @@ use Symfony\Cmf\Bundle\MenuBundle\Model\MenuNodeReferrersInterface;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
 use Knp\Menu\NodeInterface;
+use Presta\CMSCoreBundle\Model\Page as PageModel;
 
 /**
  * Page Document
@@ -27,7 +28,7 @@ use Knp\Menu\NodeInterface;
  * @todo refactor children and zone storing so everything is not loaded each time: use filter on children annotation ?
  *
  */
-class Page implements
+class Page extends PageModel implements
         MenuNodeReferrersInterface,
     RouteReferrersInterface,
     TranslatableInterface

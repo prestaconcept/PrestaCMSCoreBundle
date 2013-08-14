@@ -6,7 +6,7 @@
         >
 
     <document
-            name="Presta\CMSCoreBundle\Document\MenuNode"
+            name="Presta\CMSCoreBundle\Doctrine\Phpcr\MenuNode"
             >
     </document>
 

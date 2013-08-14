@@ -10,8 +10,7 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Sonata\AdminBundle\Model\ModelManagerInterface;
-use Presta\CMSCoreBundle\Document\Website;
-use Presta\CMSCoreBundle\Document\Theme;
+
 use Presta\CMSCoreBundle\Document\Zone;
 
 /**
@@ -29,6 +28,11 @@ class ThemeManager
      * @var \Sonata\AdminBundle\Model\ModelManagerInterface
      */
     protected $modelManager;
+
+    /**
+     * @var ModelFactoryInterface
+     */
+    protected $themeFactory;
 
     /**
      * @var array
@@ -55,6 +59,22 @@ class ThemeManager
         $this->themes = null;
         $this->repository = null;
         $this->themesConfiguration = array();
+    }
+
+    /**
+     * @param ModelFactoryInterface $themeFactory
+     */
+    public function setThemeFactory($themeFactory)
+    {
+        $this->themeFactory = $themeFactory;
+    }
+
+    /**
+     * @return ModelFactoryInterface
+     */
+    public function getThemeFactory()
+    {
+        return $this->themeFactory;
     }
 
     /**
@@ -162,52 +182,8 @@ class ThemeManager
      */
     protected function buildTheme(array $configuration, $website = null)
     {
-        $configuration += array(
-            'cols' => 12,
-            'admin_style' => null,
-            'block_styles'  => array(),
-            'zones' => array(),
-            'page_template' => array()
-        );
-
-        $theme = new Theme($configuration['name']);
-        $theme->setDescription($configuration['description']);
-        $theme->setTemplate($configuration['template']);
-        $theme->setScreenshot($configuration['screenshot']);
-        $theme->setAdminStyle($configuration['admin_style']);
-        $theme->setBlockStyles($configuration['block_styles']);
-        $theme->setCols($configuration['cols']);//var_dump(serialize(array('content'=>'<p>hello</p>')));die;
-
-        if ($website != null) {
-            $themeNode = $this->getDocumentManager()->find(
-                'Presta\CMSCoreBundle\Document\Theme',
-                $website->getId() . DIRECTORY_SEPARATOR . Website::THEME_PREFIX . DIRECTORY_SEPARATOR . $configuration['name']
-            );
-
-            if ($themeNode == null) {
-                //If there is no corresponding data, initialisation with default configuration
-                $this->getRepository()->initializeForWebsite($website, $configuration);
-            }
-
-            $zones = $this->getRepository()->getZones($theme->getName(), $website);
-        }
-
-        foreach ($configuration['zones'] as $zoneConfiguration) {
-
-            if (!isset($zones[$zoneConfiguration['name']])) {
-                $zone = new Zone($zoneConfiguration['name']);
-            } else {
-                $zone = $zones[$zoneConfiguration['name']];
-            }
-
-            $zone->setConfiguration($zoneConfiguration);
-            $theme->addZone($zone);
-        }
-
-        foreach ($configuration['page_template'] as $templateName => $templateConfiguration) {
-            $template = new Template($templateName, $templateConfiguration['path']);
-            $theme->addPageTemplate($template);
-        }
+        $configuration['website'] = $website;
+        $theme = $this->getThemeFactory()->create($configuration);
 
         return $theme;
     }

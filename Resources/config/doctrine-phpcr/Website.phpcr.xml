@@ -6,8 +6,7 @@
         >
 
     <document
-            name="Presta\CMSCoreBundle\Document\Website"
-            repository-class="Presta\CMSCoreBundle\Document\Website\Repository"
+            name="Presta\CMSCoreBundle\Doctrine\Phpcr\Website"
             translator="attribute"
             referenceable="true"
             >
