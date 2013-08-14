@@ -28,7 +28,7 @@ class PageController extends Controller
      */
     public function getWebsiteManager()
     {
-        return $this->get('presta_cms.website_manager');
+        return $this->get('presta_cms.manager.website');
     }
 
     /**
@@ -38,7 +38,7 @@ class PageController extends Controller
      */
     public function getThemeManager()
     {
-        return $this->get('presta_cms.theme_manager');
+        return $this->get('presta_cms.manager.theme');
     }
 
     /**
@@ -48,7 +48,7 @@ class PageController extends Controller
      */
     public function getPageManager()
     {
-        return $this->get('presta_cms.page_manager');
+        return $this->get('presta_cms.manager.page');
     }
 
     /**

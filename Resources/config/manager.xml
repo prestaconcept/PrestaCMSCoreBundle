@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="presta_cms.manager.website.class">Presta\CMSCoreBundle\Model\WebsiteManager</parameter>
+        <parameter key="presta_cms.manager.theme.class">Presta\CMSCoreBundle\Model\ThemeManager</parameter>
+        <parameter key="presta_cms.manager.page.class">Presta\CMSCoreBundle\Model\PageManager</parameter>
+        <parameter key="presta_cms.manager.route.class">Presta\CMSCoreBundle\Model\RouteManager</parameter>
+        <parameter key="presta_cms.manager.block.class">Presta\CMSCoreBundle\Model\BlockManager</parameter>
+        <parameter key="presta_cms.manager.menu.class">Presta\CMSCoreBundle\Model\MenuManager</parameter>
+    </parameters>
+
+    <services>
+        <service id="presta_cms.manager.website" class="%presta_cms.manager.website.class%">
+            <call method="setModelManager">
+                <argument type="service" id="sonata.admin.manager.doctrine_phpcr" />
+            </call>
+            <call method="setRouteProvider">
+                <argument type="service" id="cmf_routing.route_provider" />
+            </call>
+            <call method="setRouteListener">
+                <argument type="service" id="cmf_routing.phpcrodm_route_idprefix_listener" />
+            </call>
+            <call method="setMenuProvider">
+                <argument type="service" id="cmf_menu.provider" />
+            </call>
+        </service>
+
+        <service id="presta_cms.manager.theme" class="%presta_cms.manager.theme.class%">
+            <call method="setModelManager">
+                <argument type="service" id="sonata.admin.manager.doctrine_phpcr" />
+            </call>
+        </service>
+
+        <service id="presta_cms.manager.page" class="%presta_cms.manager.page.class%">
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="presta_cms.manager.route" class="%presta_cms.manager.route.class%">
+            <call method="setModelManager">
+                <argument type="service" id="sonata.admin.manager.doctrine_phpcr" />
+            </call>
+            <call method="setRouteProvider">
+                <argument type="service" id="cmf_routing.route_provider" />
+            </call>
+        </service>
+
+        <service id="presta_cms.manager.block" class="%presta_cms.manager.block.class%">
+
+        </service>
+
+        <service id="presta_cms.manager.menu" class="%presta_cms.manager.menu.class%">
+            <argument type="service" id="sonata.admin.manager.doctrine_phpcr" />
+        </service>
+    </services>
+</container>

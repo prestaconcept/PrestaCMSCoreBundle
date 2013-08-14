@@ -40,13 +40,14 @@ class PrestaCMSCoreExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('admin.xml');
         $loader->load('block.xml');
+        $loader->load('manager.xml');
 
         $loaderYaml = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loaderYaml->load('services.yml');
 
 
         //Init website configuration
-        $websiteManager = $container->getDefinition('presta_cms.website_manager');
+        $websiteManager = $container->getDefinition('presta_cms.manager.website');
         if (isset($config['default_website']) && isset($config['default_locale'])) {
             $websiteManager->addMethodCall('setDefaultWebsiteId', array($config['default_website']));
             $websiteManager->addMethodCall('setDefaultLocale', array($config['default_locale']));
@@ -59,7 +60,7 @@ class PrestaCMSCoreExtension extends Extension
         }
 
         //Initialisation of ThemeManager definition with all theme defined by configuration
-        $themeManager = $container->getDefinition('presta_cms.theme_manager');
+        $themeManager = $container->getDefinition('presta_cms.manager.theme');
         foreach ($config['themes'] as $themeConfiguration) {
             $themeManager->addMethodCall('addThemeConfiguration', array($themeConfiguration));
         }

@@ -23,7 +23,7 @@ class ThemeController extends AdminController
      */
     public function getWebsiteManager()
     {
-        return $this->get('presta_cms.website_manager');
+        return $this->get('presta_cms.manager.website');
     }
 
     /**
@@ -33,7 +33,7 @@ class ThemeController extends AdminController
      */
     public function getThemeManager()
     {
-        return $this->get('presta_cms.theme_manager');
+        return $this->get('presta_cms.manager.theme');
     }
 
     /**

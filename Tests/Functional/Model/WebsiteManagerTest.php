@@ -24,7 +24,7 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
      */
     protected function getWebsiteManager()
     {
-        return $this->container->get('presta_cms.website_manager');
+        return $this->container->get('presta_cms.manager.website');
     }
 
     public function testGetWebsite()

@@ -24,7 +24,7 @@ class ThemeManagerTest extends BaseFunctionalTestCase
      */
     protected function getThemeManager()
     {
-        $themeManager = $this->container->get('presta_cms.theme_manager');
+        $themeManager = $this->container->get('presta_cms.manager.theme');
 
         $yaml = new Parser();
         $datas = $yaml->parse(file_get_contents(__DIR__ . '/../../Functional/fixtures/themes.yml'));
@@ -38,7 +38,7 @@ class ThemeManagerTest extends BaseFunctionalTestCase
 
     protected function getDefaultWebsite()
     {
-        $websiteManager = $this->container->get('presta_cms.website_manager');
+        $websiteManager = $this->container->get('presta_cms.manager.website');
 
         $websiteManager->setCurrentEnvironment('dev');
         

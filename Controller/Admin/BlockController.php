@@ -96,7 +96,7 @@ class BlockController extends CRUDController
             'zoneId' => $zoneId,
             'blockId' => $blockId,
             'locale' => $locale,
-            'blocks' => $this->get('presta_cms.block_manager')->getBlocks()
+            'blocks' => $this->get('presta_cms.manager.block')->getBlocks()
         );
 
         return $this->render('PrestaCMSCoreBundle:Admin/Block:add_block.html.twig', $viewParams);

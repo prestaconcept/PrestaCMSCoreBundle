@@ -40,7 +40,7 @@ class PageController extends AdminController
      */
     public function getWebsiteManager()
     {
-        return $this->get('presta_cms.website_manager');
+        return $this->get('presta_cms.manager.website');
     }
 
     /**
@@ -50,7 +50,7 @@ class PageController extends AdminController
      */
     public function getThemeManager()
     {
-        return $this->get('presta_cms.theme_manager');
+        return $this->get('presta_cms.manager.theme');
     }
 
     /**
@@ -60,7 +60,7 @@ class PageController extends AdminController
      */
     public function getPageManager()
     {
-        return $this->get('presta_cms.page_manager');
+        return $this->get('presta_cms.manager.page');
     }
 
     /**
@@ -70,7 +70,7 @@ class PageController extends AdminController
      */
     public function getRouteManager()
     {
-        return $this->get('presta_cms.route_manager');
+        return $this->get('presta_cms.manager.route');
     }
 
     /**
@@ -80,7 +80,7 @@ class PageController extends AdminController
      */
     public function getMenuManager()
     {
-        return $this->get('presta_cms.menu_manager');
+        return $this->get('presta_cms.manager.menu');
     }
 
     /**

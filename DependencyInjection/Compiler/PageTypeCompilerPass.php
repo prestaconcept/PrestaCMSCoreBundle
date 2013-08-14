@@ -22,12 +22,12 @@ class PageTypeCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('presta_cms.page_manager')) {
+        if (!$container->hasDefinition('presta_cms.manager.page')) {
             return;
         }
 
         $definition = $container->getDefinition(
-            'presta_cms.page_manager'
+            'presta_cms.manager.page'
         );
 
         $taggedServices = $container->findTaggedServiceIds(

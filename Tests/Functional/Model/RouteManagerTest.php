@@ -25,7 +25,7 @@ class RouteManagerTest extends BaseFunctionalTestCase
      */
     protected function getRouteManager()
     {
-        return $this->container->get('presta_cms.route_manager');
+        return $this->container->get('presta_cms.manager.route');
     }
 
 //    public function testIndexRedirectRouteToCreate()

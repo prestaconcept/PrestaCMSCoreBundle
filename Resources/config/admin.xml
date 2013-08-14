@@ -31,7 +31,7 @@
             </call>
 
             <call method="setThemeManager">
-                <argument type="service" id="presta_cms.theme_manager" />
+                <argument type="service" id="presta_cms.manager.theme" />
             </call>
         </service>
 

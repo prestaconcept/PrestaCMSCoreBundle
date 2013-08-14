@@ -34,7 +34,7 @@ class BlockAdmin extends BaseAdmin
      */
     public function getWebsiteManager()
     {
-        return $this->getConfigurationPool()->getContainer()->get('presta_cms.website_manager');
+        return $this->getConfigurationPool()->getContainer()->get('presta_cms.manager.website');
     }
 
     /**
@@ -44,7 +44,7 @@ class BlockAdmin extends BaseAdmin
      */
     public function getThemeManager()
     {
-        return $this->getConfigurationPool()->getContainer()->get('presta_cms.theme_manager');
+        return $this->getConfigurationPool()->getContainer()->get('presta_cms.manager.theme');
     }
 
     /**

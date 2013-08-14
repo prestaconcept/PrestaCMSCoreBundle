@@ -22,12 +22,12 @@ class BlockCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('presta_cms.block_manager')) {
+        if (!$container->hasDefinition('presta_cms.manager.block')) {
             return;
         }
 
         $definition = $container->getDefinition(
-            'presta_cms.block_manager'
+            'presta_cms.manager.block'
         );
 
         $taggedServices = $container->findTaggedServiceIds(
