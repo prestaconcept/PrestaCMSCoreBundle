@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="presta_cms.block.simple.class">Presta\CMSCoreBundle\Block\SimpleBlockService</parameter>
+        <parameter key="presta_cms.block.page_children.class">Presta\CMSCoreBundle\Block\PageChildrenBlockService</parameter>
+        <parameter key="presta_cms.block.sitemap.class">Presta\CMSCoreBundle\Block\SitemapBlockService</parameter>
+        <parameter key="presta_cms.block.container.class">Presta\CMSCoreBundle\Block\ContainerBlockService</parameter>
+        <parameter key="presta_cms.block.dashboard.cms.class">Presta\CMSCoreBundle\Block\Dashboard\CmsBlockService</parameter>
+        <parameter key="presta_cms.block.website.selector.class">Presta\CMSCoreBundle\Block\WebsiteSelectorService</parameter>
+    </parameters>
+
+    <services>
+        <service id="presta_cms.block.base" abstract="true">
+            <argument/>
+            <argument type="service" id="templating" />
+
+            <call method="setTranslator">
+                <argument type="service" id="translator" />
+            </call>
+        </service>
+
+        <service id="presta_cms.block.simple" class="%presta_cms.block.simple.class%" parent="presta_cms.block.base">
+            <tag name="sonata.block"/>
+            <tag name="presta_cms.block"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <service id="presta_cms.block.page_children" class="%presta_cms.block.page_children.class%" parent="presta_cms.block.base">
+            <tag name="sonata.block"/>
+            <tag name="presta_cms.block"/>
+
+            <call method="setPageManager">
+                <argument type="service" id="presta_cms.page_manager" />
+            </call>
+        </service>
+
+        <service id="presta_cms.block.sitemap" class="%presta_cms.block.sitemap.class%" parent="presta_cms.block.base">
+            <tag name="sonata.block"/>
+            <tag name="presta_cms.block"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <service id="presta_cms.block.container" class="%presta_cms.block.container.class%" parent="presta_cms.block.base">
+            <tag name="sonata.block"/>
+            <tag name="presta_cms.block"/>
+        </service>
+
+        <service id="presta_cms.block.dashboard.cms" class="%presta_cms.block.dashboard.cms.class%" parent="presta_cms.block.base">
+            <tag name="sonata.block"/>
+            <argument>presta_cms.block.dashboard.cms</argument>
+            <argument type="service" id="templating" />
+            <argument type="service" id="sonata.admin.pool" />
+        </service>
+
+        <service id="presta_cms.block.website.selector" class="%presta_cms.block.website.selector.class%" parent="presta_cms.block.base">
+            <tag name="sonata.block"/>
+            <argument>presta_cms.block.website.selector</argument>
+            <argument type="service" id="templating" />
+            <argument type="service" id="presta_cms.website_manager" />
+        </service>
+    </services>
+</container>

@@ -6,54 +6,7 @@ services:
         calls:
             - [ setContainer, [@service_container] ]
 
-    #CMS Block service
-    presta_cms.block.base:
-        abstract:  true
-        arguments: [cms_core_editor, @templating]
-        calls:
-            - [ setTranslator, [ @translator ] ]
-    presta_cms.block.simple:
-        class: Presta\CMSCoreBundle\Block\SimpleBlockService
-        parent: presta_cms.block.base
-        tags:
-            - {name: sonata.block}
-            - {name: presta_cms.block}
-        calls:
-            - [ setContainer, [@service_container] ]
-    presta_cms.block.page_children:
-        class: Presta\CMSCoreBundle\Block\PageChildrenBlockService
-        parent: presta_cms.block.base
-        tags:
-            - {name: sonata.block}
-            - {name: presta_cms.block}
-        calls:
-            - [ setPageManager, [ @presta_cms.page_manager ] ]
-    presta_cms.block.sitemap:
-        class: Presta\CMSCoreBundle\Block\SitemapBlockService
-        parent: presta_cms.block.base
-        tags:
-            - {name: sonata.block}
-            - {name: presta_cms.block}
-        calls:
-            - [ setContainer, [@service_container] ]
-    presta_cms.block.container:
-        class: Presta\CMSCoreBundle\Block\ContainerBlockService
-        parent: presta_cms.block.base
-        tags:
-            - {name: sonata.block}
-            - {name: presta_cms.block}
 
-    #Block service
-    presta_cms.block.dashboard.cms:
-      class: Presta\CMSCoreBundle\Block\Dashboard\CmsBlockService
-      tags:
-        - {name: sonata.block}
-      arguments: [presta_cms.block.dashboard.cms, @templating, @sonata.admin.pool]
-    presta_cms.block.website.selector:
-      class: Presta\CMSCoreBundle\Block\WebsiteSelectorService
-      tags:
-        - {name: sonata.block}
-      arguments: [presta_cms.block.website.selector, @templating, @presta_cms.website_manager]
 
     #Manager
     presta_cms.website_manager:
