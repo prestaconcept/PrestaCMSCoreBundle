@@ -36,15 +36,12 @@ class PrestaCMSCoreExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('admin.xml');
         $loader->load('block.xml');
         $loader->load('manager.xml');
-
-        $loaderYaml = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loaderYaml->load('services.yml');
-
+        $loader->load('listener.xml');
+        $loader->load('services.xml');
 
         //Init website configuration
         $websiteManager = $container->getDefinition('presta_cms.manager.website');

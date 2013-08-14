@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="presta_cms.listener.website.class">Presta\CMSCoreBundle\EventListener\WebsiteListener</parameter>
+        <parameter key="presta_cms.listener.page.operation.class">Presta\CMSCoreBundle\EventListener\PageOperationListener</parameter>
+    </parameters>
+
+    <services>
+        <service id="presta_cms.listener.website" class="%presta_cms.listener.website.class%">
+            <argument type="service" id="presta_cms.manager.website" />
+            <argument type="service" id="kernel" />
+            <argument type="service" id="session" />
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="500" />
+        </service>
+
+        <service id="presta_cms.listener.page.operation" class="%presta_cms.listener.page.operation.class%">
+            <argument type="service" id="sonata.admin.manager.doctrine_phpcr" />
+            <argument type="service" id="presta_cms.manager.route" />
+            <argument type="service" id="presta_cms.manager.menu" />
+            <tag name="kernel.event_listener" event="presta_cms.page.creation" method="onPageCreation" />
+            <tag name="kernel.event_listener" event="presta_cms.page.update" method="onPageUpdate" />
+            <tag name="kernel.event_listener" event="presta_cms.page.deletion" method="onPageDeletion" />
+        </service>
+    </services>
+</container>
