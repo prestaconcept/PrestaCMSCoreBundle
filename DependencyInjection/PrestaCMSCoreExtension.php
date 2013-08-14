@@ -37,6 +37,7 @@ class PrestaCMSCoreExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('persistence-phpcr.xml');
         $loader->load('admin.xml');
         $loader->load('block.xml');
         $loader->load('manager.xml');

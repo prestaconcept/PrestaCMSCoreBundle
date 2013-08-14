@@ -7,14 +7,9 @@
     <parameters>
         <parameter key="presta_cms.admin.website.class">Presta\CMSCoreBundle\Admin\WebsiteAdmin</parameter>
         <parameter key="presta_cms.admin.website.controller">PrestaCMSCoreBundle:Admin/Website</parameter>
-        <parameter key="presta_cms.model.website.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Website</parameter>
         <parameter key="presta_cms.admin.page.class">Presta\CMSCoreBundle\Admin\PageAdmin</parameter>
-        <parameter key="presta_cms.model.page.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Page</parameter>
         <parameter key="presta_cms.admin.block.class">Presta\CMSCoreBundle\Admin\BlockAdmin</parameter>
         <parameter key="presta_cms.admin.block.controller">PrestaCMSCoreBundle:Admin/Block</parameter>
-        <parameter key="presta_cms.model.block.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Block</parameter>
-        <parameter key="presta_cms.model.theme.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Theme</parameter>
-        <parameter key="presta_cms.model.zone.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Zone</parameter>
     </parameters>
 
     <services>

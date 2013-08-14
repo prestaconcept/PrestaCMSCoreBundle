@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="presta_cms.persistence.manager_type">doctrine_phpcr</parameter>
+        <parameter key="presta_cms.model.website.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Website</parameter>
+        <parameter key="presta_cms.model.page.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Page</parameter>
+        <parameter key="presta_cms.model.theme.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Theme</parameter>
+        <parameter key="presta_cms.model.zone.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Zone</parameter>
+        <parameter key="presta_cms.model.block.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Block</parameter>
+    </parameters>
+
+</container>
