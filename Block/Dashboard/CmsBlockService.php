@@ -69,7 +69,7 @@ class CmsBlockService extends BaseBlockService
                 'block_context'  => $blockContext,
                 'block'     => $blockContext->getBlock(),
                 'blockId'   => 'block-cms',
-                'websiteAdmin' => $this->pool->getAdminByAdminCode('presta_cms.website.admin.website'),
+                'websiteAdmin' => $this->pool->getAdminByAdminCode('presta_cms.admin.website'),
                 'settings'  => $settings
             ),
             $response

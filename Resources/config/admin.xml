@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="presta_cms.admin.website.class">Presta\CMSCoreBundle\Admin\WebsiteAdmin</parameter>
+        <parameter key="presta_cms.admin.website.controller">PrestaCMSCoreBundle:Admin/Website</parameter>
+        <parameter key="presta_cms.model.website.class">Presta\CMSCoreBundle\Document\Website</parameter>
+        <parameter key="presta_cms.admin.page.class">Presta\CMSCoreBundle\Admin\PageAdmin</parameter>
+        <parameter key="presta_cms.model.page.class">Presta\CMSCoreBundle\Document\Page</parameter>
+        <parameter key="presta_cms.admin.block.class">Presta\CMSCoreBundle\Admin\BlockAdmin</parameter>
+        <parameter key="presta_cms.admin.block.controller">PrestaCMSCoreBundle:Admin/Block</parameter>
+        <parameter key="presta_cms.model.block.class">Presta\CMSCoreBundle\Document\Block</parameter>
+    </parameters>
+
+    <services>
+        <service id="presta_cms.admin.website" class="%presta_cms.admin.website.class%">
+            <tag name="sonata.admin" manager_type="doctrine_phpcr" group="presta_cms" label_catalogue="PrestaCMSCoreBundle" label="dashboard.label_website"/>
+            <argument/>
+            <argument>%presta_cms.model.website.class%</argument>
+            <argument>%presta_cms.admin.website.controller%</argument>
+
+            <call method="setAvailableLocales">
+                <argument>%locales%</argument>
+            </call>
+
+            <call method="setRouteBuilder">
+                <argument type="service" id="sonata.admin.route.path_info_slashes" />
+            </call>
+
+            <call method="setThemeManager">
+                <argument type="service" id="presta_cms.theme_manager" />
+            </call>
+        </service>
+
+        <service id="presta_cms.admin.page" class="%presta_cms.admin.page.class%">
+            <tag name="sonata.admin" manager_type="doctrine_phpcr" group="presta_cms" label_catalogue="PrestaCMSCoreBundle" label="dashboard.label_page"/>
+            <argument/>
+            <argument>%presta_cms.model.page.class%</argument>
+            <argument>SonataAdminBundle:CRUDController</argument>
+        </service>
+
+        <service id="presta_cms.admin.block" class="%presta_cms.admin.block.class%">
+            <tag name="sonata.admin" manager_type="doctrine_phpcr" group="presta_cms" label_catalogue="PrestaCMSCoreBundle" label="dashboard.label_block"/>
+            <argument/>
+            <argument>%presta_cms.model.page.class%</argument>
+            <argument>%presta_cms.admin.block.controller%</argument>
+
+            <call method="setBlockManager">
+                <argument type="service" id="sonata.block.manager" />
+            </call>
+
+            <call method="setRouteBuilder">
+                <argument type="service" id="sonata.admin.route.path_info_slashes" />
+            </call>
+        </service>
+    </services>
+</container>

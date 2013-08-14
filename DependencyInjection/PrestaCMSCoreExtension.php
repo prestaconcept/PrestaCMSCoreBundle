@@ -11,6 +11,7 @@ namespace Presta\CMSCoreBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
@@ -35,8 +36,11 @@ class PrestaCMSCoreExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+        $loaderYaml = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loaderYaml->load('services.yml');
+
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('admin.xml');
 
         //Init website configuration
         $websiteManager = $container->getDefinition('presta_cms.website_manager');

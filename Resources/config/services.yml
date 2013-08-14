@@ -6,40 +6,6 @@ services:
         calls:
             - [ setContainer, [@service_container] ]
 
-    #Admin class
-    presta_cms.website.admin.website:
-      class: Presta\CMSCoreBundle\Admin\WebsiteAdmin
-      tags:
-        - { name: sonata.admin, manager_type: doctrine_phpcr, group: cms, label: website }
-      arguments: [null, Presta\CMSCoreBundle\Document\Website, PrestaCMSCoreBundle:Admin/Website]
-      calls:
-        - [ setAvailableLocales, [ %locales% ] ]
-        - [ setThemeManager, [ @presta_cms.theme_manager ] ]
-        - [ setRouteBuilder, [ @sonata.admin.route.path_info_slashes ] ]
-
-    presta_cms.admin.page:
-        class: Presta\CMSCoreBundle\Admin\PageAdmin
-        tags:
-            - { name: sonata.admin, manager_type: doctrine_phpcr, group: cms, label: block }
-        arguments: [null, Presta\CMSCoreBundle\Document\Page, SonataAdminBundle:CRUDController]
-
-    presta_cms.admin.bloc:
-      class: Presta\CMSCoreBundle\Admin\BlockAdmin
-      tags:
-        - { name: sonata.admin, manager_type: doctrine_phpcr, group: cms, label: block }
-      arguments: [null, Presta\CMSCoreBundle\Document\Block, PrestaCMSCoreBundle:Admin/Block]
-      calls:
-        - [ setBlockManager, [ @sonata.block.manager ] ]
-        - [ setRouteBuilder, [ @sonata.admin.route.path_info_slashes ] ]
-
-#    presta_cms.page.admin.bloc:
-#      class: Presta\CMSCoreBundle\Admin\BlockAdmin
-#      tags:
-#        - { name: sonata.admin, manager_type: orm, group: cms, label: page revision block }
-#      arguments: [null, Application\Presta\CMSCoreBundle\Entity\PageRevisionBlock, PrestaCMSCoreBundle:Admin/PageRevisionBlock]
-#      calls:
-#        - [ setBlockManager, [ @sonata.block.manager ] ]
-
     #CMS Block service
     presta_cms.block.base:
         abstract:  true

@@ -13,7 +13,7 @@ use Presta\CMSCoreBundle\Admin\BaseAdmin;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 
 /**
-* Admin definition for the Page class
+ * Admin definition for the Page class
  *
  * Only used to build the page broser tree form element
 */
