@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="presta_cms.page.controller.class">Presta\CMSCoreBundle\Controller\PageController</parameter>
+        <parameter key="presta_cms.page_type.cms_page.class">Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage</parameter>
         <parameter key="presta_cms.website.factory.class">Presta\CMSCoreBundle\Factory\WebsiteFactory</parameter>
         <parameter key="presta_cms.theme.factory.class">Presta\CMSCoreBundle\Factory\ThemeFactory</parameter>
     </parameters>
@@ -17,7 +18,7 @@
             </call>
         </service>
 
-        <service id="presta_cms.page_type.cms_page" class="%presta_cms.page.controller.class%">
+        <service id="presta_cms.page_type.cms_page" class="%presta_cms.page_type.cms_page.class%">
             <argument type="service" id="service_container" />
             <argument type="service" id="presta_cms.manager.website" />
             <argument type="service" id="presta_cms.manager.theme" />
