@@ -55,14 +55,14 @@
             <tag name="presta_cms.block"/>
         </service>
 
-        <service id="presta_cms.block.dashboard.cms" class="%presta_cms.block.dashboard.cms.class%" parent="presta_cms.block.base">
+        <service id="presta_cms.block.dashboard.cms" class="%presta_cms.block.dashboard.cms.class%">
             <tag name="sonata.block"/>
             <argument>presta_cms.block.dashboard.cms</argument>
             <argument type="service" id="templating" />
             <argument type="service" id="sonata.admin.pool" />
         </service>
 
-        <service id="presta_cms.block.website.selector" class="%presta_cms.block.website.selector.class%" parent="presta_cms.block.base">
+        <service id="presta_cms.block.website.selector" class="%presta_cms.block.website.selector.class%">
             <tag name="sonata.block"/>
             <argument>presta_cms.block.website.selector</argument>
             <argument type="service" id="templating" />
