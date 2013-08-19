@@ -9,6 +9,8 @@
         <parameter key="presta_cms.page_type.cms_page.class">Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage</parameter>
         <parameter key="presta_cms.website.factory.class">Presta\CMSCoreBundle\Factory\WebsiteFactory</parameter>
         <parameter key="presta_cms.theme.factory.class">Presta\CMSCoreBundle\Factory\ThemeFactory</parameter>
+        <parameter key="presta_cms.page.factory.class">Presta\CMSCoreBundle\Factory\PageFactory</parameter>
+        <parameter key="presta_cms.zone.factory.class">Presta\CMSCoreBundle\Factory\ZoneFactory</parameter>
     </parameters>
 
     <services>
@@ -60,6 +62,19 @@
             </call>
             <call method="setModelClassName">
                 <argument>%presta_cms.model.theme.class%</argument>
+            </call>
+            <call method="setZoneFactory">
+                <argument type="service" id="presta_cms.zone.factory" />
+            </call>
+        </service>
+
+        <service id="presta_cms.zone.factory" class="%presta_cms.zone.factory.class%">
+            <argument type="service" id="doctrine_phpcr"/>
+            <call method="setManagerName">
+                <argument>%presta_cms.persistence.phpcr.manager_name%</argument>
+            </call>
+            <call method="setModelClassName">
+                <argument>%presta_cms.model.zone.class%</argument>
             </call>
         </service>
 

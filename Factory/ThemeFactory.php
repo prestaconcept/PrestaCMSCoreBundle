@@ -8,12 +8,26 @@ use Presta\CMSCoreBundle\Doctrine\Phpcr\Block;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Theme;
 use Presta\CMSCoreBundle\Model\Website;
 use PHPCR\Util\NodeHelper;
+use Presta\CMSCoreBundle\Factory\ZoneFactory;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class ThemeFactory extends AbstractModelFactory implements ModelFactoryInterface
 {
+    /**
+     * @var ZoneFactory
+     */
+    protected $zoneFactory;
+
+    /**
+     * @param ZoneFactory $zoneFactory
+     */
+    public function setZoneFactory($zoneFactory)
+    {
+        $this->zoneFactory = $zoneFactory;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -106,37 +120,11 @@ class ThemeFactory extends AbstractModelFactory implements ModelFactoryInterface
             if (!isset($zoneConfiguration['blocks']) || count($zoneConfiguration['blocks']) == 0) {
                 continue;
             }
-            $websiteThemeZone = new Zone();
-            $websiteThemeZone->setParentDocument($websiteTheme);
-            $websiteThemeZone->setName($zoneConfiguration['name']);
-            $this->getObjectManager()->persist($websiteThemeZone);
-            foreach ($zoneConfiguration['blocks'] as $blockConfiguration) {
-                $blockConfiguration += array(
-                    'settings' => array(),
-                    'is_editable' => true,
-                    'is_deletable'=> true
-                );
-                $block = new Block();
-                $block->setParent($websiteThemeZone);
-                $block->setType($blockConfiguration['type']);
-                if (isset($blockConfiguration['name']) && strlen($blockConfiguration['name'])) {
-                    $block->setName($blockConfiguration['name']);
-                } else {
-                    $block->setName($blockConfiguration['type'] . '-' . $blockConfiguration['position']);
-                }
-                $block->setIsEditable($blockConfiguration['is_editable']);
-                $block->setIsDeletable($blockConfiguration['is_deletable']);
-                $block->setPosition($blockConfiguration['position']);
-                $block->setIsActive(true);
-                $this->getObjectManager()->persist($block);
 
-                foreach ($website->getAvailableLocales() as $locale) {
-                    $block->setSettings($blockConfiguration['settings']);
-                    $this->getObjectManager()->bindTranslation($block, $locale);
-                }
+            $zoneConfiguration['parent'] = $websiteTheme;
+            $zoneConfiguration['website'] = $website;
+            $websiteThemeZone = $this->zoneFactory->create($zoneConfiguration);
 
-                $websiteThemeZone->addBlock($block);
-            }
             $websiteTheme->addZone($websiteThemeZone);
         }
         $this->getObjectManager()->flush();
