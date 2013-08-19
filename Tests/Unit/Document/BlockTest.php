@@ -11,7 +11,7 @@ namespace Presta\CMSCoreBundle\Tests\Unit\Model;
 
 use Presta\CMSCoreBundle\Tests\Unit\BaseUnitTestCase;
 
-use Presta\CMSCoreBundle\Document\Block;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Block;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>

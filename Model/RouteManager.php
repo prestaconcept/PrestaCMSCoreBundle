@@ -22,7 +22,7 @@ use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use Presta\CMSCoreBundle\Document\Page;
+//use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
 
 /**
  * Description of RouteManager

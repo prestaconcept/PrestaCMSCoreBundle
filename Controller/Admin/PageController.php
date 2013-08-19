@@ -11,7 +11,7 @@ namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 use Presta\CMSCoreBundle\Form\PageType;
-use Presta\CMSCoreBundle\Document\Page;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
 
 use Presta\CMSCoreBundle\Model\MenuManager;
 use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;

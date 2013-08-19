@@ -173,7 +173,7 @@ class WebsiteManager
     /**
      * Return current website
      *
-     * @return \Presta\CMSCoreBundle\Document\Website
+     * @return \Presta\CMSCoreBundle\Doctrine\Phpcr\Website
      */
     public function getCurrentWebsite()
     {

@@ -11,9 +11,9 @@ namespace Presta\CMSCoreBundle\DataFixtures\PHPCR;
 
 use Doctrine\ODM\PHPCR\Document\Generic;
 
-use Presta\CMSCoreBundle\Document\Page;
-use Presta\CMSCoreBundle\Document\Zone;
-use Presta\CMSCoreBundle\Document\Block;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Block;
 use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
 
 /**

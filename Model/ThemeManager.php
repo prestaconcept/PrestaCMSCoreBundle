@@ -11,7 +11,8 @@ namespace Presta\CMSCoreBundle\Model;
 
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 
-use Presta\CMSCoreBundle\Document\Zone;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Theme;
 
 /**
  * Theme Manager
@@ -22,7 +23,7 @@ use Presta\CMSCoreBundle\Document\Zone;
  */
 class ThemeManager
 {
-    const THEME_CLASS = 'Presta\CMSCoreBundle\Document\Theme';
+    const THEME_CLASS = 'Presta\CMSCoreBundle\Doctrine\Phpcr\Theme';
 
     /**
      * @var \Sonata\AdminBundle\Model\ModelManagerInterface

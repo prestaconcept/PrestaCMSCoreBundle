@@ -10,7 +10,7 @@
 namespace Presta\CMSCoreBundle\Tests\Unit\Model;
 
 use Presta\CMSCoreBundle\Tests\Unit\BaseUnitTestCase;
-use Presta\CMSCoreBundle\Document\Website;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Website;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>

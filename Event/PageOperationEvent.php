@@ -9,7 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Event;
 
-use Presta\CMSCoreBundle\Document\Page;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -37,7 +37,7 @@ class PageOperationEvent extends Event
     }
 
     /**
-     * @return \Presta\CMSCoreBundle\Document\Page
+     * @return \Presta\CMSCoreBundle\Doctrine\Phpcr\Page
      */
     public function getPage()
     {

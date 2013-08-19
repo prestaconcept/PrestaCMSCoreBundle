@@ -12,8 +12,8 @@ namespace Presta\CMSCoreBundle\Tests\Unit\Model;
 use Presta\CMSCoreBundle\Tests\Unit\BaseUnitTestCase;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use Presta\CMSCoreBundle\Document\Page;
-use Presta\CMSCoreBundle\Document\Zone;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>

@@ -11,9 +11,9 @@ namespace Presta\CMSCoreBundle\Document\Page;
 
 use Doctrine\ODM\PHPCR\DocumentRepository as BaseDocumentRepository;
 
-use Presta\CMSCoreBundle\Document\Page;
-use Presta\CMSCoreBundle\Document\Zone;
-use Presta\CMSCoreBundle\Document\Block;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Block;
 
 /**
  * Page Repository

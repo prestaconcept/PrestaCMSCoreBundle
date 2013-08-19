@@ -15,10 +15,10 @@ use Presta\CMSCoreBundle\Event\PageCreationEvent;
 use Presta\CMSCoreBundle\Event\PageDeletionEvent;
 use Presta\CMSCoreBundle\Exception\Page\PageTypeNotFoundException;
 use Presta\CMSCoreBundle\Event\PageUpdateEvent;
-use Presta\CMSCoreBundle\Document\Page;
+//use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
 use Doctrine\ODM\PHPCR\DocumentManager;
 use Presta\CMSCoreBundle\Model\Page\PageTypeInterface;
-use Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode;
+use Symfony\Cmf\Bundle\MenuBundle\Model\MenuNode;
 use Symfony\Component\DependencyInjection\Container;
 use Presta\CMSCoreBundle\Document\Page\Repository;
 

@@ -84,13 +84,13 @@ class PageTypeCMSPage implements PageTypeInterface
                     // Todo améliorer ça !
                     // + prendre en compte le changement de template!
                     $repository = $this->container->get('doctrine_phpcr')->getManager()
-                        ->getRepository('Presta\CMSCoreBundle\Document\Page');
+                        ->getRepository('Presta\CMSCoreBundle\Doctrine\Phpcr\Page');
 
                     //If there is no corresponding data, initialisation with default configuration
                     $repository->initializeForTemplate($draft, $this->themeManager->getPageTemplateConfiguration($draft->getTemplate()));
                     $this->container->get('doctrine_phpcr')->getManager()->clear();
                     $draft = $this->container->get('doctrine_phpcr')->getManager()->findTranslation(
-                        'Presta\CMSCoreBundle\Document\Page',
+                        'Presta\CMSCoreBundle\Doctrine\Phpcr\Page',
                         $page->getId(),
                         $page->getLocale()
                     );

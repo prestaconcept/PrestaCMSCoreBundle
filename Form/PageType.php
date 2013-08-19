@@ -37,7 +37,7 @@ class PageType extends AbstractType
     public function getDefaultOptions(array $options)
     {
         return array(
-            'data_class' => 'Presta\CMSCoreBundle\Document\Page',
+            'data_class' => 'Presta\CMSCoreBundle\Doctrine\Phpcr\Page',
         );
     }
 

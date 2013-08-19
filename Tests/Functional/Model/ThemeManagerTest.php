@@ -12,7 +12,7 @@ namespace Presta\CMSCoreBundle\Tests\Functional\Model;
 use Presta\CMSCoreBundle\Tests\Functional\BaseFunctionalTestCase;
 use Symfony\Component\Yaml\Parser;
 
-use Presta\CMSCoreBundle\Document\Theme;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Theme;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>

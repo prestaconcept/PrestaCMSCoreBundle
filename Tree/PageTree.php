@@ -53,7 +53,7 @@ class PageTree extends PHPCRTree
 
         foreach ($root->getNodes() as $name => $node) {
             // keep only Page node
-            if ($node->getPropertyValue('phpcr:class') != 'Presta\CMSCoreBundle\Document\Page'
+            if ($node->getPropertyValue('phpcr:class') != 'Presta\CMSCoreBundle\Doctrine\Phpcr\Page'
                 || NodeHelper::isSystemItem($node)) {
                 continue;
             }
@@ -62,7 +62,7 @@ class PageTree extends PHPCRTree
 
             foreach ($node->getNodes() as $childname => $grandson) {
                 // keep only Page node
-                if ($grandson->getPropertyValue('phpcr:class') == 'Presta\CMSCoreBundle\Document\Page') {
+                if ($grandson->getPropertyValue('phpcr:class') == 'Presta\CMSCoreBundle\Doctrine\Phpcr\Page') {
                     $child['children'][] = $this->nodeToArray($childname, $grandson);
                 }
             }

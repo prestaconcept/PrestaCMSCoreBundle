@@ -26,7 +26,7 @@ cmf_routing:
             phpcr:
                 enabled: true
         controllers_by_class:
-            Presta\CMSCoreBundle\Document\Page: presta_cms.page.controller:renderAction
+            Presta\CMSCoreBundle\Doctrine\Phpcr\Page: presta_cms.page.controller:renderAction
             Symfony\Cmf\Component\Routing\RedirectRouteInterface:  cmf_routing.redirect_controller:redirectAction
 #        templates_by_class:
 #            Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\MultilangStaticContent: PrestaCMSCoreBundle:Page:index.html.twig
@@ -89,13 +89,13 @@ sonata_doctrine_phpcr_admin:
             valid_children:
                 - Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode
             image: '/bundles/prestacmscore/admin/img/1x1.png'
-        Presta\CMSCoreBundle\Document\Page:
+        Presta\CMSCoreBundle\Doctrine\Phpcr\Page:
             valid_children:
-                - Presta\CMSCoreBundle\Document\Page
+                - Presta\CMSCoreBundle\Doctrine\Phpcr\Page
             image: '/bundles/prestacmscore/admin/img/1x1.png'
-        Presta\CMSCoreBundle\Document\NavigationRootMenuNode:
+        Presta\CMSCoreBundle\Doctrine\Phpcr\NavigationRootMenuNode:
             valid_children:
-                - Presta\CMSCoreBundle\Document\Page
+                - Presta\CMSCoreBundle\Doctrine\Phpcr\Page
                 - Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode
             image: '/bundles/prestacmscore/admin/img/1x1.png'
 

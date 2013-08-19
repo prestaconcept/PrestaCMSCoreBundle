@@ -9,7 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
-use Presta\CMSCoreBundle\Document\Zone;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
 
 /**
  * Template Model
@@ -74,7 +74,7 @@ class Template
      * Set zones
      *
      * @param  array                               $zones
-     * @return \Presta\CMSCoreBundle\Document\Zone
+     * @return \Presta\CMSCoreBundle\Doctrine\Phpcr\Zone
      */
     public function setZones(array $zones)
     {
@@ -87,7 +87,7 @@ class Template
      * Add a zone
      *
      * @param  Zone                                $zone
-     * @return \Presta\CMSCoreBundle\Document\Zone
+     * @return \Presta\CMSCoreBundle\Doctrine\Phpcr\Zone
      */
     public function addZone(Zone $zone)
     {

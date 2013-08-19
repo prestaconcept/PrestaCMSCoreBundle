@@ -18,7 +18,7 @@ use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 
-use Presta\CMSCoreBundle\Document\Website;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Website;
 
 //
 // Require 3rd-party libraries here:

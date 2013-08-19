@@ -18,7 +18,7 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Block\BlockServiceManagerInterface;
 
 use Presta\CMSCoreBundle\Admin\BaseAdmin;
-use Presta\CMSCoreBundle\Document\Theme;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Theme;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 

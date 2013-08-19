@@ -14,8 +14,8 @@ namespace Presta\CMSCoreBundle\DataFixtures\PHPCR;
  */
 abstract class BaseMenuFixture extends BaseFixture
 {
-    const MENU_CLASS        = '\Presta\CMSCoreBundle\Document\Menu';
-    const MENU_NODE_CLASS   = '\Presta\CMSCoreBundle\Document\MenuNode';
+    const MENU_CLASS        = '\Presta\CMSCoreBundle\Doctrine\Phpcr\Menu';
+    const MENU_NODE_CLASS   = '\Presta\CMSCoreBundle\Doctrine\Phpcr\MenuNode';
 
     /**
      * {@inheritdoc}

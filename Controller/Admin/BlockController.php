@@ -10,8 +10,8 @@
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Sonata\AdminBundle\Controller\CRUDController;
-use Presta\CMSCoreBundle\Document\Block;
-use Presta\CMSCoreBundle\Document\Zone;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Block;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
 
 /**
  * Theme administration controller
@@ -53,7 +53,7 @@ class BlockController extends CRUDController
 
             if ($zoneId != null) {
                 //Zone mode, eventually create the zone
-                $zone = $manager->find('Presta\CMSCoreBundle\Document\Zone', $zoneId);
+                $zone = $manager->find('Presta\CMSCoreBundle\Doctrine\Phpcr\Zone', $zoneId);
                 if (is_null($zone)) {
                     $zone = new Zone();
                     $zone->setId($zoneId);

@@ -16,7 +16,7 @@ use PHPCR\Util\NodeHelper;
 use Doctrine\Common\DataFixtures\Purger\PHPCRPurger;
 use Symfony\Component\Yaml\Parser;
 
-use Presta\CMSCoreBundle\Document\Website;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Website;
 
 require __DIR__ . '/../Resources/app/AppKernel.php';
 

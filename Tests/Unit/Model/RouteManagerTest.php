@@ -11,7 +11,7 @@ namespace Presta\CMSCoreBundle\Tests\Unit\Model;
 
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 use Presta\CMSCoreBundle\Model\RouteManager;
-use Presta\CMSCoreBundle\Document\Website;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Website;
 
 /**
  * RouteManagerTest
