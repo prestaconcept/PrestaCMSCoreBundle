@@ -8,18 +8,18 @@ presta_cms_theme_edit:
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Theme:edit}
 presta_cms_block_edit:
     pattern:  /cms/block/edit/{locale}
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:edit, _sonata_admin: presta_cms.admin.bloc}
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:edit, _sonata_admin: presta_cms.admin.block}
 
 presta_cms_block_render:
     pattern:  /cms/block/render/{locale}
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:render, _sonata_admin: presta_cms.admin.bloc}
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:render, _sonata_admin: presta_cms.admin.block}
 
 presta_cms_block_add:
     pattern:  /cms/block/add/{locale}
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:add, _sonata_admin: presta_cms.admin.bloc}
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:add, _sonata_admin: presta_cms.admin.block}
 presta_cms_block_delete:
     pattern:  /cms/block/delete
-    defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:delete, _sonata_admin: presta_cms.admin.bloc}
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Block:delete, _sonata_admin: presta_cms.admin.block}
 
 #Administration - pages
 presta_cms_page_edit:
