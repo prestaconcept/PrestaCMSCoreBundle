@@ -100,6 +100,7 @@ class WebsiteListener
 
             if ($website != null) {
                 $request->setLocale($website->getLocale());
+                $request->attributes->set('_locale', $website->getLocale());
             }
         }
     }

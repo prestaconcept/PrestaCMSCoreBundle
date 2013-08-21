@@ -467,6 +467,16 @@ class Page extends PageModel implements
     }
 
     /**
+     * Check is page has routing data, used when update the routes in EventListener
+     *
+     * @return boolean
+     */
+    public function hasRoutingData()
+    {
+        return (isset($this->urlComplete) || isset($this->urlRelative));
+    }
+
+    /**
      * @param Date $lastCacheModifiedDate
      */
     public function setLastCacheModifiedDate($lastCacheModifiedDate)

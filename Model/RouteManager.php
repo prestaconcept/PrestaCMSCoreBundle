@@ -169,8 +169,7 @@ class RouteManager
     protected function updatePageRoutingUrlRelative(Page $page)
     {
         $pageRoute      = $this->getRouteForPage($page);
-        $parentPage     = $page->getParent();
-        $parentRoute    = $this->getRouteForPage($parentPage);
+        $parentRoute    = $pageRoute->getParent();
         $newRoutePath   = $parentRoute->getId() . $page->getUrlRelative();
 
         if ($pageRoute->getId() == $newRoutePath) {
@@ -253,6 +252,9 @@ class RouteManager
      */
     public function updatePageRouting(Page $page)
     {
+        if (!$page->hasRoutingData()) {
+            return;
+        }
         if ($page->isUrlCompleteMode()) {
             return $this->updatePageRoutingUrlComplete($page);
         }

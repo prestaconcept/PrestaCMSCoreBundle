@@ -14,7 +14,7 @@
             <argument type="service" id="presta_cms.manager.website" />
             <argument type="service" id="kernel" />
             <argument type="service" id="session" />
-            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="500" />
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="191" />
         </service>
 
         <service id="presta_cms.listener.page.operation" class="%presta_cms.listener.page.operation.class%">
