@@ -53,8 +53,6 @@ cmf_block:
             enabled: true
 
 cmf_menu:
-    multilang:
-        locales: %locales%
     persistence:
         phpcr:
             enabled: true
