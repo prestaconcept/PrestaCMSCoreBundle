@@ -142,7 +142,7 @@ class Page extends PageModel implements
     public function __construct()
     {
         $this->isActive = true;
-        $this->children = array();
+        $this->children = new ArrayCollection();
 
         $this->routes = new ArrayCollection();
         $this->menus = new ArrayCollection();

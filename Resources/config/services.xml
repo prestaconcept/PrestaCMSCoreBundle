@@ -78,6 +78,19 @@
             </call>
         </service>
 
+        <service id="presta_cms.page.factory" class="%presta_cms.page.factory.class%">
+            <argument type="service" id="doctrine_phpcr"/>
+            <call method="setManagerName">
+                <argument>%presta_cms.persistence.phpcr.manager_name%</argument>
+            </call>
+            <call method="setModelClassName">
+                <argument>%presta_cms.model.page.class%</argument>
+            </call>
+            <call method="setZoneFactory">
+                <argument type="service" id="presta_cms.zone.factory" />
+            </call>
+        </service>
+
 
     </services>
 </container>
