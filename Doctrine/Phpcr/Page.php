@@ -148,6 +148,11 @@ class Page extends PageModel implements
         $this->menus = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return (string)$this->getTitle();
+    }
+
     /**
      * Explicitly set the primary id, if the storage layer permits this.
      *

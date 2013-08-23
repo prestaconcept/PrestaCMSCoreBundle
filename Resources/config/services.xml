@@ -11,6 +11,8 @@
         <parameter key="presta_cms.theme.factory.class">Presta\CMSCoreBundle\Factory\ThemeFactory</parameter>
         <parameter key="presta_cms.page.factory.class">Presta\CMSCoreBundle\Factory\PageFactory</parameter>
         <parameter key="presta_cms.zone.factory.class">Presta\CMSCoreBundle\Factory\ZoneFactory</parameter>
+        <parameter key="presta_cms.route.factory.class">Presta\CMSCoreBundle\Factory\RouteFactory</parameter>
+        <parameter key="presta_cms.menu.factory.class">Presta\CMSCoreBundle\Factory\MenuFactory</parameter>
     </parameters>
 
     <services>
@@ -91,6 +93,27 @@
             </call>
         </service>
 
+        <service id="presta_cms.route.factory" class="%presta_cms.route.factory.class%">
+            <argument type="service" id="doctrine_phpcr"/>
+            <call method="setManagerName">
+                <argument>%presta_cms.persistence.phpcr.manager_name%</argument>
+            </call>
+            <call method="setModelClassName">
+                <argument>%presta_cms.model.route.class%</argument>
+            </call>
+        </service>
 
+        <service id="presta_cms.menu.factory" class="%presta_cms.menu.factory.class%">
+            <argument type="service" id="doctrine_phpcr"/>
+            <call method="setManagerName">
+                <argument>%presta_cms.persistence.phpcr.manager_name%</argument>
+            </call>
+            <call method="setModelClassName">
+                <argument>%presta_cms.model.menu.class%</argument>
+            </call>
+            <call method="setMenuNodeClassName">
+                <argument>%presta_cms.model.menu_node.class%</argument>
+            </call>
+        </service>
     </services>
 </container>

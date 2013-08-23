@@ -11,6 +11,9 @@
         <parameter key="presta_cms.model.theme.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Theme</parameter>
         <parameter key="presta_cms.model.zone.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Zone</parameter>
         <parameter key="presta_cms.model.block.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Block</parameter>
+        <parameter key="presta_cms.model.route.class">Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route</parameter>
+        <parameter key="presta_cms.model.menu.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Menu</parameter>
+        <parameter key="presta_cms.model.menu_node.class">Presta\CMSCoreBundle\Doctrine\Phpcr\MenuNode</parameter>
     </parameters>
 
 </container>

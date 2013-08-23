@@ -1,0 +1,74 @@
+<?php
+
+namespace Presta\CMSCoreBundle\Factory;
+
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+
+/**
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ */
+class RouteFactory extends AbstractModelFactory implements ModelFactoryInterface
+{
+    /**
+     * Default configuration
+     *
+     * @param  array $configuration
+     * @return array
+     */
+    protected function configurePage(array $configuration)
+    {
+        $configuration += array(
+            'url' => null,
+            'children' => null,
+            'url_pattern' => null,
+            'url_default' => null,
+            'locale' => null
+        );
+        if ($configuration['url'] != null) {
+            if (is_array($configuration['url'])) {
+                $configuration['url'] = $configuration['url'][$configuration['locale']];
+            }
+        } else {
+            //If url is not set, we take the page name as default
+            $configuration['url'] = $configuration['name'];
+        }
+
+        return $configuration;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function create(array $configuration = array())
+    {
+        $configuration = $this->configurePage($configuration);
+
+        $route = new Route();
+        $route->setPosition($configuration['parent'], $configuration['url']);
+        $route->setDefault('_locale', $configuration['locale']);
+        $route->setRequirement('_locale', $configuration['locale']);
+        if ($configuration['url_pattern'] != null) {
+            $route->setVariablePattern($configuration['url_pattern']);
+        }
+        if ($configuration['url_default'] != null) {
+            foreach ($configuration['url_default'] as $key => $value) {
+                $route->setDefault($key, $value);
+            }
+        }
+        $content = $this->getObjectManager()->find(null, $configuration['content_path']);
+        $route->setContent($content);
+
+        $this->getObjectManager()->persist($route);
+
+        if ($configuration['children'] != null) {
+            foreach ($configuration['children'] as $childConfiguration) {
+                $childConfiguration['parent'] = $route;
+                $childConfiguration['locale'] = $configuration['locale'];
+                $childConfiguration['content_path'] = $configuration['content_path'] . '/' . $childConfiguration['name'];
+                $this->create($childConfiguration);
+            }
+        }
+
+        return $route;
+    }
+}

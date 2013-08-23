@@ -6,8 +6,8 @@
         >
 
     <document
-            name="Presta\CMSCoreBundle\Doctrine\Phpcr\Menu"
-            >
+        name="Presta\CMSCoreBundle\Doctrine\Phpcr\Menu"
+        >
     </document>
 
 </doctrine-mapping>
