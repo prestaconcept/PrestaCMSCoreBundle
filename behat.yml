@@ -2,10 +2,13 @@ default:
     extensions:
         Behat\Symfony2Extension\Extension:
             mink_driver: true
+            kernel:
+                bootstrap: vendor/symfony-cmf/testing/bootstrap/bootstrap.php
+                path: Tests/Resources/app/AppKernel.php
         Behat\MinkExtension\Extension:
             default_session: 'symfony2'
-            base_url: http://cms.php54.local/
-
-DemoBundle:
-    extensions:
-        Behat\Symfony2Extension\Extension: ~
+            base_url: http://localhost:8000
+            zombie: ~
+            javascript_session: zombie
+            show_cmd: 'firefox %s'
+            

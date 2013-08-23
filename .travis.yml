@@ -1,27 +1,32 @@
 language: php
 
 php:
-  - 5.3
   - 5.4
   - 5.5
 
 env:
-  - SYMFONY_VERSION=2.2.*
   - SYMFONY_VERSION=2.3.*
   - SYMFONY_VERSION=dev-master
 
 before_script:
   - pear install pear/PHP_CodeSniffer
   - phpenv rehash
-  - wget http://getcomposer.org/composer.phar
+  - composer selfupdate
   - composer require symfony/symfony:${SYMFONY_VERSION}
+  - export NODE_PATH="$(pwd)/node_modules"
+  - npm install zombie@1.4.1
   - vendor/symfony-cmf/testing/bin/travis/phpcr_odm_doctrine_dbal.sh
+  - vendor/symfony-cmf/testing/bin/server & PID=$!
 
 
 script:
   - phpunit --coverage-text
   - phpcs --ignore=/vendor/* --extensions=php --encoding=utf-8 --standard=PSR2 -np .
+  - vendor/bin/behat @PrestaCMSCoreBundle
 
+matrix:
+  allow_failures:
+    - env: SYMFONY_VERSION=dev-master
 
 notifications:
   email: "nbastien@prestaconcept.net"

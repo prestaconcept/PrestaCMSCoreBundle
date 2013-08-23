@@ -5,6 +5,7 @@ vendor
 composer.phar
 Tests/Resources/app/cache
 Tests/Resources/app/logs
+node_modules
 
 .idea/*
 app.sqlite

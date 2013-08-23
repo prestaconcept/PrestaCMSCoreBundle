@@ -1,0 +1,3 @@
+PrestaCMSCoreBundle:
+    resource: "@PrestaCMSCoreBundle/Resources/config/routing.yml"
+    prefix:   /admin
