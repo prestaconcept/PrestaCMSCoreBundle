@@ -36,6 +36,11 @@ class WebsiteManagerTest extends BaseUnitTestCase
         return $this->websiteManager;
     }
 
+    /**
+     * Load fixtures
+     *
+     * @param $file
+     */
     protected function loadWebsites($file)
     {
         $websiteManager = $this->getWebsiteManager();
@@ -51,6 +56,9 @@ class WebsiteManagerTest extends BaseUnitTestCase
         }
     }
 
+    /**
+     * @test WebsiteManager::hasMultipleWebsite()
+     */
     public function testMultipleWebsite()
     {
         $websiteManager = $this->getWebsiteManager();
@@ -67,6 +75,9 @@ class WebsiteManagerTest extends BaseUnitTestCase
         $this->assertEquals(true, $websiteManager->hasMultipleWebsite());
     }
 
+    /**
+     * @test WebsiteManager::registerWebsite()
+     */
     public function testRegisterWebsite()
     {
         $websiteManager = $this->getWebsiteManager();

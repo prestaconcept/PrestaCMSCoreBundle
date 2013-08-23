@@ -18,7 +18,9 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class BlockManagerTest extends BaseUnitTestCase
 {
-
+    /**
+     * @test BlockManager::addBlock()
+     */
     public function testAddBlocks()
     {
         $blockManager = new BlockManager();

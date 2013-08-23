@@ -21,7 +21,7 @@ use Presta\CMSCoreBundle\Model\ThemeManager;
 class ThemeManagerTest extends BaseUnitTestCase
 {
     /**
-     * @return \Presta\CMSCoreBundle\Model\ThemeManager
+     * @return ThemeManager
      */
     protected function getThemeManager()
     {
@@ -37,15 +37,22 @@ class ThemeManagerTest extends BaseUnitTestCase
         return $themeManager;
     }
 
-    public function testGetAvailableThemes()
+    /**
+     * @test ThemeManager::getAvailableThemeCodes()
+     */
+    public function testGetAvailableThemeCode()
     {
         $themeManager = $this->getThemeManager();
 
-        $availableThemes = $themeManager->getAvailableThemes();
-
-        $this->assertEquals(3, count($availableThemes));
-
         $this->assertEquals(array('default', 'prestaconcept', 'liip'), $themeManager->getAvailableThemeCodes());
+    }
+
+    /**
+     * @test ThemeManager::getAvailableThemeCodesForSelect()
+     */
+    public function testGetAvailableThemeCodesForSelect()
+    {
+        $themeManager = $this->getThemeManager();
 
         $this->assertEquals(
             array('default' => 'default', 'prestaconcept' => 'prestaconcept', 'liip' => 'liip'),
@@ -53,6 +60,9 @@ class ThemeManagerTest extends BaseUnitTestCase
         );
     }
 
+    /**
+     * @test ThemeManager::getTheme()
+     */
     public function testGetThemeError()
     {
         $themeManager = $this->getThemeManager();
@@ -61,72 +71,76 @@ class ThemeManagerTest extends BaseUnitTestCase
         $this->assertEquals(false, $theme);
     }
 
-    public function testGetThemeFullConfiguration()
-    {
-        $themeManager = $this->getThemeManager();
 
-        $theme = $themeManager->getTheme('default');
-        $this->assertEquals($theme, $themeManager->getCurrentTheme());
-        $this->assertTrue($theme instanceof Theme);
-        $this->assertEquals('default', $theme->getName());
-        $this->assertEquals('Presta CMS default theme', $theme->getDescription());
-        $this->assertEquals('PrestaCMSCoreBundle:Theme/Default:layout.html.twig', $theme->getTemplate());
-        $this->assertEquals('bundles/prestacmscore/theme/default/screenshot.jpg', $theme->getScreenshot());
-        $this->assertEquals('bundles/prestacmscore/theme/prestaconcept/admin/admin.css', $theme->getAdminStyle());
-        $this->assertEquals(12, $theme->getCols());
-        $this->assertEquals(5, count($theme->getZones()));
+    //Older test, as we have factory now, we should create new unit test for factory and move this to functional
 
-        //@todo test zone
-
-        $this->assertEquals(2, count($theme->getPageTemplates()));
-    }
-
-    public function testGetThemeMinimalConfiguration()
-    {
-        $themeManager = $this->getThemeManager();
-
-        $theme = $themeManager->getTheme('liip');
-        $this->assertTrue($theme instanceof Theme);
-        $this->assertEquals('liip', $theme->getName());
-        $this->assertEquals(12, $theme->getCols());
-        $this->assertEquals(0, count($theme->getZones()));
-        $this->assertEquals(0, count($theme->getPageTemplates()));
-        $this->assertEquals(null, $theme->getAdminStyle());
-    }
-
-    public function testGetPageTemplateFile()
-    {
-        $themeManager = $this->getThemeManager();
-
-        $template = $themeManager->getPageTemplateFile('default');
-        $this->assertEquals(false, $template); //Current theme is not setted
-
-        $theme = $themeManager->getTheme('default');
-        $template = $themeManager->getPageTemplateFile('default');
-        $this->assertEquals('PrestaCMSCoreBundle:Theme/Default/Page:default.html.twig', $template);
-
-        $template = $themeManager->getPageTemplateFile('sidebar');
-        $this->assertEquals('PrestaCMSCoreBundle:Theme/Default/Page:sidebar.html.twig', $template);
-
-        $template = $themeManager->getPageTemplateFile('no-template');
-        $this->assertEquals(false, $template);
-    }
-
-    public function testGetPageTemplateConfiguration()
-    {
-        $themeManager = $this->getThemeManager();
-
-        $configuration = $themeManager->getPageTemplateConfiguration('default');
-        $this->assertEquals(false, $configuration); //Current theme is not setted
-
-        $theme = $themeManager->getTheme('default');
-        $configuration = $themeManager->getPageTemplateConfiguration('default');
-
-        $this->assertEquals('default', $configuration['name']);
-        $this->assertEquals('PrestaCMSCoreBundle:Theme/Default/Page:default.html.twig', $configuration['path']);
-        $this->assertEquals(1, count($configuration['zones']));
-        $this->assertEquals(6, count($configuration['zones']['content']));
-
-        //todo default initialisation !
-    }
+    //
+    //    public function testGetThemeFullConfiguration()
+    //    {
+    //        $themeManager = $this->getThemeManager();
+    //
+    //        $theme = $themeManager->getTheme('default');
+    //        $this->assertEquals($theme, $themeManager->getCurrentTheme());
+    //        $this->assertTrue($theme instanceof Theme);
+    //        $this->assertEquals('default', $theme->getName());
+    //        $this->assertEquals('Presta CMS default theme', $theme->getDescription());
+    //        $this->assertEquals('PrestaCMSCoreBundle:Theme/Default:layout.html.twig', $theme->getTemplate());
+    //        $this->assertEquals('bundles/prestacmscore/theme/default/screenshot.jpg', $theme->getScreenshot());
+    //        $this->assertEquals('bundles/prestacmscore/theme/prestaconcept/admin/admin.css', $theme->getAdminStyle());
+    //        $this->assertEquals(12, $theme->getCols());
+    //        $this->assertEquals(5, count($theme->getZones()));
+    //
+    //        //@todo test zone
+    //
+    //        $this->assertEquals(2, count($theme->getPageTemplates()));
+    //    }
+    //
+    //    public function testGetThemeMinimalConfiguration()
+    //    {
+    //        $themeManager = $this->getThemeManager();
+    //
+    //        $theme = $themeManager->getTheme('liip');
+    //        $this->assertTrue($theme instanceof Theme);
+    //        $this->assertEquals('liip', $theme->getName());
+    //        $this->assertEquals(12, $theme->getCols());
+    //        $this->assertEquals(0, count($theme->getZones()));
+    //        $this->assertEquals(0, count($theme->getPageTemplates()));
+    //        $this->assertEquals(null, $theme->getAdminStyle());
+    //    }
+    //
+    //    public function testGetPageTemplateFile()
+    //    {
+    //        $themeManager = $this->getThemeManager();
+    //
+    //        $template = $themeManager->getPageTemplateFile('default');
+    //        $this->assertEquals(false, $template); //Current theme is not setted
+    //
+    //        $theme = $themeManager->getTheme('default');
+    //        $template = $themeManager->getPageTemplateFile('default');
+    //        $this->assertEquals('PrestaCMSCoreBundle:Theme/Default/Page:default.html.twig', $template);
+    //
+    //        $template = $themeManager->getPageTemplateFile('sidebar');
+    //        $this->assertEquals('PrestaCMSCoreBundle:Theme/Default/Page:sidebar.html.twig', $template);
+    //
+    //        $template = $themeManager->getPageTemplateFile('no-template');
+    //        $this->assertEquals(false, $template);
+    //    }
+    //
+    //    public function testGetPageTemplateConfiguration()
+    //    {
+    //        $themeManager = $this->getThemeManager();
+    //
+    //        $configuration = $themeManager->getPageTemplateConfiguration('default');
+    //        $this->assertEquals(false, $configuration); //Current theme is not setted
+    //
+    //        $theme = $themeManager->getTheme('default');
+    //        $configuration = $themeManager->getPageTemplateConfiguration('default');
+    //
+    //        $this->assertEquals('default', $configuration['name']);
+    //        $this->assertEquals('PrestaCMSCoreBundle:Theme/Default/Page:default.html.twig', $configuration['path']);
+    //        $this->assertEquals(1, count($configuration['zones']));
+    //        $this->assertEquals(6, count($configuration['zones']['content']));
+    //
+    //        //todo default initialisation !
+    //    }
 }
