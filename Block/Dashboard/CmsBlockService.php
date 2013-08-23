@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 use Sonata\AdminBundle\Admin\Pool;
-use Sonata\BlockBundle\Model\BlockInterface;
 use Presta\CMSCoreBundle\Block\BaseBlockService;
 
 /**

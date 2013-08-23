@@ -172,10 +172,10 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
     /**
      * Return form field configuration for CMS Page browser
      *
-     * @param FormMapper $formMapper
-     * @param BlockInterface $block
-     * @param string $filedName
-     * @param string $adminCode
+     * @param  FormMapper     $formMapper
+     * @param  BlockInterface $block
+     * @param  string         $filedName
+     * @param  string         $adminCode
      * @return FormBuilder
      */
     public function getContentBrowserField(FormMapper $formMapper, BlockInterface $block, $filedName, $adminCode)

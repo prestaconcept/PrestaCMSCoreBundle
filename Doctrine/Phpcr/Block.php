@@ -96,6 +96,7 @@ class Block extends AbstractBlock implements TranslatableInterface
             if (strpos($path, '/theme/') !== false) {
                 return substr($path, 0, strpos($path, '/theme/')) . '/page';
             }
+
             return null;
         }
 

@@ -18,11 +18,9 @@ use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
 use Presta\CMSCoreBundle\Model\PageManager;
 use Presta\CMSCoreBundle\Model\RouteManager;
 use Presta\CMSCoreBundle\Model\ThemeManager;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Translation\Translator;
 
 /**
  * Page administration controller
@@ -189,15 +187,15 @@ class PageController extends AdminController
 
     /**
      * Render page routing information like redirect
-     * 
-     * @param  Page   $page
+     *
+     * @param  Page     $page
      * @return Response
      */
     public function renderRoutingAction(Page $page)
     {
         // Get all redirect route name
         $redirectRouteNames = array();
-        foreach($this->getRouteManager()->getRedirectRouteForPage($page) as $redirectRoute) {
+        foreach ($this->getRouteManager()->getRedirectRouteForPage($page) as $redirectRoute) {
             $redirectRouteNames[] = $redirectRoute->getName();
         }
 
@@ -211,7 +209,7 @@ class PageController extends AdminController
     /**
      * Allow us to render the tre in the website locale
      *
-     * @param Request $request
+     * @param  Request                                    $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function renderPageTreeAction (Request $request)
@@ -311,10 +309,10 @@ class PageController extends AdminController
 
     /**
      * Return page front url
-     * 
-     * @param  Page     $page
-     * @param  string   $locale
-     * @param  boolean  $absolute
+     *
+     * @param  Page    $page
+     * @param  string  $locale
+     * @param  boolean $absolute
      * @return string
      */
     public function getFrontUrlForPage(Page $page, $locale = null, $absolute = false)
@@ -339,9 +337,9 @@ class PageController extends AdminController
 
     /**
      * Return page front preview url (page front url with token)
-     * 
-     * @param  Page     $page
-     * @param  string   $locale
+     *
+     * @param  Page   $page
+     * @param  string $locale
      * @return string
      */
     public function getFrontUrlPreviewForPage(Page $page, $locale)
@@ -354,7 +352,7 @@ class PageController extends AdminController
     /**
      * Create a new page
      *
-     * @param  Request $request
+     * @param  Request  $request
      * @return Response
      */
     public function addAction(Request $request)

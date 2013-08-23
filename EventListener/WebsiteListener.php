@@ -41,7 +41,7 @@ class WebsiteListener
 
     /**
      * @param WebsiteManager $websiteManager
-     * @param Kernel $kernel
+     * @param Kernel         $kernel
      */
     public function __construct(WebsiteManager $websiteManager, Kernel $kernel, Session $session)
     {

@@ -13,7 +13,6 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Model\BlockInterface;
 
 use Presta\CMSCoreBundle\Block\BaseModelBlockService;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Sitemap block can make a simple menu or complete sitemap

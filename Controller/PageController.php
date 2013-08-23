@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Page controller
- * 
+ *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  * @author Alain Flaus <aflaus@prestaconcept.net>
  */

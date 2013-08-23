@@ -73,8 +73,8 @@ class Template
     /**
      * Set zones
      *
-     * @param  array                               $zones
-     * @return \Presta\CMSCoreBundle\Doctrine\Phpcr\Zone
+     * @param  array $zones
+     * @return Zone
      */
     public function setZones(array $zones)
     {
@@ -86,8 +86,8 @@ class Template
     /**
      * Add a zone
      *
-     * @param  Zone                                $zone
-     * @return \Presta\CMSCoreBundle\Doctrine\Phpcr\Zone
+     * @param  Zone $zone
+     * @return Zone
      */
     public function addZone(Zone $zone)
     {

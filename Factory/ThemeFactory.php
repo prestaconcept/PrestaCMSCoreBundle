@@ -4,7 +4,6 @@ namespace Presta\CMSCoreBundle\Factory;
 
 use Presta\CMSCoreBundle\Model\Template;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Block;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Theme;
 use Presta\CMSCoreBundle\Model\Website;
 use PHPCR\Util\NodeHelper;

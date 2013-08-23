@@ -12,8 +12,6 @@ namespace Presta\CMSCoreBundle\DataFixtures\PHPCR;
 use Presta\CMSCoreBundle\Factory\RouteFactory;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
-
 /**
  * Base fixtures methods to easily create routes
  */

@@ -16,9 +16,9 @@ use Symfony\Cmf\Bundle\TreeBrowserBundle\Tree\TreeInterface;
 /**
  * Custom form type to display a list of page
  *
- * Make a reel extension instead of getParent() method to retrieve 
+ * Make a reel extension instead of getParent() method to retrieve
  * custom tree set in service declaration instead of parent one
- * 
+ *
  * @todo: search better way to init service to use symfony standard
  * FormType extension
  *
@@ -38,7 +38,7 @@ class PageTreeModelType extends TreeModelType
 
     /**
      * Setter
-     * 
+     *
      * @param array $defaults
      */
     public function setDefaults(array $defaults)
@@ -48,7 +48,7 @@ class PageTreeModelType extends TreeModelType
 
     /**
      * Setter
-     * 
+     *
      * @param TreeInterface $tree
      */
     public function setTree(TreeInterface $tree)
@@ -58,7 +58,7 @@ class PageTreeModelType extends TreeModelType
 
     /**
      * Getter
-     * 
+     *
      * @return string
      */
     public function getParent()
@@ -68,7 +68,7 @@ class PageTreeModelType extends TreeModelType
 
     /**
      * Getter
-     * 
+     *
      * @return string
      */
     public function getName()

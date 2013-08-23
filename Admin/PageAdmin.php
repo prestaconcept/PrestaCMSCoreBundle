@@ -10,7 +10,6 @@
 namespace Presta\CMSCoreBundle\Admin;
 
 use Presta\CMSCoreBundle\Admin\BaseAdmin;
-use Presta\CMSCoreBundle\Model\WebsiteManager;
 
 /**
  * Admin definition for the Page class

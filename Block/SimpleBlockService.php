@@ -14,7 +14,6 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Model\BlockInterface;
 
 use Presta\CMSCoreBundle\Block\BaseModelBlockService;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Simple block with a title and content

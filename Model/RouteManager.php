@@ -20,7 +20,6 @@ use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
 
 use Sonata\AdminBundle\Model\ModelManagerInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 
 //use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
 
@@ -48,7 +47,7 @@ class RouteManager
 
     /**
      * Setter
-     * 
+     *
      * @param ModelManagerInterface $modelManager
      */
     public function setModelManager(ModelManagerInterface $modelManager)
@@ -58,7 +57,7 @@ class RouteManager
 
     /**
      * Setter
-     * 
+     *
      * @param RouteProviderInterface $routeProvider
      */
     public function setRouteProvider(RouteProviderInterface $routeProvider)
@@ -84,7 +83,7 @@ class RouteManager
 
     /**
      * Getter
-     * 
+     *
      * @return DocumentManager
      */
     public function getDocumentManager()
@@ -93,7 +92,7 @@ class RouteManager
     }
 
     /**
-     * @param  Website $website
+     * @param  Website         $website
      * @return RouteCollection
      */
     public function findRoutesByWebsite(Website $website)
@@ -164,7 +163,7 @@ class RouteManager
     /**
      * Update page routing for a relative url
      *
-     * @param  Page   $page
+     * @param Page $page
      */
     protected function updatePageRoutingUrlRelative(Page $page)
     {
@@ -183,7 +182,7 @@ class RouteManager
     /**
      * Generate the list of redirection
      *
-     * @param  Route $oldRoute
+     * @param Route $oldRoute
      * @param  $newRouteUrl
      * @return array
      */
@@ -247,8 +246,8 @@ class RouteManager
 
     /**
      * Update page routing
-     * 
-     * @param  Page   $page
+     *
+     * @param Page $page
      */
     public function updatePageRouting(Page $page)
     {
@@ -265,7 +264,7 @@ class RouteManager
     /**
      * Create route for a new page
      *
-     * @param  Page $page
+     * @param  Page  $page
      * @return Route
      */
     public function createPageRouting(Page $page)
@@ -294,11 +293,11 @@ class RouteManager
 
     /**
      * Generate new route path
-     * 
-     * @param  RouteObjectInterface $mainRoute
-     * @param  string $newUrl
+     *
+     * @param RouteObjectInterface $mainRoute
+     * @param string               $newUrl
      */
-    static public function generateNewPath(RouteObjectInterface $mainRoute, $newUrl)
+    public static function generateNewPath(RouteObjectInterface $mainRoute, $newUrl)
     {
         return str_replace($mainRoute->getName(), $newUrl, $mainRoute->getId());
     }
@@ -306,8 +305,8 @@ class RouteManager
     /**
      * Create redirect route for a route and all its children
      *
-     * @param  array                    $redirectRoutes
-     * @param  RouteObjectInterface     $route
+     * @param array                $redirectRoutes
+     * @param RouteObjectInterface $route
      */
     public function createRedirectRoute(RouteObjectInterface $route, $parent = null)
     {
@@ -327,9 +326,9 @@ class RouteManager
 
     /**
      * Return page route
-     * 
-     * @param  Page     $page
-     * @param  string   $locale
+     *
+     * @param  Page                      $page
+     * @param  string                    $locale
      * @return RouteObjectInterface|null
      */
     public function getRouteForPage(Page $page, $locale = null)
@@ -351,8 +350,8 @@ class RouteManager
 
     /**
      * Return all redirect routes for a page
-     * 
-     * @param  Page $page
+     *
+     * @param  Page            $page
      * @return RouteCollection $redirectRoutes
      */
     public function getRedirectRouteForPage(Page $page)

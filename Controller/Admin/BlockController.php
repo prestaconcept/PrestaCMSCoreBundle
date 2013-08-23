@@ -77,7 +77,7 @@ class BlockController extends CRUDController
 
             if ($this->isXmlHttpRequest()) {
                 $block->setAdminMode();
-                
+
                 return $this->renderJson(
                     array(
                         'result' => 'ok',

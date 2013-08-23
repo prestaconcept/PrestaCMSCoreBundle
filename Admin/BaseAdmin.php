@@ -74,7 +74,6 @@ abstract class BaseAdmin extends BasePHPCRAdmin
         //            //in case translation does not exist
         //            $this->getDocumentManager()->bindTranslation($object, $locale);
         //        }
-
         return $object;
     }
 }

@@ -9,13 +9,8 @@
  */
 namespace Presta\CMSCoreBundle\DataFixtures\PHPCR;
 
-use Doctrine\ODM\PHPCR\Document\Generic;
-
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Block;
 use Presta\CMSCoreBundle\Factory\PageFactory;
-use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
 
 /**
  * Base fixtures methods to easily create pages

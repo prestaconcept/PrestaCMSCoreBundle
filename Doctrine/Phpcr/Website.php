@@ -9,7 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Doctrine\Phpcr;
 
-use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 use Presta\CMSCoreBundle\Model\Website as WebsiteModel;
 
 /**
@@ -23,14 +22,10 @@ class Website extends WebsiteModel
     const MENU_PREFIX       = 'menu';
     const PAGE_PREFIX       = 'page';
 
-
-
 //    /**
 //     * @PHPCRODM\Node
 //     */
 //    public $node;
-
-
 
     /**
      * @var boolean $active
@@ -47,16 +42,12 @@ class Website extends WebsiteModel
      */
     protected $defaultLocale;
 
-
-
     public function __construct()
     {
         $this->setActive(true);
         $this->setDefault(false);
         $this->availableLocales = array();
     }
-
-
 
     /**
      * @return string
@@ -101,8 +92,6 @@ class Website extends WebsiteModel
 
         return $this->defaultLocale;
     }
-
-
 
     /**
      * @param boolean $isActive

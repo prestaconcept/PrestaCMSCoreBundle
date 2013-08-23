@@ -12,7 +12,6 @@ namespace Presta\CMSCoreBundle\Doctrine\Phpcr;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ODM\PHPCR\ChildrenCollection;
-use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
 use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 use Symfony\Cmf\Bundle\MenuBundle\Model\MenuNodeReferrersInterface;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
@@ -150,7 +149,7 @@ class Page extends PageModel implements
 
     public function __toString()
     {
-        return (string)$this->getTitle();
+        return (string) $this->getTitle();
     }
 
     /**
@@ -468,7 +467,7 @@ class Page extends PageModel implements
      */
     public function isUrlCompleteMode()
     {
-        return (bool)$this->isUrlCompleteMode;
+        return (bool) $this->isUrlCompleteMode;
     }
 
     /**

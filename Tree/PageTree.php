@@ -14,7 +14,6 @@ use Symfony\Cmf\Bundle\TreeBrowserBundle\Tree\PHPCRTree;
 use Doctrine\Bundle\PHPCRBundle\ManagerRegistry;
 
 use PHPCR\Util\NodeHelper;
-use PHPCR\PropertyType;
 
 /**
  * PrestaCMS page tree
@@ -30,8 +29,8 @@ class PageTree extends PHPCRTree
 
     /**
      * Constructor
-     * 
-     * @param ManagerRegistry $manager     
+     *
+     * @param ManagerRegistry $manager
      * @param string          $sessionName
      */
     public function __construct(ManagerRegistry $manager, $sessionName)
@@ -41,7 +40,7 @@ class PageTree extends PHPCRTree
 
     /**
      * Return list of page type node
-     * 
+     *
      * @param  string $path
      * @return array
      */
@@ -79,6 +78,7 @@ class PageTree extends PHPCRTree
     private function nodeToArray($name, $node)
     {
         $has_children = $node->hasNodes();
+
         return array(
             'data'  => $name,
             'attr'  => array(

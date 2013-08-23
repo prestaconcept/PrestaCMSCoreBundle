@@ -159,7 +159,7 @@ class PageManager
     /**
      * Reference a new page type service
      *
-     * @param  string $pageTypeId
+     * @param  string      $pageTypeId
      * @return PageManager
      */
     public function addPageType($pageTypeId)
@@ -172,7 +172,7 @@ class PageManager
     /**
      * Return corresponding page type service
      *
-     * @param  string $idType
+     * @param  string            $idType
      * @return PageTypeInterface
      */
     public function getPageType($pageTypeId)
@@ -224,8 +224,8 @@ class PageManager
     /**
      * Check if token is valid
      *
-     * @param  Page $page
-     * @param  string $token
+     * @param  Page    $page
+     * @param  string  $token
      * @return boolean
      */
     public function isValidToken($page, $token)

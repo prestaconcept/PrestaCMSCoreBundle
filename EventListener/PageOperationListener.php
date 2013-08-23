@@ -17,7 +17,6 @@ use Presta\CMSCoreBundle\Model\MenuManager;
 use Presta\CMSCoreBundle\Model\RouteManager;
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Handle page operations

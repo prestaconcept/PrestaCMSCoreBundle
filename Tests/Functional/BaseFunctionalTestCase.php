@@ -9,7 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Tests\Functional;
 
-
 use Presta\CMSCoreBundle\Factory\ModelFactoryInterface;
 use Symfony\Cmf\Component\Testing\Functional\BaseTestCase as CmfBaseFunctionalTestCase;
 use PHPCR\Util\NodeHelper;

@@ -12,7 +12,6 @@ namespace Presta\CMSCoreBundle\Model;
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Presta\CMSCoreBundle\Model\Website;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Website Manager
@@ -317,9 +316,9 @@ class WebsiteManager
     /**
      * Load current website based on its id and locale
      *
-     * @param  int      $websiteId
-     * @param  string   $locale
-     * @param  string   $environment
+     * @param  int          $websiteId
+     * @param  string       $locale
+     * @param  string       $environment
      * @return null|Website
      */
     public function loadWebsiteById($websiteId, $locale, $environment)

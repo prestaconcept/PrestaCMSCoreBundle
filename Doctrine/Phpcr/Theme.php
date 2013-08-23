@@ -129,7 +129,7 @@ class Theme extends ContainerBlock  implements TranslatableInterface
     }
 
     /**
-     * @return array 
+     * @return array
      */
     public function getBlockStyles()
     {

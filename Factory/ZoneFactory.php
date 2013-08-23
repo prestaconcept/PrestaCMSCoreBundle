@@ -34,10 +34,10 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
     /**
      * Create a block
      *
-     * @param  array    $blockConfiguration
+     * @param array $blockConfiguration
      * @param  $parent
-     * @param  integer  $position
-     * @param  Website  $website
+     * @param  integer $position
+     * @param  Website $website
      * @return Block
      */
     protected function createBlock($blockConfiguration, $parent, $position, $website)

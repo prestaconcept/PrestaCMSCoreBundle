@@ -64,9 +64,9 @@ class MenuManager
      * @param  $name
      * @param  $label
      * @param  $content
-     * @param  null $uri
-     * @param  null $route
-     * @param  null $type
+     * @param  null     $uri
+     * @param  null     $route
+     * @param  null     $type
      * @return MenuNode
      */
     public function create($parent, $name, $label, $content, $uri = null, $route = null, $type = null)

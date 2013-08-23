@@ -174,7 +174,6 @@ abstract class BaseBlockService extends SonataBaseBlockService
 //            'block_style' => null,
 //            'title_level' => 'h2',
 //        );
-
         return $settings;
     }
 
@@ -182,8 +181,8 @@ abstract class BaseBlockService extends SonataBaseBlockService
      * Return additional form settings
      * Allow to customize base blocks classes like the model one
      *
-     * @param  FormMapper      $formMapper
-     * @param  BlockInterface  $block
+     * @param  FormMapper     $formMapper
+     * @param  BlockInterface $block
      * @return array
      */
     protected function getAdditionalFormSettings(FormMapper $formMapper, BlockInterface $block)
@@ -246,8 +245,8 @@ abstract class BaseBlockService extends SonataBaseBlockService
     /**
      * Returns form settings elements
      *
-     * @param  FormMapper      $formMapper
-     * @param  BlockInterface  $block
+     * @param  FormMapper     $formMapper
+     * @param  BlockInterface $block
      * @return array
      */
     protected function getFormSettings(FormMapper $formMapper, BlockInterface $block)
