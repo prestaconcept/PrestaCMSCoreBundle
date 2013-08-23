@@ -129,23 +129,29 @@ class PageController extends AdminController
 
                 if ($page->isUrlCompleteMode()) {
                     $pageParentRoute = $routeManager->getRouteForPage($page->getParent(), $locale);
-                    $page->setPathComplete(str_replace(
-                        $pageParentRoute->getPrefix(),
-                        '',
-                        $pageParentRoute->getId() . '/'
-                    ));
+                    $page->setPathComplete(
+                        str_replace(
+                            $pageParentRoute->getPrefix(),
+                            '',
+                            $pageParentRoute->getId() . '/'
+                        )
+                    );
                 } else {
-                    $page->setPathComplete(str_replace(
+                    $page->setPathComplete(
+                        str_replace(
+                            $correspondingRoute->getPrefix(),
+                            '',
+                            $correspondingRoute->getParent()->getId() . '/'
+                        )
+                    );
+                }
+                $page->setUrlComplete(
+                    str_replace(
                         $correspondingRoute->getPrefix(),
                         '',
-                        $correspondingRoute->getParent()->getId() . '/'
-                    ));
-                }
-                $page->setUrlComplete(str_replace(
-                    $correspondingRoute->getPrefix(),
-                    '',
-                    $correspondingRoute->getId()
-                ));
+                        $correspondingRoute->getId()
+                    )
+                );
             }
 
             $form = $this->createForm(new PageType(), $page);

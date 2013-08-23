@@ -17,9 +17,9 @@ use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 /**
  * Theme Document child of a website : Zone container + configuration
  *
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class Theme extends ContainerBlock  implements TranslatableInterface
+class Theme extends ContainerBlock implements TranslatableInterface
 {
     /**
      * @var string

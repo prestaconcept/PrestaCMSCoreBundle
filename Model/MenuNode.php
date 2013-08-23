@@ -7,5 +7,4 @@ namespace Presta\CMSCoreBundle\Model;
  */
 class MenuNode
 {
-
 }

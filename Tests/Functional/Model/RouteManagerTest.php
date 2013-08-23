@@ -27,15 +27,15 @@ class RouteManagerTest extends BaseFunctionalTestCase
         return $this->container->get('presta_cms.manager.route');
     }
 
-//    public function testIndexRedirectRouteToCreate()
-//    {
-//        $redirectRoutes = array();
-//        $route          = $this->generateRouteHierarchy();
-//
-//        $this->getRouteManager()->indexRedirectRouteToCreate($redirectRoutes, $route);
-//
-//        $this->assertEquals(3, count($redirectRoutes));
-//    }
+    //    public function testIndexRedirectRouteToCreate()
+    //    {
+    //        $redirectRoutes = array();
+    //        $route          = $this->generateRouteHierarchy();
+    //
+    //        $this->getRouteManager()->indexRedirectRouteToCreate($redirectRoutes, $route);
+    //
+    //        $this->assertEquals(3, count($redirectRoutes));
+    //    }
 
     public function testGenerateNewPath()
     {
@@ -66,10 +66,7 @@ class RouteManagerTest extends BaseFunctionalTestCase
         $refl = new \ReflectionClass($route1);
         $prop = $refl->getProperty('children');
         $prop->setAccessible(true);
-        $prop->setValue($route1, array(
-            $route11,
-            $route12,
-        ));
+        $prop->setValue($route1, array($route11,$route12));
 
         return $route1;
     }

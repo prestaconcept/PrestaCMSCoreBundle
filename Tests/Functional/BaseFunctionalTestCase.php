@@ -14,6 +14,7 @@ use Symfony\Cmf\Component\Testing\Functional\BaseTestCase as CmfBaseFunctionalTe
 use PHPCR\Util\NodeHelper;
 use Doctrine\Common\DataFixtures\Purger\PHPCRPurger;
 use Symfony\Component\Yaml\Parser;
+use Presta\CMSCoreBundle\Tests\Resources\app\AppKernel;
 
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Website;
 
@@ -45,7 +46,7 @@ class BaseFunctionalTestCase extends CmfBaseFunctionalTestCase
      */
     protected static function createKernel(array $options = array())
     {
-        return new \AppKernel('test', true);
+        return new AppKernel('test', true);
     }
 
     protected function setUp()

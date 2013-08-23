@@ -65,10 +65,7 @@ class RouteManagerTest extends \PHPUnit_Framework_Testcase
         $refl = new \ReflectionClass($route1);
         $prop = $refl->getProperty('children');
         $prop->setAccessible(true);
-        $prop->setValue($route1, array(
-            $route11,
-            $route12,
-        ));
+        $prop->setValue($route1, array($route11, $route12));
 
         return $route1;
     }

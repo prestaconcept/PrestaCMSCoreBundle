@@ -71,7 +71,6 @@ class ThemeManagerTest extends BaseUnitTestCase
         $this->assertEquals(false, $theme);
     }
 
-
     //Older test, as we have factory now, we should create new unit test for factory and move this to functional
 
     //

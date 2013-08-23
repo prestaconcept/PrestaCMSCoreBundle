@@ -3,15 +3,9 @@
 namespace Presta\CMSCoreBundle\Features\Context;
 
 use Behat\Behat\Context\BehatContext;
-use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Exception\PendingException;
 use Behat\Mink\Exception\ExpectationException;
 use Behat\Mink\Exception\ElementNotFoundException;
-use Behat\MinkExtension\Context\MinkContext;
-use Behat\Symfony2Extension\Context\KernelAwareInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
-
-use Presta\CMSCoreBundle\Document\Theme;
 
 /**
  * Description of ThemeContext
@@ -36,22 +30,22 @@ class PageContext extends BehatContext
     {
         //tmp fake working page using sandbox demo
         $this->getMainContext()->visit("http://sandbox.prestacms.com/admin/cms/page/website/sandbox/en");
-        
+
         $this->getMainContext()->assertElementContainsText("h1", "Pages");
         $this->getMainContext()->assertElementContainsText("#page-tree-container h4", "Navigation");
         $this->getMainContext()->getSession()->wait(2, '(window.jQuery("#tree ul").length > 0)');
         $this->getMainContext()->assertNumElements(2, "#tree ul li");
-        
+
         $js = <<<JS
                 var assert = require("assert");
-                
+
                 try {
                     assert.equal(browser.text("h1"), "Pages");
                     assert.equal(browser.text("#page-tree-container h4"), "Navigation");
-                } catch(err) {
+                } catch (err) {
                     stream.end(JSON.stringify(err.toString()));
                 }
-                
+
                 stream.end();
 JS;
         $out = $this->getMainContext()
@@ -59,14 +53,13 @@ JS;
                 ->getDriver()
                 ->getServer()
                 ->evalJs($js);
-        
+
         if (!empty($out)) {
             $e = json_decode($out);
             throw new ExpectationException($e, $this->getMainContext()->getSession('zombie'));
         }
     }
-    
-    
+
     /**
      * @Given /^I press "([^"]*)" block edit button$/
      */
@@ -74,15 +67,13 @@ JS;
     {
         $session = $this->getMainContext()->getSession();
         $element = $session->getPage()->find('css', "#cms-zone-websitesandboxpagehomecontent .page-zone-block:first-child a.action-edit");
-        
+
         if (!$element) {
             throw new ElementNotFoundException($session);
         }
-        
+
         $element->click();
     }
-
-    
 
     /**
      * @Then /^I should see a list of blocks$/

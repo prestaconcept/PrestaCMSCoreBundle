@@ -28,7 +28,7 @@ use Presta\CMSCoreBundle\Model\Page as PageModel;
  *
  */
 class Page extends PageModel implements
-        MenuNodeReferrersInterface,
+    MenuNodeReferrersInterface,
     RouteReferrersInterface,
     TranslatableInterface
 {

@@ -3,11 +3,6 @@
 namespace Presta\CMSCoreBundle\Features\Context;
 
 use Behat\Behat\Context\BehatContext;
-use Behat\Gherkin\Node\TableNode;
-use Behat\Behat\Exception\PendingException;
-use Behat\MinkExtension\Context\MinkContext;
-use Behat\Symfony2Extension\Context\KernelAwareInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 use Presta\CMSCoreBundle\Document\Theme;
 
@@ -25,7 +20,7 @@ class WebsiteContext extends BehatContext
     {
         $this->getMainContext()->assertNumElements($arg1, 'table > tbody tr');
     }
-    
+
     /**
      * @When /^I follow "([^"]*)" website "([^"]*)"$/
      */
@@ -33,9 +28,10 @@ class WebsiteContext extends BehatContext
     {
         $session = $this->getMainContext()->getSession();
         $element = $session->getPage()->find(
-                'css', 
-                ".sonata-ba-list table tr:contains($arg1) a:contains($arg2)");
-        
+            'css',
+            ".sonata-ba-list table tr:contains($arg1) a:contains($arg2)"
+        );
+
         if (null === $element) {
             throw new \InvalidArgumentException(sprintf('Could not find "%s" Website or "%s" link', $arg1, $arg2));
         }
@@ -50,7 +46,7 @@ class WebsiteContext extends BehatContext
     {
         $this->getMainContext()->assertElementContainsText("ul li.locale.active", $arg1);
     }
-    
+
     /**
      * @Then /^I should see the sandbox website configuration$/
      */

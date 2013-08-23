@@ -13,11 +13,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\MinkExtension\Context\MinkContext;
 
-use Behat\Behat\Context\BehatContext;
-use Behat\Behat\Exception\PendingException;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
-
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Website;
 
 //
@@ -43,12 +38,12 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
     public function __construct(array $parameters)
     {
         $this->parameters = $parameters;
-        
+
         $this->useContext('theme', new ThemeContext);
         $this->useContext('website', new WebsiteContext);
         $this->useContext('page', new PageContext);
     }
-    
+
     /**
      * @Given /^application is initialized$/
      */

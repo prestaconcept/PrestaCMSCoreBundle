@@ -170,10 +170,11 @@ abstract class BaseBlockService extends SonataBaseBlockService
             $blockContext->getBlock()->getSettings()
         );
 
-//        $settings += array(
-//            'block_style' => null,
-//            'title_level' => 'h2',
-//        );
+        //        $settings += array(
+        //            'block_style' => null,
+        //            'title_level' => 'h2',
+        //        );
+
         return $settings;
     }
 

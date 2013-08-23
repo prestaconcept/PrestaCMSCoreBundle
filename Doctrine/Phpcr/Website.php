@@ -22,10 +22,10 @@ class Website extends WebsiteModel
     const MENU_PREFIX       = 'menu';
     const PAGE_PREFIX       = 'page';
 
-//    /**
-//     * @PHPCRODM\Node
-//     */
-//    public $node;
+    ///**
+    // * @PHPCRODM\Node
+    // */
+    //public $node;
 
     /**
      * @var boolean $active
