@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\DataFixtures\PHPCR;
 
+use Presta\CMSCoreBundle\Factory\ModelFactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -44,12 +45,7 @@ abstract class BaseFixture extends AbstractFixture implements ContainerAwareInte
     abstract public function getOrder();
 
     /**
-     * Returns available locale to initialise documents
-     *
-     * @return array
+     * @return ModelFactoryInterface
      */
-    protected function getLocales()
-    {
-        return $this->container->getParameter('locales');
-    }
+    abstract public function getFactory();
 }

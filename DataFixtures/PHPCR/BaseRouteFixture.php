@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\DataFixtures\PHPCR;
 
+use Presta\CMSCoreBundle\Factory\RouteFactory;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
@@ -24,5 +25,13 @@ abstract class BaseRouteFixture extends BaseFixture
     public function getOrder()
     {
         return 40;
+    }
+
+    /**
+     * @return RouteFactory
+     */
+    public function getFactory()
+    {
+        return $this->container->get('presta_cms.route.factory');
     }
 }

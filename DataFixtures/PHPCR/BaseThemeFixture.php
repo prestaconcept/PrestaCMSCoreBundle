@@ -9,34 +9,26 @@
  */
 namespace Presta\CMSCoreBundle\DataFixtures\PHPCR;
 
-use Doctrine\ODM\PHPCR\Document\Generic;
-
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Block;
-use Presta\CMSCoreBundle\Factory\PageFactory;
-use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
+use Presta\CMSCoreBundle\Factory\ThemeFactory;
 
 /**
- * Base fixtures methods to easily create pages
- *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-abstract class BasePageFixture extends BaseFixture
+abstract class BaseThemeFixture extends BaseFixture
 {
     /**
      * {@inheritdoc}
      */
     public function getOrder()
     {
-        return 20;
+        return 60;
     }
 
     /**
-     * @return PageFactory
+     * @return ThemeFactory
      */
     public function getFactory()
     {
-        return $this->container->get('presta_cms.page.factory');
+        return $this->container->get('presta_cms.theme.factory');
     }
 }
