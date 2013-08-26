@@ -30,9 +30,6 @@
         </service>
 
         <service id="presta_cms.manager.theme" class="%presta_cms.manager.theme.class%">
-            <call method="setModelManager">
-                <argument type="service" id="sonata.admin.manager.doctrine_phpcr" />
-            </call>
             <call method="setThemeFactory">
                 <argument type="service" id="presta_cms.theme.factory" />
             </call>

@@ -79,9 +79,9 @@ class Page extends PageModel implements
     protected $urlComplete;
 
     /**
-     * @var boolean $isUrlCompleteMode
+     * @var boolean $urlCompleteMode
      */
-    protected $isUrlCompleteMode;
+    protected $urlCompleteMode;
 
     /**
      * @var string $metaKeywords
@@ -134,7 +134,7 @@ class Page extends PageModel implements
     protected $menuNodes;
 
     /**
-     * @PHPCRODM\Date()
+     * @var Date
      */
     protected $lastCacheModifiedDate;
 
@@ -455,11 +455,11 @@ class Page extends PageModel implements
     }
 
     /**
-     * @param boolean $isUrlCompleteMode
+     * @param boolean $urlCompleteMode
      */
-    public function setIsUrlCompleteMode($isUrlCompleteMode)
+    public function setUrlCompleteMode($isUrlCompleteMode)
     {
-        $this->isUrlCompleteMode = $isUrlCompleteMode;
+        $this->urlCompleteMode = $isUrlCompleteMode;
     }
 
     /**
@@ -467,7 +467,7 @@ class Page extends PageModel implements
      */
     public function isUrlCompleteMode()
     {
-        return (bool) $this->isUrlCompleteMode;
+        return (bool) $this->urlCompleteMode;
     }
 
     /**

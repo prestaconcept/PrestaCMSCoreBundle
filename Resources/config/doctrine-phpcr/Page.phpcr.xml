@@ -21,7 +21,7 @@
 
         <field name="title" type="string" translated="true" nullable="false"/>
 
-        <field name="isUrlCompleteMode" type="boolean" translated="true" nullable="false"/>
+        <field name="urlCompleteMode" type="boolean" translated="true" nullable="false"/>
         <field name="metaKeywords" type="string" translated="true" nullable="false"/>
         <field name="metaDescription" type="string" translated="true" nullable="false"/>
         <field name="type" type="string" nullable="false"/>

@@ -364,11 +364,9 @@ class PageController extends AdminController
     public function addAction(Request $request)
     {
         $website = $this->getWebsiteManager()->getCurrentWebsite();
+        $theme   = $this->getThemeManager()->getTheme($website->getTheme());
         $locale  = $website->getLocale();
         $rootId  = $request->get('rootId', null);
-
-        $pageTemplates = array_keys($this->getThemeManager()->getPageTemplates($website->getTheme()));
-        $pageTemplateChoices = array_combine($pageTemplates, $pageTemplates);
 
         $page = new Page();
         $formBuilder = $this->createFormBuilder($page);
@@ -396,7 +394,7 @@ class PageController extends AdminController
                 'choice',
                 array(
                     'label'    => $this->trans('cms_page.form.page.label.template'),
-                    'choices'  => $pageTemplateChoices,
+                    'choices'  => $theme->getPageTemplates(),
                     'required' => true
                 )
             );

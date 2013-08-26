@@ -123,7 +123,11 @@ class WebsiteAdmin extends BaseAdmin
                 //->add('default', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
                 //->add('active', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
 
-                ->add('theme', 'choice', array('attr' => array('class' => 'sonata-medium locale locale_' . $locale), 'choices' => $this->themeManager->getAvailableThemeCodesForSelect()))
+                ->add(
+                    'theme',
+                    'choice', array('attr' => array('class' => 'sonata-medium locale locale_' . $locale),
+                    'choices' => $this->themeManager->getAvailableThemes())
+                )
                 //->add('defaultLocale', 'choice', array('choices' => $this->availableLocales))
                 //->add('availableLocales', 'choice', array(
                 //    'choices'   => $this->availableLocales,

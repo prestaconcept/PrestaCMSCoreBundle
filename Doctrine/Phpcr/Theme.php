@@ -73,7 +73,7 @@ class Theme extends ContainerBlock implements TranslatableInterface
 
     public function __toString()
     {
-        return $this->getName();
+        return ucfirst($this->getName());
     }
 
     /**
@@ -187,14 +187,40 @@ class Theme extends ContainerBlock implements TranslatableInterface
     /**
      * Add a page template
      *
-     * @param  Template                          $template
-     * @return \Presta\CMSCoreBundle\Model\Theme
+     * @param  Template $template
+     * @return Theme
      */
     public function addPageTemplate(Template $template)
     {
         $this->pageTemplates[$template->getName()] = $template;
 
         return $this;
+    }
+
+    /**
+     * Check if a page template exists
+     *
+     * @param  $name string page template identifier
+     * @return bool
+     */
+    public function hasPageTemplate($name)
+    {
+        return (isset($this->pageTemplates[$name]));
+    }
+
+    /**
+     * Return a page template
+     *
+     * @param  $name    string page template identifier
+     * @return Template
+     */
+    public function getPageTemplate($name)
+    {
+        if (!$this->hasPageTemplate($name)) {
+            return null;
+        }
+
+        return $this->pageTemplates[$name];
     }
 
     /**

@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,17 +16,12 @@ use Symfony\Component\DependencyInjection\Container;
 /**
  * Base page type for CMS
  *
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class PageTypeCMSPage implements PageTypeInterface
 {
     const TAB_CONTENT = 'content';
     const SERVICE_ID  = 'presta_cms.page_type.cms_page';
-
-    /**
-     * @var Container
-     */
-    protected $container;
 
     /**
      * @var WebsiteManager
@@ -38,9 +33,8 @@ class PageTypeCMSPage implements PageTypeInterface
      */
     protected $themeManager;
 
-    public function __construct(Container $container, WebsiteManager $websiteManager, ThemeManager $themeManager)
+    public function __construct(WebsiteManager $websiteManager, ThemeManager $themeManager)
     {
-        $this->container      = $container;
         $this->websiteManager = $websiteManager;
         $this->themeManager   = $themeManager;
     }
@@ -58,7 +52,6 @@ class PageTypeCMSPage implements PageTypeInterface
      */
     public function getDefaultSettings()
     {
-
     }
 
     /**
@@ -79,30 +72,13 @@ class PageTypeCMSPage implements PageTypeInterface
         switch ($tab) {
             case self::TAB_CONTENT:
                 $draft = $page;
-
-                if (count($page->getZones()) == 0) {
-                    // Todo améliorer ça !
-                    // + prendre en compte le changement de template!
-                    $repository = $this->container->get('doctrine_phpcr')->getManager()
-                        ->getRepository('Presta\CMSCoreBundle\Doctrine\Phpcr\Page');
-
-                    //If there is no corresponding data, initialisation with default configuration
-                    $repository->initializeForTemplate($draft, $this->themeManager->getPageTemplateConfiguration($draft->getTemplate()));
-                    $this->container->get('doctrine_phpcr')->getManager()->clear();
-                    $draft = $this->container->get('doctrine_phpcr')->getManager()->findTranslation(
-                        'Presta\CMSCoreBundle\Doctrine\Phpcr\Page',
-                        $page->getId(),
-                        $page->getLocale()
-                    );
-                }
                 $website = $this->websiteManager->getCurrentWebsite();
 
                 return array(
                     'page' 	   => $draft,
                     'locale'   => $page->getLocale(),
                     'website'  => $website,
-                    'websiteId' => ($website) ? $website->getId() : null,
-                    'template' => $this->themeManager->getPageTemplate($draft->getTemplate(), $draft)
+                    'websiteId' => ($website) ? $website->getId() : null
                 );
                 break;
             default:
@@ -126,7 +102,7 @@ class PageTypeCMSPage implements PageTypeInterface
     public function getData($page)
     {
         return array(
-            'template' => $this->themeManager->getPageTemplateFile($page->getTemplate())
+            'template' => $this->themeManager->getCurrentTheme()->getPageTemplate($page->getTemplate())->getPath()
         );
     }
 }

@@ -58,7 +58,7 @@ class PageType extends AbstractType
             //SEO
             ->add('urlRelative', null, array('label' => 'cms_page.form.seo.label.url_relative', 'required' => false))
             ->add('urlComplete', null, array('label' => 'cms_page.form.seo.label.url_complete', 'required' => false))
-            ->add('isUrlCompleteMode', null, array('label' => 'cms_page.form.seo.label.url_complete_mode', 'required' => false))
+            ->add('urlCompleteMode', null, array('label' => 'cms_page.form.seo.label.url_complete_mode', 'required' => false))
             ->add('title', null, array('label' => 'cms_page.form.seo.label.title'))
             ->add('metaKeywords', null, array('label' => 'cms_page.form.seo.label.meta_keywords'))
             ->add('metaDescription', 'textarea', array('label' => 'cms_page.form.seo.label.meta_description'))
