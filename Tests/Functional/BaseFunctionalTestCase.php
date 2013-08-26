@@ -46,7 +46,7 @@ class BaseFunctionalTestCase extends CmfBaseFunctionalTestCase
      */
     protected static function createKernel(array $options = array())
     {
-        return new AppKernel('test', true);
+        return new \AppKernel('test', true);
     }
 
     protected function setUp()
