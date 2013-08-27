@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -71,7 +71,7 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
     {
         $websiteManager = $this->getWebsiteManager();
 
-        $this->assertEquals(4, $websiteManager->getAvailableWebsites()->count());
+        $this->assertEquals(5, $websiteManager->getAvailableWebsites()->count());
     }
 
     public function testLoadWebsiteByHost()

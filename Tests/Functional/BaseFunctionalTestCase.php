@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -80,24 +80,14 @@ class BaseFunctionalTestCase extends CmfBaseFunctionalTestCase
      */
     protected function loadFixtures()
     {
-        $session = self::$kernel->getContainer()->get('doctrine_phpcr.session');
+        $this->db('PHPCR')->loadFixtures(array(
+            '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadWebsite',
+            '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadPage',
+            '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadRoute',
+            '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadMenu',
+            '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadTheme',
+        ));
 
-        $purger = new PHPCRPurger($this->documentManager);
-        $purger->purge();
-
-        $basePath = '/website';
-
-        // Create the path in the repository
-        NodeHelper::createPath($session, $basePath);
-
-        $yaml = new Parser();
-        $datas = $yaml->parse(file_get_contents(FIXTURES_DIR . 'websites.yml'));
-
-        foreach ($datas['websites'] as $configuration) {
-            $website = $this->getWebsiteFactory()->create($configuration);
-        }
-
-        // Commit $document and $block to the database
         $this->documentManager->flush();
     }
 }

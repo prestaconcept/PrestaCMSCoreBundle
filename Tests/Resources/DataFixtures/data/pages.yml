@@ -1,0 +1,108 @@
+pages:
+    home:
+        name: 'home'
+        template: 'default'
+        meta:
+            title:
+                en: "Homepage"
+                fr: "Accueil"
+            keywords:
+                en: "cms symfony 2"
+                fr: "cms symfony 2"
+            description:
+                en: "Presta CMS Sandox by Prestaconcept"
+                fr: "Presta CMS Sandox by Prestaconcept"
+        children:
+            block-simple:
+                name: 'block-simple'
+                template: 'default'
+                zones:
+                    content:
+                        name: content
+                        blocks:
+                            10:
+                                name: main
+                                type: presta_cms.block.simple
+                                is_editable: true
+            block-sitemap:
+                name: 'block-sitemap'
+                template: 'default'
+                zones:
+                    content:
+                        name: content
+                        blocks:
+                            10:
+                                name: sitemap
+                                type: presta_cms.block.sitemap
+                                settings:
+                                    en:
+                                        title: Useful Links
+                                        depth: 1
+                                        root_node: /website/sandbox/page/page-children
+                                    fr:
+                                        title: Liens utiles
+                                        depth: 1
+                                        root_node: /website/sandbox/page/page-children
+            block-container:
+                name: 'block-container'
+                template: 'default'
+                zones:
+                    content:
+                        name: content
+                        blocks:
+                            10:
+                                name: container
+                                type: presta_cms.block.container
+                                is_editable: true
+                                settings:
+                                    en:
+                                        title: 'Container example'
+                                        layout: '2-cols'
+                                    fr:
+                                        title: 'Exemple de conteneur'
+                                        layout: '2-cols'
+                                children:
+                                    10:
+                                        name: col1
+                                        type: presta_cms.block.simple
+                                        is_editable: true
+                                        settings:
+                                            en:
+                                                title: 'Left block'
+                                                content: this is just a simple text block
+                                            fr:
+                                                title: 'Block de gauche'
+                                                content: un example de bloc texte
+                                    20:
+                                        name: col2
+                                        type: presta_cms.block.simple
+                                        is_editable: true
+                                        settings:
+                                            en:
+                                                title: 'Right block'
+                                                content: this is just a simple text block
+                                            fr:
+                                                title: 'Block de droite'
+                                                content: un example de bloc texte
+    page-children:
+        name: 'page-children'
+        template: 'default'
+        zones:
+            content:
+                name: content
+                blocks:
+                    10:
+                        name: main
+                        type: presta_cms.block.simple
+                        is_editable: true
+        children:
+            child-1:
+                name: 'child-1'
+                template: 'default'
+            child-2:
+                name: 'child-2'
+                template: 'default'
+            child-3:
+                name: 'child-3'
+                template: 'default'
+

@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * This file is part of the PrestaCMSCoreBundle
+ *
+ * (c) PrestaConcept <www.prestaconcept.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Presta\CMSCoreBundle\Factory;
 
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
@@ -106,7 +113,7 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
         $page->setType($configuration['type']);
         $page->setTemplate($configuration['template']);
         $page->setLastCacheModifiedDate(new \DateTime());
-        $page->setIsUrlCompleteMode(false);
+        $page->setUrlCompleteMode(false);
         $this->getObjectManager()->persist($page);
 
         $meta = $configuration['meta'];
