@@ -25,8 +25,7 @@
                     $('#tree').unbind('move_node.jstree');
 
                     $('#tree').bind("select_node.jstree", function (event, data) {
-                        if ((data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Document_MenuNode'
-                            || data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Document_MultilangMenuNode')
+                        if ((data.rslt.obj.attr("rel") == 'Presta_CMSCoreBundle_Doctrine_Phpcr_MenuNode')
                             && data.rslt.obj.attr("id") != '{{ menuItemId }}'
                         ) {
                             var routing_defaults = {'locale': '{{ locale }}', '_locale': '{{ _locale }}', 'website': '{{ websiteId}}' };

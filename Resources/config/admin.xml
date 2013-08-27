@@ -10,6 +10,8 @@
         <parameter key="presta_cms.admin.page.class">Presta\CMSCoreBundle\Admin\PageAdmin</parameter>
         <parameter key="presta_cms.admin.block.class">Presta\CMSCoreBundle\Admin\BlockAdmin</parameter>
         <parameter key="presta_cms.admin.block.controller">PrestaCMSCoreBundle:Admin/Block</parameter>
+        <parameter key="cmf_menu.persistence.phpcr.menu_document.class">Presta\CMSCoreBundle\Doctrine\Phpcr\Menu</parameter>
+        <parameter key="cmf_menu.persistence.phpcr.node_document.class">Presta\CMSCoreBundle\Doctrine\Phpcr\MenuNode</parameter>
     </parameters>
 
     <services>
