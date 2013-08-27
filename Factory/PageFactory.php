@@ -120,7 +120,7 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
 
         foreach ($website->getAvailableLocales() as $locale) {
             $page->setLocale($locale);
-            $page->setTitle(isset($meta['title'][$locale]) ? $meta['title'][$locale] : '');
+            $page->setTitle(isset($meta['title'][$locale]) ? $meta['title'][$locale] : $configuration['name']);
             $page->setMetaDescription(isset($meta['description'][$locale]) ? $meta['description'][$locale] : '');
             $page->setMetaKeywords(isset($meta['keywords'][$locale]) ? $meta['keywords'][$locale] : '');
             $this->getObjectManager()->bindTranslation($page, $locale);

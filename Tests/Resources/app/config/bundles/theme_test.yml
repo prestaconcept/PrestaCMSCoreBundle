@@ -1,0 +1,46 @@
+presta_cms_core:
+    themes:
+        test:
+            name: test
+            description: Testing theme
+            navigations: [main]
+            template: :Theme\Test:layout.html.twig
+            screenshot: ''
+            admin_style: ''
+            block_styles:
+                - info
+                - headline
+            zones:
+                top:
+                    rows: 1
+                    cols: 12
+                    name: top
+                navigation:
+                    rows: 1
+                    cols: 12
+                    name: navigation
+                content:
+                    rows: 4
+                    cols: 12
+                    name: content
+                footer_left:
+                    rows: 1
+                    cols: 2
+                    name: footer_left
+                footer_middle:
+                    rows: 1
+                    cols: 4
+                    name: footer_middle
+                footer_right:
+                    rows: 1
+                    cols: 6
+                    name: footer_right
+            page_template:
+                default:
+                    name: default
+                    path: :Theme\Test\Page:default.html.twig
+                    zones:
+                        content:
+                            rows: 1
+                            cols: 12
+                            name: content

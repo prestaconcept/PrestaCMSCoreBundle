@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html {{ sonata_seo_html_attributes() }} xmlns="http://www.w3.org/1999/html">
+    <head>
+        {{ sonata_seo_title() }}
+        {{ sonata_seo_metadatas() }}
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    </head>
+    <body class="creative cyan">
+        <div id="wrapper">
+            <div class="container">
+                <div class="navbar navbar-inverse">
+                    <div class="navbar-inner">
+                        <div id="navigation" class="container">
+                            {{ knp_menu_render('main') }}
+                        </div>
+                    </div>
+                </div>
+                <div id="page">
+                    <div id="breadcrumb">
+                        {% set currentItem = knp_menu_get('main').currentItem %}
+                        {% if currentItem %}
+                            {% for title, url in currentItem.breadcrumbsArray %}
+                                {% if not loop.first and not loop.last %}<a href="{{url}}">{{ title }}</a>{% endif %}
+                                {% if loop.last %}<strong>{{ title }}</strong>{% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% block content %}{% endblock %}
+                </div>
+
+            </div>
+        </div>
+        <div id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="span4">
+                        {% if theme.zones.footer_left is defined %}
+                            {% for block in theme.zones.footer_left.blocks %}
+                                {{ sonata_block_render(block) }}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="span3">
+                        {% if theme.zones.footer_middle is defined %}
+                            {% for block in theme.zones.footer_middle.blocks %}
+                                {{ sonata_block_render(block) }}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

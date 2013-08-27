@@ -12,6 +12,39 @@ pages:
             description:
                 en: "Presta CMS Sandox by Prestaconcept"
                 fr: "Presta CMS Sandox by Prestaconcept"
+        zones:
+            content:
+                name: content
+                blocks:
+                    10:
+                        name: main
+                        type: presta_cms.block.simple
+                        is_editable: true
+                        settings:
+                            en:
+                                title: 'This is a testing application for PrestaCMSCoreBundle'
+                                content: this is just a simple text block
+                            fr:
+                                title: 'Ceci est une application de test pour PrestaCMSCoreBundle'
+                                content: un example de bloc texte
+
+    page-children:
+        name: 'page-children'
+        template: 'default'
+        zones:
+            content:
+                name: content
+                blocks:
+                    10:
+                        type: presta_cms.block.page_children
+                        is_editable: true
+                        settings:
+                            en:
+                                title: 'This is a page children block'
+                                content: this is just a example of a list of children page
+                            fr:
+                                title: 'Exemple de page palier'
+                                content: un example de bloc page palier avec la liste des pages filles
         children:
             block-simple:
                 name: 'block-simple'
@@ -24,6 +57,13 @@ pages:
                                 name: main
                                 type: presta_cms.block.simple
                                 is_editable: true
+                                settings:
+                                    en:
+                                        title: 'This is a testing application for PrestaCMSCoreBundle'
+                                        content: this is just a simple text block
+                                    fr:
+                                        title: 'Ceci est une application de test pour PrestaCMSCoreBundle'
+                                        content: un example de bloc texte
             block-sitemap:
                 name: 'block-sitemap'
                 template: 'default'
@@ -36,11 +76,11 @@ pages:
                                 type: presta_cms.block.sitemap
                                 settings:
                                     en:
-                                        title: Useful Links
+                                        title: This is a sitemap block
                                         depth: 1
                                         root_node: /website/sandbox/page/page-children
                                     fr:
-                                        title: Liens utiles
+                                        title: Ceci est un bloc sitemap
                                         depth: 1
                                         root_node: /website/sandbox/page/page-children
             block-container:
@@ -84,25 +124,3 @@ pages:
                                             fr:
                                                 title: 'Block de droite'
                                                 content: un example de bloc texte
-    page-children:
-        name: 'page-children'
-        template: 'default'
-        zones:
-            content:
-                name: content
-                blocks:
-                    10:
-                        name: main
-                        type: presta_cms.block.simple
-                        is_editable: true
-        children:
-            child-1:
-                name: 'child-1'
-                template: 'default'
-            child-2:
-                name: 'child-2'
-                template: 'default'
-            child-3:
-                name: 'child-3'
-                template: 'default'
-

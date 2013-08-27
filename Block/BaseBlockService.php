@@ -48,7 +48,7 @@ abstract class BaseBlockService extends SonataBaseBlockService
     /**
      * @var array
      */
-    protected $blockStyles;
+    protected $blockStyles = array();
 
     /**
      * @param Translator $translator

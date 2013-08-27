@@ -1,0 +1,13 @@
+{% extends base_template %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            {%  if  page.zones.content is defined %}
+                {% for block in page.zones.content.blocks %}
+                    {{ sonata_block_render(block) }}
+                {% endfor %}
+            {%  endif %}
+        </div>
+    </div>
+{% endblock %}

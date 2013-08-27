@@ -29,8 +29,8 @@ zones:
                     en:
                         title: Useful Links
                         depth: 1
-                        root_node: /website/sandbox/page/demo
+                        root_node: /website/sandbox/page/page-children
                     fr:
                         title: Liens utiles
                         depth: 1
-                        root_node: /website/sandbox/page/demo
+                        root_node: /website/sandbox/page/page-children
