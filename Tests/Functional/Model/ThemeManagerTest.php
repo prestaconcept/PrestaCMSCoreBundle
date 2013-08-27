@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Tests\Functional\Model;
 
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Theme;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\Website;
 use Presta\CMSCoreBundle\Tests\Functional\BaseFunctionalTestCase;
@@ -88,8 +89,12 @@ class ThemeManagerTest extends BaseFunctionalTestCase
         $themeManager = $this->getThemeManager();
 
         $this->assertEquals(
-            array('default' => 'Default', 'prestaconcept' => 'Prestaconcept', 'liip' => 'Liip'),
-            $themeManager->getAvailableThemes()
+            array('test', 'default', 'prestaconcept', 'liip'),
+            array_keys($themeManager->getAvailableThemes())
         );
+
+        foreach ($themeManager->getAvailableThemes() as $theme) {
+            $this->assertTrue($theme instanceof Theme);
+        }
     }
 }
