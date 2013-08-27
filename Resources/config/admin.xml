@@ -42,7 +42,7 @@
         <service id="presta_cms.admin.block" class="%presta_cms.admin.block.class%">
             <tag name="sonata.admin" manager_type="doctrine_phpcr" group="presta_cms" label_catalogue="PrestaCMSCoreBundle" label="dashboard.label_block"/>
             <argument/>
-            <argument>%presta_cms.model.page.class%</argument>
+            <argument>%presta_cms.model.block.class%</argument>
             <argument>%presta_cms.admin.block.controller%</argument>
 
             <call method="setBlockManager">
