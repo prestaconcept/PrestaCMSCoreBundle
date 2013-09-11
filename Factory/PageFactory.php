@@ -109,7 +109,7 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
         $page = new $this->modelClassName();
         $page->setName($configuration['name']);
         $page->setParent($configuration['parent']);
-        $page->setIsActive(true);
+        $page->setEnabled(true);
         $page->setType($configuration['type']);
         $page->setTemplate($configuration['template']);
         $page->setLastCacheModifiedDate(new \DateTime());

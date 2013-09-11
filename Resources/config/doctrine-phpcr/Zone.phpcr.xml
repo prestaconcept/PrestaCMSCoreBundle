@@ -7,7 +7,6 @@
 
     <document
             name="Presta\CMSCoreBundle\Doctrine\Phpcr\Zone"
-            referenceable="true"
             >
 
     </document>

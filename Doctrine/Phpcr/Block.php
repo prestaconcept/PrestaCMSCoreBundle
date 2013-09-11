@@ -1,85 +1,38 @@
 <?php
-/*
- * This file is part of the Presta Bundle project.
+/**
+ * This file is part of the PrestaCMSCoreBundle
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 namespace Presta\CMSCoreBundle\Doctrine\Phpcr;
 
-use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock;
+use Presta\CMSCoreBundle\Model\Block as BlockModel;
 use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
+use Symfony\Component\Validator\ExecutionContext;
 
 /**
  * BaseBlock Model
  *
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  * */
-class Block extends AbstractBlock implements TranslatableInterface
+class Block extends BlockModel implements TranslatableInterface
 {
-    /**
-     * @var boolean
-     */
-    protected $isEditable = true;
 
     /**
-     * @var boolean
-     */
-    protected $isDeletable = true;
-
-    /**
-     * @var boolean $isActive
-     */
-    protected $isActive = true;
-
-    protected $enabled = true;
-
-    /**
-     * @var bool
-     */
-    protected $isAdminMode = false;
-
-    /**
-     * @var string
-     */
-    protected $type;
-
-    /**
-     * @var string
-     */
-    protected $settings;
-
-    /**
-     * @var string
-     */
-    protected $locale;
-
-    /**
-     * Returns the type
+     * Validate settings
      *
-     * @return string $type
+     * @param \Symfony\Component\Validator\ExecutionContext $context
      */
-    public function getType()
+    public function isSettingsValid(ExecutionContext $context)
     {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return string
-     */
-    public function getHtmlId()
-    {
-        return str_replace(array('.', '_', '/'), '', $this->getId());
+        foreach ($this->getSettings() as $value) {
+            if (is_array($value)) {
+                $context->addViolationAt('settings', 'A multidimensional array is not allowed, only use key-value pairs.');
+            }
+        }
     }
 
     /**
@@ -104,64 +57,6 @@ class Block extends AbstractBlock implements TranslatableInterface
     }
 
     /**
-     * @return string
-     */
-    public function getLocale()
-    {
-        return $this->locale;
-    }
-
-    /**
-     * @param string $locale
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isEditable()
-    {
-        return $this->isEditable;
-    }
-
-    /**
-     * Set if block is editable
-     *
-     * @param  boolean                                      $isEditable
-     * @return \Presta\CMSCoreBundle\Block\BaseBlockService
-     */
-    public function setIsEditable($isEditable)
-    {
-        $this->isEditable = $isEditable;
-
-        return $this;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isDeletable()
-    {
-        return $this->isDeletable;
-    }
-
-    /**
-     * Set if block is delitable
-     *
-     * @param  boolean                                      $isDeletable
-     * @return \Presta\CMSCoreBundle\Block\BaseBlockService
-     */
-    public function setIsDeletable($isDeletable)
-    {
-        $this->isDeletable = $isDeletable;
-
-        return $this;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getSettings()
@@ -172,44 +67,5 @@ class Block extends AbstractBlock implements TranslatableInterface
         }
 
         return $this->settings;
-    }
-
-    /**
-     * Set is_active
-     *
-     * @param  boolean        $isActive
-     * @return BaseThemeBlock
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-
-        return $this;
-    }
-
-    /**
-     * Get is_active
-     *
-     * @return boolean
-     */
-    public function isActive()
-    {
-        return $this->isActive;
-    }
-
-    /**
-     * Set admin mode
-     */
-    public function setAdminMode()
-    {
-        $this->isAdminMode = true;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isAdminMode()
-    {
-        return $this->isAdminMode;
     }
 }

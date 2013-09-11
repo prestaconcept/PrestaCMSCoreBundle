@@ -7,32 +7,7 @@
 
     <document
         name="Presta\CMSCoreBundle\Doctrine\Phpcr\Page"
-        translator="child"
-        referenceable="true"
         >
-        <id name="id">
-            <generator strategy="PARENT"/>
-        </id>
-        <nodename name="name"/>
-        <parent-document name="parent"/>
-
-        <locale name="locale"/>
-
-        <field name="title" type="string" translated="true" nullable="false"/>
-
-        <field name="urlCompleteMode" type="boolean" translated="true" nullable="false"/>
-        <field name="metaKeywords" type="string" translated="true" nullable="false"/>
-        <field name="metaDescription" type="string" translated="true" nullable="false"/>
-        <field name="type" type="string" nullable="false"/>
-        <field name="status" type="string" translated="true" nullable="false"/>
-        <field name="isActive" type="boolean" translated="true" nullable="false"/>
-        <field name="template" type="string" nullable="false"/>
-
-        <children name="children"/>
-
-        <referrers name="routes" referring-document="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route" referenced-by="content" cascade="persist"/>
-        <referrers name="menuNodes" referring-document="Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode" referenced-by="content" cascade="persist"/>
-
     </document>
 
 </doctrine-mapping>

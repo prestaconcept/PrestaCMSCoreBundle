@@ -7,19 +7,9 @@
 
     <document
             name="Presta\CMSCoreBundle\Doctrine\Phpcr\Block"
-            translator="attribute"
-            referenceable="true"
+
             >
 
-        <locale name="locale"/>
-
-        <field name="type" type="string" nullable="false"/>
-        <field name="isEditable" type="boolean" translated="true" nullable="false"/>
-        <field name="isDeletable" type="boolean" translated="true" nullable="false"/>
-        <field name="isActive" type="boolean" translated="true" nullable="false"/>
-        <field name="settings" type="string" assoc="" translated="true" nullable="false"/>
-
-        <field name="enabled" type="boolean" translated="true" nullable="false"/>
 
     </document>
 

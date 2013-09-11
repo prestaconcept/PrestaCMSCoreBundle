@@ -6,16 +6,16 @@
     >
 
     <mapped-superclass
-        name="Presta\CMSCoreBundle\Model\Zone"
+        name="Presta\CMSCoreBundle\Model\Block"
+        translator="attribute"
         referenceable="true"
         >
-        <id name="id">
-            <generator strategy="PARENT"/>
-        </id>
-        <nodename name="name"/>
-        <parent-document name="parent"/>
+        <locale name="locale"/>
 
-        <children name="children"/>
+        <field name="type" type="string" nullable="false"/>
+        <field name="editable" type="boolean" translated="true" nullable="false"/>
+        <field name="deletable" type="boolean" translated="true" nullable="false"/>
+        <field name="settings" type="string" assoc="" translated="true" nullable="false"/>
 
     </mapped-superclass>
 

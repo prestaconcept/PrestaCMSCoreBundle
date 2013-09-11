@@ -9,7 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
+use Presta\CMSCoreBundle\Model\Zone;
 
 /**
  * Template Model
@@ -71,16 +71,11 @@ class Template
     }
 
     /**
-     * Set zones
-     *
      * @param  array $zones
-     * @return Zone
      */
     public function setZones(array $zones)
     {
         $this->zones = $zones;
-
-        return $this;
     }
 
     /**

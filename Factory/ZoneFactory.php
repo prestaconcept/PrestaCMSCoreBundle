@@ -18,7 +18,7 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
         $website = $configuration['website'];
 
         $zone = new Zone();
-        $zone->setParentDocument($configuration['parent']);
+        $zone->setParent($configuration['parent']);
         $zone->setName($configuration['name']);
         $this->getObjectManager()->persist($zone);
 
@@ -49,17 +49,17 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
             'position'    => $position
         );
         $block = new Block();
-        $block->setParent($parent);
+        $block->setParentDocument($parent);
         $block->setType($blockConfiguration['type']);
         if (isset($blockConfiguration['name']) && strlen($blockConfiguration['name'])) {
             $block->setName($blockConfiguration['name']);
         } else {
             $block->setName($blockConfiguration['type'] . '-' . $blockConfiguration['position']);
         }
-        $block->setIsEditable($blockConfiguration['is_editable']);
-        $block->setIsDeletable($blockConfiguration['is_deletable']);
+        $block->setEditable($blockConfiguration['is_editable']);
+        $block->setDeletable($blockConfiguration['is_deletable']);
         $block->setPosition($blockConfiguration['position']);
-        $block->setIsActive(true);
+        $block->setEnabled(true);
         $this->getObjectManager()->persist($block);
 
         foreach ($website->getAvailableLocales() as $locale) {
