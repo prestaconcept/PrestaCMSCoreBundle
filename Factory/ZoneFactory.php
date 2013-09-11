@@ -4,6 +4,7 @@ namespace Presta\CMSCoreBundle\Factory;
 
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Block;
+use Presta\CMSCoreBundle\Model\Website;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
@@ -40,7 +41,7 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
      * @param  Website $website
      * @return Block
      */
-    protected function createBlock($blockConfiguration, $parent, $position, $website)
+    protected function createBlock($blockConfiguration, $parent, $position, Website $website)
     {
         $blockConfiguration += array(
             'settings' => array(),

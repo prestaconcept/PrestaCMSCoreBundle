@@ -122,7 +122,6 @@ class Page
     {
         $this->enabled = true;
         $this->children = new ArrayCollection();
-
         $this->routes = new ArrayCollection();
         $this->menus = new ArrayCollection();
     }
@@ -257,11 +256,11 @@ class Page
     /**
      * Add a zone and initialize its id
      *
-     * @return object
+     * @param Zone $zone
      */
-    public function addZone($zone)
+    public function addZone(Zone $zone)
     {
-        return $this->children->set($zone->getName(), $zone);
+        $this->children->set($zone->getName(), $zone);
     }
 
     /**

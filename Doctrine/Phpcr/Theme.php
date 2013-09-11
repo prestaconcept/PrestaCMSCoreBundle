@@ -79,9 +79,9 @@ class Theme extends ContainerBlock implements TranslatableInterface
     /**
      * Add a zone and initialize its id
      *
-     * @return object
+     * @param Zone $zone
      */
-    public function addZone($zone)
+    public function addZone(Zone $zone)
     {
         return $this->children->set($zone->getName(), $zone);
     }

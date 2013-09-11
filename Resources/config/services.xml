@@ -28,24 +28,6 @@
             <tag name="presta_cms.page_type" />
         </service>
 
-        <!--<service id="presta_cms_tree_browser.page_tree" class="Presta\CMSCoreBundle\Tree\PageTree" parent="cmf_tree_browser.phpcr_tree">-->
-            <!--<argument type="service" id="doctrine_phpcr" />-->
-            <!--<argument />-->
-            <!--<tag name="cmf.tree" alias="presta_cms_page_tree" />-->
-        <!--</service>-->
-
-        <!--<service id="presta_cms.sonata.admin.doctrine_phpcr.form.type.tree_model" class="Presta\CMSCoreBundle\Form\Type\PageTreeModelType">-->
-            <!--<argument type="service" id="doctrine_phpcr" />-->
-            <!--<argument />-->
-            <!--<tag name="form.type" alias="presta_cms_doctrine_phpcr_odm_page_tree" />-->
-            <!--<call method="setDefaults">-->
-                <!--<argument>%sonata_admin_doctrine_phpcr.tree_block.defaults%</argument>-->
-            <!--</call>-->
-            <!--<call method="setTree">-->
-                <!--<argument type="service" id="presta_cms_tree_browser.page_tree" />-->
-            <!--</call>-->
-        <!--</service>-->
-
         <service id="presta_cms.website.factory" class="%presta_cms.website.factory.class%">
             <argument type="service" id="doctrine_phpcr"/>
             <call method="setManagerName">
