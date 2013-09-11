@@ -13,8 +13,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\MinkExtension\Context\MinkContext;
 
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Website;
-
 //
 // Require 3rd-party libraries here:
 //
