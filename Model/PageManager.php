@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle.
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -23,8 +23,6 @@ use Symfony\Component\DependencyInjection\Container;
 use Presta\CMSCoreBundle\Document\Page\Repository;
 
 /**
- * Page Manager
- *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class PageManager
@@ -33,11 +31,6 @@ class PageManager
      * @var Container
      */
     protected $container;
-
-    /**
-     * @var Repository
-     */
-    protected $repository;
 
     /**
      * @var Page
@@ -53,7 +46,6 @@ class PageManager
     {
         $this->container  = $container;
         $this->websites   = null;
-        $this->repository = null;
         $this->pageTypes  = new ArrayCollection();
     }
 
@@ -63,20 +55,6 @@ class PageManager
     public function getDocumentManager()
     {
         return $this->container->get('doctrine_phpcr')->getManager();
-    }
-
-    /**
-     * Return Page repository
-     *
-     * @return DocumentRepository
-     */
-    protected function getRepository()
-    {
-        if ($this->repository == null) {
-            $this->repository = $this->getDocumentManager()->getRepository('Presta\CMSCoreBundle\Document\Page');
-        }
-
-        return $this->repository;
     }
 
     /**
@@ -91,17 +69,6 @@ class PageManager
         $menuNode = $this->getDocumentManager()->findTranslation(null, $menuNodeId, $locale);
         $page     = $menuNode->getContent();
 
-        //Page is already in the menu locale
-        //$this->getDocumentManager()->bindTranslation($page, $locale);
-
-        //Translation is not propagated to the children
-        //Should be corrected by https://github.com/doctrine/phpcr-odm/pull/237
-        //but not working now : 14/03/2013
-        foreach ($page->getZones() as $zone) {
-            foreach ($zone->getBlocks() as $block) {
-                $this->getDocumentManager()->bindTranslation($block, $locale);
-            }
-        }
         $this->setCurrentPage($page);
 
         return $page;
