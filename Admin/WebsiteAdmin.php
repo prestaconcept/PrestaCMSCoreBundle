@@ -42,7 +42,7 @@ class WebsiteAdmin extends BaseAdmin
     }
 
     /**
-     * @param  ThemeManager $themeManager
+     * @param ThemeManager $themeManager
      */
     public function setThemeManager(ThemeManager $themeManager)
     {
@@ -131,9 +131,9 @@ class WebsiteAdmin extends BaseAdmin
     /**
      * Allow to select locale to edit in side menu
      *
-     * @param  MenuItemInterface    $menu
-     * @param  string               $action
-     * @param  AdminInterface       $childAdmin
+     * @param MenuItemInterface $menu
+     * @param string            $action
+     * @param AdminInterface    $childAdmin
      */
     protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {

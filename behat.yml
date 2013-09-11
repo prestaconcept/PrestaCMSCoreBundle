@@ -11,4 +11,3 @@ default:
             zombie: ~
             javascript_session: zombie
             show_cmd: 'firefox %s'
-            

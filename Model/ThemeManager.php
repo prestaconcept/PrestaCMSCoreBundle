@@ -10,7 +10,6 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Presta\CMSCoreBundle\Factory\ModelFactoryInterface;
-use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Presta\CMSCoreBundle\Model\Theme;
 
 /**

@@ -10,8 +10,10 @@
 namespace Presta\CMSCoreBundle\Controller;
 
 use Presta\CMSCoreBundle\Model\Page;
+use Presta\CMSCoreBundle\Model\PageManager;
+use Presta\CMSCoreBundle\Model\ThemeManager;
+use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -21,7 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 class PageController extends Controller
 {
     /**
-     * @return Presta\CMSCoreBundle\Model\WebsiteManager
+     * @return WebsiteManager
      */
     protected function getWebsiteManager()
     {
@@ -29,7 +31,7 @@ class PageController extends Controller
     }
 
     /**
-     * @return Presta\CMSCoreBundle\Model\ThemeManager
+     * @return ThemeManager
      */
     protected function getThemeManager()
     {
@@ -37,7 +39,7 @@ class PageController extends Controller
     }
 
     /**
-     * @return Presta\CMSCoreBundle\Model\PageManager
+     * @return PageManager
      */
     protected function getPageManager()
     {
@@ -48,7 +50,7 @@ class PageController extends Controller
      * Render a CMS page
      * Action that is mapped in the controller_by_class map
      *
-     * @param  Page $contentDocument
+     * @param  Page                  $contentDocument
      * @throws NotFoundHttpException
      */
     public function renderAction(Page $contentDocument)

@@ -50,9 +50,9 @@ abstract class BaseController extends sfController
     }
 
     /**
-     * @param string    $view
-     * @param array     $parameters
-     * @param Response  $response
+     * @param string   $view
+     * @param array    $parameters
+     * @param Response $response
      *
      * @return Response
      */

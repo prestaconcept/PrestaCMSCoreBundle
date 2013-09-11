@@ -10,17 +10,12 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ODM\PHPCR\DocumentRepository;
 use Presta\CMSCoreBundle\Event\PageCreationEvent;
 use Presta\CMSCoreBundle\Event\PageDeletionEvent;
 use Presta\CMSCoreBundle\Exception\Page\PageTypeNotFoundException;
 use Presta\CMSCoreBundle\Event\PageUpdateEvent;
-//use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
-use Doctrine\ODM\PHPCR\DocumentManager;
 use Presta\CMSCoreBundle\Model\Page\PageTypeInterface;
-use Symfony\Cmf\Bundle\MenuBundle\Model\MenuNode;
 use Symfony\Component\DependencyInjection\Container;
-use Presta\CMSCoreBundle\Document\Page\Repository;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>

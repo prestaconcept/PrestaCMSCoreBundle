@@ -71,7 +71,7 @@ class Template
     }
 
     /**
-     * @param  array $zones
+     * @param array $zones
      */
     public function setZones(array $zones)
     {

@@ -11,11 +11,6 @@ namespace Presta\CMSCoreBundle\Tests\Functional;
 
 use Presta\CMSCoreBundle\Factory\ModelFactoryInterface;
 use Symfony\Cmf\Component\Testing\Functional\BaseTestCase as CmfBaseFunctionalTestCase;
-use PHPCR\Util\NodeHelper;
-use Doctrine\Common\DataFixtures\Purger\PHPCRPurger;
-use Symfony\Component\Yaml\Parser;
-use Presta\CMSCoreBundle\Tests\Resources\app\AppKernel;
-
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Website;
 
 require __DIR__ . '/../Resources/app/AppKernel.php';

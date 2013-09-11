@@ -12,7 +12,6 @@ namespace Presta\CMSCoreBundle\Model\Page;
 use Presta\CMSCoreBundle\Model\Page;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
-use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Base page type for CMS

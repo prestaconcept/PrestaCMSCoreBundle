@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle
  *
- * @author David Epely <depely@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -23,7 +23,7 @@ use Presta\CMSCoreBundle\Doctrine\Phpcr\Website;
 //
 
 /**
- * Feature context.
+ * @author David Epely <depely@prestaconcept.net>
  */
 class FeatureContext extends MinkContext implements KernelAwareInterface
 {

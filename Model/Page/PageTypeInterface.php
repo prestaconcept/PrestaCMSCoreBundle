@@ -57,7 +57,7 @@ interface PageTypeInterface
     /**
      * Return type specific data for page rendering
      *
-     * @param  Page $page
+     * @param  Page  $page
      * @return array
      */
     public function getData(Page $page);
