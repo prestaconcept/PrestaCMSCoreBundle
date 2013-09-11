@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as sfController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -22,15 +23,14 @@ abstract class BaseController extends sfController
     /**
      * The related Admin class
      *
-     * @var \Sonata\AdminBundle\Admin\AdminInterface
+     * @var AdminInterface
      */
     protected $admin;
 
     /**
-     *
      * @return boolean true if the request is done by an ajax like query
      */
-    public function isXmlHttpRequest()
+    protected function isXmlHttpRequest()
     {
         return $this->get('request')->isXmlHttpRequest() || $this->get('request')->get('_xml_http_request');
     }
@@ -40,7 +40,7 @@ abstract class BaseController extends sfController
      *
      * @return string the template name
      */
-    public function getBaseTemplate()
+    protected function getBaseTemplate()
     {
         if ($this->isXmlHttpRequest()) {
             return $this->admin->getTemplate('ajax');
@@ -50,9 +50,9 @@ abstract class BaseController extends sfController
     }
 
     /**
-     * @param string                                          $view
-     * @param array                                           $parameters
-     * @param null|\Symfony\Component\HttpFoundation\Response $response
+     * @param string    $view
+     * @param array     $parameters
+     * @param Response  $response
      *
      * @return Response
      */
@@ -73,7 +73,7 @@ abstract class BaseController extends sfController
      *
      * @return Response with json encoded data
      */
-    public function renderJson($data, $status = 200, $headers = array())
+    protected function renderJson($data, $status = 200, $headers = array())
     {
         // fake content-type so browser does not show the download popup when this
         // response is rendered through an iframe (used by the jquery.form.js plugin)
@@ -94,7 +94,7 @@ abstract class BaseController extends sfController
      * @param  $message
      * @return string
      */
-    public function trans($message, array $parameters = array(), $domain = 'PrestaCMSCoreBundle', $locale = null)
+    protected function trans($message, array $parameters = array(), $domain = 'PrestaCMSCoreBundle', $locale = null)
     {
         /** @var Translator $translator */
         $translator = $this->get('translator');
