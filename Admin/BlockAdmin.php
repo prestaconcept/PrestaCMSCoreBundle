@@ -1,22 +1,18 @@
 <?php
-/*
- * This file is part of the Presta Bundle project.
+/**
+ * This file is part of the PrestaCMSCoreBundle
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Presta\CMSCoreBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Block\BlockServiceManagerInterface;
-
 use Presta\CMSCoreBundle\Admin\BaseAdmin;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Theme;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
@@ -24,6 +20,8 @@ use Presta\CMSCoreBundle\Model\ThemeManager;
 
 /**
  * Admin definition for the Block class
+ *
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class BlockAdmin extends BaseAdmin
 {

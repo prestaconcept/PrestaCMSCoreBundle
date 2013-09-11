@@ -1,23 +1,21 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle
  *
- * (c) Nicolas Bastien nbastien@prestaconcept.net
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 namespace Presta\CMSCoreBundle\Event;
 
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
+use Presta\CMSCoreBundle\Model\Page;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Event configuration for page operation, based class for all page events
  *
- * @package    Presta
- * @subpackage CMSCoreBundle
- * @author     Nicolas Bastien nbastien@prestaconcept.net
+ * @author Nicolas Bastien nbastien@prestaconcept.net
  */
 class PageOperationEvent extends Event
 {
@@ -37,7 +35,7 @@ class PageOperationEvent extends Event
     }
 
     /**
-     * @return \Presta\CMSCoreBundle\Doctrine\Phpcr\Page
+     * @return Page
      */
     public function getPage()
     {

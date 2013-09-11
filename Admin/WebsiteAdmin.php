@@ -10,15 +10,12 @@
 namespace Presta\CMSCoreBundle\Admin;
 
 use Knp\Menu\ItemInterface as MenuItemInterface;
-use Knp\Menu\MenuItem;
-
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Presta\CMSCoreBundle\Model\ThemeManager;
-
 use Presta\CMSCoreBundle\Admin\BaseAdmin;
 
 /**
@@ -32,13 +29,11 @@ class WebsiteAdmin extends BaseAdmin
     protected $availableLocales;
 
     /**
-     * @var Presta\CMSCoreBundle\Model\ThemeManager
+     * @var ThemeManager
      */
     protected $themeManager;
 
     /**
-     * Set available locales : called via DI
-     *
      * @param array $availableLocales
      */
     public function setAvailableLocales($availableLocales)
@@ -47,10 +42,7 @@ class WebsiteAdmin extends BaseAdmin
     }
 
     /**
-     * Setter for themeManager
-     *
      * @param  ThemeManager $themeManager
-     * @return void
      */
     public function setThemeManager(ThemeManager $themeManager)
     {
@@ -112,8 +104,7 @@ class WebsiteAdmin extends BaseAdmin
     /**
      * Configure form per locale
      *
-     * @param  Sonata\AdminBundle\Form\FormMapper $formMapper
-     * @return void
+     * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -140,10 +131,9 @@ class WebsiteAdmin extends BaseAdmin
     /**
      * Allow to select locale to edit in side menu
      *
-     * @param  MenuItemInterface              $menu
-     * @param                                 $action
-     * @param  Sonata\AdminBundle\Admin\Admin $childAdmin
-     * @return void
+     * @param  MenuItemInterface    $menu
+     * @param  string               $action
+     * @param  AdminInterface       $childAdmin
      */
     protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {

@@ -1,8 +1,8 @@
 <?php
-/*
- * This file is part of the Presta Bundle project.
+/**
+ * This file is part of the PrestaCMSCoreBundle
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,8 +14,10 @@ use Presta\CMSCoreBundle\Admin\BaseAdmin;
 /**
  * Admin definition for the Page class
  *
- * Only used to build the page broser tree form element
-*/
+ * Only used to build the page browser tree form element
+ *
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ */
 class PageAdmin extends BaseAdmin
 {
 }
