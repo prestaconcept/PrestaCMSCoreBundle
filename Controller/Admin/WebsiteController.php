@@ -12,13 +12,9 @@ namespace Presta\CMSCoreBundle\Controller\Admin;
 use Sonata\AdminBundle\Controller\CRUDController;
 
 /**
- * Website administration controller
+ * Website administration controller, handle with Sonata
  *
- * Website administration is handle with Sonata
- *
- * @package    PrestaCMS
- * @subpackage CoreBundle
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class WebsiteController extends CRUDController
 {

@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle.
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,25 +13,23 @@ use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 
 /**
  * Theme administration controller
+ *
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class ThemeController extends AdminController
 {
     /**
-     * Return Website manager
-     *
      * @return Presta\CMSCoreBundle\Model\WebsiteManager
      */
-    public function getWebsiteManager()
+    protected function getWebsiteManager()
     {
         return $this->get('presta_cms.manager.website');
     }
 
     /**
-     * Return Theme manager
-     *
      * @return Presta\CMSCoreBundle\Model\ThemeManager
      */
-    public function getThemeManager()
+    protected function getThemeManager()
     {
         return $this->get('presta_cms.manager.theme');
     }

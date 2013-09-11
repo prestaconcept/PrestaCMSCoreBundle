@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle.
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,11 +14,7 @@ use Presta\CMSCoreBundle\Doctrine\Phpcr\Block;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
 
 /**
- * Theme administration controller
- *
- * @package    PrestaCMS
- * @subpackage CoreBundle
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class BlockController extends CRUDController
 {

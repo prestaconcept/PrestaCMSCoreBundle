@@ -9,44 +9,37 @@
  */
 namespace Presta\CMSCoreBundle\Controller;
 
+use Presta\CMSCoreBundle\Model\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Page controller
- *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  * @author Alain Flaus <aflaus@prestaconcept.net>
  */
 class PageController extends Controller
 {
     /**
-     * Return Website manager
-     *
      * @return Presta\CMSCoreBundle\Model\WebsiteManager
      */
-    public function getWebsiteManager()
+    protected function getWebsiteManager()
     {
         return $this->get('presta_cms.manager.website');
     }
 
     /**
-     * Return Theme manager
-     *
      * @return Presta\CMSCoreBundle\Model\ThemeManager
      */
-    public function getThemeManager()
+    protected function getThemeManager()
     {
         return $this->get('presta_cms.manager.theme');
     }
 
     /**
-     * Return Page manager
-     *
      * @return Presta\CMSCoreBundle\Model\PageManager
      */
-    public function getPageManager()
+    protected function getPageManager()
     {
         return $this->get('presta_cms.manager.page');
     }
@@ -55,10 +48,10 @@ class PageController extends Controller
      * Render a CMS page
      * Action that is mapped in the controller_by_class map
      *
-     * @param $page
+     * @param  Page $contentDocument
      * @throws NotFoundHttpException
      */
-    public function renderAction($contentDocument)
+    public function renderAction(Page $contentDocument)
     {
         if (!$contentDocument) {
             throw new NotFoundHttpException('Content not found');

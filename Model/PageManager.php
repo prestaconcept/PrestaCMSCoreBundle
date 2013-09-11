@@ -181,9 +181,9 @@ class PageManager
     /**
      * Return token : use it to validate risky action
      *
-     * @param $page
+     * @param Page $page
      */
-    public function getToken($page)
+    public function getToken(Page $page)
     {
         return md5($page->getId() . $page->getType() . $this->container->getParameter('secret'));
     }

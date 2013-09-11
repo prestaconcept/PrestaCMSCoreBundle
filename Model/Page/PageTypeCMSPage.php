@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Model\Page;
 
+use Presta\CMSCoreBundle\Model\Page;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Symfony\Component\DependencyInjection\Container;
@@ -67,7 +68,7 @@ class PageTypeCMSPage implements PageTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getEditTabData($tab, $page)
+    public function getEditTabData($tab, Page $page)
     {
         switch ($tab) {
             case self::TAB_CONTENT:
@@ -99,7 +100,7 @@ class PageTypeCMSPage implements PageTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getData($page)
+    public function getData(Page $page)
     {
         return array(
             'template' => $this->themeManager->getCurrentTheme()->getPageTemplate($page->getTemplate())->getPath()

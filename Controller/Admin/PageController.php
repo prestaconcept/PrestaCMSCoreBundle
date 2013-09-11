@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle.
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,7 +12,6 @@ namespace Presta\CMSCoreBundle\Controller\Admin;
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 use Presta\CMSCoreBundle\Form\PageType;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
-
 use Presta\CMSCoreBundle\Model\MenuManager;
 use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
 use Presta\CMSCoreBundle\Model\PageManager;
@@ -25,58 +24,46 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Page administration controller
  *
- * @package    PrestaCMS
- * @subpackage CoreBundle
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class PageController extends AdminController
 {
     /**
-     * Return Website manager
-     *
      * @return Presta\CMSCoreBundle\Model\WebsiteManager
      */
-    public function getWebsiteManager()
+    protected function getWebsiteManager()
     {
         return $this->get('presta_cms.manager.website');
     }
 
     /**
-     * Return Theme manager
-     *
      * @return ThemeManager
      */
-    public function getThemeManager()
+    protected function getThemeManager()
     {
         return $this->get('presta_cms.manager.theme');
     }
 
     /**
-     * Return Page manager
-     *
      * @return PageManager
      */
-    public function getPageManager()
+    protected function getPageManager()
     {
         return $this->get('presta_cms.manager.page');
     }
 
     /**
-     * Return Route manager
-     *
      * @return RouteManager
      */
-    public function getRouteManager()
+    protected function getRouteManager()
     {
         return $this->get('presta_cms.manager.route');
     }
 
     /**
-     * Return Menu manager
-     *
      * @return MenuManager
      */
-    public function getMenuManager()
+    protected function getMenuManager()
     {
         return $this->get('presta_cms.manager.menu');
     }
@@ -183,7 +170,7 @@ class PageController extends AdminController
      * @param  Page     $page
      * @return Response
      */
-    public function renderEditTabAction($tab, $page)
+    public function renderEditTabAction($tab, Page $page)
     {
         $pageType   = $this->getPageManager()->getPageType($page->getType());
         $viewParams = $pageType->getEditTabData($tab, $page);
@@ -294,7 +281,7 @@ class PageController extends AdminController
      * @param  boolean $absolute
      * @return string
      */
-    public function getFrontUrlForPage(Page $page, $locale = null, $absolute = false)
+    protected function getFrontUrlForPage(Page $page, $locale = null, $absolute = false)
     {
         if (is_null($locale)) {
             $locale = $this->getWebsiteManager()->getCurrentWebsite()->getLocale();
@@ -321,7 +308,7 @@ class PageController extends AdminController
      * @param  string $locale
      * @return string
      */
-    public function getFrontUrlPreviewForPage(Page $page, $locale)
+    protected function getFrontUrlPreviewForPage(Page $page, $locale)
     {
         $url = $this->getFrontUrlForPage($page, $locale, true);
 

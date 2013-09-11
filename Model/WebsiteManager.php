@@ -12,6 +12,7 @@ namespace Presta\CMSCoreBundle\Model;
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Presta\CMSCoreBundle\Model\Website;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider;
+use Symfony\Component\HttpKernel\EventListener\RouterListener;
 
 /**
  * Website Manager
@@ -23,22 +24,22 @@ class WebsiteManager
     const WEBSITE_CLASS = 'Presta\CMSCoreBundle\Doctrine\Phpcr\Website';
 
     /**
-     * @var \Sonata\AdminBundle\Model\ModelManagerInterface
+     * @var ModelManagerInterface
      */
     protected $modelManager;
 
     /**
-     * @var \Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider
+     * @var RouteProvider
      */
     protected $routeProvider;
 
     /**
-     * @var \Symfony\Cmf\Bundle\RoutingBundle\Listener\IdPrefix
+     * @var RouterListener
      */
     protected $routeListener;
 
     /**
-     * @var \Knp\Menu\Provider\MenuProviderInterface
+     * @var MenuProviderInterface
      */
     protected $menuProvider;
 
@@ -81,7 +82,7 @@ class WebsiteManager
     }
 
     /**
-     * @param \Sonata\AdminBundle\Model\ModelManagerInterface $modelManager
+     * @param ModelManagerInterface $modelManager
      */
     public function setModelManager(ModelManagerInterface $modelManager)
     {
@@ -89,7 +90,7 @@ class WebsiteManager
     }
 
     /**
-     * @return \Sonata\AdminBundle\Model\ModelManagerInterface
+     * @return ModelManagerInterface
      */
     public function getModelManager()
     {
@@ -97,7 +98,7 @@ class WebsiteManager
     }
 
     /**
-     * @param \Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider $routeProvider
+     * @param RouteProvider $routeProvider
      */
     public function setRouteProvider(RouteProvider $routeProvider)
     {
@@ -172,7 +173,7 @@ class WebsiteManager
     /**
      * Return current website
      *
-     * @return \Presta\CMSCoreBundle\Doctrine\Phpcr\Website
+     * @return Website
      */
     public function getCurrentWebsite()
     {
@@ -182,9 +183,9 @@ class WebsiteManager
     /**
      * Set current website
      *
-     * @param $website
+     * @param Website $website
      */
-    protected function setCurrentWebsite($website)
+    protected function setCurrentWebsite(Website $website)
     {
         if (!$website instanceof Website) {
             return false;
@@ -302,7 +303,7 @@ class WebsiteManager
      * @param  string  $env
      * @return string
      */
-    public function getHostForWebsite($website, $locale, $env)
+    public function getHostForWebsite(Website $website, $locale, $env)
     {
         foreach ($this->hosts as $host) {
             if ($host['path'] == $website->getId() && $host['locale'] == $locale && $host['env'] == $env) {

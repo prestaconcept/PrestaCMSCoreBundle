@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
+use Presta\CMSCoreBundle\Factory\ModelFactoryInterface;
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 use Presta\CMSCoreBundle\Model\Theme;
 
@@ -48,7 +49,7 @@ class ThemeManager
     /**
      * @param ModelFactoryInterface $themeFactory
      */
-    public function setThemeFactory($themeFactory)
+    public function setThemeFactory(ModelFactoryInterface $themeFactory)
     {
         $this->themeFactory = $themeFactory;
     }
@@ -127,7 +128,7 @@ class ThemeManager
      * @param  Website $website
      * @return Theme
      */
-    public function getTheme($name, $website = null)
+    public function getTheme($name, Website $website = null)
     {
         if (!$this->hasTheme($name)) {
             return false;

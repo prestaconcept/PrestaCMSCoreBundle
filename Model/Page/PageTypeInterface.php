@@ -9,6 +9,8 @@
  */
 namespace Presta\CMSCoreBundle\Model\Page;
 
+use Presta\CMSCoreBundle\Model\Page;
+
 /**
  * Page type interface
  *
@@ -42,7 +44,7 @@ interface PageTypeInterface
      * @param  Page   $page
      * @return array
      */
-    public function getEditTabData($tab, $page);
+    public function getEditTabData($tab, Page $page);
 
     /**
      * Return $tab template
@@ -55,8 +57,8 @@ interface PageTypeInterface
     /**
      * Return type specific data for page rendering
      *
-     * @param  $page
+     * @param  Page $page
      * @return array
      */
-    public function getData($page);
+    public function getData(Page $page);
 }

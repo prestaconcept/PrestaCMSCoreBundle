@@ -60,16 +60,15 @@ class MenuManager
     /**
      * Create a new menu entry
      *
-     * @param  $parent
-     * @param  $name
-     * @param  $label
-     * @param  $content
+     * @param  MenuNode $parent
+     * @param  string   $name
+     * @param  string   $label
+     * @param  Page     $content
      * @param  null     $uri
      * @param  null     $route
-     * @param  null     $type
      * @return MenuNode
      */
-    public function create($parent, $name, $label, $content, $uri = null, $route = null, $type = null)
+    public function create(MenuNode $parent, $name, $label, Page $content, $uri = null, $route = null)
     {
         $menuNode = new MenuNode();
         $menuNode->setParent($parent);
