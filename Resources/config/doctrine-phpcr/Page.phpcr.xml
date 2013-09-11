@@ -7,7 +7,6 @@
 
     <document
         name="Presta\CMSCoreBundle\Doctrine\Phpcr\Page"
-        repository-class="Presta\CMSCoreBundle\Document\Page\Repository"
         translator="child"
         referenceable="true"
         >

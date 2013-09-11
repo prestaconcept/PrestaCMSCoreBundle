@@ -218,7 +218,7 @@ class PageController extends AdminController
      * @param  Request                                    $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function renderPageTreeAction (Request $request)
+    public function renderPageTreeAction(Request $request)
     {
         $root       = $request->query->get('root');
         $selected   = $request->query->get('selected') ?: $root;
@@ -229,33 +229,6 @@ class PageController extends AdminController
 
         return $this->forward('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array('_locale' => $locale), array('root' => $root, 'selected' => $selected, '_locale' => $locale));
     }
-
-    //	/**
-    //	 * Display page selector for tyniMCE link
-    //	 *
-    //	 * @param $website_id
-    //	 * @param $locale
-    //	 * @return Response
-    //	 */
-    //	public function selectorAction($website_id, $locale)
-    //	{
-    //		$viewParams = array('website_id' => $website_id, 'locale' => $locale);
-    //
-    //		//todo refactor chargement des pages
-    //		$website = $this->getWebsiteManager()->getWebsite($website_id, $locale);
-    //		if ($website != null) {
-    //			$theme = $this->getThemeManager()->getTheme($website->getTheme());
-    //
-    //			$navigations = array();
-    //			foreach ($theme->getNavigations() as $navigation) {
-    //				$navigations[$navigation] = $this->getPageManager()->getNavigationTree($website, $navigation);
-    //			}
-    //			$navigations['single_pages'] = $this->getPageManager()->getSinglePagesTree($website);
-    //			$viewParams['theme'] = $theme;
-    //			$viewParams['navigations'] = $navigations;
-    //		}
-    //		return $this->render('PrestaCMSCoreBundle:Admin/Page:selector.html.twig', $viewParams);
-    //	}
 
     /**
      * Clear page cache
