@@ -60,6 +60,12 @@ abstract class BaseMenuFixture extends BaseFixture
     protected function createMenuForPage($parent, $page, $contentPath)
     {
         $page = $this->configurePage($page);
+
+        if (isset($page['url-pattern']) && !empty($page['url-pattern'])) {
+            //dynamic route, do not add to menu
+            return;
+        }
+
         $contentPath .= '/' . $page['name'];
 
         $menu = $this->createMenuNode($parent, $page['name'], $page['meta']['title'], $this->manager->find(null, $contentPath));
