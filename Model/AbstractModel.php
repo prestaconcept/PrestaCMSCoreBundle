@@ -22,7 +22,7 @@ abstract class AbstractModel
     protected $id;
 
     /**
-     * @var AbstractModel
+     * @var mixed
      */
     protected $parent;
 
@@ -68,15 +68,15 @@ abstract class AbstractModel
     }
 
     /**
-     * @param AbstractModel $parent
+     * @param $parent
      */
-    public function setParent(AbstractModel $parent)
+    public function setParent($parent)
     {
         $this->parent = $parent;
     }
 
     /**
-     * @return AbstractModel
+     * @return mixed
      */
     public function getParent()
     {

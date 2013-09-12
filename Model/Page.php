@@ -99,6 +99,7 @@ class Page extends AbstractParentModel
 
     public function __construct()
     {
+        parent::__construct();
         $this->routes = new ArrayCollection();
         $this->menus  = new ArrayCollection();
     }

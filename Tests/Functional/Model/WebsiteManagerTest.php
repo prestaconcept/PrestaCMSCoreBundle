@@ -12,6 +12,7 @@ namespace Presta\CMSCoreBundle\Tests\Functional\Model;
 use Presta\CMSCoreBundle\Tests\Functional\BaseFunctionalTestCase;
 
 use Presta\CMSCoreBundle\Model\Website;
+use Presta\CMSCoreBundle\Model\WebsiteManager;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
@@ -19,13 +20,16 @@ use Presta\CMSCoreBundle\Model\Website;
 class WebsiteManagerTest extends BaseFunctionalTestCase
 {
     /**
-     * @return \Presta\CMSCoreBundle\Model\WebsiteManager
+     * @return WebsiteManager
      */
     protected function getWebsiteManager()
     {
         return $this->container->get('presta_cms.manager.website');
     }
 
+    /**
+     * @test
+     */
     public function testGetWebsite()
     {
         $websiteManager = $this->getWebsiteManager();
@@ -62,11 +66,12 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
         $this->assertEquals('liip', $liipWebsite->getName());
         $this->assertEquals(array('fr', 'en', 'de'), $liipWebsite->getAvailableLocales());
         $this->assertEquals('liip', $liipWebsite->getTheme());
-        $this->assertEquals('fr', $liipWebsite->getDefaultLocale());
-        $this->assertEquals(false, $liipWebsite->isDefault());
         $this->assertEquals('/website/liip', $liipWebsite->getPath());
     }
 
+    /**
+     * @test
+     */
     public function testGetAvailableWebsites()
     {
         $websiteManager = $this->getWebsiteManager();
@@ -74,6 +79,9 @@ class WebsiteManagerTest extends BaseFunctionalTestCase
         $this->assertEquals(5, $websiteManager->getAvailableWebsites()->count());
     }
 
+    /**
+     * @test
+     */
     public function testLoadWebsiteByHost()
     {
         $websiteManager = $this->getWebsiteManager();

@@ -111,7 +111,7 @@ class ThemeFactory extends AbstractModelFactory implements ModelFactoryInterface
 
         //Create website theme default association
         $websiteTheme = new Theme();
-        $websiteTheme->setParentDocument($website);
+        $websiteTheme->setParent($website);
         $websiteTheme->setName('theme/' . $configuration['name']);
         $this->getObjectManager()->persist($websiteTheme);
 
