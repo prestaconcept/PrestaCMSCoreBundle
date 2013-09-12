@@ -45,8 +45,8 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
     {
         $blockConfiguration += array(
             'settings' => array(),
-            'is_editable' => true,
-            'is_deletable'=> true,
+            'editable' => true,
+            'deletable'=> true,
             'position'    => $position
         );
         $block = new Block();
@@ -57,8 +57,8 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
         } else {
             $block->setName($blockConfiguration['type'] . '-' . $blockConfiguration['position']);
         }
-        $block->setEditable($blockConfiguration['is_editable']);
-        $block->setDeletable($blockConfiguration['is_deletable']);
+        $block->setEditable($blockConfiguration['editable']);
+        $block->setDeletable($blockConfiguration['deletable']);
         $block->setPosition($blockConfiguration['position']);
         $block->setEnabled(true);
         $this->getObjectManager()->persist($block);

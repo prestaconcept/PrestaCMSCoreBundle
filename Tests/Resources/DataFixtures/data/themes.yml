@@ -17,8 +17,8 @@ themes:
                     editor:
                         name: main
                         type: presta_cms.block.simple
-                        is_editable: true
-                        is_deletable: false
+                        editable: true
+                        deletable: false
                         position: 10
             navigation:
                 rows: 1
@@ -41,8 +41,8 @@ themes:
                 blocks:
                     editor:
                         type: presta_cms.block.simple
-                        is_editable: true
-                        is_deletable: false
+                        editable: true
+                        deletable: false
                         position: 10
             footer_right:
                 rows: 1
@@ -53,8 +53,8 @@ themes:
                 blocks:
                     editor:
                         type: presta_cms.block.simple
-                        is_editable: true
-                        is_deletable: false
+                        editable: true
+                        deletable: false
                         position: 10
         page_template:
             default:
@@ -70,8 +70,8 @@ themes:
                         blocks:
                             editor:
                                 type: presta_cms.block.simple
-                                is_editable: true
-                                is_deletable: false
+                                editable: true
+                                deletable: false
                                 position: 10
             sidebar:
                 name: sidebar
@@ -86,8 +86,8 @@ themes:
                         blocks:
                             editor:
                                 type: presta_cms.block.simple
-                                is_editable: true
-                                is_deletable: false
+                                editable: true
+                                deletable: false
                                 position: 10
                     content:
                         rows: 1
@@ -98,8 +98,8 @@ themes:
                         blocks:
                             editor:
                                 type: presta_cms.block.simple
-                                is_editable: true
-                                is_deletable: false
+                                editable: true
+                                deletable: false
                                 position: 10
 
     prestaconcept:

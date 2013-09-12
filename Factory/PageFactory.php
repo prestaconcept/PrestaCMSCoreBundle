@@ -85,8 +85,8 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
     {
         $block += array(
             'name'         => null,
-            'is_editable'  => false,
-            'is_deletable' => false,
+            'editable'  => false,
+            'deletable' => false,
             'settings'     => array(),
             'children'     => array()
         );

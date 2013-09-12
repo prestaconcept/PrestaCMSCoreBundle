@@ -19,7 +19,7 @@ pages:
                     10:
                         name: main
                         type: presta_cms.block.simple
-                        is_editable: true
+                        editable: true
                         settings:
                             en:
                                 title: 'This is a testing application for PrestaCMSCoreBundle'
@@ -37,7 +37,7 @@ pages:
                 blocks:
                     10:
                         type: presta_cms.block.page_children
-                        is_editable: true
+                        editable: true
                         settings:
                             en:
                                 title: 'This is a page children block'
@@ -56,7 +56,7 @@ pages:
                             10:
                                 name: main
                                 type: presta_cms.block.simple
-                                is_editable: true
+                                editable: true
                                 settings:
                                     en:
                                         title: 'This is a testing application for PrestaCMSCoreBundle'
@@ -93,7 +93,7 @@ pages:
                             10:
                                 name: container
                                 type: presta_cms.block.container
-                                is_editable: true
+                                editable: true
                                 settings:
                                     en:
                                         title: 'Container example'
@@ -105,7 +105,7 @@ pages:
                                     10:
                                         name: col1
                                         type: presta_cms.block.simple
-                                        is_editable: true
+                                        editable: true
                                         settings:
                                             en:
                                                 title: 'Left block'
@@ -116,7 +116,7 @@ pages:
                                     20:
                                         name: col2
                                         type: presta_cms.block.simple
-                                        is_editable: true
+                                        editable: true
                                         settings:
                                             en:
                                                 title: 'Right block'
