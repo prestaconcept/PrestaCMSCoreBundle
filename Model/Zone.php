@@ -3,6 +3,7 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\PHPCR\ChildrenCollection;
 use Sonata\BlockBundle\Model\BlockInterface;
 
@@ -17,15 +18,11 @@ class Zone
     protected $id;
 
     /**
-     * PHPCR parent document
-     *
-     * @var string
+     * @var Page|Theme
      */
     protected $parent;
 
     /**
-     * PHPCR document name
-     *
      * @var string
      */
     protected $name;
@@ -51,9 +48,9 @@ class Zone
     protected $sortable = false;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      */
-    protected $_blocks;
+    protected $children;
 
     public function __construct($name = null)
     {
@@ -79,21 +76,33 @@ class Zone
         return $this->id;
     }
 
+    /**
+     * @param Page|Theme $parent
+     */
     public function setParent($parent)
     {
         $this->parent = $parent;
     }
 
+    /**
+     * @return Page|Theme
+     */
     public function getParent()
     {
         return $this->parent;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param $name
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -109,13 +118,13 @@ class Zone
         $configuration += array(
             'rows'          => 1,
             'cols'          => 12,
-            'is_editable'   => false,
-            'is_sortable'   => false
+            'editable'   => false,
+            'sortable'   => false
         );
         $this->setRows($configuration['rows']);
         $this->setCols($configuration['cols']);
-        $this->setEditable($configuration['is_editable']);
-        $this->setSortable($configuration['is_sortable']);
+        $this->setEditable($configuration['editable']);
+        $this->setSortable($configuration['sortable']);
     }
 
     /**
@@ -192,30 +201,32 @@ class Zone
         return $this->sortable;
     }
 
+    /**
+     * @return Collection
+     */
     public function getBlocks()
     {
         return $this->getChildren();
     }
 
-    public function addBlock($block)
+    /**
+     * @param BlockInterface $block
+     */
+    public function addBlock(BlockInterface $block)
     {
         $this->addChild($block);
     }
 
-    public function setBlocks($blocks)
+    /**
+     * @param Collection $blocks
+     */
+    public function setBlocks(Collection $blocks)
     {
-        $this->children = $blocks;
+        $this->setChildren($blocks);
     }
 
     /**
-     * @var ChildrenCollection
-     */
-    protected $children;
-
-    /**
-     * Get children
-     *
-     * @return ArrayCollection|ChildrenCollection
+     * @return Collection
      */
     public function getChildren()
     {
@@ -223,13 +234,9 @@ class Zone
     }
 
     /**
-     * Set children
-     *
-     * @param ChildrenCollection $children
-     *
-     * @return ChildrenCollection
+     * @param Collection $children
      */
-    public function setChildren(ChildrenCollection $children)
+    public function setChildren(Collection $children)
     {
         return $this->children = $children;
     }
@@ -269,10 +276,7 @@ class Zone
     }
 
     /**
-     * Remove a child from this container
-     *
      * @param  BlockInterface $child
-     * @return void
      */
     public function removeChild($child)
     {

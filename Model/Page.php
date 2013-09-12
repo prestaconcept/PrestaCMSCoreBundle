@@ -2,6 +2,7 @@
 
 namespace Presta\CMSCoreBundle\Model;
 
+use Doctrine\Common\Collections\Collection;
 use Knp\Menu\NodeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\PHPCR\ChildrenCollection;
@@ -22,15 +23,11 @@ class Page
     protected $id;
 
     /**
-     * PHPCR parent document
-     *
-     * @var string
+     * @var Page|Website
      */
     protected $parent;
 
     /**
-     * PHPCR document name
-     *
      * @var string
      */
     protected $name;
@@ -99,7 +96,7 @@ class Page
     protected $template;
 
     /**
-     * @var ChildrenCollection
+     * @var Collection
      */
     protected $children;
 
@@ -149,21 +146,33 @@ class Page
         return $this->id;
     }
 
+    /**
+     * @param Page|Website $parent
+     */
     public function setParent($parent)
     {
         $this->parent = $parent;
     }
 
+    /**
+     * @return Page|Website
+     */
     public function getParent()
     {
         return $this->parent;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param $name
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -184,7 +193,6 @@ class Page
     {
         return $this->locale;
     }
-
 
     /**
      * @return string
@@ -218,7 +226,7 @@ class Page
      * If there is information on the document type, the documents are of the
      * specified type, otherwise they will be Generic documents
      *
-     * @return object documents
+     * @return Collection
      */
     public function getChildren()
     {
@@ -234,11 +242,9 @@ class Page
     }
 
     /**
-     * Sets the children
-     *
-     * @param $children ChildrenCollection
+     * @param Collection $children
      */
-    public function setChildren(ChildrenCollection $children)
+    public function setChildren(Collection $children)
     {
         $this->children = $children;
     }
@@ -264,9 +270,7 @@ class Page
     }
 
     /**
-     * Alias de getChildren
-     *
-     * @return object
+     * @return Collection
      */
     public function getZones()
     {

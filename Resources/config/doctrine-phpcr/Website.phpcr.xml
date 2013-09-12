@@ -6,22 +6,10 @@
         >
 
     <document
-            name="Presta\CMSCoreBundle\Doctrine\Phpcr\Website"
-            translator="attribute"
-            referenceable="true"
-            >
-        <locale name="locale"/>
-
-        <id name="id">
-            <generator strategy="PARENT"/>
-        </id>
-
-        <field name="theme" type="string" translated="true"/>
-        <field name="name" type="string" translated="true"/>
-        <field name="active" type="boolean" translated="true"/>
-        <field name="defaultLocale" type="string" translated="true"/>
-        <field name="availableLocales" type="string" multivalue="true"/>
-
+        name="Presta\CMSCoreBundle\Doctrine\Phpcr\Website"
+        translator="attribute"
+        referenceable="true"
+        >
     </document>
 
 </doctrine-mapping>

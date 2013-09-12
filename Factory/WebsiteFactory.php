@@ -16,7 +16,6 @@ class WebsiteFactory extends AbstractModelFactory implements ModelFactoryInterfa
         $website->setPath($configuration['path']);
         $website->setName($configuration['name']);
         $website->setAvailableLocales($configuration['available_locales']);
-        $website->setDefaultLocale($configuration['default_locale']);
         $website->setTheme($configuration['theme']);
 
         $this->getObjectManager()->persist($website);

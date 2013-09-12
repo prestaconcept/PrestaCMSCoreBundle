@@ -14,17 +14,14 @@ use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 use Symfony\Component\Validator\ExecutionContext;
 
 /**
- * BaseBlock Model
- *
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
- * */
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ */
 class Block extends BlockModel implements TranslatableInterface
 {
-
     /**
      * Validate settings
      *
-     * @param \Symfony\Component\Validator\ExecutionContext $context
+     * @param ExecutionContext $context
      */
     public function isSettingsValid(ExecutionContext $context)
     {

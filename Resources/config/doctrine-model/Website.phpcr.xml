@@ -7,7 +7,20 @@
 
     <mapped-superclass
         name="Presta\CMSCoreBundle\Model\Website"
+        translator="attribute"
+        referenceable="true"
         >
+        <locale name="locale"/>
+
+        <id name="id">
+            <generator strategy="PARENT"/>
+        </id>
+
+        <field name="theme" type="string" translated="true"/>
+        <field name="name" type="string" translated="true"/>
+        <field name="enabled" type="boolean" translated="true"/>
+        <field name="availableLocales" type="string" multivalue="true"/>
+
     </mapped-superclass>
 
 </doctrine-mapping>
