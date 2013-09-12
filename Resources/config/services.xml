@@ -99,9 +99,9 @@
         </service>
 
         <service id="presta_cms.data_collector" class="%presta_cms.data_collector.class%">
-            <argument type="service" id="presta_cms.website_manager"/>
-            <argument type="service" id="presta_cms.theme_manager"/>
-            <argument type="service" id="presta_cms.page_manager"/>
+            <argument type="service" id="presta_cms.manager.website"/>
+            <argument type="service" id="presta_cms.manager.theme"/>
+            <argument type="service" id="presta_cms.manager.page"/>
             <tag name="data_collector"
                 template="PrestaCMSCoreBundle:Collector:cms.html.twig"
                 id="presta_cms_data_collector"
