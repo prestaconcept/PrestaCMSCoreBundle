@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle
  *
- * @author Alain Flaus <aflaus@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,28 +12,32 @@ namespace Presta\CMSCoreBundle\DataCollector;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\PageManager;
+use Presta\CMSCoreBundle\Model\Website;
+use Presta\CMSCoreBundle\Model\Page;
+use Presta\CMSCoreBundle\Model\Theme;
 
 /**
  * CMS data collector for the symfony web profiling
+ *
+ * @author Alain Flaus <aflaus@prestaconcept.net>
  */
 class CMSDataCollector extends DataCollector
 {
     /**
-     * @var Presta\CMSCoreBundle\Model\WebsiteManager
+     * @var WebsiteManager
      */
     protected $websiteManager;
 
     /**
-     * @var Presta\CMSCoreBundle\Model\ThemeManager
+     * @var ThemeManager
      */
     protected $themeManager;
 
     /**
-     * @var Presta\CMSCoreBundle\Model\PageManager
+     * @var PageManager
      */
     protected $pageManager;
 
@@ -53,13 +57,19 @@ class CMSDataCollector extends DataCollector
 
     /**
      * Collect data
-     * 
-     * @param  Request      $request   
-     * @param  Response     $response  
-     * @param  \Exception   $exception 
+     *
+     * @param  Request      $request
+     * @param  Response     $response
+     * @param  \Exception   $exception
      */
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
+        $this->data = array(
+            'currentWebsite'    => null,
+            'currentTheme'      => null,
+            'currentPage'       => null,
+        );
+
         $this->collectWebsiteData();
         $this->collectThemeData();
         $this->collectPageData();
@@ -72,11 +82,13 @@ class CMSDataCollector extends DataCollector
     {
         $currentWebsite = $this->websiteManager->getCurrentWebsite();
 
-        $this->data['currentWebsite'] = array(
-            'name'      => $currentWebsite->getName(),
-            'path'      => $currentWebsite->getPath(),
-            'locale'    => $currentWebsite->getLocale(),
-        );
+        if (!is_null($currentWebsite)) {
+            $this->data['currentWebsite'] = array(
+                'name'      => $currentWebsite->getName(),
+                'path'      => $currentWebsite->getPath(),
+                'locale'    => $currentWebsite->getLocale(),
+            );
+        }
     }
 
     /**
@@ -86,9 +98,11 @@ class CMSDataCollector extends DataCollector
     {
         $currentTheme = $this->themeManager->getCurrentTheme();
 
-        $this->data['currentTheme'] = array(
-            'name'  => $currentTheme->getName(),
-        );
+        if (!is_null($currentTheme)) {
+            $this->data['currentTheme'] = array(
+                'name'  => $currentTheme->getName(),
+            );
+        }
     }
 
     /**
@@ -98,17 +112,16 @@ class CMSDataCollector extends DataCollector
     {
         $currentPage = $this->pageManager->getCurrentPage();
 
-        $this->data['currentPage'] = array(
-            'name'  => $currentPage->getName(),
-            'url'   => $currentPage->getUrl(),
-            'type'  => $currentPage->getType(),
-        );
+        if (!is_null($currentPage)) {
+            $this->data['currentPage'] = array(
+                'name'  => $currentPage->getName(),
+                'type'  => $currentPage->getType(),
+            );
+        }
     }
 
     /**
-     * Get website collected data
-     *
-     * @return array
+     * @return Website
      */
     public function getCurrentWebsite()
     {
@@ -116,9 +129,7 @@ class CMSDataCollector extends DataCollector
     }
 
     /**
-     * Get theme collected data
-     *
-     * @return array
+     * @return Theme
      */
     public function getCurrentTheme()
     {
@@ -126,9 +137,7 @@ class CMSDataCollector extends DataCollector
     }
 
     /**
-     * Get page collected data
-     *
-     * @return array
+     * @return Page
      */
     public function getCurrentPage()
     {
@@ -137,7 +146,7 @@ class CMSDataCollector extends DataCollector
 
     /**
      * Return collector name
-     * 
+     *
      * @return string
      */
     public function getName()

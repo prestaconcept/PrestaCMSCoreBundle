@@ -9,18 +9,26 @@
             </a>
         </div>
         <div class="sf-toolbar-info">
-            <div class="sf-toolbar-info-piece">
-                <b>Website</b>
-                <span>{{ collector.currentWebsite.name ~ ' - ' ~ collector.currentWebsite.locale }}</span>
-            </div>
-            <div class="sf-toolbar-info-piece">
-                <b>Theme</b>
-                <span>{{ collector.currentTheme.name }}</span>
-            </div>
-            <div class="sf-toolbar-info-piece">
-                <b>Page</b>
-                <span>{{ collector.currentPage.name }}</span>
-            </div>
+            {% if collector.currentWebsite %}
+                <div class="sf-toolbar-info-piece">
+                    <b>Website</b>
+                    <span>{{ collector.currentWebsite.name ~ ' - ' ~ collector.currentWebsite.locale }}</span>
+                </div>
+            {% endif %}
+
+            {% if collector.currentTheme %}
+                <div class="sf-toolbar-info-piece">
+                    <b>Theme</b>
+                    <span>{{ collector.currentTheme.name }}</span>
+                </div>
+            {% endif %}
+
+            {% if collector.currentPage %}
+                <div class="sf-toolbar-info-piece">
+                    <b>Page</b>
+                    <span>{{ collector.currentPage.name }}</span>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
@@ -33,43 +41,45 @@
 {% endblock %}
 
 {% block panel %}
-    <h2>Website</h2>
-    <table>
-        <tr>
-            <th>Name</th>
-            <td>{{ collector.currentWebsite.name }}</td>
-        </tr>
-        <tr>
-            <th>Path</th>
-            <td>{{ collector.currentWebsite.path }}</td>
-        </tr>
-        <tr>
-            <th>Locale</th>
-            <td>{{ collector.currentWebsite.locale }}</td>
-        </tr>
-    </table>
+    {% if collector.currentWebsite %}
+        <h2>Website</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <td>{{ collector.currentWebsite.name }}</td>
+            </tr>
+            <tr>
+                <th>Path</th>
+                <td>{{ collector.currentWebsite.path }}</td>
+            </tr>
+            <tr>
+                <th>Locale</th>
+                <td>{{ collector.currentWebsite.locale }}</td>
+            </tr>
+        </table>
+    {% endif %}
 
-    <h2>Theme</h2>
-    <table>
-        <tr>
-            <th>Name</th>
-            <td>{{ collector.currentTheme.name }}</td>
-        </tr>
-    </table>
+    {% if collector.currentTheme %}
+        <h2>Theme</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <td>{{ collector.currentTheme.name }}</td>
+            </tr>
+        </table>
+    {% endif %}
 
-    <h2>Page</h2>
-    <table>
-        <tr>
-            <th>Name</th>
-            <td>{{ collector.currentPage.name }}</td>
-        </tr>
-        <tr>
-            <th>Url</th>
-            <td>{{ collector.currentPage.url }}</td>
-        </tr>
-        <tr>
-            <th>Type</th>
-            <td>{{ collector.currentPage.type }}</td>
-        </tr>
-    </table>
+    {% if collector.currentPage %}
+        <h2>Page</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <td>{{ collector.currentPage.name }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ collector.currentPage.type }}</td>
+            </tr>
+        </table>
+    {% endif %}
 {% endblock %}
