@@ -7,7 +7,16 @@
 
     <mapped-superclass
         name="Presta\CMSCoreBundle\Model\Theme"
+        referenceable="true"
         >
+        <id name="id">
+            <generator strategy="PARENT"/>
+        </id>
+        <nodename name="name"/>
+        <parent-document name="parent"/>
+
+        <children name="children"/>
+
     </mapped-superclass>
 
 </doctrine-mapping>

@@ -1,35 +1,27 @@
 <?php
-
+/**
+ * This file is part of the PrestaCMSCoreBundle
+ *
+ * (c) PrestaConcept <www.prestaconcept.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Presta\CMSCoreBundle\Model;
 
 use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 
-class Website implements TranslatableInterface
+class Website extends AbstractModel implements TranslatableInterface
 {
-    /**
-     * @var mixed
-     */
-    protected $id;
-
     /**
      * @var string $locale
      */
     protected $locale;
 
     /**
-     * @var boolean $enabled
-     */
-    protected $enabled = true;
-
-    /**
      * @var string $theme
      */
     protected $theme;
-
-    /**
-     * @var string $name
-     */
-    protected $name;
 
     /**
      * @var array $availableLocales
@@ -39,34 +31,6 @@ class Website implements TranslatableInterface
     public function __construct()
     {
         $this->availableLocales = array();
-    }
-
-    /**
-     * Used by Admin edition
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getName();
-    }
-
-    /**
-     * Explicitly set the primary id, if the storage layer permits this.
-     *
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -83,38 +47,6 @@ class Website implements TranslatableInterface
     public function getLocale()
     {
         return $this->locale;
-    }
-
-    /**
-     * @param boolean $enabled
-     */
-    public function setEnabled($enabled)
-    {
-        $this->enabled = $enabled;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getEnabled()
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**

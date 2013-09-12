@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,7 +10,7 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Sonata\AdminBundle\Model\ModelManagerInterface;
-use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
+use Presta\CMSCoreBundle\Model\MenuNode;
 
 /**
  * Menu Manager

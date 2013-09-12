@@ -9,13 +9,12 @@
  */
 namespace Presta\CMSCoreBundle\Doctrine\Phpcr;
 
-use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode as BaseMenuNode;
+use Presta\CMSCoreBundle\Model\MenuNode as MenuNodeModel;
 
 /**
- * Menu node
- *
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class MenuNode extends BaseMenuNode
+class MenuNode extends MenuNodeModel
 {
     //in the future will store additional features like can add : remove children...
 }

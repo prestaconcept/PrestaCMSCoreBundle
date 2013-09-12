@@ -1,9 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle
  *
- * @author David Epely <depely@prestaconcept.net>
- * @author Alain Flaus <aflaus@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -27,6 +26,7 @@ use Sonata\AdminBundle\Model\ModelManagerInterface;
  * Description of RouteManager
  *
  * @author David Epely <depely@prestaconcept.net>
+ * @author Alain Flaus <aflaus@prestaconcept.net>
  */
 class RouteManager
 {

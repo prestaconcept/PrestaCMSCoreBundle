@@ -1,32 +1,22 @@
 <?php
-
+/**
+ * This file is part of the PrestaCMSCoreBundle
+ *
+ * (c) PrestaConcept <www.prestaconcept.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Presta\CMSCoreBundle\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ODM\PHPCR\ChildrenCollection;
 use Sonata\BlockBundle\Model\BlockInterface;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class Zone
+class Zone extends AbstractParentModel
 {
-    /**
-     * Primary identifier, details depend on storage layer.
-     */
-    protected $id;
-
-    /**
-     * @var Page|Theme
-     */
-    protected $parent;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
     /**
      * @var integer
      */
@@ -46,67 +36,6 @@ class Zone
      * @var boolean
      */
     protected $sortable = false;
-
-    /**
-     * @var Collection
-     */
-    protected $children;
-
-    public function __construct($name = null)
-    {
-        $this->setName($name);
-        $this->children = new ArrayCollection();
-    }
-
-    /**
-     * Explicitly set the primary id, if the storage layer permits this.
-     *
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param Page|Theme $parent
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-    }
-
-    /**
-     * @return Page|Theme
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
 
     /**
      * Initialise form configuration
@@ -223,63 +152,5 @@ class Zone
     public function setBlocks(Collection $blocks)
     {
         $this->setChildren($blocks);
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    /**
-     * @param Collection $children
-     */
-    public function setChildren(Collection $children)
-    {
-        return $this->children = $children;
-    }
-
-    /**
-     * Add a child to this container
-     *
-     * @param BlockInterface $child
-     * @param string         $key   the collection index name to use in the
-     *      child collection. if not set, the child will simply be appended at
-     *      the end
-     *
-     * @return boolean
-     */
-    public function addChild(BlockInterface $child, $key = null)
-    {
-        if ($key != null) {
-
-            $this->children->set($key, $child);
-
-            return true;
-        }
-
-        return $this->children->add($child);
-    }
-
-    /**
-     * Alias to addChild to make the form layer happy
-     *
-     * @param BlockInterface $children
-     *
-     * @return boolean
-     */
-    public function addChildren(BlockInterface $children)
-    {
-        return $this->addChild($children);
-    }
-
-    /**
-     * @param  BlockInterface $child
-     */
-    public function removeChild($child)
-    {
-        $this->children->removeElement($child);
     }
 }

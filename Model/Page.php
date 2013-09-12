@@ -1,36 +1,28 @@
 <?php
-
+/**
+ * This file is part of the PrestaCMSCoreBundle
+ *
+ * (c) PrestaConcept <www.prestaconcept.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Presta\CMSCoreBundle\Model;
 
 use Doctrine\Common\Collections\Collection;
 use Knp\Menu\NodeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ODM\PHPCR\ChildrenCollection;
 use Presta\CMSCoreBundle\Model\Zone;
+use Symfony\Component\Routing\Route;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class Page
+class Page extends AbstractParentModel
 {
     const STATUS_DRAFT      = 'draft';
     const STATUS_PUBLISHED  = 'published';
     const STATUS_ARCHIVE    = 'archive';
-
-    /**
-     * Primary identifier, details depend on storage layer.
-     */
-    protected $id;
-
-    /**
-     * @var Page|Website
-     */
-    protected $parent;
-
-    /**
-     * @var string
-     */
-    protected $name;
 
     /**
      * @var string
@@ -86,19 +78,9 @@ class Page
     protected $locale;
 
     /**
-     * @var boolean $enabled
-     */
-    protected $enabled;
-
-    /**
      * @var string $template
      */
     protected $template;
-
-    /**
-     * @var Collection
-     */
-    protected $children;
 
     /**
      * @var RouteObjectInterface[]
@@ -117,65 +99,16 @@ class Page
 
     public function __construct()
     {
-        $this->enabled = true;
-        $this->children = new ArrayCollection();
         $this->routes = new ArrayCollection();
-        $this->menus = new ArrayCollection();
-    }
-
-    public function __toString()
-    {
-        return (string) $this->getTitle();
-    }
-
-    /**
-     * Explicitly set the primary id, if the storage layer permits this.
-     *
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param Page|Website $parent
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-    }
-
-    /**
-     * @return Page|Website
-     */
-    public function getParent()
-    {
-        return $this->parent;
+        $this->menus  = new ArrayCollection();
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function __toString()
     {
-        return $this->name;
-    }
-
-    /**
-     * @param $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
+        return (string) $this->getTitle();
     }
 
     /**
@@ -211,20 +144,9 @@ class Page
     }
 
     /**
-     * Returns if page has children pages
+     * As page can have different types of children, we filter on page
      *
-     * @return bool
-     */
-    public function hasChildren()
-    {
-        return (count($this->getChildren()) > 0);
-    }
-
-    /**
-     * The children documents of this document
-     *
-     * If there is information on the document type, the documents are of the
-     * specified type, otherwise they will be Generic documents
+     * This is used in forms
      *
      * @return Collection
      */
@@ -239,24 +161,6 @@ class Page
                 return $e instanceof Page;
             }
         );
-    }
-
-    /**
-     * @param Collection $children
-     */
-    public function setChildren(Collection $children)
-    {
-        $this->children = $children;
-    }
-
-    /**
-     * Add a child to this document
-     *
-     * @param $child
-     */
-    public function addChild($child)
-    {
-        $this->children->add($child);
     }
 
     /**
@@ -283,22 +187,6 @@ class Page
                 return $e instanceof Zone;
             }
         );
-    }
-
-    /**
-     * @param boolean $enabled
-     */
-    public function setEnabled($enabled)
-    {
-        $this->enabled = $enabled;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isEnabled()
-    {
-        return $this->enabled;
     }
 
     /**
@@ -496,7 +384,7 @@ class Page
     }
 
     /**
-     * @return \Symfony\Component\Routing\Route[] Route instances that point to this content
+     * @return Route[] Route instances that point to this content
      */
     public function getRoutes()
     {
