@@ -75,13 +75,15 @@ class BaseFunctionalTestCase extends CmfBaseFunctionalTestCase
      */
     protected function loadFixtures()
     {
-        $this->db('PHPCR')->loadFixtures(array(
-            '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadWebsite',
-            '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadPage',
-            '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadRoute',
-            '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadMenu',
-            '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadTheme',
-        ));
+        $this->db('PHPCR')->loadFixtures(
+            array(
+                '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadWebsite',
+                '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadPage',
+                '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadRoute',
+                '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadMenu',
+                '\Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr\LoadTheme',
+            )
+        );
 
         $this->documentManager->flush();
     }
