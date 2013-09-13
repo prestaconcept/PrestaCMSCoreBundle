@@ -1,0 +1,85 @@
+{% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
+
+{% block toolbar %}
+    <div class="sf-toolbar-block">
+        <div class="sf-toolbar-icon">
+            <a href="{{ path('_profiler', { 'token': token, 'panel': name }) }}">
+                {# fake image span #}<span style="width:0px; height: 28px; vertical-align: middle;"></span>
+                <span class="sf-toolbar-status">{{ 'PrestaCMS' }}</span>
+            </a>
+        </div>
+        <div class="sf-toolbar-info">
+            {% if collector.currentWebsite %}
+                <div class="sf-toolbar-info-piece">
+                    <b>Website</b>
+                    <span>{{ collector.currentWebsite.name ~ ' - ' ~ collector.currentWebsite.locale }}</span>
+                </div>
+            {% endif %}
+
+            {% if collector.currentTheme %}
+                <div class="sf-toolbar-info-piece">
+                    <b>Theme</b>
+                    <span>{{ collector.currentTheme.name }}</span>
+                </div>
+            {% endif %}
+
+            {% if collector.currentPage %}
+                <div class="sf-toolbar-info-piece">
+                    <b>Page</b>
+                    <span>{{ collector.currentPage.name }}</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block menu %}
+    <span class="label">
+        <span class="icon"><img src="data:image/png;base64,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" alt="" /></span>
+        <strong>PrestaCMS</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    {% if collector.currentWebsite %}
+        <h2>Website</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <td>{{ collector.currentWebsite.name }}</td>
+            </tr>
+            <tr>
+                <th>Path</th>
+                <td>{{ collector.currentWebsite.path }}</td>
+            </tr>
+            <tr>
+                <th>Locale</th>
+                <td>{{ collector.currentWebsite.locale }}</td>
+            </tr>
+        </table>
+    {% endif %}
+
+    {% if collector.currentTheme %}
+        <h2>Theme</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <td>{{ collector.currentTheme.name }}</td>
+            </tr>
+        </table>
+    {% endif %}
+
+    {% if collector.currentPage %}
+        <h2>Page</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <td>{{ collector.currentPage.name }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ collector.currentPage.type }}</td>
+            </tr>
+        </table>
+    {% endif %}
+{% endblock %}
