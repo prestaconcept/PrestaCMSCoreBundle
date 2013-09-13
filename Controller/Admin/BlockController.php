@@ -10,14 +10,20 @@
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Sonata\AdminBundle\Controller\CRUDController;
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Block;
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class BlockController extends CRUDController
 {
+    /**
+     * @return WebsiteManager
+     */
+    protected function getWebsiteManager()
+    {
+        return $this->get('presta_cms.manager.website');
+    }
+
     /**
      * Render a block
      *
@@ -34,68 +40,73 @@ class BlockController extends CRUDController
     /**
      * Add a block
      *
+     * This is called with blockId fron a container and with a zoneId from a zone
+     *
      * @param  integer  $id
      * @return Response
      */
     public function addAction()
     {
-        $zoneId = $this->getRequest()->get('zoneId');
-        $blockId = $this->getRequest()->get('blockId');
-        $locale = $this->getRequest()->get('locale');
+        $zoneId     = $this->getRequest()->get('zoneId');
+        $blockId    = $this->getRequest()->get('blockId');
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $manager = $this->admin->getModelManager();
-            $blockType = $this->getRequest()->get('block');
+
+            $website = $this->getWebsiteManager()->getCurrentWebsite();
+            $zoneFactory = $this->get('presta_cms.zone.factory');
+
+            $blockConfiguration = array(
+                'position'  => null,
+                'type'      => $this->getRequest()->get('block')
+            );
 
             if ($zoneId != null) {
-                //Zone mode, eventually create the zone
-                $zone = $manager->find('Presta\CMSCoreBundle\Doctrine\Phpcr\Zone', $zoneId);
-                if (is_null($zone)) {
-                    $zone = new Zone();
-                    $zone->setId($zoneId);
-                    $manager->create($zone);
-                }
-                $position = (count($zone->getBlocks()) + 1) * 10;
-                $blockId = $zone->getId() . $blockType . '-' . $position;
+                $zone = $zoneFactory->create(
+                    array(
+                        'website'   => $website,
+                        'id'        => $zoneId,
+                        'blocks'    => array($blockConfiguration)
+                    )
+                );
+                $block = $zone->getBlocks()->last();
+            } else {
+                //Add a block in container case
+                $blockConfiguration['id'] = $blockId;
+                $block = $zoneFactory->createBlock($blockConfiguration, null, null, $website);
             }
 
-            //Create new block
-            $block = new Block();
-            $block->setId($blockId);
-            $block->setLocale($locale);
-            $block->setType($blockType);
-            $block->setIsActive(true);
-            $block->setIsDeletable(true);
-            $block->setIsEditable(true);
-            $block->setSettings(array());
-
-            $manager->create($block);
+            $zoneFactory->flush();
 
             if ($this->isXmlHttpRequest()) {
                 $block->setAdminMode();
 
                 return $this->renderJson(
                     array(
-                        'result' => 'ok',
-                        'action' => 'add',
-                        'zone' => $zoneId,
-                        'objectId' => $block->getId(),
-                        'content' => $this->renderView('PrestaCMSCoreBundle:Admin/Block:add_block_content.html.twig', array('block' => $block))
+                        'result'    => 'ok',
+                        'action'    => 'add',
+                        'zone'      => $zoneId,
+                        'objectId'  => $block->getId(),
+                        'content'   => $this->renderView(
+                            'PrestaCMSCoreBundle:Admin/Block:add_block_content.html.twig',
+                            array('block' => $block)
+                        )
                     )
                 );
             }
+
             // redirect to edit mode
             return $this->redirectTo($block);
         }
 
-        $viewParams = array(
-            'zoneId' => $zoneId,
-            'blockId' => $blockId,
-            'locale' => $locale,
-            'blocks' => $this->get('presta_cms.manager.block')->getBlocks()
+        return $this->render(
+            'PrestaCMSCoreBundle:Admin/Block:add_block.html.twig',
+            array(
+                'zoneId'    => $zoneId,
+                'blockId'   => $blockId,
+                'locale'    => $this->getRequest()->get('locale'),
+                'blocks'    => $this->get('presta_cms.manager.block')->getBlocks()
+            )
         );
-
-        return $this->render('PrestaCMSCoreBundle:Admin/Block:add_block.html.twig', $viewParams);
     }
 
     /**
@@ -127,7 +138,10 @@ class BlockController extends CRUDController
                         'action'    => 'delete',
                         'zone'      => $block->getParent()->getId(),
                         'block'     => $block->getId(),
-                        'content'   => $this->renderView('PrestaCMSCoreBundle:Admin/Block:delete_block_content.html.twig', array('block' => $block)),
+                        'content'   => $this->renderView(
+                            'PrestaCMSCoreBundle:Admin/Block:delete_block_content.html.twig',
+                            array('block' => $block)
+                        ),
                     )
                 );
             }

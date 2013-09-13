@@ -18,9 +18,27 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
     {
         $website = $configuration['website'];
 
+        $configuration += array(
+            'editable'  => true,
+            'sortable'  => false
+        );
+
         $zone = new Zone();
-        $zone->setParent($configuration['parent']);
-        $zone->setName($configuration['name']);
+        if (isset($configuration['parent'])) {
+            $zone->setParent($configuration['parent']);
+            $zone->setName($configuration['name']);
+        } elseif ($configuration['id'] != null) {
+            //Check if zone already exist : add block case
+            $zone = $this->getObjectManager()->find(null, $configuration['id']);
+            if ($zone == null) {
+                $zone = new Zone();
+                $zone->setId($configuration['id']);
+            }
+        }
+
+        $zone->setEditable($configuration['editable']);
+        $zone->setSortable($configuration['sortable']);
+
         $this->getObjectManager()->persist($zone);
 
         foreach ($configuration['blocks'] as $position => $blockConfiguration) {
@@ -41,16 +59,27 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
      * @param  Website $website
      * @return Block
      */
-    protected function createBlock($blockConfiguration, $parent, $position, Website $website)
+    public function createBlock($blockConfiguration, $parent, $position, Website $website)
     {
         $blockConfiguration += array(
-            'settings' => array(),
-            'editable' => true,
-            'deletable'=> true,
-            'position'    => $position
+            'settings'  => array(),
+            'editable'  => true,
+            'deletable' => true,
+            'position'  => $position
         );
+
+        if ($blockConfiguration['position'] == null && $parent != null) {
+            //Add block case from BlockController
+            $blockConfiguration['position'] = (count($parent->getBlocks()) + 1) * 10;
+        }
+
         $block = new Block();
-        $block->setParentDocument($parent);
+        if ($parent != null) {
+            $block->setParentDocument($parent);
+        } else {
+            $block->setId($blockConfiguration['id'] );
+        }
+
         $block->setType($blockConfiguration['type']);
         if (isset($blockConfiguration['name']) && strlen($blockConfiguration['name'])) {
             $block->setName($blockConfiguration['name']);

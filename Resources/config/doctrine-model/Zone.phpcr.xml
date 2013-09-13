@@ -15,6 +15,9 @@
         <nodename name="name"/>
         <parent-document name="parent"/>
 
+        <field name="editable" type="boolean" nullable="false"/>
+        <field name="sortable" type="boolean" nullable="false"/>
+
         <children name="children"/>
 
     </mapped-superclass>

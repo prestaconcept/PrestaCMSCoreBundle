@@ -63,4 +63,12 @@ abstract class AbstractModelFactory
     {
         return $this->managerRegistry->getManager($this->managerName);
     }
+
+    /**
+     * Flush object manager
+     */
+    public function flush()
+    {
+        $this->getObjectManager()->flush();
+    }
 }
