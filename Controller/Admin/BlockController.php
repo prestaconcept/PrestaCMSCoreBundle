@@ -87,7 +87,7 @@ class BlockController extends CRUDController
                         'zone'      => $zoneId,
                         'objectId'  => $block->getId(),
                         'content'   => $this->renderView(
-                            'PrestaCMSCoreBundle:Admin/Block:add_block_content.html.twig',
+                            'PrestaCMSCoreBundle:Admin/Block:_content_block.html.twig',
                             array('block' => $block)
                         )
                     )
