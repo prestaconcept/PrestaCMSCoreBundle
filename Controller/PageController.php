@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle.
  *
- * (c) PrestaConcept http://www.prestaconcept.net
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -55,7 +55,8 @@ class PageController extends Controller
      */
     public function renderAction(Page $contentDocument)
     {
-        if (!$contentDocument) {
+        $website = $this->getWebsiteManager()->getCurrentWebsite();
+        if (!$contentDocument || ($contentDocument->getLocale() != $website->getLocale())) {
             throw new NotFoundHttpException('Content not found');
         }
         $request     = $this->getRequest();
@@ -73,30 +74,19 @@ class PageController extends Controller
             return $response;
         }
 
-        $website = $this->getWebsiteManager()->getCurrentWebsite();
-        $theme   = $this->getThemeManager()->getTheme($website->getTheme(), $website);
+        $theme = $this->getThemeManager()->getTheme($website->getTheme(), $website);
 
-        //If document load doesn't have the same locale as the website
-        //Try to redirect on the translated page
-        if ($contentDocument->getLocale() != $website->getLocale()) {
-            throw new NotFoundHttpException('Content not found for this locale');
-        }
-        //Check if the document is publish and load the good version
-        //todo when jackaplone implements it
-
-        $seoPage = $this->get('sonata.seo.page');
-
-        $seoPage
+        $this->get('sonata.seo.page')
             ->setTitle($contentDocument->getTitle())
             ->addMeta('name', 'keywords', $contentDocument->getMetaKeywords())
             ->addMeta('name', 'description', $contentDocument->getMetaDescription());
 
         $viewParams = array(
-            'base_template' => $theme->getTemplate(),
-            'website' => $website,
-            'websiteManager' => $this->getWebsiteManager(),
-            'theme' => $theme,
-            'page'  => $contentDocument
+            'base_template'     => $theme->getTemplate(),
+            'website'           => $website,
+            'websiteManager'    => $this->getWebsiteManager(),
+            'theme'             => $theme,
+            'page'              => $contentDocument
         );
 
         $pageManager->setCurrentPage($contentDocument);
@@ -104,9 +94,6 @@ class PageController extends Controller
         if ($pageType != null) {
             $viewParams = array_merge($viewParams, $pageType->getData($contentDocument));
         }
-        //todo voir pour une meileur initialisation
-        //on doit charger directement le tempalte pour que ce denier puisse surcharge
-        //des partie du layout librement
         $template = $viewParams['template'];
 
         if (!$isCacheEnabled) {
