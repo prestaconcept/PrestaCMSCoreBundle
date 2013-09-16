@@ -30,7 +30,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class PageController extends AdminController
 {
     /**
-     * @return Presta\CMSCoreBundle\Model\WebsiteManager
+     * @return WebsiteManager
      */
     protected function getWebsiteManager()
     {
@@ -203,8 +203,8 @@ class PageController extends AdminController
     /**
      * Allow us to render the tre in the website locale
      *
-     * @param  Request                                    $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param  Request  $request
+     * @return Response
      */
     public function renderPageTreeAction(Request $request)
     {
@@ -221,7 +221,7 @@ class PageController extends AdminController
     /**
      * Clear page cache
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function clearCacheAction()
     {
@@ -245,7 +245,7 @@ class PageController extends AdminController
     /**
      * Delete a page
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function deleteAction()
     {

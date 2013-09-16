@@ -112,6 +112,14 @@ class MenuFactory extends AbstractModelFactory implements ModelFactoryInterface
         return $menuNode;
     }
 
+    /**
+     * Create configuration for menu construction
+     *
+     * @param Page   $page
+     * @param string $parent
+     *
+     * @return array
+     */
     public function getConfiguration(Page $page, $parent)
     {
         $configuration = array(
