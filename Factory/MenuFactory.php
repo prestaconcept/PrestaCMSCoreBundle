@@ -57,7 +57,7 @@ class MenuFactory extends AbstractModelFactory implements ModelFactoryInterface
         $configuration = $this->configure($configuration);
 
         if ($configuration['content'] == null
-            && $configuration['uri'] == null
+            && $configuration['content_path'] == null
             && $configuration['uri'] == null
             && $configuration['route'] == null
         ) {
