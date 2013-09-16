@@ -9,6 +9,8 @@
  */
 namespace Presta\CMSCoreBundle\Factory;
 
+use Presta\CMSCoreBundle\Model\Page;
+
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
@@ -53,7 +55,8 @@ class MenuFactory extends AbstractModelFactory implements ModelFactoryInterface
     {
         $configuration = $this->configure($configuration);
 
-        if ($configuration['content_path'] == null
+        if ($configuration['content'] == null
+            && $configuration['uri'] == null
             && $configuration['uri'] == null
             && $configuration['route'] == null
         ) {
@@ -61,7 +64,9 @@ class MenuFactory extends AbstractModelFactory implements ModelFactoryInterface
         } else {
             $menuNode =  new $this->menuNodeClassName();
 
-            if ($configuration['content_path'] != null) {
+            if ($configuration['content'] != null) {
+                $menuNode->setContent($configuration['content']);
+            } elseif ($configuration['content_path'] != null) {
                 $content = $this->getObjectManager()->find(null, $configuration['content_path']);
                 $menuNode->setContent($content);
             } elseif ($configuration['uri'] != null) {
@@ -105,5 +110,24 @@ class MenuFactory extends AbstractModelFactory implements ModelFactoryInterface
         }
 
         return $menuNode;
+    }
+
+    public function getConfiguration(Page $page, $parent)
+    {
+        $configuration = array(
+            'content'   => $page,
+            'title'     => $page->getTitle(),
+            'name'      => $page->getName(),
+        );
+
+        $parent = $this->getObjectManager()->find(null, $parent);
+
+        if ($parent instanceof Page) {
+            $parent = $parent->getMenuNodes()->first();
+        }
+
+        $configuration['parent'] = $parent;
+
+        return $configuration;
     }
 }

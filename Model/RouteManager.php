@@ -333,19 +333,18 @@ class RouteManager
      */
     public function getRouteForPage(Page $page, $locale = null)
     {
-        $route = null;
-
         if (is_null($locale)) {
             $locale = $page->getLocale();
         }
 
-        foreach ($page->getRoutes() as $pageRoute) {
-            if ($pageRoute->getDefault('_locale') == $locale) {
-                $route = $pageRoute;
+        foreach ($page->getRoutes() as $route) {
+            if ($route->getRequirement('_locale') == $locale) {
+                //check redirect ?
+                return $route;
             }
         }
 
-        return $route;
+        return null;
     }
 
     /**

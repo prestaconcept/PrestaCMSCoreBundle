@@ -40,7 +40,6 @@ class PageManager
     public function __construct($container)
     {
         $this->container  = $container;
-        $this->websites   = null;
         $this->pageTypes  = new ArrayCollection();
     }
 

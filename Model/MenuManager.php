@@ -43,18 +43,18 @@ class MenuManager
      * @param  Website $website
      * @return array
      */
-    public function getNavigationRootsForWebsite(Website $website)
+    public function getWebsiteMenus(Website $website)
     {
         $menuRoot = $this->getDocumentManager()->find(null, $website->getMenuRoot());
 
-        $navigationRoots = array();
+        $menus = array();
         foreach ($menuRoot->getChildren() as $child) {
-            if ($child instanceof RootMenuNode) {
-                $navigationRoots[$child->getId()] = $child->getLabel();
+            if ($child instanceof Menu) {
+                $menus[$child->getId()] = $child->getLabel();
             }
         }
 
-        return $navigationRoots;
+        return $menus;
     }
 
     /**

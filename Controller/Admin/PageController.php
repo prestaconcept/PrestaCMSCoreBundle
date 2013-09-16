@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
+use Presta\CMSCoreBundle\Form\PageCreateType;
 use Presta\CMSCoreBundle\Form\PageType;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
 use Presta\CMSCoreBundle\Model\MenuManager;
@@ -71,7 +72,7 @@ class PageController extends AdminController
     /**
      * Page Edition
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function editAction()
     {
@@ -147,9 +148,9 @@ class PageController extends AdminController
 
                 if ($form->isValid()) {
                     $pageManager->update($page);
-                    $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
+                    $this->addFlash('sonata_flash_success', 'flash_edit_success');
                 } else {
-                    $this->get('session')->setFlash('sonata_flash_error', 'flash_edit_error');
+                    $this->addFlash('sonata_flash_error', 'flash_edit_error');
                 }
             }
             $viewParams['form'] = $form->createView();
@@ -323,105 +324,71 @@ class PageController extends AdminController
      */
     public function addAction(Request $request)
     {
-        $website = $this->getWebsiteManager()->getCurrentWebsite();
-        $theme   = $this->getThemeManager()->getTheme($website->getTheme());
-        $locale  = $website->getLocale();
-        $rootId  = $request->get('rootId', null);
+        $rootId     = $request->get('rootId', null);
+        $website    = $this->getWebsiteManager()->getCurrentWebsite();
+        $menus      = $this->getMenuManager()->getWebsiteMenus($website);
+        $templates  = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
 
-        $page = new Page();
-        $formBuilder = $this->createFormBuilder($page);
+        $form = $this->createForm(new PageCreateType($rootId, $menus, $templates));
+        $form->handleRequest($request);
 
-        if ($rootId == null) {
-            $formBuilder->add(
-                'root',
-                'choice',
-                array(
-                    'mapped'   => false,
-                    'label'    => $this->trans('cms_page.form.page.label.root'),
-                    'choices'  => $this->getMenuManager()->getNavigationRootsForWebsite($website),
-                    'required' => true
-                )
+        if ($form->isValid()) {
+            $urlParams = $this->create(
+                $website,
+                $form->get('root')->getData(),
+                $form->get('title')->getData(),
+                $form->get('template')->getData()
             );
-        } else {
-            $formBuilder->add('root', 'hidden', array('mapped' => false, 'data' => $rootId));
-        }
+            $urlParams['_locale'] = $request->getLocale();
 
-        $formBuilder
-            ->add('name', null, array('label' => $this->trans('cms_page.form.page.label.name'), 'required' => true))
-            ->add('menuTitle', null, array('label' => $this->trans('cms_page.form.menu.label.title'), 'mapped' => false, 'required' => true))
-            ->add(
-                'template',
-                'choice',
-                array(
-                    'label'    => $this->trans('cms_page.form.page.label.template'),
-                    'choices'  => $theme->getPageTemplates(),
-                    'required' => true
-                )
-            );
-
-        $form = $formBuilder->getForm();
-
-        if ($request->getMethod() == 'POST') {
-
-            $form->bind($request);
-
-            $urlParams = array(
-                'locale'  => $locale,
-                '_locale' => $request->getLocale(),
-                'website' => $website->getId()
-            );
-
-            //load page parent
-            $root = $form->get('root')->getData();
-            $parentMenu = $this->getPageManager()->getDocumentManager()->find(null, $root);
-
-            if ($parentMenu->getContent() == null) {
-                $page->setParent($this->getPageManager()->getDocumentManager()->find(null, $website->getPageRoot()));
-            } else {
-                $page->setParent($parentMenu->getContent());
-            }
-
-            if ($form->isValid() || true) {
-                //NBN : Here form validation does not work due to cmf constraints
-                //(?) bug in symfony cascade validation ?
-
-                $menuTitle = $form->get('menuTitle')->getData();
-                $page->setTitle($menuTitle);
-                $page->setLocale($locale);
-                $page->setIsActive(true);
-                $page->setType(PageTypeCMSPage::SERVICE_ID);
-                $page->setLastCacheModifiedDate(new \DateTime());
-
-                //Create page
-                $this->getPageManager()->create($page);
-
-                //Create associated menu entry
-                $menuNode = $this->getMenuManager()->create($parentMenu, $page->getName(), $menuTitle, $page);
-
-                //id for redirection
-                $urlParams['id'] = $menuNode->getId();
-
-                $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
-            } else {
-                $this->get('session')->setFlash('sonata_flash_error', 'flash_edit_error');
-            }
+            $this->addFlash('sonata_flash_success', 'flash_edit_success');
 
             if ($this->isXmlHttpRequest()) {
-                return $this->renderJson(
-                    array(
-                        'result'    => 'ok',
-                        'action'    => 'refresh',
-                        'location'  => $this->generateUrl('presta_cms_page_edit', $urlParams),
-                    )
-                );
+                $redirectUrl = $this->generateUrl('presta_cms_page_edit', $urlParams);
+
+                return $this->renderJson(array('result' => 'ok', 'action' => 'refresh', 'location' => $redirectUrl));
             }
+        } else {
+            $this->addFlash('sonata_flash_error', 'flash_edit_error');
         }
 
-        $viewParams = array(
-            'form'   => $form->createView(),
-            'rootId' => $rootId
+        return $this->render(
+            'PrestaCMSCoreBundle:Admin/Page:add.html.twig',
+            array('form' => $form->createView(), 'rootId' => $rootId)
+        );
+    }
+
+    /**
+     * Handle page, menu and routes creation
+     *
+     * @param $websites
+     * @param $root
+     * @param $title
+     * @param $template
+     *
+     * @return array
+     */
+    protected function create($website, $root, $title, $template)
+    {
+        //Create Page
+        $page = $this->get('presta_cms.page.factory')->create(
+            $this->get('presta_cms.page.factory')->getConfiguration($website, $root, $title, $template)
         );
 
-        return $this->render('PrestaCMSCoreBundle:Admin/Page:add.html.twig', $viewParams);
+        //Create Routes
+        foreach ($website->getAvailableLocales() as $locale) {
+            $this->get('presta_cms.route.factory')->create(
+                $this->get('presta_cms.route.factory')->getConfiguration($website, $page, $locale)
+            );
+        }
+
+        //Create MenuNode
+        $menuNode = $this->get('presta_cms.menu.factory')->create(
+            $this->get('presta_cms.menu.factory')->getConfiguration($page, $root)
+        );
+
+        $this->get('presta_cms.page.factory')->flush();
+
+        return array('website' => $website->getId(), 'locale'  => $website->getLocale(), 'id' => $menuNode->getId());
     }
 }

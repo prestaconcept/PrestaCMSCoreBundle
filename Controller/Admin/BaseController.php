@@ -101,4 +101,17 @@ abstract class BaseController extends sfController
 
         return $translator->trans($message, $parameters, $domain, $locale);
     }
+
+    /**
+     * Adds a flash message for type.
+     *
+     * @param string $type
+     * @param string $message
+     */
+    public function addFlash($type, $message)
+    {
+        $this->get('session')
+            ->getFlashBag()
+            ->add($type, $message);
+    }
 }

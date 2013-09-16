@@ -83,6 +83,9 @@
             <call method="setModelClassName">
                 <argument>%presta_cms.model.route.class%</argument>
             </call>
+            <call method="setRouteManager">
+                <argument type="service" id="presta_cms.manager.route"/>
+            </call>
         </service>
 
         <service id="presta_cms.menu.factory" class="%presta_cms.menu.factory.class%">

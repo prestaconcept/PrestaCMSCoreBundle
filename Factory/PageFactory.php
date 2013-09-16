@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Factory;
 
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
+use Presta\CMSCoreBundle\Model\Menu;
 use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
 
 /**
@@ -150,5 +151,37 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
         }
 
         return $page;
+    }
+
+    /**
+     * Create configuration for page construction
+     *
+     * @param Website $website
+     * @param string  $parent
+     * @param string  $title
+     * @param string  $template
+     *
+     * @return array
+     */
+    public function getConfiguration($website, $parent, $title, $template)
+    {
+        $configuration = array(
+            'website'   => $website,
+            'meta'      => array('title' => array($website->getLocale() => $title)),
+            'type'      => PageTypeCMSPage::SERVICE_ID,
+            'template'  => $template
+        );
+
+        $parent = $this->getObjectManager()->find(null, $parent);
+
+        if ($parent instanceof Menu) {
+            //add a page under a menu means page is under website content root
+            $parent = $this->getObjectManager()->find(null, $website->getPageRoot());
+        }
+        $configuration['parent'] = $parent;
+
+        $configuration['name'] = 'page-' . (count($parent->getChildren()) + 1);
+
+        return $configuration;
     }
 }

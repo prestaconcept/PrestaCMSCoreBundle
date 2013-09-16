@@ -2,6 +2,9 @@
 
 namespace Presta\CMSCoreBundle\Factory;
 
+use Presta\CMSCoreBundle\Model\Page;
+use Presta\CMSCoreBundle\Model\RouteManager;
+use Presta\CMSCoreBundle\Model\Website;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
 /**
@@ -9,6 +12,19 @@ use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
  */
 class RouteFactory extends AbstractModelFactory implements ModelFactoryInterface
 {
+    /**
+     * @var RouteManager
+     */
+    protected $routeManager;
+
+    /**
+     * @param RouteManager $routeManager
+     */
+    public function setRouteManager($routeManager)
+    {
+        $this->routeManager = $routeManager;
+    }
+
     /**
      * Default configuration
      *
@@ -55,7 +71,12 @@ class RouteFactory extends AbstractModelFactory implements ModelFactoryInterface
                 $route->setDefault($key, $value);
             }
         }
-        $content = $this->getObjectManager()->find(null, $configuration['content_path']);
+        if (isset($configuration['content'])) {
+            $content = $configuration['content'];
+        } else {
+            $content = $this->getObjectManager()->find(null, $configuration['content_path']);
+        }
+
         $route->setContent($content);
 
         $this->getObjectManager()->persist($route);
@@ -70,5 +91,36 @@ class RouteFactory extends AbstractModelFactory implements ModelFactoryInterface
         }
 
         return $route;
+    }
+
+    /**
+     * Create configuration for route construction
+     *
+     * @param Website   $website
+     * @param Page      $page
+     * @param string    $locale
+     *
+     * @return array
+     */
+    public function getConfiguration(Website $website, Page $page, $locale)
+    {
+        $configuration = array(
+            'website'   => $website,
+            'locale'    => $locale,
+            'name'      => $page->getName(),
+            'content'   => $page
+        );
+
+        $parentPage = $page->getParent();
+        if ($parentPage instanceof Page) {
+            $parent = $this->routeManager->getRouteForPage($parentPage);
+        } else {
+            //if page is not a child, its routing is under website root node
+            $website->setLocale($locale);
+            $parent = $this->getObjectManager()->find(null, $website->getRoutePrefix());
+        }
+        $configuration['parent'] = $parent;
+
+        return $configuration;
     }
 }
