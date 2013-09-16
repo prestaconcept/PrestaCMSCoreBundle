@@ -1,9 +1,16 @@
 <?php
-
+/**
+ * This file is part of the PrestaCMSCoreBundle
+ *
+ * (c) PrestaConcept <www.prestaconcept.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Presta\CMSCoreBundle\Factory;
 
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Block;
+use Presta\CMSCoreBundle\Model\Block;
+use Presta\CMSCoreBundle\Model\Zone;
 use Presta\CMSCoreBundle\Model\Website;
 
 /**
@@ -11,6 +18,19 @@ use Presta\CMSCoreBundle\Model\Website;
  */
 class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
 {
+    /**
+     * @var string
+     */
+    protected $blockModelClassName;
+
+    /**
+     * @param string $blockModelClassName
+     */
+    public function setBlockModelClassName($blockModelClassName)
+    {
+        $this->blockModelClassName = $blockModelClassName;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -23,7 +43,7 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
             'sortable'  => false
         );
 
-        $zone = new Zone();
+        $zone = new $this->modelClassName();
         if (isset($configuration['parent'])) {
             $zone->setParent($configuration['parent']);
             $zone->setName($configuration['name']);
@@ -53,13 +73,13 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
     /**
      * Create a block
      *
-     * @param array $blockConfiguration
-     * @param  $parent
-     * @param  integer $position
-     * @param  Website $website
+     * @param  array    $blockConfiguration
+     * @param  Zone     $parent
+     * @param  integer  $position
+     * @param  Website  $website
      * @return Block
      */
-    public function createBlock($blockConfiguration, $parent, $position, Website $website)
+    public function createBlock(array $blockConfiguration, Zone $parent, $position, Website $website)
     {
         $blockConfiguration += array(
             'settings'  => array(),
@@ -73,7 +93,7 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
             $blockConfiguration['position'] = (count($parent->getBlocks()) + 1) * 10;
         }
 
-        $block = new Block();
+        $block = new $this->blockModelClassName();
         if ($parent != null) {
             $block->setParentDocument($parent);
         } else {

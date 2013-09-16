@@ -38,11 +38,12 @@ class MenuFactory extends AbstractModelFactory implements ModelFactoryInterface
     protected function configure(array $configuration)
     {
         $configuration += array(
-            'content_path' => null,
-            'uri' => null,
-            'route' => null,
-            'children' => null,
-            'title' => $configuration['name']
+            'content_path'  => null,
+            'content'       => null,
+            'uri'           => null,
+            'route'         => null,
+            'children'      => null,
+            'title'         => $configuration['name']
         );
 
         return $configuration;

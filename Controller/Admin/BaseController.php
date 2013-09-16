@@ -108,7 +108,7 @@ abstract class BaseController extends sfController
      * @param string $type
      * @param string $message
      */
-    public function addFlash($type, $message)
+    protected function addFlash($type, $message)
     {
         $this->get('session')
             ->getFlashBag()

@@ -14,10 +14,10 @@ use Presta\CMSCoreBundle\Form\PageCreateType;
 use Presta\CMSCoreBundle\Form\PageType;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
 use Presta\CMSCoreBundle\Model\MenuManager;
-use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
 use Presta\CMSCoreBundle\Model\PageManager;
 use Presta\CMSCoreBundle\Model\RouteManager;
 use Presta\CMSCoreBundle\Model\ThemeManager;
+use Presta\CMSCoreBundle\Model\Website;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -361,14 +361,14 @@ class PageController extends AdminController
     /**
      * Handle page, menu and routes creation
      *
-     * @param $websites
-     * @param $root
-     * @param $title
-     * @param $template
+     * @param Website   $website
+     * @param string    $root
+     * @param string    $title
+     * @param string    $template
      *
      * @return array
      */
-    protected function create($website, $root, $title, $template)
+    protected function create(Website $website, $root, $title, $template)
     {
         //Create Page
         $page = $this->get('presta_cms.page.factory')->create(

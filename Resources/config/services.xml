@@ -60,6 +60,9 @@
             <call method="setModelClassName">
                 <argument>%presta_cms.model.zone.class%</argument>
             </call>
+            <call method="setBlockModelClassName">
+                <argument>%presta_cms.model.block.class%</argument>
+            </call>
         </service>
 
         <service id="presta_cms.page.factory" class="%presta_cms.page.factory.class%">

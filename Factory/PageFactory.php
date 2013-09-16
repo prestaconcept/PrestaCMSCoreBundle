@@ -12,6 +12,7 @@ namespace Presta\CMSCoreBundle\Factory;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
 use Presta\CMSCoreBundle\Model\Menu;
 use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
+use Presta\CMSCoreBundle\Model\Website;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
@@ -163,7 +164,7 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
      *
      * @return array
      */
-    public function getConfiguration($website, $parent, $title, $template)
+    public function getConfiguration(Website $website, $parent, $title, $template)
     {
         $configuration = array(
             'website'   => $website,
