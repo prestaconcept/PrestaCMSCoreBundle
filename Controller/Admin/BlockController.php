@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
+use Presta\CMSCoreBundle\Model\Block;
 use Sonata\AdminBundle\Controller\CRUDController;
 
 /**
@@ -52,34 +53,9 @@ class BlockController extends CRUDController
 
         if ($this->get('request')->getMethod() == 'POST') {
 
-            $website = $this->getWebsiteManager()->getCurrentWebsite();
-            $zoneFactory = $this->get('presta_cms.zone.factory');
-
-            $blockConfiguration = array(
-                'position'  => null,
-                'type'      => $this->getRequest()->get('block')
-            );
-
-            if ($zoneId != null) {
-                $zone = $zoneFactory->create(
-                    array(
-                        'website'   => $website,
-                        'id'        => $zoneId,
-                        'blocks'    => array($blockConfiguration)
-                    )
-                );
-                $block = $zone->getBlocks()->last();
-            } else {
-                //Add a block in container case
-                $blockConfiguration['id'] = $blockId;
-                $block = $zoneFactory->createBlock($blockConfiguration, null, null, $website);
-            }
-
-            $zoneFactory->flush();
+            $block = $this->create($zoneId, $blockId);
 
             if ($this->isXmlHttpRequest()) {
-                $block->setAdminMode();
-
                 return $this->renderJson(
                     array(
                         'result'    => 'ok',
@@ -110,22 +86,57 @@ class BlockController extends CRUDController
     }
 
     /**
+     * Create a new block
+     *
+     * @param $zoneId
+     * @param $blockId
+     * @return Block
+     */
+    protected function create($zoneId, $blockId)
+    {
+        $website = $this->getWebsiteManager()->getCurrentWebsite();
+        $zoneFactory = $this->get('presta_cms.zone.factory');
+
+        $blockConfiguration = array(
+            'position'  => null,
+            'type'      => $this->getRequest()->get('block')
+        );
+
+        if ($zoneId != null) {
+            $zone = $zoneFactory->create(
+                array(
+                    'website'   => $website,
+                    'id'        => $zoneId,
+                    'blocks'    => array($blockConfiguration)
+                )
+            );
+            $block = $zone->getBlocks()->last();
+        } else {
+            //Add a block in container case
+            $blockConfiguration['id'] = $blockId;
+            $block = $zoneFactory->createBlock($blockConfiguration, null, null, $website);
+        }
+
+        $zoneFactory->flush();
+        $block->setAdminMode();
+
+        return $block;
+    }
+
+    /**
      * Delete a block
      *
-     * @param  integer  $id
      * @return Response
      */
-    public function deleteAction($id = null)
+    public function deleteAction()
     {
-        $id = $this->getRequest()->get('id');
-
         if ($this->get('request')->getMethod() == 'POST') {
-            $block = $this->admin->getObject($id);
+            $id     = $this->getRequest()->get('id');
+            $block  = $this->admin->getObject($id);
 
             if (!$block) {
                 throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
             }
-
             if (false === $this->admin->isGranted('DELETE', $block)) {
                 throw new AccessDeniedException();
             }
