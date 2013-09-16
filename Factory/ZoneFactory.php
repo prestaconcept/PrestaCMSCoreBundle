@@ -97,7 +97,7 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
         if ($parent != null) {
             $block->setParentDocument($parent);
         } else {
-            $block->setId($blockConfiguration['id'] );
+            $block->setId($blockConfiguration['id']);
         }
 
         $block->setType($blockConfiguration['type']);
