@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Presta\CMSCoreBundle\Model\Block;
+use Presta\CMSCoreBundle\Model\Zone;
 use Sonata\AdminBundle\Controller\CRUDController;
 
 /**
@@ -140,21 +141,23 @@ class BlockController extends CRUDController
             if (false === $this->admin->isGranted('DELETE', $block)) {
                 throw new AccessDeniedException();
             }
+
             $this->admin->delete($block);
 
             if ($this->isXmlHttpRequest()) {
-                return $this->renderJson(
-                    array(
-                        'result'    => 'ok',
-                        'action'    => 'delete',
-                        'zone'      => $block->getParent()->getId(),
-                        'block'     => $block->getId(),
-                        'content'   => $this->renderView(
-                            'PrestaCMSCoreBundle:Admin/Block:delete_block_content.html.twig',
-                            array('block' => $block)
-                        ),
-                    )
-                );
+                $data   = array('result' => 'ok', 'action' => 'delete', 'block' => $block->getId());
+                $parent = $block->getParentDocument();
+
+                if ($parent instanceof Zone) {
+                    $data['zone'] = $parent->getId();
+                } else {
+                    $data['content'] = $this->renderView(
+                        'PrestaCMSCoreBundle:Admin/Block:delete_block_content.html.twig',
+                        array('block' => $block)
+                    );
+                }
+
+                return $this->renderJson($data);
             }
 
             return new RedirectResponse($this->admin->generateUrl('list'));

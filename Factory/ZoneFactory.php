@@ -79,7 +79,7 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
      * @param  Website  $website
      * @return Block
      */
-    public function createBlock(array $blockConfiguration, Zone $parent, $position, Website $website)
+    public function createBlock(array $blockConfiguration, $parent, $position, Website $website)
     {
         $blockConfiguration += array(
             'settings'  => array(),

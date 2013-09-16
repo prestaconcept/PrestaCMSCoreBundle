@@ -148,8 +148,18 @@ var CMSContent = function() {
                         var blockContainerId = html.block.replace(/\//g, '');
                         blockContainerId = blockContainerId.replace(/\_/g, '');
                         blockContainerId = '#block-content-' + blockContainerId.replace(/\./g, '');
-                        $(blockContainerId).parent('.page-zone-block').html(html.content);
-                        $(blockContainerId).effect("highlight", {}, 3000);
+
+                        if (html.content != undefined) {
+                            $(blockContainerId).parent('.page-zone-block').html(html.content);
+                            $(blockContainerId).effect("highlight", {}, 3000);
+                        } else {
+                            $(blockContainerId).parent().remove();
+
+                            var zoneContainerId = html.zone.replace(/\//g, '');
+                            zoneContainerId = zoneContainerId.replace(/\_/g, '');
+                            zoneContainerId = '#cms-zone-' + zoneContainerId.replace(/\./g, '');
+                            $(zoneContainerId).effect("highlight", {}, 3000);
+                        }
                     }
                 });
             }
