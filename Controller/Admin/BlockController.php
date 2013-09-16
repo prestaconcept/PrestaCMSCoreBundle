@@ -128,7 +128,7 @@ class BlockController extends CRUDController
      *
      * @return Response
      */
-    public function deleteAction()
+    public function deleteAction($id = null)
     {
         if ($this->get('request')->getMethod() == 'POST') {
             $id     = $this->getRequest()->get('id');

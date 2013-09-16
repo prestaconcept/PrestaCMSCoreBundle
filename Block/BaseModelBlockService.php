@@ -9,6 +9,8 @@
  */
 namespace Presta\CMSCoreBundle\Block;
 
+use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\Pool;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Sonata\BlockBundle\Model\BlockInterface;
@@ -21,25 +23,19 @@ use Sonata\AdminBundle\Form\FormMapper;
  *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-abstract class BaseModelBlockService extends BaseBlockService implements ContainerAwareInterface
+abstract class BaseModelBlockService extends BaseBlockService
 {
     /**
-     * @var ContainerInterface
-     *
-     * @api
+     * @var Pool
      */
-    protected $container;
+    protected $adminPool;
 
     /**
-     * Sets the Container associated with this Controller.
-     *
-     * @param ContainerInterface $container A ContainerInterface instance
-     *
-     * @api
+     * @param Pool $pool
      */
-    public function setContainer(ContainerInterface $container = null)
+    public function setAdminPool(Pool $adminPool)
     {
-        $this->container = $container;
+        $this->adminPool = $adminPool;
     }
 
     /**
@@ -79,11 +75,12 @@ abstract class BaseModelBlockService extends BaseBlockService implements Contain
     }
 
     /**
-     * @return mixed
+     * @param  string $adminCode
+     * @return Admin
      */
     public function getModelAdmin($adminCode)
     {
-        return $this->container->get($adminCode);
+        return $this->adminPool->getAdminByAdminCode($adminCode);
     }
 
     /**
