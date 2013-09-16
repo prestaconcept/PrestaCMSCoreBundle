@@ -249,9 +249,7 @@ class PageController extends AdminController
      */
     public function deleteAction()
     {
-        $pageId = $this->getRequest()->get('id', null);
-        $page   = $this->getPageManager()->getPageById($pageId);
-
+        $page = $this->getPageManager()->getPageById($this->getRequest()->get('id', null));
         if ($page == null) {
             throw new NotFoundHttpException();
         }
@@ -259,19 +257,15 @@ class PageController extends AdminController
         if ($this->getRequest()->getMethod() == 'DELETE') {
             try {
                 $this->getPageManager()->delete($page);
-                $this->get('session')->setFlash('sonata_flash_success', 'flash_delete_success');
+                $this->addFlash('sonata_flash_success', 'flash_delete_success');
             } catch (ModelManagerException $e) {
-                $this->get('session')->setFlash('sonata_flash_error', 'flash_delete_error');
+                $this->addFlash('sonata_flash_error', 'flash_delete_error');
             }
 
             return $this->redirect($this->generateUrl('presta_cms_page_edit'));
         }
 
-        $viewParams = array(
-            'page' => $page
-        );
-
-        return $this->render('PrestaCMSCoreBundle:Admin/Page:delete.html.twig', $viewParams);
+        return $this->render('PrestaCMSCoreBundle:Admin/Page:delete.html.twig', array('page' => $page));
     }
 
     /**
