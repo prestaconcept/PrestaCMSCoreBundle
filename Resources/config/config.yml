@@ -46,8 +46,6 @@ cmf_core:
             enabled: true
 
 cmf_block:
-    multilang:
-        locales: %locales%
     persistence:
         phpcr:
             enabled: true
@@ -56,9 +54,6 @@ cmf_menu:
     persistence:
         phpcr:
             enabled: true
-
-cmf_tree_browser:
-    session_name:  default
 
 fos_js_routing:
     routes_to_expose:

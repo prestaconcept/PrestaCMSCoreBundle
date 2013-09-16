@@ -12,9 +12,7 @@
         >
         <locale name="locale"/>
 
-        <id name="id">
-            <generator strategy="PARENT"/>
-        </id>
+        <id name="id" />
 
         <field name="theme" type="string" translated="true"/>
         <field name="name" type="string" translated="true"/>
