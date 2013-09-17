@@ -74,9 +74,8 @@ class PageController extends AdminController
      *
      * @return Response
      */
-    public function editAction()
+    public function editAction(Request $request)
     {
-        $request    = $this->getRequest();
         $menuItemId = $request->get('id', null);
         $locale     = $request->get('locale', null);
 
@@ -105,42 +104,7 @@ class PageController extends AdminController
 
             //Initialize routing data
             $routeManager->setBaseUrl($this->getWebsiteManager()->getBaseUrlForLocale($locale));
-            $correspondingRoute = $routeManager->getRouteForPage($page, $locale);
-
-            //base route case
-            if ($correspondingRoute->getPrefix() == $correspondingRoute->getId()) {
-                $page->setUrlRelative('');
-                $page->setPathComplete('');
-                $page->setUrlComplete('');
-            } else {
-                $page->setUrlRelative($correspondingRoute->getName());
-
-                if ($page->isUrlCompleteMode()) {
-                    $pageParentRoute = $routeManager->getRouteForPage($page->getParent(), $locale);
-                    $page->setPathComplete(
-                        str_replace(
-                            $pageParentRoute->getPrefix(),
-                            '',
-                            $pageParentRoute->getId() . '/'
-                        )
-                    );
-                } else {
-                    $page->setPathComplete(
-                        str_replace(
-                            $correspondingRoute->getPrefix(),
-                            '',
-                            $correspondingRoute->getParent()->getId() . '/'
-                        )
-                    );
-                }
-                $page->setUrlComplete(
-                    str_replace(
-                        $correspondingRoute->getPrefix(),
-                        '',
-                        $correspondingRoute->getId()
-                    )
-                );
-            }
+            $routeManager->initializePageRouting($page);
 
             $form = $this->createForm(new PageType(), $page);
             if ($this->get('request')->getMethod() == 'POST') {

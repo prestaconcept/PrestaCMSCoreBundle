@@ -13,18 +13,12 @@ use PHPCR\Util\NodeHelper;
 use Symfony\Cmf\Component\Routing\RouteProviderInterface;
 use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
-
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
-
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 
-//use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
-
 /**
- * Description of RouteManager
- *
  * @author David Epely <depely@prestaconcept.net>
  * @author Alain Flaus <aflaus@prestaconcept.net>
  */
@@ -46,8 +40,6 @@ class RouteManager
     protected $baseUrl;
 
     /**
-     * Setter
-     *
      * @param ModelManagerInterface $modelManager
      */
     public function setModelManager(ModelManagerInterface $modelManager)
@@ -56,8 +48,6 @@ class RouteManager
     }
 
     /**
-     * Setter
-     *
      * @param RouteProviderInterface $routeProvider
      */
     public function setRouteProvider(RouteProviderInterface $routeProvider)
@@ -82,8 +72,6 @@ class RouteManager
     }
 
     /**
-     * Getter
-     *
      * @return DocumentManager
      */
     public function getDocumentManager()
@@ -129,6 +117,44 @@ class RouteManager
         }
 
         return $routeCollection;
+    }
+
+    /**
+     * Initialize page routing data based on url mode
+     *
+     * @param Page $page
+     *
+     * @return Page
+     */
+    public function initializePageRouting(Page $page)
+    {
+        $correspondingRoute = $this->getRouteForPage($page, $page->getLocale());
+
+        if ($correspondingRoute->getPrefix() == $correspondingRoute->getId()) {
+            //homepage case
+            $page->setUrlRelative('');
+            $page->setPathComplete('');
+            $page->setUrlComplete('');
+        } else {
+            $page->setUrlRelative($correspondingRoute->getName());
+
+            if ($page->isUrlCompleteMode()) {
+                $pageParentRoute = $this->getRouteForPage($page->getParent(), $page->getLocale());
+                $page->setPathComplete(
+                    str_replace($pageParentRoute->getPrefix(), '', $pageParentRoute->getId() . '/')
+                );
+            } else {
+                $page->setPathComplete(
+                    str_replace($correspondingRoute->getPrefix(), '', $correspondingRoute->getParent()->getId() . '/')
+                );
+            }
+
+            $page->setUrlComplete(
+                str_replace($correspondingRoute->getPrefix(), '', $correspondingRoute->getId())
+            );
+        }
+
+        return $page;
     }
 
     /**
@@ -259,47 +285,6 @@ class RouteManager
         }
 
         return $this->updatePageRoutingUrlRelative($page);
-    }
-
-    /**
-     * Create route for a new page
-     *
-     * @param  Page  $page
-     * @return Route
-     */
-    public function createPageRouting(Page $page)
-    {
-        $route = new Route();
-
-        $parentPage = $page->getParent();
-        if ($parentPage instanceof Page) {
-            $parentRoute = $this->getRouteForPage($parentPage);
-            $route->setPosition($parentRoute, $page->getName());
-        } else {
-            //if page is not a child, its routing is under website root node
-            $id = str_replace(Website::PAGE_PREFIX, Website::ROUTE_PREFIX, $page->getId());
-            $route->setId($id, $page->getName());
-        }
-
-        $route->setDefault('_locale', $page->getLocale());
-        $route->setRequirement('_locale', $page->getLocale());
-        $route->setRouteContent($page);
-
-        $this->getDocumentManager()->persist($route);
-        $this->getDocumentManager()->flush();
-
-        return $route;
-    }
-
-    /**
-     * Generate new route path
-     *
-     * @param RouteObjectInterface $mainRoute
-     * @param string               $newUrl
-     */
-    public static function generateNewPath(RouteObjectInterface $mainRoute, $newUrl)
-    {
-        return str_replace($mainRoute->getName(), $newUrl, $mainRoute->getId());
     }
 
     /**

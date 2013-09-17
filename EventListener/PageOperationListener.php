@@ -51,8 +51,6 @@ class PageOperationListener
      */
     public function onPageCreation(PageCreationEvent $event)
     {
-        $page = $event->getPage();
-        $this->routeManager->createPageRouting($page);
     }
 
     /**

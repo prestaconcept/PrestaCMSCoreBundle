@@ -288,7 +288,7 @@ class Page extends AbstractParentModel
      */
     public function getPathComplete()
     {
-        return (isset($this->pathComplete)) ? $this->pathComplete : null;
+        return (string)$this->pathComplete;
     }
 
     /**
@@ -296,6 +296,9 @@ class Page extends AbstractParentModel
      */
     public function setPathComplete($pathComplete)
     {
+        if (strpos($pathComplete, '/') !== 0) {
+            $pathComplete = '/' . $pathComplete;
+        }
         $this->pathComplete = $pathComplete;
     }
 
@@ -304,7 +307,7 @@ class Page extends AbstractParentModel
      */
     public function getUrlRelative()
     {
-        return (isset($this->urlRelative)) ? $this->urlRelative : null;
+        return (string)$this->urlRelative;
     }
 
     /**
@@ -323,7 +326,7 @@ class Page extends AbstractParentModel
      */
     public function getUrlComplete()
     {
-        return (isset($this->urlComplete)) ? $this->urlComplete : null;
+        return (string)$this->urlComplete;
     }
 
     /**

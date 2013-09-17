@@ -9,9 +9,11 @@
  */
 namespace Presta\CMSCoreBundle\Tests\Functional;
 
+use Doctrine\ODM\PHPCR\DocumentManager;
 use Presta\CMSCoreBundle\Factory\ModelFactoryInterface;
 use Symfony\Cmf\Component\Testing\Functional\BaseTestCase as CmfBaseFunctionalTestCase;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Website;
+use Symfony\Component\DependencyInjection\Container;
 
 require __DIR__ . '/../Resources/app/AppKernel.php';
 
@@ -27,12 +29,12 @@ if (!defined('FIXTURES_DIR')) {
 class BaseFunctionalTestCase extends CmfBaseFunctionalTestCase
 {
     /**
-     * @var \Symfony\Component\DependencyInjection\Container
+     * @var Container
      */
     protected $container;
 
     /**
-     * @var \Doctrine\ODM\PHPCR\DocumentManager
+     * @var DocumentManager
      */
     protected $documentManager;
 
@@ -44,10 +46,16 @@ class BaseFunctionalTestCase extends CmfBaseFunctionalTestCase
         return new \AppKernel('test', true);
     }
 
+    /**
+     * {@inherit}
+     */
     protected function setUp()
     {
         $this->init();
         $this->loadFixtures();
+
+        //Initialize current website
+        $this->container->get('presta_cms.manager.website')->loadWebsiteById('/website/sandbox', 'en', 'dev');
     }
 
     /**
