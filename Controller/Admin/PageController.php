@@ -215,7 +215,10 @@ class PageController extends AdminController
         //$selected is set to null cause it trigger the "select_node.jstree" event and reload the page
         $selected   = null;
 
-        return $this->forward('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array('_locale' => $locale), array('root' => $root, 'selected' => $selected, '_locale' => $locale));
+        return $this->forward(
+            'sonata.admin.doctrine_phpcr.tree_controller:treeAction',
+            array('root' => $root, 'selected' => $selected, '_locale' => $locale)
+        );
     }
 
     /**
@@ -237,7 +240,7 @@ class PageController extends AdminController
         $page->setLastCacheModifiedDate(new \DateTime());
         $this->getPageManager()->update($page);
 
-        $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
+        $this->addFlash('sonata_flash_success', 'flash_edit_success');
 
         return $this->redirect($this->getRequest()->headers->get('referer'));
     }

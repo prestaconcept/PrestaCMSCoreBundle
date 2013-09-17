@@ -17,4 +17,18 @@ use Symfony\Cmf\Bundle\MenuBundle\Model\Menu as CmfMenuModel;
 class Menu extends CmfMenuModel
 {
     //in the future will store additional features like can add : remove children...
+
+    //#94 : Page tree not working due to PHPCR updates
+    //If this property is not declare here PhpcrOdnTree does not get children
+    public $children = array();
+
+    /**
+     * Used for tree rendering
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->getLabel();
+    }
 }
