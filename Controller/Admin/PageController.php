@@ -12,7 +12,7 @@ namespace Presta\CMSCoreBundle\Controller\Admin;
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 use Presta\CMSCoreBundle\Form\PageCreateType;
 use Presta\CMSCoreBundle\Form\PageType;
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
+use Presta\CMSCoreBundle\Model\Page;
 use Presta\CMSCoreBundle\Model\MenuManager;
 use Presta\CMSCoreBundle\Model\PageManager;
 use Presta\CMSCoreBundle\Model\RouteManager;
@@ -70,19 +70,17 @@ class PageController extends AdminController
     }
 
     /**
-     * Page Edition
+     * Return view params for page edition
      *
-     * @return Response
+     * @return array
      */
-    public function editAction(Request $request)
+    protected function getEditViewParams()
     {
-        $menuItemId = $request->get('id', null);
-        $locale     = $request->get('locale', null);
-
+        $request = $this->getRequest();
         $viewParams = array(
             'websiteId'     => null,
-            'menuItemId'    => $menuItemId,
-            'locale'        => $locale,
+            'menuItemId'    => $request->get('id', null),
+            'locale'        => $request->get('locale', null),
             '_locale'       => $request->get('_locale'),
             'page'          => null
         );
@@ -96,31 +94,57 @@ class PageController extends AdminController
             $viewParams['theme']     = $theme;
         }
 
+        return $viewParams;
+    }
+
+    /**
+     * Return Page initialized for edition
+     *
+     * @param  $id
+     * @return Page
+     */
+    protected function getPage($id)
+    {
+        $locale = $this->getRequest()->get('locale', null);
+        $pageManager    = $this->getPageManager();
+        $routeManager   = $this->getRouteManager();
+
+        $page = $pageManager->getPageForMenu($id, $locale);
+
+        //Initialize routing data
+        $routeManager->setBaseUrl($this->getWebsiteManager()->getBaseUrlForLocale($locale));
+        $routeManager->initializePageRouting($page);
+
+        return $page;
+    }
+
+    /**
+     * Page Edition
+     *
+     * @return Response
+     */
+    public function editAction(Request $request)
+    {
+        $menuItemId = $request->get('id', null);
+        $viewParams = $this->getEditViewParams();
+
         if ($menuItemId != null) {
-            $pageManager    = $this->getPageManager();
-            $routeManager   = $this->getRouteManager();
-
-            $page = $pageManager->getPageForMenu($menuItemId, $locale);
-
-            //Initialize routing data
-            $routeManager->setBaseUrl($this->getWebsiteManager()->getBaseUrlForLocale($locale));
-            $routeManager->initializePageRouting($page);
+            $page = $this->getPage($menuItemId);
 
             $form = $this->createForm(new PageType(), $page);
-            if ($this->get('request')->getMethod() == 'POST') {
-                $form->bind($this->get('request'));
+            $form->handleRequest($request);
 
-                if ($form->isValid()) {
-                    $pageManager->update($page);
-                    $this->addFlash('sonata_flash_success', 'flash_edit_success');
-                } else {
-                    $this->addFlash('sonata_flash_error', 'flash_edit_error');
-                }
+            if ($form->isValid()) {
+                $this->getPageManager()->update($page);
+                $this->addFlash('sonata_flash_success', 'flash_edit_success');
+            } elseif ($this->get('request')->getMethod() == 'POST') {
+                $this->addFlash('sonata_flash_error', 'flash_edit_error');
             }
+
             $viewParams['form'] = $form->createView();
             $viewParams['page'] = $page;
-            $viewParams['pageFrontUrl'] = $this->getFrontUrlPreviewForPage($page, $locale);
-            $viewParams['pageEditTabs'] = $pageManager->getPageType($page->getType())->getEditTabs();
+            $viewParams['pageFrontUrl'] = $this->getFrontUrlPreviewForPage($page);
+            $viewParams['pageEditTabs'] = $this->getPageManager()->getPageType($page->getType())->getEditTabs();
         }
 
         return $this->render('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
@@ -267,12 +291,11 @@ class PageController extends AdminController
      * Return page front preview url (page front url with token)
      *
      * @param  Page   $page
-     * @param  string $locale
      * @return string
      */
-    protected function getFrontUrlPreviewForPage(Page $page, $locale)
+    protected function getFrontUrlPreviewForPage(Page $page)
     {
-        $url = $this->getFrontUrlForPage($page, $locale, true);
+        $url = $this->getFrontUrlForPage($page, $page->getLocale(), true);
 
         return $url . '?token=' . $this->getPageManager()->getToken($page);
     }
