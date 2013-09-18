@@ -96,13 +96,18 @@ class RouteManagerTest extends BaseFunctionalTestCase
         $this->assertEquals('/page-children/block-simple', $page->getUrlComplete());
     }
 
-    //    /**
-    //     * @test RouteManager::updatePageRouting
-    //     */
-    //    public function testUpdatePageRouting()
-    //    {
-    //
-    //    }
+    /**
+     * @test RouteManager::updatePageRouting
+     */
+    public function testUpdatePageRouting()
+    {
+        $page = $this->documentManager->find(null, '/website/sandbox/page/page-children/block-simple');
+        $this->getRouteManager()->updatePageRouting($page);
+
+        $this->assertEquals('', $page->getUrlRelative());
+        $this->assertEquals('', $page->getPathComplete());
+        $this->assertEquals('', $page->getUrlComplete());
+    }
 
     /**
      * @test RouteManager::updatePageRoutingUrlRelative
