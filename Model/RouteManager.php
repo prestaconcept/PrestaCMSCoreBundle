@@ -15,7 +15,7 @@ use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
+use Symfony\Cmf\Bundle\RoutingBundle\Model\RedirectRoute;
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 
 /**
@@ -138,16 +138,9 @@ class RouteManager
         } else {
             $page->setUrlRelative($correspondingRoute->getName());
 
-            if ($page->isUrlCompleteMode()) {
-                $pageParentRoute = $this->getRouteForPage($page->getParent(), $page->getLocale());
-                $page->setPathComplete(
-                    str_replace($pageParentRoute->getPrefix(), '', $pageParentRoute->getId() . '/')
-                );
-            } else {
-                $page->setPathComplete(
-                    str_replace($correspondingRoute->getPrefix(), '', $correspondingRoute->getParent()->getId() . '/')
-                );
-            }
+            $page->setPathComplete(
+                str_replace($correspondingRoute->getPrefix(), '', $correspondingRoute->getParent()->getId() . '/')
+            );
 
             $page->setUrlComplete(
                 str_replace($correspondingRoute->getPrefix(), '', $correspondingRoute->getId())
@@ -193,8 +186,8 @@ class RouteManager
      */
     protected function updatePageRoutingUrlRelative(Page $page)
     {
+        $parentRoute    = $this->getRouteForPage($page->getParent());
         $pageRoute      = $this->getRouteForPage($page);
-        $parentRoute    = $pageRoute->getParent();
         $newRoutePath   = $parentRoute->getId() . $page->getUrlRelative();
 
         if ($pageRoute->getId() == $newRoutePath) {
@@ -259,19 +252,23 @@ class RouteManager
             $this->getDocumentManager()->remove($oldRedirect);
             $this->getDocumentManager()->flush();
         }
-        $newRouteUrl = $this->getBaseUrl() . str_replace($oldRoute->getPrefix(), '', $newRoutePath);
-        $redirectionList = $this->generateRedirectionList($oldRoute, $newRouteUrl);
+        //        $newRouteUrl = $this->getBaseUrl() . str_replace($oldRoute->getPrefix(), '', $newRoutePath);
+        //        $redirectionList = $this->generateRedirectionList($oldRoute, $newRouteUrl);
 
         //Create new route
         $this->getDocumentManager()->move($oldRoute, $newRoutePath);
         $this->getDocumentManager()->flush();
+        $this->getDocumentManager()->clear();
 
         //Now old route is moved so we can persist the new redirects
-        $this->generateRedirections($redirectionList);
+        //        $this->generateRedirections($redirectionList);
     }
 
     /**
      * Update page routing
+     *
+     * After calling this method you will have to reload your models as ObjectManager::clear() is called
+     * This is made on purpose to avoid working with inconsistent data
      *
      * @param Page $page
      */
@@ -323,7 +320,7 @@ class RouteManager
         }
 
         foreach ($page->getRoutes() as $route) {
-            if ($route->getRequirement('_locale') == $locale) {
+            if (!($route instanceof RedirectRoute) && $route->getRequirement('_locale') == $locale) {
                 //check redirect ?
                 return $route;
             }

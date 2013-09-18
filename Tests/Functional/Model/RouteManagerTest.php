@@ -15,8 +15,10 @@ use Symfony\Cmf\Bundle\RoutingBundle\Model\Route;
 
 /**
  * phpunit -c . Tests/Functional/Model/RouteManagerTest.php
+ * phpunit -c . --filter testUpdatePageRoutingUrlComplete Tests/Functional/Model/RouteManagerTest.php
  *
  * @author Alain Flaus <aflaus@prestaconcept.net>
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class RouteManagerTest extends BaseFunctionalTestCase
 {
@@ -87,6 +89,87 @@ class RouteManagerTest extends BaseFunctionalTestCase
         $this->assertEquals('/page-children/block-simple', $page->getUrlComplete());
     }
 
+    //    /**
+    //     * @test RouteManager::updatePageRouting
+    //     */
+    //    public function testUpdatePageRouting()
+    //    {
+    //
+    //    }
+
+    /**
+     * @test RouteManager::updatePageRoutingUrlRelative
+     */
+    public function testUpdatePageRoutingUrlRelative()
+    {
+        $page = $this->documentManager->find(null, '/website/sandbox/page/page-children/block-simple');
+        $page = $this->getRouteManager()->initializePageRouting($page);
+        $page->setUrlRelative('new-awesome-url');
+        $page->setUrlCompleteMode(false);
+
+        $this->getRouteManager()->updatePageRouting($page);
+        $page = $this->documentManager->find(null, '/website/sandbox/page/page-children/block-simple');
+        $page = $this->getRouteManager()->initializePageRouting($page);
+
+        $this->assertEquals('/new-awesome-url', $page->getUrlRelative());
+        $this->assertEquals('/page-children/', $page->getPathComplete());
+        $this->assertEquals('/page-children/new-awesome-url', $page->getUrlComplete());
+
+        $page->setUrlRelative('new-awesome-url');
+        $this->getRouteManager()->updatePageRouting($page);
+        $page = $this->documentManager->find(null, '/website/sandbox/page/page-children/block-simple');
+
+        $page = $this->getRouteManager()->initializePageRouting($page);
+
+        $this->assertEquals('/new-awesome-url', $page->getUrlRelative());
+        $this->assertEquals('/page-children/', $page->getPathComplete());
+        $this->assertEquals('/page-children/new-awesome-url', $page->getUrlComplete());
+
+        //#58 : urlComplete to urlRelative
+        $page->setUrlCompleteMode(true);
+        $page->setUrlComplete('/page-children-new-pattern/and-a-level-more/new-awesome-url');
+        $this->getRouteManager()->updatePageRouting($page);
+        $page = $this->documentManager->find(null, '/website/sandbox/page/page-children/block-simple');
+        $page->setUrlCompleteMode(false);
+        $page->setUrlRelative('another-awesome-url');
+        $this->getRouteManager()->updatePageRouting($page);
+
+        $page = $this->documentManager->find(null, '/website/sandbox/page/page-children/block-simple');
+        $page = $this->getRouteManager()->initializePageRouting($page);
+
+        $this->assertEquals('/another-awesome-url', $page->getUrlRelative());
+        $this->assertEquals('/page-children/', $page->getPathComplete());
+        $this->assertEquals('/page-children/another-awesome-url', $page->getUrlComplete());
+    }
+
+    /**
+     * @test RouteManager::updatePageRoutingUrlComplete
+     */
+    public function testUpdatePageRoutingUrlComplete()
+    {
+        $page = $this->documentManager->find(null, '/website/sandbox/page/page-children/block-simple');
+        $page->setUrlCompleteMode(true);
+
+        //test existing parent route (ie like relative mode)
+        $page->setUrlComplete('/page-children/new-awesome-url');
+        $this->getRouteManager()->updatePageRouting($page);
+        $page = $this->documentManager->find(null, '/website/sandbox/page/page-children/block-simple');
+        $page = $this->getRouteManager()->initializePageRouting($page);
+
+        $this->assertEquals('/new-awesome-url', $page->getUrlRelative());
+        $this->assertEquals('/page-children/', $page->getPathComplete());
+        $this->assertEquals('/page-children/new-awesome-url', $page->getUrlComplete());
+
+        //test with different url
+        $page->setUrlComplete('/page-children-new-pattern/and-a-level-more/new-awesome-url');
+        $this->getRouteManager()->updatePageRouting($page);
+        $page = $this->documentManager->find(null, '/website/sandbox/page/page-children/block-simple');
+        $page = $this->getRouteManager()->initializePageRouting($page);
+
+        $this->assertEquals('/new-awesome-url', $page->getUrlRelative());
+        $this->assertEquals('/page-children-new-pattern/and-a-level-more/', $page->getPathComplete());
+        $this->assertEquals('/page-children-new-pattern/and-a-level-more/new-awesome-url', $page->getUrlComplete());
+    }
 
     //    public function testIndexRedirectRouteToCreate()
     //    {

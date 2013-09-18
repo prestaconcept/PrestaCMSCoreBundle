@@ -88,6 +88,8 @@
                         <legend>{{ 'cms_page.seo.title'|trans }}</legend>
                         <div class="sonata-ba-collapsed-fields">
 
+                            {{ form_errors(form) }}
+
                             <div class="control-group" id="sonata-ba-field-container-page_url" ng-show="!isUrlCompleteMode">
                                 {{ form_label(form.urlRelative)}}
                                 {{ form_errors(form.urlRelative) }}
@@ -108,7 +110,7 @@
                             <div class="control-group">
                                 <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
                                     <label class="checkbox">
-                                        <input type="checkbox" name="page[isUrlCompleteMode]" ng-model="isUrlCompleteMode" /> {{ 'cms_page.form.seo.label.url_complete_mode' | trans }}
+                                        <input type="checkbox" name="page[urlCompleteMode]" ng-model="isUrlCompleteMode" /> {{ 'cms_page.form.seo.label.url_complete_mode' | trans }}
                                     </label>
                                 </div>
                             </div>

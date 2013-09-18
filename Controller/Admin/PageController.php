@@ -137,6 +137,10 @@ class PageController extends AdminController
             if ($form->isValid()) {
                 $this->getPageManager()->update($page);
                 $this->addFlash('sonata_flash_success', 'flash_edit_success');
+
+                return $this->redirect(
+                    $this->generateUrl('presta_cms_page_edit', array('id' => $request->get('id'), 'locale' => $request->get('locale')))
+                );
             } elseif ($this->get('request')->getMethod() == 'POST') {
                 $this->addFlash('sonata_flash_error', 'flash_edit_error');
             }
