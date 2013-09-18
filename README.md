@@ -1,7 +1,13 @@
-Presta CMS Core Bundle  [![Build Status](https://secure.travis-ci.org/prestaconcept/PrestaCMSCoreBundle.png?branch=master)](http://travis-ci.org/prestaconcept/PrestaCMSCoreBundle)
+Presta CMS Core Bundle
 =============
 
-### [WIP] We are working on the 2.3 release it depends on Symfony CMF release which is not stable yet
+[![Build Status](https://secure.travis-ci.org/prestaconcept/PrestaCMSCoreBundle.png?branch=master)](http://travis-ci.org/prestaconcept/PrestaCMSCoreBundle)
+[![Latest Stable Version](https://poser.pugx.org/presta/cms-core-bundle/v/stable.png)](https://packagist.org/packages/presta/cms-core-bundle)
+[![Total Downloads](https://poser.pugx.org/presta/cms-core-bundle/downloads.png)](https://packagist.org/packages/presta/cms-core-bundle)
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/6576869b-bb02-4c6f-85ad-eac142d03b85/big.png)](https://insight.sensiolabs.com/projects/6576869b-bb02-4c6f-85ad-eac142d03b85)
+
+### [WIP] We are working on the 1.0.0 release it depends on Symfony CMF release which is not stable yet
 
 This bundle contains the main logic of Presta CMS.
 
