@@ -100,16 +100,16 @@ class PageController extends AdminController
     /**
      * Return Page initialized for edition
      *
-     * @param  $id
+     * @param  integer $menuNodeId
      * @return Page
      */
-    protected function getPage($id)
+    protected function getPage($menuNodeId)
     {
         $locale = $this->getRequest()->get('locale', null);
         $pageManager    = $this->getPageManager();
         $routeManager   = $this->getRouteManager();
 
-        $page = $pageManager->getPageForMenu($id, $locale);
+        $page = $pageManager->getPageForMenu($menuNodeId, $locale);
 
         //Initialize routing data
         $routeManager->setBaseUrl($this->getWebsiteManager()->getBaseUrlForLocale($locale));
@@ -125,11 +125,11 @@ class PageController extends AdminController
      */
     public function editAction(Request $request)
     {
-        $menuItemId = $request->get('id', null);
+        $menuNodeId = $request->get('id', null);
         $viewParams = $this->getEditViewParams();
 
-        if ($menuItemId != null) {
-            $page = $this->getPage($menuItemId);
+        if ($menuNodeId != null) {
+            $page = $this->getPage($menuNodeId);
 
             $form = $this->createForm(new PageType(), $page);
             $form->handleRequest($request);
@@ -138,9 +138,7 @@ class PageController extends AdminController
                 $this->getPageManager()->update($page);
                 $this->addFlash('sonata_flash_success', 'flash_edit_success');
 
-                return $this->redirect(
-                    $this->generateUrl('presta_cms_page_edit', array('id' => $request->get('id'), 'locale' => $request->get('locale')))
-                );
+                return $this->redirect($this->generateUrl('presta_cms_page_edit') . '?' . $request->getQueryString());
             } elseif ($this->get('request')->getMethod() == 'POST') {
                 $this->addFlash('sonata_flash_error', 'flash_edit_error');
             }
