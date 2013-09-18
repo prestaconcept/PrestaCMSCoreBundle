@@ -11,6 +11,8 @@ namespace Presta\CMSCoreBundle\Tests\Resources\DataFixtures\Phpcr;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use PHPCR\Util\NodeHelper;
+use Symfony\Cmf\Bundle\RoutingBundle\Model\Route;
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
 use Symfony\Component\Yaml\Parser;
 use Presta\CMSCoreBundle\DataFixtures\PHPCR\BaseRouteFixture;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Website;
@@ -55,13 +57,57 @@ class LoadRoute extends BaseRouteFixture
             $pageConfiguration['content_path'] = '/website/sandbox/page' . '/' .  $pageConfiguration['name'];
             $pageConfiguration['parent'] = $home;
             $pageConfiguration['locale'] = 'en';
-            $this->getFactory()->create($pageConfiguration);
+            $route = $this->getFactory()->create($pageConfiguration);
+            $this->generateRedirects($route, 'en');
 
             $pageConfiguration['parent'] = $homeFr;
             $pageConfiguration['locale'] = 'fr';
-            $this->getFactory()->create($pageConfiguration);
+            $route = $this->getFactory()->create($pageConfiguration);
+            $this->generateRedirects($route, 'fr');
         }
 
         $this->manager->flush();
+    }
+
+    /**
+     * Generate dummy redirects for a given route
+     *
+     * @param Route $route
+     */
+    protected function generateRedirects(Route $route, $locale)
+    {
+        $rewrite = new RedirectRoute();
+        $rewrite->setPosition($route->getParent(), $route->getName() . '-redirect-1');
+        $rewrite->setDefault('_locale', $locale);
+        $rewrite->setRequirement('_locale', $locale);
+        $rewrite->setRouteTarget($route);
+        $rewrite->setPermanent(true);
+
+        $this->manager->persist($rewrite);
+
+        $route = $this->manager->find(null, $route->getId());
+
+        foreach ($route->getRouteChildren() as $child) {
+            if ($child instanceof Route) {
+                $this->generateRedirects($child, $locale);
+            }
+        }
+
+        $rewrite = new RedirectRoute();
+        $rewrite->setPosition($route->getParent(), $route->getName() . '-redirect-2');
+        $rewrite->setDefault('_locale', $locale);
+        $rewrite->setRequirement('_locale', $locale);
+        $rewrite->setRouteTarget($route);
+        $rewrite->setPermanent(true);
+
+        $this->manager->persist($rewrite);
+
+        $route = $this->manager->find(null, $route->getId());
+
+        foreach ($route->getRouteChildren() as $child) {
+            if ($child instanceof Route) {
+                $this->generateRedirects($child, $locale);
+            }
+        }
     }
 }

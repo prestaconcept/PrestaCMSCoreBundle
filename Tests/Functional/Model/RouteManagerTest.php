@@ -11,11 +11,12 @@ namespace Presta\CMSCoreBundle\Tests\Functional\Model;
 
 use Presta\CMSCoreBundle\Model\RouteManager;
 use Presta\CMSCoreBundle\Tests\Functional\BaseFunctionalTestCase;
+use Symfony\Cmf\Bundle\RoutingBundle\Model\RedirectRoute;
 use Symfony\Cmf\Bundle\RoutingBundle\Model\Route;
 
 /**
  * phpunit -c . Tests/Functional/Model/RouteManagerTest.php
- * phpunit -c . --filter testUpdatePageRoutingUrlComplete Tests/Functional/Model/RouteManagerTest.php
+ * phpunit -c . --filter testGenerateRedirects Tests/Functional/Model/RouteManagerTest.php
  *
  * @author Alain Flaus <aflaus@prestaconcept.net>
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
@@ -28,6 +29,21 @@ class RouteManagerTest extends BaseFunctionalTestCase
     protected function getRouteManager()
     {
         return $this->container->get('presta_cms.manager.route');
+    }
+
+    /**
+     * Allow us to test protected/private method from RouteManager
+     *
+     * @param  string $name
+     * @return \ReflectionMethod
+     */
+    protected function getRouterManagerMethodByName($name)
+    {
+        $class = new \ReflectionClass(get_class($this->getRouteManager()));
+        $method = $class->getMethod($name);
+        $method->setAccessible(true);
+
+        return $method;
     }
 
     /**
@@ -183,13 +199,76 @@ class RouteManagerTest extends BaseFunctionalTestCase
         $this->assertEquals('/page-children-new-pattern/and-a-level-more/new-awesome-url', $page->getUrlComplete());
     }
 
-    //    public function testIndexRedirectRouteToCreate()
-    //    {
-    //        $redirectRoutes = array();
-    //        $route          = $this->generateRouteHierarchy();
-    //
-    //        $this->getRouteManager()->indexRedirectRouteToCreate($redirectRoutes, $route);
-    //
-    //        $this->assertEquals(3, count($redirectRoutes));
-    //    }
+    /**
+     * @test RouteManager::getRedirectRouteForPage
+     */
+    public function testGetRedirectRouteForPage()
+    {
+        $page = $this->documentManager->find(null, '/website/sandbox/page/page-children');
+
+        $redirectRoutes = $this->getRouteManager()->getRedirectRouteForPage($page);
+
+        $this->assertEquals(2, count($redirectRoutes));
+
+        foreach ($redirectRoutes as $redirect) {
+            $this->assertTrue($redirect instanceof RedirectRoute);
+        }
+    }
+
+    /**
+     * @test RouteManager::getCorrespondingUrls
+     */
+    public function testGetCorrespondingUrls()
+    {
+        $method = $this->getRouterManagerMethodByName('getCorrespondingUrls');
+        $route  = $this->documentManager->find(null, '/website/sandbox/route/en/page-children');
+
+        $urls = $method->invokeArgs(
+            $this->getRouteManager(),
+            array($route, '/website/sandbox/route/en/new-page-children')
+        );
+
+        $this->assertEquals(4, count($urls));
+
+        $this->assertEquals(
+            '/website/sandbox/route/en/new-page-children',
+            $urls['/website/sandbox/route/en/page-children']
+        );
+        $this->assertEquals(
+            '/website/sandbox/route/en/new-page-children/block-simple',
+            $urls['/website/sandbox/route/en/page-children/block-simple']
+        );
+        $this->assertEquals(
+            '/website/sandbox/route/en/new-page-children/block-sitemap',
+            $urls['/website/sandbox/route/en/page-children/block-sitemap']
+        );
+        $this->assertEquals(
+            '/website/sandbox/route/en/new-page-children/block-container',
+            $urls['/website/sandbox/route/en/page-children/block-container']
+        );
+    }
+
+    /**
+     * @test RouteManager::generateRedirects
+     */
+    public function testGenerateRedirects()
+    {
+        $method = $this->getRouterManagerMethodByName('generateRedirects');
+
+        $method->invokeArgs(
+            $this->getRouteManager(),
+            array(
+                array(
+                    '/website/sandbox/route/en/old-page-children' => '/website/sandbox/route/en/page-children',
+                    '/website/sandbox/route/en/old-page-children/block-simple' => '/website/sandbox/route/en/page-children/block-simple',
+                    '/website/sandbox/route/en/old-page-children/block-sitemap' => '/website/sandbox/route/en/page-children/block-sitemap',
+                    '/website/sandbox/route/en/old-page-children/block-container' => '/website/sandbox/route/en/page-children/block-container'
+                )
+            )
+        );
+
+        $page = $this->documentManager->find(null, '/website/sandbox/page/page-children');
+        $redirectRoutes = $this->getRouteManager()->getRedirectRouteForPage($page);
+        $this->assertEquals(3, count($redirectRoutes));
+    }
 }

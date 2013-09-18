@@ -15,7 +15,7 @@ use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
-use Symfony\Cmf\Bundle\RoutingBundle\Model\RedirectRoute;
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
 use Sonata\AdminBundle\Model\ModelManagerInterface;
 
 /**
@@ -185,46 +185,6 @@ class RouteManager
     }
 
     /**
-     * Generate the list of redirection
-     *
-     * @param Route $oldRoute
-     * @param  $newRouteUrl
-     * @return array
-     */
-    protected function generateRedirectionList(Route $oldRoute, $newRouteUrl)
-    {
-        $redirectionList = array();
-        $redirectionList[$oldRoute->getId()] = $newRouteUrl;
-
-        foreach ($oldRoute->getRouteChildren() as $oldRouteChild) {
-            $redirectionList += $this->generateRedirectionList($oldRouteChild, $newRouteUrl . '/' . $oldRouteChild->getName());
-        }
-
-        return $redirectionList;
-    }
-
-    /**
-     * Generate RedirectRoutes for the redirections
-     *
-     * @param array $redirectionList
-     */
-    protected function generateRedirections(array $redirectionList)
-    {
-        //Not working : right now DoctrineDBAL Client throws an exception cause it considers that there is node duplication
-        //DocumentManager::clear does not solve the problem
-        return;
-
-        foreach ($redirectionList as $oldId => $newUrl) {
-            $redirectRoute = new RedirectRoute();
-            $redirectRoute->setId($oldId);
-            $redirectRoute->setUri($newUrl);
-            $this->getDocumentManager()->persist($redirectRoute);
-        }
-
-        $this->getDocumentManager()->flush();
-    }
-
-    /**
      * Move an existing route to a new path
      *
      * @param Route  $oldRoute
@@ -238,8 +198,8 @@ class RouteManager
             $this->getDocumentManager()->remove($oldRedirect);
             $this->getDocumentManager()->flush();
         }
-        //        $newRouteUrl = $this->getBaseUrl() . str_replace($oldRoute->getPrefix(), '', $newRoutePath);
-        //        $redirectionList = $this->generateRedirectionList($oldRoute, $newRouteUrl);
+        $newRouteUrl = $this->getBaseUrl() . str_replace($oldRoute->getPrefix(), '', $newRoutePath);
+        $correspondingUrls = $this->getCorrespondingUrls($oldRoute, $newRouteUrl);
 
         //Create new route
         $this->getDocumentManager()->move($oldRoute, $newRoutePath);
@@ -268,28 +228,6 @@ class RouteManager
         }
 
         return $this->updatePageRoutingUrlRelative($page);
-    }
-
-    /**
-     * Create redirect route for a route and all its children
-     *
-     * @param array                $redirectRoutes
-     * @param RouteObjectInterface $route
-     */
-    public function createRedirectRoute(RouteObjectInterface $route, $parent = null)
-    {
-        // create new redirect route for old url
-        $redirectRoute = new RedirectRoute();
-        $redirectRoute->setPosition($parent, $route->getName());
-        $redirectRoute->setRouteTarget($route);
-
-        $this->getDocumentManager()->persist($redirectRoute);
-
-        foreach ($route->getRouteChildren() as $routeChild) {
-            $this->createRedirectRoute($routeChild, $redirectRoute);
-        }
-
-        return $redirectRoute;
     }
 
     /**
@@ -337,4 +275,61 @@ class RouteManager
 
         return $redirectRoutes;
     }
+
+    /**
+     * Generate the list of redirection to create
+     *
+     * Returns an array where keys are old url an values the corresponding new urls
+     *
+     * @param  Route  $oldRoute
+     * @param  string $newRouteUrl
+     * @return array
+     */
+    protected function getCorrespondingUrls(Route $oldRoute, $newRouteUrl)
+    {
+        $urls = array($oldRoute->getId() => $newRouteUrl);
+
+        foreach ($oldRoute->getRouteChildren() as $oldRouteChild) {
+            $urls = array_merge(
+                $urls,
+                $this->getCorrespondingUrls($oldRouteChild, $newRouteUrl . '/' . $oldRouteChild->getName())
+            );
+        }
+
+        return $urls;
+    }
+
+    /**
+     * Generate RedirectRoutes
+     *
+     * @param array $urls
+     */
+    protected function generateRedirects(array $urls)
+    {
+//        //Not working : right now DoctrineDBAL Client throws an exception cause it considers that there is node duplication
+//        //DocumentManager::clear does not solve the problem
+//        return;
+
+        foreach ($urls as $oldId => $newUrl) {
+            $target = $this->getDocumentManager()->find(null, $newUrl);
+            $parentId = substr($oldId, 0, strrpos($oldId, '/'));
+            $parent = $this->getDocumentManager()->find(null, $parentId);
+            if ($parent == null) {
+                NodeHelper::createPath($this->getDocumentManager()->getPhpcrSession(), $parentId);
+            }
+
+            $redirectRoute = new RedirectRoute();
+            $redirectRoute->setParent($parent);
+            $redirectRoute->setName(substr($oldId, strrpos($oldId, '/') + 1));
+            $redirectRoute->setRouteTarget($target);
+            $redirectRoute->setPermanent(true);
+            $redirectRoute->setDefaults($target->getDefaults());
+            $redirectRoute->setRequirements($target->getRequirements());
+
+            $this->getDocumentManager()->persist($redirectRoute);
+        }
+
+        $this->getDocumentManager()->flush();
+    }
+
 }
