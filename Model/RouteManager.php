@@ -80,43 +80,29 @@ class RouteManager
     }
 
     /**
-     * @param  Website         $website
-     * @return RouteCollection
-     */
-    public function findRoutesByWebsite(Website $website)
-    {
-        //Locale is in host only; then we list children for current locale
-        $baseRoute = $this->routeProvider->getRouteByName($website->getRoutePrefix());
-
-        if (!$baseRoute) {
-            throw new \RuntimeException('Website must has a route');
-        }
-
-        return $this->getRouteCollectionForHierarchy($baseRoute);
-    }
-
-    /**
-     * get routes recursively
+     * Returns all routes corresponding to a website
      *
-     * @param  Route           $route
-     * @return RouteCollection
+     * @param  Website $website
+     * @return array
      */
-    public function getRouteCollectionForHierarchy(Route $route)
+    public function getRoutesForWebsite(Website $website)
     {
-        $routeCollection = new RouteCollection();
+        $qb = $this->getDocumentManager()->createQueryBuilder();
+        $qb->from()->document('Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route', 'r');
+        //Waiting on QueryBuilderV2 to use this
+        //$qb->where()->like()->field('r.id')->literal($website->getRoutePrefix() . '%');
+        $qb->orderBy()->ascending()->field('r.id');
 
-        // SYMFONY 2.1 COMPATIBILITY: tweak route name
-        $routeName = trim(preg_replace('/[^a-z0-9A-Z_.]/', '_', $route->getRouteKey()), '_');
-        $routeCollection->add($routeName, $route);
+        $results = $qb->getQuery()->execute();
 
-        foreach ($route->getRouteChildren() as $child) {
-            //route cannot be other than RouteObjectInterface
-            if ($child instanceof Route) {
-                $routeCollection->addCollection($this->getRouteCollectionForHierarchy($child));
+        $routes = array();
+        foreach ($results as $route) {
+            if (strpos($route->getId(), $website->getRoutePrefix()) === 0) {
+                $routes[] = $route;
             }
         }
 
-        return $routeCollection;
+        return $routes;
     }
 
     /**

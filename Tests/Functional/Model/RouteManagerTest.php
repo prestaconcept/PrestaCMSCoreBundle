@@ -38,15 +38,22 @@ class RouteManagerTest extends BaseFunctionalTestCase
         return $this->documentManager->find(null, '/website/sandbox/route/en/page-children');
     }
 
-    //    public function testGetRoutesForWebsite()
-    //    {
-    //
-    //    }
-    //
-    //    public function testUpdatePageRoutingUrlComplete()
-    //    {
-    //
-    //    }
+    /**
+     * @test RouteManager::getRoutesForWebsite
+     */
+    public function testGetRoutesForWebsite()
+    {
+        $website = $this->documentManager->find(null, '/website/sandbox');
+        $website->setLocale('en');
+
+        $routes = $this->getRouteManager()->getRoutesForWebsite($website);
+
+        $this->assertEquals(5, count($routes));
+
+        foreach ($routes as $route) {
+            $this->assertTrue(strpos($route->getId(), $website->getRoutePrefix()) === 0);
+        }
+    }
 
     /**
      * @test RouteManager::initializePageRouting
