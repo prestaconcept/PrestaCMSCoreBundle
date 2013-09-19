@@ -172,10 +172,16 @@ class RouteManager
      */
     protected function updatePageRoutingUrlRelative(Page $page)
     {
-        $parentRoute    = $this->getRouteForPage($page->getParent());
-        $pageRoute      = $this->getRouteForPage($page);
-        $newRoutePath   = $parentRoute->getId() . $page->getUrlRelative();
+        $pageRoute  = $this->getRouteForPage($page);
+        $pageParent = $page->getParent();
+        if ($pageParent instanceof Page) {
+            $parentRoute  = $this->getRouteForPage($pageParent);
+            $newUrlPrefix = $parentRoute->getId();
+        } else {
+            $newUrlPrefix = $pageRoute->getPrefix();
+        }
 
+        $newRoutePath = $newUrlPrefix . $page->getUrlRelative();
         if ($pageRoute->getId() == $newRoutePath) {
             //Url didn't change
             return;
@@ -198,8 +204,8 @@ class RouteManager
             $this->getDocumentManager()->remove($oldRedirect);
             $this->getDocumentManager()->flush();
         }
-        $newRouteUrl = $this->getBaseUrl() . str_replace($oldRoute->getPrefix(), '', $newRoutePath);
-        $correspondingUrls = $this->getCorrespondingUrls($oldRoute, $newRouteUrl);
+
+        $correspondingUrls = $this->getCorrespondingUrls($oldRoute, $newRoutePath);
 
         //Create new route
         $this->getDocumentManager()->move($oldRoute, $newRoutePath);
@@ -207,7 +213,7 @@ class RouteManager
         $this->getDocumentManager()->clear();
 
         //Now old route is moved so we can persist the new redirects
-        //        $this->generateRedirections($redirectionList);
+        $this->generateRedirects($correspondingUrls);
     }
 
     /**
@@ -306,30 +312,37 @@ class RouteManager
      */
     protected function generateRedirects(array $urls)
     {
-//        //Not working : right now DoctrineDBAL Client throws an exception cause it considers that there is node duplication
-//        //DocumentManager::clear does not solve the problem
-//        return;
+        //Not working : right now DoctrineDBAL Client throws an exception cause it considers that there is node duplication
+        //DocumentManager::clear does not solve the problem
+        return;
 
-        foreach ($urls as $oldId => $newUrl) {
-            $target = $this->getDocumentManager()->find(null, $newUrl);
+        $this->getDocumentManager()->flush();
+        $this->getDocumentManager()->clear();
+
+        foreach ($urls as $oldId => $newId) {
+            $target = $this->getDocumentManager()->find(null, $newId);
             $parentId = substr($oldId, 0, strrpos($oldId, '/'));
+
             $parent = $this->getDocumentManager()->find(null, $parentId);
             if ($parent == null) {
                 NodeHelper::createPath($this->getDocumentManager()->getPhpcrSession(), $parentId);
+                $parent = $this->getDocumentManager()->find(null, $parentId);
             }
 
-            $redirectRoute = new RedirectRoute();
-            $redirectRoute->setParent($parent);
-            $redirectRoute->setName(substr($oldId, strrpos($oldId, '/') + 1));
-            $redirectRoute->setRouteTarget($target);
-            $redirectRoute->setPermanent(true);
-            $redirectRoute->setDefaults($target->getDefaults());
-            $redirectRoute->setRequirements($target->getRequirements());
+            $oldName = substr($oldId, strrpos($oldId, '/') + 1);
+            $existingNode = $this->getDocumentManager()->find(null, $parentId . '/' . $oldName);
+            if ($existingNode == null) {
+                $redirectRoute = new RedirectRoute();
+                $redirectRoute->setParent($parent);
+                $redirectRoute->setName($oldName);
+                $redirectRoute->setRouteTarget($target);
+                $redirectRoute->setPermanent(true);
+                $redirectRoute->setDefaults($target->getDefaults());
+                $redirectRoute->setRequirements($target->getRequirements());
 
-            $this->getDocumentManager()->persist($redirectRoute);
+                $this->getDocumentManager()->persist($redirectRoute);
+                $this->getDocumentManager()->flush();
+            }
         }
-
-        $this->getDocumentManager()->flush();
     }
-
 }

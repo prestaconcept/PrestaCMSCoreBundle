@@ -131,7 +131,7 @@
                 </form>
             </div>
             {#<div class="tab-pane form-horizontal" id="routing">#}
-                {#{% render "PrestaCMSCoreBundle:Admin/Page:renderRouting" with {'_locale': locale, 'page': page} %}#}
+                {#{{ render(controller("PrestaCMSCoreBundle:Admin/Page:renderRouting", {'_locale': locale, 'page': page})) }}#}
             {#</div>#}
                 {#<div class="tab-pane form-horizontal" id="settings">#}
                     {#<fieldset>#}
