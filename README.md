@@ -64,3 +64,7 @@ Thanks to
 Released under the MIT License
 
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/prestaconcept/prestacmscorebundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
