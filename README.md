@@ -60,7 +60,7 @@ Pull requests are welcome.
 
 
 Thanks to
-[everyone who has contributed](https://github.com/PrestaCMSCoreBundle/graphs/contributors) already.
+[everyone who has contributed](https://github.com/prestaconcept/PrestaCMSCoreBundle/graphs/contributors) already.
 
 ---
 
