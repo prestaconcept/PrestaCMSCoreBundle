@@ -28,7 +28,7 @@
 
         "sonata-project/doctrine-phpcr-admin-bundle": "1.0.*@dev",
         "sonata-project/seo-bundle": "2.1.*@dev",
-        "leafo/lessphp":"0.3.*@dev"
+        "leafo/lessphp":"~0.3"
     },
     "require-dev": {
         "doctrine/orm": ">=2.2.3,<2.4-dev",
