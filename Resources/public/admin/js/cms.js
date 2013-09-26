@@ -138,7 +138,7 @@ var CMSContent = function() {
          * Load Modal
          */
         deleteBlock : function (blockId, message) {
-            if (confirm(message)) {
+            if (confirm('Do you really want to delete : ' + message)) {
                 $.ajax({
                     url: this._deleteBlocUrl + '?id=' + blockId,
                     type: "POST",
