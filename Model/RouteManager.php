@@ -91,7 +91,7 @@ class RouteManager
         $qb->from()->document('Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route', 'r');
         //Waiting on QueryBuilderV2 to use this
         //$qb->where()->like()->field('r.id')->literal($website->getRoutePrefix() . '%');
-        $qb->orderBy()->ascending()->field('r.id');
+        $qb->orderBy()->asc()->field('r.id');
 
         $results = $qb->getQuery()->execute();
 
