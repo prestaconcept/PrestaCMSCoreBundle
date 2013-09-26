@@ -200,6 +200,6 @@ class PageManager
      */
     public function isValidToken($page, $token)
     {
-        return ($token == $this->getToken($page));
+        return ($token != null && $token == $this->getToken($page));
     }
 }
