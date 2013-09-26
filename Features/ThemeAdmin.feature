@@ -9,12 +9,11 @@ Background:
 
 Scenario: An admin see a list of themes
     Given I visit the admin dashboard
-    When I follow "Themes"
-    #Then I should see 2 themes
+    When I follow dashboard "Themes" link "List"
     Then I should see 1 themes
 
 Scenario: An admin view the details of a theme
     Given I am on "/admin/cms/theme"
-    And I follow "creative"
-    Then I should see the creative theme configuration
+    And I follow "test"
+    Then I should see the test theme configuration
     And I should see 2 locales
