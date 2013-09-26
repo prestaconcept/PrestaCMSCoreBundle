@@ -139,25 +139,37 @@ class BlockController extends CRUDController
                 throw new AccessDeniedException();
             }
 
-            $this->admin->delete($block);
+            return $this->delete($block);
+        }
+    }
 
-            if ($this->isXmlHttpRequest()) {
-                $data   = array('result' => 'ok', 'action' => 'delete', 'block' => $block->getId());
-                $parent = $block->getParentDocument();
+    /**
+     * Create a new block
+     *
+     * @param  Block    $block
+     *
+     * @return Response
+     */
+    protected function delete($block)
+    {
+        $this->admin->delete($block);
 
-                if ($parent instanceof Zone) {
-                    $data['zone'] = $parent->getId();
-                } else {
-                    $data['content'] = $this->renderView(
-                        'PrestaCMSCoreBundle:Admin/Block:delete_block_content.html.twig',
-                        array('block' => $block)
-                    );
-                }
+        if ($this->isXmlHttpRequest()) {
+            $data   = array('result' => 'ok', 'action' => 'delete', 'block' => $block->getId());
+            $parent = $block->getParentDocument();
 
-                return $this->renderJson($data);
+            if ($parent instanceof Zone) {
+                $data['zone'] = $parent->getId();
+            } else {
+                $data['content'] = $this->renderView(
+                    'PrestaCMSCoreBundle:Admin/Block:delete_block_content.html.twig',
+                    array('block' => $block)
+                );
             }
 
-            return new RedirectResponse($this->admin->generateUrl('list'));
+            return $this->renderJson($data);
         }
+
+        return new RedirectResponse($this->admin->generateUrl('list'));
     }
 }
