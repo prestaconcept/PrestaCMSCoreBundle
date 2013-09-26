@@ -53,26 +53,7 @@ class BlockController extends CRUDController
         $blockId    = $this->getRequest()->get('blockId');
 
         if ($this->get('request')->getMethod() == 'POST') {
-
-            $block = $this->create($zoneId, $blockId);
-
-            if ($this->isXmlHttpRequest()) {
-                return $this->renderJson(
-                    array(
-                        'result'    => 'ok',
-                        'action'    => 'add',
-                        'zone'      => $zoneId,
-                        'objectId'  => $block->getId(),
-                        'content'   => $this->renderView(
-                            'PrestaCMSCoreBundle:Admin/Block:_content_block.html.twig',
-                            array('block' => $block)
-                        )
-                    )
-                );
-            }
-
-            // redirect to edit mode
-            return $this->redirectTo($block);
+            return $this->create($zoneId, $blockId);
         }
 
         return $this->render(
@@ -89,9 +70,9 @@ class BlockController extends CRUDController
     /**
      * Create a new block
      *
-     * @param $zoneId
-     * @param $blockId
-     * @return Block
+     * @param  string   $zoneId
+     * @param  string   $blockId
+     * @return Response
      */
     protected function create($zoneId, $blockId)
     {
@@ -121,7 +102,23 @@ class BlockController extends CRUDController
         $zoneFactory->flush();
         $block->setAdminMode();
 
-        return $block;
+        if ($this->isXmlHttpRequest()) {
+            return $this->renderJson(
+                array(
+                    'result'    => 'ok',
+                    'action'    => 'add',
+                    'zone'      => $zoneId,
+                    'objectId'  => $block->getId(),
+                    'content'   => $this->renderView(
+                        'PrestaCMSCoreBundle:Admin/Block:_content_block.html.twig',
+                        array('block' => $block)
+                    )
+                )
+            );
+        }
+
+        // redirect to edit mode
+        return $this->redirectTo($block);
     }
 
     /**
