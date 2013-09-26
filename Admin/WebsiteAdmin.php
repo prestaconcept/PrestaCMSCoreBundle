@@ -80,8 +80,8 @@ class WebsiteAdmin extends BaseAdmin
                 'actions',
                 array(
                     'actions'  => array(
-                        'view' => array(),
-                        'edit' => array(),
+                        'show'   => array(),
+                        'edit'   => array(),
                         'delete' => array(),
                     )
                 )
