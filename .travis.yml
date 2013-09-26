@@ -22,7 +22,7 @@ before_script:
 script:
   - phpunit --coverage-text
   - phpcs --ignore=/vendor/*,/Tests/Resources/app/* --extensions=php --encoding=utf-8 --standard=PSR2 -np .
-#  - vendor/bin/behat @PrestaCMSCoreBundle
+  - vendor/bin/behat @PrestaCMSCoreBundle/WebsiteAdmin.feature
 
 matrix:
   allow_failures:

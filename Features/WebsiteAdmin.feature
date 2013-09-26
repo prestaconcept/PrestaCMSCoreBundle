@@ -9,8 +9,8 @@ Background:
 
 Scenario: An admin see a list of websites
     Given I visit the admin dashboard
-    When I follow "Websites"
-    Then I should see 1 websites
+    When I follow dashboard "Websites" link "List"
+    Then I should see 5 websites
 
 Scenario: An admin view details of a website
     Given I am on "/admin/presta/cmscore/website/list"
@@ -23,6 +23,6 @@ Scenario: An admin edit a website
     Then I should see the form to edit "sandbox" website
     And I should see a link with selected locale "en"
     And I fill in the following:
-        | Theme | creative |
+        | Theme | test |
     And I press "Update"
     Then I should see "Item has been successfully updated."

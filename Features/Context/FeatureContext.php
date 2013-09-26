@@ -12,6 +12,8 @@ namespace Presta\CMSCoreBundle\Features\Context;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\MinkExtension\Context\MinkContext;
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ODM\PHPCR\DocumentManager;
 
 //
 // Require 3rd-party libraries here:
@@ -47,8 +49,7 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
      */
     public function applicationIsInitialized()
     {
-        //TODO: behat should be run under prestaCms Full stack
-        //waiting for fixtures loading system from @nbastien
+        //fixtures are loaded by functional tests
     }
 
     /**
@@ -75,11 +76,11 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
      */
     public function iAmLoggedInAsWithThePassword($arg1, $arg2)
     {
-            $this->getSession()->setBasicAuth($arg1, $arg2);
+        $this->getSession()->setBasicAuth($arg1, $arg2);
     }
 
     /**
-     * @return Doctrine\Bundle\DoctrineBundle\Registry
+     * @return Registry
      */
     protected function getDoctrine()
     {
@@ -87,10 +88,28 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
     }
 
     /**
-     * @return Doctrine\ODM\PHPCR\DocumentManager
+     * @return DocumentManager
      */
     public function getDocumentManager()
     {
         return $this->kernel->getContainer()->get('doctrine_phpcr.odm.default_document_manager');
+    }
+
+    /**
+     * @When /^I follow dashboard "([^"]*)" link "([^"]*)"$/
+     */
+    public function iFollowDashboardLink($arg1, $arg2)
+    {
+        $session = $this->getMainContext()->getSession();
+        $element = $session->getPage()->find(
+            'css',
+            ".sonata-ba-list tr:contains($arg1) a:contains($arg2)"
+        );
+
+        if (null === $element) {
+            throw new \InvalidArgumentException(sprintf('Could not find "%s" Website or "%s" link', $arg1, $arg2));
+        }
+
+        $element->click();
     }
 }
