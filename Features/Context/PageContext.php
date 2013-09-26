@@ -27,7 +27,7 @@ class PageContext extends BehatContext
     public function iShouldSeeTheWebsiteSelectionAndALinkWithSelectedLocale($arg1, $arg2)
     {
         $this->getMainContext()->assertElementContainsText("#website-selector", $arg1);
-        $this->getMainContext()->assertElementContainsText("#website-selector div:contains($arg1) ul li.active", $arg2);
+        $this->getMainContext()->assertElementOnPage("#website-selector div:contains($arg1) ul li.locale_$arg2.active");
     }
 
     /**
@@ -36,7 +36,7 @@ class PageContext extends BehatContext
     public function iShouldSeeATreeOfPages()
     {
         //tmp fake working page using sandbox demo
-        $this->getMainContext()->visit("http://sandbox.prestacms.com/admin/cms/page/website/sandbox/en");
+        $this->getMainContext()->visit("/admin/cms/page/website/sandbox/en");
 
         $this->getMainContext()->assertElementContainsText("h1", "Pages");
         $this->getMainContext()->assertElementContainsText("#page-tree-container h4", "Navigation");
