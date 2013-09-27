@@ -11,7 +11,6 @@ namespace Presta\CMSCoreBundle\Factory;
 
 use Presta\CMSCoreBundle\Model\Block;
 use Presta\CMSCoreBundle\Model\Zone;
-use Presta\CMSCoreBundle\Model\Website;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
