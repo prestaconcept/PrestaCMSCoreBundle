@@ -166,7 +166,7 @@ class PageController extends AdminController
             $viewParams = $this->addPageEditionViewParams($viewParams, $form, $page);
         }
 
-        return $this->render('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
+        return $this->renderResponse('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
     }
 
     /**
@@ -183,7 +183,7 @@ class PageController extends AdminController
         $pageType   = $this->getPageManager()->getPageType($page->getType());
         $viewParams = $pageType->getEditTabData($tab, $page);
 
-        return $this->render($pageType->getEditTabTemplate($tab), $viewParams);
+        return $this->renderResponse($pageType->getEditTabTemplate($tab), $viewParams);
     }
 
     /**
@@ -204,7 +204,7 @@ class PageController extends AdminController
             'redirectRouteNames' => $redirectRouteNames,
         );
 
-        return $this->render('PrestaCMSCoreBundle:Admin/Page:routing.html.twig', $viewParams);
+        return $this->renderResponse('PrestaCMSCoreBundle:Admin/Page:routing.html.twig', $viewParams);
     }
 
     /**
@@ -216,7 +216,7 @@ class PageController extends AdminController
     public function renderPageTreeAction(Request $request)
     {
         $root       = $request->query->get('root');
-        $selected   = $request->query->get('selected') ?: $root;
+        //$selected   = $request->query->get('selected') ?: $root;
         $locale     = $request->query->get('locale');
 
         //$selected is set to null cause it trigger the "select_node.jstree" event and reload the page
@@ -275,7 +275,7 @@ class PageController extends AdminController
             return $this->redirect($this->generateUrl('presta_cms_page_edit'));
         }
 
-        return $this->render('PrestaCMSCoreBundle:Admin/Page:delete.html.twig', array('page' => $page));
+        return $this->renderResponse('PrestaCMSCoreBundle:Admin/Page:delete.html.twig', array('page' => $page));
     }
 
     /**
@@ -355,7 +355,7 @@ class PageController extends AdminController
             $this->addFlash('sonata_flash_error', 'flash_edit_error');
         }
 
-        return $this->render(
+        return $this->renderResponse(
             'PrestaCMSCoreBundle:Admin/Page:add.html.twig',
             array('form' => $form->createView(), 'rootId' => $rootId)
         );

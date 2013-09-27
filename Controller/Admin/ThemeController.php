@@ -10,6 +10,8 @@
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
+use Presta\CMSCoreBundle\Model\WebsiteManager;
+use Presta\CMSCoreBundle\Model\ThemeManager;
 
 /**
  * Theme administration controller
@@ -19,7 +21,7 @@ use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 class ThemeController extends AdminController
 {
     /**
-     * @return Presta\CMSCoreBundle\Model\WebsiteManager
+     * @return WebsiteManager
      */
     protected function getWebsiteManager()
     {
@@ -27,7 +29,7 @@ class ThemeController extends AdminController
     }
 
     /**
-     * @return Presta\CMSCoreBundle\Model\ThemeManager
+     * @return ThemeManager
      */
     protected function getThemeManager()
     {
@@ -41,7 +43,10 @@ class ThemeController extends AdminController
      */
     public function listAction()
     {
-        return $this->render('PrestaCMSCoreBundle:Admin/Theme:list.html.twig', array('themes' => $this->getThemeManager()->getAvailableThemes()));
+        return $this->renderResponse(
+            'PrestaCMSCoreBundle:Admin/Theme:list.html.twig',
+            array('themes' => $this->getThemeManager()->getAvailableThemes())
+        );
     }
 
     /**
@@ -51,14 +56,14 @@ class ThemeController extends AdminController
      */
     public function editAction($name)
     {
-        $website = $this->getWebsiteManager()->getCurrentWebsite();
+        $website    = $this->getWebsiteManager()->getCurrentWebsite();
         $viewParams = array(
-            'website' => $website,
+            'website'   => $website,
             'websiteId' => ($website) ? $website->getId() : null,
-            'locale'  => ($website) ? $website->getLocale() : null,
-            'theme'   => $this->getThemeManager()->getTheme($name, $website)
+            'locale'    => ($website) ? $website->getLocale() : null,
+            'theme'     => $this->getThemeManager()->getTheme($name, $website)
         );
 
-        return $this->render('PrestaCMSCoreBundle:Admin/Theme:edit.html.twig', $viewParams);
+        return $this->renderResponse('PrestaCMSCoreBundle:Admin/Theme:edit.html.twig', $viewParams);
     }
 }

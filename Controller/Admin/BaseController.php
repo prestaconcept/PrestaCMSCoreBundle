@@ -56,14 +56,14 @@ abstract class BaseController extends sfController
      *
      * @return Response
      */
-    public function render($view, array $parameters = array(), Response $response = null)
+    protected function renderResponse($view, array $parameters = array(), Response $response = null)
     {
         $this->admin = $this->get('sonata.admin.pool');
 
         $parameters['base_template'] = isset($parameters['base_template']) ? $parameters['base_template'] : $this->getBaseTemplate();
         $parameters['admin_pool']    = $this->get('sonata.admin.pool');
 
-        return parent::render($view, $parameters, $response);
+        return $this->container->get('templating')->renderResponse($view, $parameters, $response);
     }
 
     /**
