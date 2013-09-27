@@ -98,6 +98,27 @@ class PageController extends Controller
     }
 
     /**
+     * @param  Page $contentDocument
+     *
+     * @return null|Response
+     */
+    protected function getCacheResponse(Page $contentDocument)
+    {
+        if ($this->isCacheEnabled($contentDocument) == false) {
+            return null;
+        }
+
+        $response = new Response();
+        $response->setPublic();
+        $response->setLastModified($contentDocument->getLastCacheModifiedDate());
+        if ($response->isNotModified($this->getRequest())) {
+            return $response;
+        }
+
+        return null;
+    }
+
+    /**
      * Render a CMS page
      * Action that is mapped in the controller_by_class map
      *
@@ -112,14 +133,9 @@ class PageController extends Controller
         }
 
         //Cache validation
-        $response = new Response();
-        $response->setPublic();
-        $response->setLastModified($contentDocument->getLastCacheModifiedDate());
-        if ($response->isNotModified($this->getRequest()) && $this->isCacheEnabled($contentDocument)) {
+        $response = $this->getCacheResponse($contentDocument);
+        if ($response != null) {
             return $response;
-        } else {
-            //If cache is disabled we need to remove the cache data form the response
-            $response = null;
         }
 
         $this->initSEO($contentDocument);
