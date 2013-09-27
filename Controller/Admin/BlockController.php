@@ -36,7 +36,7 @@ class BlockController extends CRUDController
     {
         $id = $this->getRequest()->get('id');
 
-        return $this->renderResponse('PrestaCMSCoreBundle:Admin/Block:render_block.html.twig', array('block' => $this->admin->getObject($id)));
+        return $this->render('PrestaCMSCoreBundle:Admin/Block:render_block.html.twig', array('block' => $this->admin->getObject($id)));
     }
 
     /**
@@ -56,7 +56,7 @@ class BlockController extends CRUDController
             return $this->create($zoneId, $blockId);
         }
 
-        return $this->renderResponse(
+        return $this->render(
             'PrestaCMSCoreBundle:Admin/Block:add_block.html.twig',
             array(
                 'zoneId'    => $zoneId,
