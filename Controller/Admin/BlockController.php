@@ -95,8 +95,9 @@ class BlockController extends CRUDController
             $block = $zone->getBlocks()->last();
         } else {
             //Add a block in container case
-            $blockConfiguration['id'] = $blockId;
-            $block = $zoneFactory->createBlock($blockConfiguration, null, null, $website);
+            $blockConfiguration['id']       = $blockId;
+            $blockConfiguration['website']  = $website;
+            $block = $zoneFactory->createBlock($blockConfiguration);
         }
 
         $zoneFactory->flush();
@@ -150,7 +151,7 @@ class BlockController extends CRUDController
      *
      * @return Response
      */
-    protected function delete($block)
+    protected function delete(Block $block)
     {
         $this->admin->delete($block);
 

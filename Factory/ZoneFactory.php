@@ -62,7 +62,14 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
         $this->getObjectManager()->persist($zone);
 
         foreach ($configuration['blocks'] as $position => $blockConfiguration) {
-            $block = $this->createBlock($blockConfiguration, $zone, $position, $website);
+
+            $blockConfiguration += array(
+                'website'   => $website,
+                'position'  => $position,
+                'parent'    => $zone
+            );
+
+            $block = $this->createBlock($blockConfiguration);
 
             $zone->addBlock($block);
         }
@@ -74,20 +81,20 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
      * Create a block
      *
      * @param  array    $blockConfiguration
-     * @param  Zone     $parent
-     * @param  integer  $position
-     * @param  Website  $website
+     *
      * @return Block
      */
-    public function createBlock(array $blockConfiguration, $parent, $position, Website $website)
+    public function createBlock(array $blockConfiguration)
     {
         $blockConfiguration += array(
             'settings'  => array(),
             'editable'  => true,
             'deletable' => true,
-            'position'  => $position
+            'position'  => null,
+            'parent'    => null
         );
 
+        $parent = $blockConfiguration['parent'];
         if ($blockConfiguration['position'] == null && $parent != null) {
             //Add block case from BlockController
             $blockConfiguration['position'] = (count($parent->getBlocks()) + 1) * 10;
@@ -112,6 +119,7 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
         $block->setEnabled(true);
         $this->getObjectManager()->persist($block);
 
+        $website = $blockConfiguration['website'];
         foreach ($website->getAvailableLocales() as $locale) {
             if (isset($blockConfiguration['settings'][$locale])) {
                 $block->setSettings($blockConfiguration['settings'][$locale]);
