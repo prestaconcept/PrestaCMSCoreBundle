@@ -2,6 +2,8 @@ Presta CMS Core Bundle
 =============
 
 [![Build Status](https://secure.travis-ci.org/prestaconcept/PrestaCMSCoreBundle.png?branch=master)](http://travis-ci.org/prestaconcept/PrestaCMSCoreBundle)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/prestaconcept/PrestaCMSCoreBundle/badges/quality-score.png?s=e8a6a531cba293704ef33e10027f2e1396165e79)](https://scrutinizer-ci.com/g/prestaconcept/PrestaCMSCoreBundle/)
+
 [![Latest Stable Version](https://poser.pugx.org/presta/cms-core-bundle/v/stable.png)](https://packagist.org/packages/presta/cms-core-bundle)
 [![Total Downloads](https://poser.pugx.org/presta/cms-core-bundle/downloads.png)](https://packagist.org/packages/presta/cms-core-bundle)
 
