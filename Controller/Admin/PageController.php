@@ -18,6 +18,7 @@ use Presta\CMSCoreBundle\Model\PageManager;
 use Presta\CMSCoreBundle\Model\RouteManager;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\Website;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -70,7 +71,7 @@ class PageController extends AdminController
     }
 
     /**
-     * Return view params for page edition
+     * Return default view params for edition page
      *
      * @return array
      */
@@ -98,6 +99,25 @@ class PageController extends AdminController
     }
 
     /**
+     * Add view parameters for page edition
+     *
+     * @param  array    $viewParams
+     * @param  Form     $form
+     * @param  Page     $page
+     *
+     * @return array
+     */
+    protected function addPageEditionViewParams(array $viewParams, Form $form, Page $page)
+    {
+        $viewParams['form'] = $form->createView();
+        $viewParams['page'] = $page;
+        $viewParams['pageFrontUrl'] = $this->getFrontUrlPreviewForPage($page);
+        $viewParams['pageEditTabs'] = $this->getPageManager()->getPageType($page->getType())->getEditTabs();
+
+        return $viewParams;
+    }
+
+    /**
      * Return Page initialized for edition
      *
      * @param  integer $menuNodeId
@@ -105,7 +125,11 @@ class PageController extends AdminController
      */
     protected function getPage($menuNodeId)
     {
-        $locale = $this->getRequest()->get('locale', null);
+        if ($menuNodeId == null) {
+            return null;
+        }
+
+        $locale         = $this->getRequest()->get('locale', null);
         $pageManager    = $this->getPageManager();
         $routeManager   = $this->getRouteManager();
 
@@ -125,15 +149,12 @@ class PageController extends AdminController
      */
     public function editAction(Request $request)
     {
-        $menuNodeId = $request->get('id', null);
+        $page       = $this->getPage($request->get('id', null));
         $viewParams = $this->getEditViewParams();
 
-        if ($menuNodeId != null) {
-            $page = $this->getPage($menuNodeId);
-
+        if ($page != null) {
             $form = $this->createForm(new PageType(), $page);
             $form->handleRequest($request);
-
             if ($form->isValid()) {
                 $this->getPageManager()->update($page);
                 $this->addFlash('sonata_flash_success', 'flash_edit_success');
@@ -142,11 +163,7 @@ class PageController extends AdminController
             } elseif ($this->get('request')->getMethod() == 'POST') {
                 $this->addFlash('sonata_flash_error', 'flash_edit_error');
             }
-
-            $viewParams['form'] = $form->createView();
-            $viewParams['page'] = $page;
-            $viewParams['pageFrontUrl'] = $this->getFrontUrlPreviewForPage($page);
-            $viewParams['pageEditTabs'] = $this->getPageManager()->getPageType($page->getType())->getEditTabs();
+            $viewParams = $this->addPageEditionViewParams($viewParams, $form, $page);
         }
 
         return $this->render('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
