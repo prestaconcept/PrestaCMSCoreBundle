@@ -178,10 +178,12 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
         if ($parent instanceof Menu) {
             //add a page under a menu means page is under website content root
             $parent = $this->getObjectManager()->find(null, $website->getPageRoot());
+        } else {
+            $parent = $parent->getContent();
         }
-        $configuration['parent'] = $parent;
 
-        $configuration['name'] = 'page-' . (count($parent->getChildren()) + 1);
+        $configuration['parent'] = $parent;
+        $configuration['name']   = 'page-' . (count($parent->getChildren()) + 1);
 
         return $configuration;
     }
