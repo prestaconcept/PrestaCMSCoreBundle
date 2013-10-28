@@ -59,7 +59,11 @@ class PageChildrenBlockService extends BaseBlockService
     {
         return array(
             array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
-            array('content', 'textarea', array('attr' => array(), 'label' => $this->trans('form.label_content'))),
+            array(
+                'content',
+                'textarea',
+                array('attr' => array('class' => 'wysiwyg'), 'label' => $this->trans('form.label_content'))
+            ),
         );
     }
 }
