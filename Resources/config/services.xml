@@ -14,6 +14,7 @@
         <parameter key="presta_cms.route.factory.class">Presta\CMSCoreBundle\Factory\RouteFactory</parameter>
         <parameter key="presta_cms.menu.factory.class">Presta\CMSCoreBundle\Factory\MenuFactory</parameter>
         <parameter key="presta_cms.data_collector.class">Presta\CMSCoreBundle\DataCollector\CMSDataCollector</parameter>
+        <parameter key="presta_cms.twig.presta_cms_core_extension.class">Presta\CMSCoreBundle\Twig\Extension\PrestaCMSCoreExtension</parameter>
     </parameters>
 
     <services>
@@ -112,6 +113,13 @@
                 template="PrestaCMSCoreBundle:Collector:cms.html.twig"
                 id="presta_cms_data_collector"
             />
+        </service>
+
+        <service id="presta_cms.twig.presta_cms_core_extension" class="%presta_cms.twig.presta_cms_core_extension.class%">
+            <argument type="service" id="cmf_core.templating.helper"/>
+            <argument type="service" id="presta_cms.manager.route"/>
+            <argument type="service" id="presta_cms.manager.website"/>
+            <tag name="twig.extension" />
         </service>
     </services>
 </container>
