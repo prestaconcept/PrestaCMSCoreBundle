@@ -137,7 +137,7 @@ form:
     label_theme: Default language
     label_title: Title
     label_title_level: Title level
-    label_url_label: Url
+    label_route_label: Route
 
 form_site:
     label_general: General

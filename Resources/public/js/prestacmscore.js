@@ -1,14 +1,15 @@
 $(document).ready(function() {
 
+    // feed each ajax block with data from route in parameter
     $.each($(".content-ajax"), function (){
-        var url    = $(this).attr("data-url");
-        var parent = $(this).attr("block-parent");
+        var current = $(this);
+        var route   = current.attr("data-route");
 
-        if (url.length > 0) {
+        if (route.length > 0) {
             $.ajax({
-                url: url,
+                url: route,
                 success: function (data) {
-                    $(".content-ajax[block-parent=" + parent + "]").html(data);
+                    current.html(data);
                 }
             });
         }

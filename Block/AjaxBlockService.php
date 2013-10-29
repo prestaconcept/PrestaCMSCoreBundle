@@ -28,7 +28,7 @@ class AjaxBlockService extends BaseModelBlockService
     public function getDefaultSettings()
     {
         return array(
-            'url' => null,
+            'route' => null,
         );
     }
 
@@ -39,11 +39,11 @@ class AjaxBlockService extends BaseModelBlockService
     {
         return array(
             array(
-                'url',
+                'route',
                 'text',
                 array(
                     'required' => false,
-                    'label'    => $this->trans('form.label_url_label'),
+                    'label'    => $this->trans('form.label_route_label'),
                 )
             )
         );
