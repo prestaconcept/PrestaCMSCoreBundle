@@ -12,6 +12,7 @@ block:
                 simple: Block Simple
                 sitemap: Block Sitemap
                 container: Container
+                ajax: Block Ajax
         presta_media:
             block:
                 media: Bloc Média
@@ -140,6 +141,7 @@ form:
     label_theme: Thème
     label_title: Titre
     label_title_level: Niveau du titre
+    label_route_label: Route
 
 form_site:
     label_general: Général

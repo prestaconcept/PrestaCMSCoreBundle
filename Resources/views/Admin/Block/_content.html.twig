@@ -10,10 +10,12 @@
         <div id="modal-content"></div>
     </div>
     <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal"><i class="icon-ok icon-remove"></i>&nbsp;{{ 'button.close'|trans({}, 'PrestaCMSCoreBundle') }}
+        <a href="#" class="btn" data-dismiss="modal">
+            <i class="icon-ok icon-remove"></i>&nbsp;{{ 'button.close'|trans({}, 'PrestaCMSCoreBundle') }}
         </a>
-        <a href="#" class="btn btn-primary" onclick="CMSContent.submitModalForm();"><i
-                class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans({}, 'PrestaCMSCoreBundle') }}</a>
+        <a href="#" class="btn btn-primary" onclick="CMSContent.submitModalForm();return false;">
+            <i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans({}, 'PrestaCMSCoreBundle') }}
+        </a>
     </div>
 </div>
 <script type="text/javascript" src="{{ asset('bundles/prestacmscore/admin/js/cms.js') }}"></script>

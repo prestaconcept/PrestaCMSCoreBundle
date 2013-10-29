@@ -7,7 +7,7 @@
 
     {% if (settings.content|length) %}
         <div class="cms-block-content">
-            {{ settings.content|raw }}
+            {{ settings.content|wysiwyg|raw }}
         </div>
     {% endif %}
 

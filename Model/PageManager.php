@@ -202,4 +202,28 @@ class PageManager
     {
         return ($token != null && $token == $this->getToken($page));
     }
+
+    /**
+     * @param  Website $website
+     * @return array
+     */
+    public function getPagesForWebsite(Website $website)
+    {
+        $qb = $this->getDocumentManager()->createQueryBuilder();
+        $qb->from()->document('Presta\CMSCoreBundle\Doctrine\Phpcr\Page', 'p');
+        //Waiting on QueryBuilderV2 to use this
+        //$qb->where()->like()->field('p.id')->literal($website->getPageRoot() . '%');
+        $qb->orderBy()->asc()->field('p.id');
+
+        $results = $qb->getQuery()->execute();
+
+        $pages = array();
+        foreach ($results as $page) {
+            if (strpos($page->getId(), $website->getPageRoot()) === 0) {
+                $pages[] = $page;
+            }
+        }
+
+        return $pages;
+    }
 }

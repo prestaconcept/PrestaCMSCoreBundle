@@ -12,6 +12,7 @@ block:
                 sitemap: Block Sitemap
                 container: Container
                 page_children: Children list
+                ajax: Block Ajax
         presta_media:
             block:
                 media: Media Block
@@ -136,6 +137,7 @@ form:
     label_theme: Default language
     label_title: Title
     label_title_level: Title level
+    label_route_label: Route
 
 form_site:
     label_general: General
