@@ -22,7 +22,6 @@
             <script type="text/javascript">
                 $(document).ready(function() {
                     $('#tree').unbind('select_node.jstree');
-                    $('#tree').unbind('move_node.jstree');
 
                     $('#tree').bind("select_node.jstree", function (event, data) {
                         if ((data.rslt.obj.attr("rel") == 'Presta_CMSCoreBundle_Doctrine_Phpcr_MenuNode')
@@ -34,7 +33,7 @@
                         }
                     });
                     $('#tree').bind("before.jstree", function (e, data) {
-                        if (data.plugin === "dnd" || data.plugin === "contextmenu") {
+                        if (data.plugin === "contextmenu") {
                             e.stopImmediatePropagation();
                             return false;
                         }
