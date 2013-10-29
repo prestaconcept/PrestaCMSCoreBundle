@@ -11,6 +11,7 @@
         <parameter key="presta_cms.block.container.class">Presta\CMSCoreBundle\Block\ContainerBlockService</parameter>
         <parameter key="presta_cms.block.dashboard.cms.class">Presta\CMSCoreBundle\Block\Dashboard\CmsBlockService</parameter>
         <parameter key="presta_cms.block.website.selector.class">Presta\CMSCoreBundle\Block\WebsiteSelectorService</parameter>
+        <parameter key="presta_cms.block.ajax.class">Presta\CMSCoreBundle\Block\AjaxBlockService</parameter>
     </parameters>
 
     <services>
@@ -67,6 +68,11 @@
             <argument>presta_cms.block.website.selector</argument>
             <argument type="service" id="templating" />
             <argument type="service" id="presta_cms.manager.website" />
+        </service>
+
+        <service id="presta_cms.block.ajax" class="%presta_cms.block.ajax.class%" parent="presta_cms.block.base">
+            <tag name="sonata.block"/>
+            <tag name="presta_cms.block"/>
         </service>
     </services>
 </container>

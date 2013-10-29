@@ -1,0 +1,10 @@
+{% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
+
+{% block block %}
+
+    <div class="content-ajax" data-url="{{ settings.url }}" block-parent="{{ block|replace({'.': '-', '_': '-'}) }}">
+        Content by default.
+    </div>
+
+{% endblock %}
+
