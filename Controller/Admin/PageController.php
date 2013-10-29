@@ -18,6 +18,7 @@ use Presta\CMSCoreBundle\Model\PageManager;
 use Presta\CMSCoreBundle\Model\RouteManager;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\Website;
+use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -393,5 +394,23 @@ class PageController extends AdminController
         $this->get('presta_cms.page.factory')->flush();
 
         return array('website' => $website->getId(), 'locale'  => $website->getLocale(), 'id' => $menuNode->getId());
+    }
+
+    /**
+     * Returns internal pages for WYSIWYG integration
+     *
+     * @return Response
+     */
+    public function wysiwygPagesAction()
+    {
+        $pages = $this->getPageManager()->getPagesForWebsite($this->getWebsiteManager()->getCurrentWebsite());
+
+        $jsCode = 'var WYSIWYG_INTERNAL_PAGES = [';
+        foreach ($pages as $page) {
+            $jsCode .= '["' . $page->getTitle() . '", "##internal#' . $page->getId() . '#"],';
+        }
+        $jsCode .= '];';
+
+        return new Response($jsCode);
     }
 }

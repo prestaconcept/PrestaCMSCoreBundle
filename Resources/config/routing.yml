@@ -37,6 +37,9 @@ presta_cms_page_delete:
 presta_cms_page_add:
     pattern:  /cms/page/add
     defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:add}
+presta_cms_page_wysiwyg_list:
+    pattern:  /cms/page/wysiwyg_list
+    defaults: {_controller: PrestaCMSCoreBundle:Admin/Page:wysiwygPages}
 
 #Administration - Import / Export
 presta_cms_page_selector:
