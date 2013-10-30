@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="presta_cms.controller.exception.class">Presta\CMSCoreBundle\Controller\ExceptionController</parameter>
+    </parameters>
+
+    <services>
+        <service id="presta_cms.controller.exception" class="%presta_cms.controller.exception.class%">
+            <argument type="service" id="twig" />
+            <argument>%kernel.debug%</argument>
+            <call method="setHttpKernel">
+                <argument type="service" id="http_kernel" />
+            </call>
+            <call method="setWebsiteManager">
+                <argument type="service" id="presta_cms.manager.website" />
+            </call>
+            <call method="setPageManager">
+                <argument type="service" id="presta_cms.manager.page" />
+            </call>
+        </service>
+    </services>
+
+</container>

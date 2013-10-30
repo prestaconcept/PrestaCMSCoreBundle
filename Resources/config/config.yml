@@ -103,6 +103,7 @@ sonata_seo:
         title: PrestaCMS by PrestaConcept
 
 twig:
+    exception_controller:  presta_cms.controller.exception:showAction
     form:
         resources:
             - 'PrestaCMSCoreBundle:Form:fields.html.twig'

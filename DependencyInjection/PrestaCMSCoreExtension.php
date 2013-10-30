@@ -38,6 +38,7 @@ class PrestaCMSCoreExtension extends Extension
         $loader->load('manager.xml');
         $loader->load('listener.xml');
         $loader->load('services.xml');
+        $loader->load('controller.xml');
 
         //Prepare for dynamic persistence layer
         $container->setParameter(
