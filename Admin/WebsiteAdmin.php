@@ -57,6 +57,7 @@ class WebsiteAdmin extends BaseAdmin
         //Should be create by Fixtures
         //Host handle by configuration
         $collection->remove('create');
+        $collection->remove('delete');
 
         parent::configureRoutes($collection);
     }
