@@ -10,7 +10,6 @@
                 <source>admin.locale_switcher.tooltip.en</source>
                 <target>Anglais</target>
             </trans-unit>
-
             <trans-unit id="block.title.presta_cms.block.simple">
                 <source>block.title.presta_cms.block.simple</source>
                 <target>Bloc Simple</target>
@@ -31,12 +30,10 @@
                 <source>block.title.presta_cms.block.ajax</source>
                 <target>Bloc Ajax</target>
             </trans-unit>
-
             <trans-unit id="block.title.presta_media.block.media">
                 <source>block.title.presta_media.block.media</source>
                 <target>Bloc Média</target>
             </trans-unit>
-
             <trans-unit id="block.module.settings.link">
                 <source>block.module.settings.link</source>
                 <target>Paramétrage du module</target>
@@ -65,7 +62,6 @@
                 <source>block.description.style.headline</source>
                 <target>Headline</target>
             </trans-unit>
-
             <trans-unit id="breadcrumb.link_dashboard">
                 <source>breadcrumb.link_dashboard</source>
                 <target>Tableau de bord</target>
@@ -102,7 +98,6 @@
                 <source>breadcrumb.link_block_list</source>
                 <target>Liste de blocs</target>
             </trans-unit>
-
             <trans-unit id="button.close">
                 <source>button.close</source>
                 <target>Fermer</target>
@@ -151,7 +146,6 @@
                 <source>button.block.delete.tooltip</source>
                 <target>Supprimer ce bloc</target>
             </trans-unit>
-
             <trans-unit id="cms_page.add.title">
                 <source>cms_page.add.title</source>
                 <target>Ajouter une page</target>
@@ -268,12 +262,10 @@
                 <source>cms_page.delete.data_to_be_deleted</source>
                 <target>Vous êtes sur le point de supprimer définitivement les pages suivantes :</target>
             </trans-unit>
-
             <trans-unit id="cms_page_tree.title">
                 <source>cms_page_tree.title</source>
                 <target>Pages</target>
             </trans-unit>
-
             <trans-unit id="dashboard.block.cms.title">
                 <source>dashboard.block.cms.title</source>
                 <target>CMS</target>
@@ -290,7 +282,6 @@
                 <source>dashboard.block.page.title</source>
                 <target>Pages</target>
             </trans-unit>
-
             <trans-unit id="form.label_available_locales">
                 <source>form.label_available_locales</source>
                 <target>Langue autorisées</target>
@@ -372,7 +363,6 @@
                 <source>form_site.label_general</source>
                 <target>Général</target>
             </trans-unit>
-
             <trans-unit id="list.label_theme">
                 <source>list.label_theme</source>
                 <target>Théme</target>
@@ -413,7 +403,6 @@
                 <source>list.label_settings</source>
                 <target>Paramétrage</target>
             </trans-unit>
-
             <trans-unit id="locale.fr">
                 <source>locale.fr</source>
                 <target>Français</target>
@@ -430,17 +419,14 @@
                 <source>locale.de</source>
                 <target>Allemand</target>
             </trans-unit>
-
             <trans-unit id="modal.edit.block.title">
                 <source>modal.edit.block.title</source>
                 <target>Éditer un bloc</target>
             </trans-unit>
-
             <trans-unit id="navigation.title">
                 <source>navigation.title</source>
                 <target>Navigation</target>
             </trans-unit>
-
             <trans-unit id="presta_cms.block.add">
                 <source>presta_cms.block.add</source>
                 <target>Ajout d'un bloc</target>
@@ -457,12 +443,10 @@
                 <source>presta_cms.block.website.selector.title</source>
                 <target>Site</target>
             </trans-unit>
-
             <trans-unit id="select_no_result">
                 <source>select_no_result</source>
                 <target>Aucun résultat</target>
             </trans-unit>
-
             <trans-unit id="theme.label.name">
                 <source>theme.label.name</source>
                 <target>Nom</target>
@@ -487,7 +471,6 @@
                 <source>theme.label.general</source>
                 <target>Informations générales</target>
             </trans-unit>
-
             <trans-unit id="title.level.h1">
                 <source>title.level.h1</source>
                 <target>h1</target>
