@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="PrestaSonataNavigation.en.xliff">
+        <body>
+            <trans-unit id="navigation.cms.label">
+                <source>navigation.cms.label</source>
+                <target>CMS</target>
+            </trans-unit>
+            <trans-unit id="navigation.cms.websites.label">
+                <source>navigation.cms.websites.label</source>
+                <target>Websites</target>
+            </trans-unit>
+            <trans-unit id="navigation.cms.websites.description">
+                <source>navigation.cms.websites.description</source>
+                <target>Websites administration</target>
+            </trans-unit>
+            <trans-unit id="navigation.cms.themes.label">
+                <source>navigation.cms.themes.label</source>
+                <target>Themes</target>
+            </trans-unit>
+            <trans-unit id="navigation.cms.themes.description">
+                <source>navigation.cms.themes.description</source>
+                <target>Themes administration</target>
+            </trans-unit>
+            <trans-unit id="navigation.cms.pages.label">
+                <source>navigation.cms.pages.label</source>
+                <target>Pages</target>
+            </trans-unit>
+            <trans-unit id="navigation.cms.pages.description">
+                <source>navigation.cms.pages.description</source>
+                <target>Content administration</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
