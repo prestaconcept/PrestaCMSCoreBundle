@@ -411,6 +411,6 @@ class PageController extends AdminController
         }
         $jsCode .= '];';
 
-        return new Response($jsCode);
+        return new Response($jsCode, 200, array('Content-Type' => 'application/javascript'));
     }
 }
