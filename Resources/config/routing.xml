@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+    <!-- Administration - themes -->
+    <route id="presta_cms_theme" pattern="/cms/theme">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Theme:list</default>
+    </route>
+    <route id="presta_cms_theme_edit" pattern="/cms/theme/edit/{name}">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Theme:edit</default>
+    </route>
+    <route id="presta_cms_block_edit" pattern="/cms/block/edit/{locale}">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Block:edit</default>
+        <default key="_sonata_admin">presta_cms.admin.block</default>
+    </route>
+    <route id="presta_cms_block_render" pattern="/cms/block/render/{locale}">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Block:render</default>
+        <default key="_sonata_admin">presta_cms.admin.block</default>
+    </route>
+    <route id="presta_cms_block_add" pattern="/cms/block/add/{locale}">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Block:add</default>
+        <default key="_sonata_admin">presta_cms.admin.block</default>
+    </route>
+    <route id="presta_cms_block_delete" pattern="/cms/block/delete">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Block:delete</default>
+        <default key="_sonata_admin">presta_cms.admin.block</default>
+    </route>
+    <!-- Administration - pages -->
+    <route id="presta_cms_page_edit" pattern="/cms/page/edit">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Page:edit</default>
+    </route>
+    <route id="presta_cms_page_tree" pattern="/cms/page/tree">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Page:renderPageTree</default>
+    </route>
+    <route id="presta_cms_page_clear_cache" pattern="/cms/page/clear_cache">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Page:clearCache</default>
+    </route>
+    <route id="presta_cms_page_delete" pattern="/cms/page/delete">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Page:delete</default>
+    </route>
+    <route id="presta_cms_page_add" pattern="/cms/page/add">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Page:add</default>
+    </route>
+    <route id="presta_cms_page_wysiwyg_list" pattern="/cms/page/wysiwyg_list">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Page:wysiwygPages</default>
+    </route>
+    <!-- Administration - Import / Export -->
+    <route id="presta_cms_page_selector" pattern="/cms/page-selector/{website_id}/{locale}">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Page:selector</default>
+        <default key="website_id"></default>
+        <default key="locale"></default>
+    </route>
+    <import resource="@FOSJsRoutingBundle/Resources/config/routing/routing.xml" />
+    <import resource="." type="cmf_tree" />
+</routes>

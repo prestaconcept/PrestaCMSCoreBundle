@@ -1,0 +1,529 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="admin.locale_switcher.tooltip.fr">
+                <source>admin.locale_switcher.tooltip.fr</source>
+                <target>Français</target>
+            </trans-unit>
+            <trans-unit id="admin.locale_switcher.tooltip.en">
+                <source>admin.locale_switcher.tooltip.en</source>
+                <target>Anglais</target>
+            </trans-unit>
+            <trans-unit id="block.title.presta_cms.block.simple">
+                <source>block.title.presta_cms.block.simple</source>
+                <target>Bloc Simple</target>
+            </trans-unit>
+            <trans-unit id="block.title.presta_cms.block.sitemap">
+                <source>block.title.presta_cms.block.sitemap</source>
+                <target>Bloc Sitemap</target>
+            </trans-unit>
+            <trans-unit id="block.title.presta_cms.block.container">
+                <source>block.title.presta_cms.block.container</source>
+                <target>Container</target>
+            </trans-unit>
+            <trans-unit id="block.title.presta_cms.block.page_children">
+                <source>block.title.presta_cms.block.page_children</source>
+                <target>Liste des sous pages</target>
+            </trans-unit>
+            <trans-unit id="block.title.presta_cms.block.ajax">
+                <source>block.title.presta_cms.block.ajax</source>
+                <target>Bloc Ajax</target>
+            </trans-unit>
+            <trans-unit id="block.title.presta_media.block.media">
+                <source>block.title.presta_media.block.media</source>
+                <target>Bloc Média</target>
+            </trans-unit>
+            <trans-unit id="block.module.settings.link">
+                <source>block.module.settings.link</source>
+                <target>Paramétrage du module</target>
+            </trans-unit>
+            <trans-unit id="block.default.title">
+                <source>block.default.title</source>
+                <target>Votre titre</target>
+            </trans-unit>
+            <trans-unit id="block.default.content">
+                <source>block.default.content</source>
+                <target>Votre contenu</target>
+            </trans-unit>
+            <trans-unit id="block.description.presta_cms.block.simple">
+                <source>block.description.presta_cms.block.simple</source>
+                <target>Bloc texte simple</target>
+            </trans-unit>
+            <trans-unit id="block.description.presta_cms.block.page_children">
+                <source>block.description.presta_cms.block.page_children</source>
+                <target>Liste des pages filles avec titre et description</target>
+            </trans-unit>
+            <trans-unit id="block.description.style.info">
+                <source>block.description.style.info</source>
+                <target>Informations</target>
+            </trans-unit>
+            <trans-unit id="block.description.style.headline">
+                <source>block.description.style.headline</source>
+                <target>Headline</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_dashboard">
+                <source>breadcrumb.link_dashboard</source>
+                <target>Tableau de bord</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_website_edit">
+                <source>breadcrumb.link_website_edit</source>
+                <target>CMS - Modification d'un site</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_website_list">
+                <source>breadcrumb.link_website_list</source>
+                <target>CMS - Liste des sites</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_website_create">
+                <source>breadcrumb.link_website_create</source>
+                <target>CMS - Création d'un site</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_theme_list">
+                <source>breadcrumb.link_theme_list</source>
+                <target>CMS - Liste des thèmes</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_page_list">
+                <source>breadcrumb.link_page_list</source>
+                <target>CMS - Liste des pages</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_page_delete">
+                <source>breadcrumb.link_page_delete</source>
+                <target>Suppression définitive d'une page</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_block_edit">
+                <source>breadcrumb.link_block_edit</source>
+                <target>Édition d'un bloc</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_block_list">
+                <source>breadcrumb.link_block_list</source>
+                <target>Liste de blocs</target>
+            </trans-unit>
+            <trans-unit id="button.close">
+                <source>button.close</source>
+                <target>Fermer</target>
+            </trans-unit>
+            <trans-unit id="button.save">
+                <source>button.save</source>
+                <target>Sauvegarder</target>
+            </trans-unit>
+            <trans-unit id="button.page.clear_cache">
+                <source>button.page.clear_cache</source>
+                <target>Vider le cache</target>
+            </trans-unit>
+            <trans-unit id="button.page.clear_cache.tooltip">
+                <source>button.page.clear_cache.tooltip</source>
+                <target>Vider le cache afin que vos modification soient visibles sur le front</target>
+            </trans-unit>
+            <trans-unit id="button.page.preview">
+                <source>button.page.preview</source>
+                <target>Aperçu</target>
+            </trans-unit>
+            <trans-unit id="button.page.preview.tooltip">
+                <source>button.page.preview.tooltip</source>
+                <target>Aperçu sur le front de la version actuelle</target>
+            </trans-unit>
+            <trans-unit id="button.page.delete">
+                <source>button.page.delete</source>
+                <target>Supprimer</target>
+            </trans-unit>
+            <trans-unit id="button.page.delete.tooltip">
+                <source>button.page.delete.tooltip</source>
+                <target>Supprimer cette page ainsi que toutes ses pages filles</target>
+            </trans-unit>
+            <trans-unit id="button.page.add.tooltip">
+                <source>button.page.add.tooltip</source>
+                <target>Créer une nouvelle page</target>
+            </trans-unit>
+            <trans-unit id="button.page.add_subpage.tooltip">
+                <source>button.page.add_subpage.tooltip</source>
+                <target>Créer une nouvelle sous page</target>
+            </trans-unit>
+            <trans-unit id="button.block.edit.tooltip">
+                <source>button.block.edit.tooltip</source>
+                <target>Modifier ce bloc</target>
+            </trans-unit>
+            <trans-unit id="button.block.delete.tooltip">
+                <source>button.block.delete.tooltip</source>
+                <target>Supprimer ce bloc</target>
+            </trans-unit>
+            <trans-unit id="cms_page.add.title">
+                <source>cms_page.add.title</source>
+                <target>Ajouter une page</target>
+            </trans-unit>
+            <trans-unit id="cms_page.content.title">
+                <source>cms_page.content.title</source>
+                <target>Contenu</target>
+            </trans-unit>
+            <trans-unit id="cms_page.seo.title">
+                <source>cms_page.seo.title</source>
+                <target>SEO</target>
+            </trans-unit>
+            <trans-unit id="cms_page.settings.title">
+                <source>cms_page.settings.title</source>
+                <target>Paramètres</target>
+            </trans-unit>
+            <trans-unit id="cms_page.history.title">
+                <source>cms_page.history.title</source>
+                <target>Versions</target>
+            </trans-unit>
+            <trans-unit id="cms_page.history.list.title">
+                <source>cms_page.history.list.title</source>
+                <target>Titre</target>
+            </trans-unit>
+            <trans-unit id="cms_page.history.list.updated_at">
+                <source>cms_page.history.list.updated_at</source>
+                <target>Modifié le</target>
+            </trans-unit>
+            <trans-unit id="cms_page.history.list.user">
+                <source>cms_page.history.list.user</source>
+                <target>Utilisateur</target>
+            </trans-unit>
+            <trans-unit id="cms_page.history.list.actions">
+                <source>cms_page.history.list.actions</source>
+                <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="cms_page.routing.title">
+                <source>cms_page.routing.title</source>
+                <target>Routing</target>
+            </trans-unit>
+            <trans-unit id="cms_page.select_website">
+                <source>cms_page.select_website</source>
+                <target>Sélectionner un site</target>
+            </trans-unit>
+            <trans-unit id="cms_page.url.current">
+                <source>cms_page.url.current</source>
+                <target>Url actuel</target>
+            </trans-unit>
+            <trans-unit id="cms_page.url.redirect">
+                <source>cms_page.url.redirect</source>
+                <target>Redirection</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.page.label.root">
+                <source>cms_page.form.page.label.root</source>
+                <target>Parent</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.page.label.name">
+                <source>cms_page.form.page.label.name</source>
+                <target>Identifiant</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.page.label.template">
+                <source>cms_page.form.page.label.template</source>
+                <target>Template</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.seo.label.url_relative">
+                <source>cms_page.form.seo.label.url_relative</source>
+                <target>Url relative</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.seo.label.url_complete">
+                <source>cms_page.form.seo.label.url_complete</source>
+                <target>Url complète</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.seo.label.url_complete_mode">
+                <source>cms_page.form.seo.label.url_complete_mode</source>
+                <target>Mode url complète</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.seo.label.title">
+                <source>cms_page.form.seo.label.title</source>
+                <target>Titre</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.seo.label.meta_keywords">
+                <source>cms_page.form.seo.label.meta_keywords</source>
+                <target>Mots-clés</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.seo.label.meta_description">
+                <source>cms_page.form.seo.label.meta_description</source>
+                <target>Description</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.seo.help.url_complete">
+                <source>cms_page.form.seo.help.url_complete</source>
+                <target>Chemin complet depuis la racine du site</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.settings.label.name">
+                <source>cms_page.form.settings.label.name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.settings.label.is_active">
+                <source>cms_page.form.settings.label.is_active</source>
+                <target>Actif</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.menu.label.title">
+                <source>cms_page.form.menu.label.title</source>
+                <target>Titre de menu</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.menu.label.parent">
+                <source>cms_page.form.menu.label.parent</source>
+                <target>Parent</target>
+            </trans-unit>
+            <trans-unit id="cms_page.delete.confirmation">
+                <source>cms_page.delete.confirmation</source>
+                <target>Êtes-vous sûr de vouloir supprimer définitivement cette page et toutes ses sous pages ?</target>
+            </trans-unit>
+            <trans-unit id="cms_page.delete.data_to_be_deleted">
+                <source>cms_page.delete.data_to_be_deleted</source>
+                <target>Vous êtes sur le point de supprimer définitivement les pages suivantes :</target>
+            </trans-unit>
+            <trans-unit id="cms_page_tree.title">
+                <source>cms_page_tree.title</source>
+                <target>Pages</target>
+            </trans-unit>
+            <trans-unit id="dashboard.block.cms.title">
+                <source>dashboard.block.cms.title</source>
+                <target>CMS</target>
+            </trans-unit>
+            <trans-unit id="dashboard.block.website.title">
+                <source>dashboard.block.website.title</source>
+                <target>Sites</target>
+            </trans-unit>
+            <trans-unit id="dashboard.block.theme.title">
+                <source>dashboard.block.theme.title</source>
+                <target>Thèmes</target>
+            </trans-unit>
+            <trans-unit id="dashboard.block.page.title">
+                <source>dashboard.block.page.title</source>
+                <target>Pages</target>
+            </trans-unit>
+            <trans-unit id="form.label_available_locales">
+                <source>form.label_available_locales</source>
+                <target>Langue autorisées</target>
+            </trans-unit>
+            <trans-unit id="form.label_block_style">
+                <source>form.label_block_style</source>
+                <target>Style</target>
+            </trans-unit>
+            <trans-unit id="form.label_content">
+                <source>form.label_content</source>
+                <target>Contenu</target>
+            </trans-unit>
+            <trans-unit id="form.label_css_class">
+                <source>form.label_css_class</source>
+                <target>Classes CSS</target>
+            </trans-unit>
+            <trans-unit id="form.label_default_locale">
+                <source>form.label_default_locale</source>
+                <target>Langue par défaut</target>
+            </trans-unit>
+            <trans-unit id="form.label_depth">
+                <source>form.label_depth</source>
+                <target>Profondeur</target>
+            </trans-unit>
+            <trans-unit id="form.label_host">
+                <source>form.label_host</source>
+                <target>Hôte</target>
+            </trans-unit>
+            <trans-unit id="form.label_is_active">
+                <source>form.label_is_active</source>
+                <target>Actif</target>
+            </trans-unit>
+            <trans-unit id="form.label_is_default">
+                <source>form.label_is_default</source>
+                <target>Défaut</target>
+            </trans-unit>
+            <trans-unit id="form.label_layout">
+                <source>form.label_layout</source>
+                <target>Layout</target>
+            </trans-unit>
+            <trans-unit id="form.label_link_destination">
+                <source>form.label_link_destination</source>
+                <target>Lien de destination</target>
+            </trans-unit>
+            <trans-unit id="form.label_link_label">
+                <source>form.label_link_label</source>
+                <target>Libellé du lien</target>
+            </trans-unit>
+            <trans-unit id="form.label_name">
+                <source>form.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="form.label_root_node">
+                <source>form.label_root_node</source>
+                <target>Root node</target>
+            </trans-unit>
+            <trans-unit id="form.label_settings">
+                <source>form.label_settings</source>
+                <target>Paramétrage</target>
+            </trans-unit>
+            <trans-unit id="form.label_theme">
+                <source>form.label_theme</source>
+                <target>Thème</target>
+            </trans-unit>
+            <trans-unit id="form.label_title">
+                <source>form.label_title</source>
+                <target>Titre</target>
+            </trans-unit>
+            <trans-unit id="form.label_title_level">
+                <source>form.label_title_level</source>
+                <target>Niveau du titre</target>
+            </trans-unit>
+            <trans-unit id="form.label_route_label">
+                <source>form.label_route_label</source>
+                <target>Route</target>
+            </trans-unit>
+
+            <trans-unit id="form_site.label_general">
+                <source>form_site.label_general</source>
+                <target>Général</target>
+            </trans-unit>
+            <trans-unit id="list.label_theme">
+                <source>list.label_theme</source>
+                <target>Théme</target>
+            </trans-unit>
+            <trans-unit id="list.label_host">
+                <source>list.label_host</source>
+                <target>Hôte</target>
+            </trans-unit>
+            <trans-unit id="list.label_name">
+                <source>list.label_name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="list.label__action">
+                <source>list.label__action</source>
+                <target>Action</target>
+            </trans-unit>
+            <trans-unit id="list.label_default_locale">
+                <source>list.label_default_locale</source>
+                <target>Langue par défaut</target>
+            </trans-unit>
+            <trans-unit id="list.label_available_locales">
+                <source>list.label_available_locales</source>
+                <target>Langues disponibles</target>
+            </trans-unit>
+            <trans-unit id="list.label_is_active">
+                <source>list.label_is_active</source>
+                <target>Actif</target>
+            </trans-unit>
+            <trans-unit id="list.label_is_default">
+                <source>list.label_is_default</source>
+                <target>Défaut</target>
+            </trans-unit>
+            <trans-unit id="list.label_type">
+                <source>list.label_type</source>
+                <target>Type</target>
+            </trans-unit>
+            <trans-unit id="list.label_settings">
+                <source>list.label_settings</source>
+                <target>Paramétrage</target>
+            </trans-unit>
+            <trans-unit id="locale.fr">
+                <source>locale.fr</source>
+                <target>Français</target>
+            </trans-unit>
+            <trans-unit id="locale.en">
+                <source>locale.en</source>
+                <target>Anglais</target>
+            </trans-unit>
+            <trans-unit id="locale.it">
+                <source>locale.it</source>
+                <target>Italien</target>
+            </trans-unit>
+            <trans-unit id="locale.de">
+                <source>locale.de</source>
+                <target>Allemand</target>
+            </trans-unit>
+            <trans-unit id="modal.edit.block.title">
+                <source>modal.edit.block.title</source>
+                <target>Éditer un bloc</target>
+            </trans-unit>
+            <trans-unit id="navigation.title">
+                <source>navigation.title</source>
+                <target>Navigation</target>
+            </trans-unit>
+            <trans-unit id="presta_cms.block.add">
+                <source>presta_cms.block.add</source>
+                <target>Ajout d'un bloc</target>
+            </trans-unit>
+            <trans-unit id="presta_cms.block.page_children">
+                <source>presta_cms.block.page_children</source>
+                <target>Page palier</target>
+            </trans-unit>
+            <trans-unit id="presta_cms.block.simple">
+                <source>presta_cms.block.simple</source>
+                <target>Bloc Editeur Basique</target>
+            </trans-unit>
+            <trans-unit id="presta_cms.block.website.selector.title">
+                <source>presta_cms.block.website.selector.title</source>
+                <target>Site</target>
+            </trans-unit>
+            <trans-unit id="select_no_result">
+                <source>select_no_result</source>
+                <target>Aucun résultat</target>
+            </trans-unit>
+            <trans-unit id="theme.label.name">
+                <source>theme.label.name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="theme.label.description">
+                <source>theme.label.description</source>
+                <target>Description</target>
+            </trans-unit>
+            <trans-unit id="theme.label.zones">
+                <source>theme.label.zones</source>
+                <target>Zones</target>
+            </trans-unit>
+            <trans-unit id="theme.label.page_templates">
+                <source>theme.label.page_templates</source>
+                <target>Gabarits de page</target>
+            </trans-unit>
+            <trans-unit id="theme.label.content">
+                <source>theme.label.content</source>
+                <target>Contenu</target>
+            </trans-unit>
+            <trans-unit id="theme.label.general">
+                <source>theme.label.general</source>
+                <target>Informations générales</target>
+            </trans-unit>
+            <trans-unit id="title.level.h1">
+                <source>title.level.h1</source>
+                <target>h1</target>
+            </trans-unit>
+            <trans-unit id="title.level.h2">
+                <source>title.level.h2</source>
+                <target>h2</target>
+            </trans-unit>
+            <trans-unit id="title.level.h3">
+                <source>title.level.h3</source>
+                <target>h3</target>
+            </trans-unit>
+            <trans-unit id="title.level.h4">
+                <source>title.level.h4</source>
+                <target>h4</target>
+            </trans-unit>
+            <trans-unit id="title.level.h5">
+                <source>title.level.h5</source>
+                <target>h5</target>
+            </trans-unit>
+            <trans-unit id="title.level.h6">
+                <source>title.level.h6</source>
+                <target>h6</target>
+            </trans-unit>
+
+            <trans-unit id="zone.name.top">
+                <source>zone.name.top</source>
+                <target>Bandeau Commercial</target>
+            </trans-unit>
+            <trans-unit id="zone.name.navigation">
+                <source>zone.name.navigation</source>
+                <target>Menu principal</target>
+            </trans-unit>
+            <trans-unit id="zone.name.content">
+                <source>zone.name.content</source>
+                <target>Contenu de la page</target>
+            </trans-unit>
+            <trans-unit id="zone.name.footer_left">
+                <source>zone.name.footer_left</source>
+                <target>Actualités</target>
+            </trans-unit>
+            <trans-unit id="zone.name.footer_right">
+                <source>zone.name.footer_right</source>
+                <target>Présentation de l'activité</target>
+            </trans-unit>
+            <trans-unit id="zone.name.left">
+                <source>zone.name.left</source>
+                <target>Colonne gauche</target>
+            </trans-unit>
+            <trans-unit id="zone.name.right">
+                <source>zone.name.right</source>
+                <target>Colonne droite</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
