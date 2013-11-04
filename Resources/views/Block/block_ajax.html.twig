@@ -1,12 +1,8 @@
 {% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
 
 {% block block %}
-    {% set url = '' %}
-    {% if settings.route != '' %}
-        {% set url = url(settings.route) %}
+    {% if settings.route %}
+        <div class="content-ajax" data-route="{{ url(settings.route) }}" ></div>
     {% endif %}
-    <div class="content-ajax" data-route="{{ url }}" >
-        Content by default.
-    </div>
 {% endblock %}
 
