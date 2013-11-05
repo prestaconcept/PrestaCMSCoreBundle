@@ -37,4 +37,77 @@ class BlockManagerTest extends BaseUnitTestCase
             $blockManager->getBlocks()->toArray()
         );
     }
+
+    /**
+     * @test BlockManager::testAddConfiguration()
+     */
+    public function testAddConfiguration()
+    {
+        $blockManager = new BlockManager();
+        $configuration = array(
+            'accepted' => array(
+                'baz',
+            ),
+        );
+        $blockManager->addConfiguration('foo', $configuration);
+
+        $expected = array(
+            'foo' => array(
+                'accepted' => array(
+                    'baz',
+                ),
+            ),
+        );
+        $this->assertEquals($expected, $blockManager->getConfigurations());
+    }
+
+    /**
+     * @test BlockManager::getExcludedBlocks()
+     */
+    public function testGetExcludedBlocks()
+    {
+        $blockManager = new BlockManager();
+        $type = 'foo';
+        $config = array(
+            'excluded' => array(
+                'presta_cms.block.simple',
+            ),
+        );
+        $blockManager->addConfiguration($type, $config);
+
+        $blockManager->addBlock('presta_cms.block.simple');
+        $blockManager->addBlock('presta_cms.block.page_children');
+
+        $this->assertEquals(1, $blockManager->getBlocks($type)->count());
+        $expected = 'presta_cms.block.page_children';
+        $this->assertEquals(
+            $expected,
+            $blockManager->getBlocks($type)->first()
+        );
+    }
+
+    /**
+     * @test BlockManager::getAcceptedBlocks()
+     */
+    public function testGetAcceptedBlocks()
+    {
+        $blockManager = new BlockManager();
+        $type = 'foo';
+        $config = array(
+            'accepted' => array(
+                'presta_cms.block.simple',
+            ),
+        );
+        $blockManager->addConfiguration($type, $config);
+
+        $blockManager->addBlock('presta_cms.block.simple');
+        $blockManager->addBlock('presta_cms.block.page_children');
+
+        $this->assertEquals(1, $blockManager->getBlocks($type)->count());
+        $expected = 'presta_cms.block.simple';
+        $this->assertEquals(
+            $expected,
+            $blockManager->getBlocks($type)->first()
+        );
+    }
 }

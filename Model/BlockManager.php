@@ -18,26 +18,73 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class BlockManager
 {
-    /**
-     * @var ArrayCollectiion
-     */
+    /** @var ArrayCollection */
     protected $blocks;
+
+    /** @var array */
+    protected $configurations;
 
     public function __construct()
     {
-        $this->blocks = new ArrayCollection;
+        $this->blocks = new ArrayCollection();
     }
 
     /**
-     * @return ArrayCollectiion
+     * @param string $type
+     *
+     * @return ArrayCollection
      */
-    public function getBlocks()
+    public function getBlocks($type = 'global')
     {
-        return $this->blocks;
+        $availableBlocks = $this->blocks;
+
+        if (count($this->getExcludedBlocks($type))) {
+            foreach ($availableBlocks as $block) {
+                if (in_array($block, $this->getExcludedBlocks($type))) {
+                    $availableBlocks->removeElement($block);
+                }
+            }
+        }
+
+        if (count($this->getAcceptedBlocks($type))) {
+            $availableBlocks = new ArrayCollection();
+            foreach ($this->getAcceptedBlocks($type) as $block) {
+                $availableBlocks->add($block);
+            }
+        }
+
+        return $availableBlocks;
     }
 
     /**
-     * @param  string       $blockServiceId
+     * @param string $type
+     *
+     * @return array
+     */
+    protected function getExcludedBlocks($type = 'global')
+    {
+        if (isset($this->configurations[$type]['excluded'])) {
+            return $this->configurations[$type]['excluded'];
+        }
+        return array();
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return array
+     */
+    protected function getAcceptedBlocks($type = 'global')
+    {
+        if (isset($this->configurations[$type]['accepted'])) {
+            return $this->configurations[$type]['accepted'];
+        }
+        return array();
+    }
+
+    /**
+     * @param  string $blockServiceId
+     *
      * @return BlockManager
      */
     public function addBlock($blockServiceId)
@@ -45,5 +92,26 @@ class BlockManager
         $this->blocks->add($blockServiceId);
 
         return $this;
+    }
+
+    /**
+     * @param string $type
+     * @param array  $configuration
+     *
+     * @return BlockManager
+     */
+    public function addConfiguration($type, $configuration)
+    {
+        $this->configurations[$type] = $configuration;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfigurations()
+    {
+        return $this->configurations;
     }
 }
