@@ -12,6 +12,7 @@ namespace Presta\CMSCoreBundle\Tests\Unit\Model;
 use Presta\CMSCoreBundle\Tests\Unit\BaseUnitTestCase;
 use Presta\CMSCoreBundle\Model\BlockManager;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
@@ -49,16 +50,34 @@ class BlockManagerTest extends BaseUnitTestCase
                 'baz',
             ),
         );
-        $blockManager->addConfiguration('foo', $configuration);
+        $blockManager->addConfiguration($configuration);
 
         $expected = array(
-            'foo' => array(
+            'global' => array(
                 'accepted' => array(
                     'baz',
                 ),
             ),
         );
         $this->assertEquals($expected, $blockManager->getConfigurations());
+
+        $configuration = array(
+            'accepted' => array(
+                'baz',
+            ),
+            'excluded' => array(
+                'bar',
+            ),
+        );
+        try {
+            $blockManager->addConfiguration($configuration);
+            $this->fail();
+        } catch (InvalidConfigurationException $e) {
+            $this->assertEquals(
+                'Cannot have accepted AND excluded blocks lists.',
+                $e->getMessage()
+            );
+        }
     }
 
     /**
@@ -67,22 +86,21 @@ class BlockManagerTest extends BaseUnitTestCase
     public function testGetExcludedBlocks()
     {
         $blockManager = new BlockManager();
-        $type = 'foo';
         $config = array(
             'excluded' => array(
                 'presta_cms.block.simple',
             ),
         );
-        $blockManager->addConfiguration($type, $config);
+        $blockManager->addConfiguration($config);
 
         $blockManager->addBlock('presta_cms.block.simple');
         $blockManager->addBlock('presta_cms.block.page_children');
 
-        $this->assertEquals(1, $blockManager->getBlocks($type)->count());
+        $this->assertEquals(1, $blockManager->getBlocks()->count());
         $expected = 'presta_cms.block.page_children';
         $this->assertEquals(
             $expected,
-            $blockManager->getBlocks($type)->first()
+            $blockManager->getBlocks()->first()
         );
     }
 
@@ -92,22 +110,21 @@ class BlockManagerTest extends BaseUnitTestCase
     public function testGetAcceptedBlocks()
     {
         $blockManager = new BlockManager();
-        $type = 'foo';
         $config = array(
             'accepted' => array(
                 'presta_cms.block.simple',
             ),
         );
-        $blockManager->addConfiguration($type, $config);
+        $blockManager->addConfiguration($config);
 
         $blockManager->addBlock('presta_cms.block.simple');
         $blockManager->addBlock('presta_cms.block.page_children');
 
-        $this->assertEquals(1, $blockManager->getBlocks($type)->count());
+        $this->assertEquals(1, $blockManager->getBlocks()->count());
         $expected = 'presta_cms.block.simple';
         $this->assertEquals(
             $expected,
-            $blockManager->getBlocks($type)->first()
+            $blockManager->getBlocks()->first()
         );
     }
 }

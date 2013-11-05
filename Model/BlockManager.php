@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
  * Block Manager
@@ -18,10 +19,14 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class BlockManager
 {
-    /** @var ArrayCollection */
+    /**
+     * @var ArrayCollection
+     */
     protected $blocks;
 
-    /** @var array */
+    /**
+     * array
+     */
     protected $configurations;
 
     public function __construct()
@@ -30,25 +35,23 @@ class BlockManager
     }
 
     /**
-     * @param string $type
-     *
      * @return ArrayCollection
      */
-    public function getBlocks($type = 'global')
+    public function getBlocks()
     {
         $availableBlocks = $this->blocks;
 
-        if (count($this->getExcludedBlocks($type))) {
+        if (count($this->getExcludedBlocks())) {
             foreach ($availableBlocks as $block) {
-                if (in_array($block, $this->getExcludedBlocks($type))) {
+                if (in_array($block, $this->getExcludedBlocks())) {
                     $availableBlocks->removeElement($block);
                 }
             }
         }
 
-        if (count($this->getAcceptedBlocks($type))) {
+        if (count($this->getAcceptedBlocks())) {
             $availableBlocks = new ArrayCollection();
-            foreach ($this->getAcceptedBlocks($type) as $block) {
+            foreach ($this->getAcceptedBlocks() as $block) {
                 $availableBlocks->add($block);
             }
         }
@@ -57,28 +60,32 @@ class BlockManager
     }
 
     /**
-     * @param string $type
-     *
      * @return array
      */
-    protected function getExcludedBlocks($type = 'global')
+    protected function getExcludedBlocks()
     {
-        if (isset($this->configurations[$type]['excluded'])) {
-            return $this->configurations[$type]['excluded'];
+        if (
+            isset($this->configurations['global']['excluded'])
+            && count($this->configurations['global']['excluded'])
+        ) {
+            return $this->configurations['global']['excluded'];
         }
+
         return array();
     }
 
     /**
-     * @param string $type
-     *
      * @return array
      */
-    protected function getAcceptedBlocks($type = 'global')
+    protected function getAcceptedBlocks()
     {
-        if (isset($this->configurations[$type]['accepted'])) {
-            return $this->configurations[$type]['accepted'];
+        if (
+            isset($this->configurations['global']['accepted'])
+            && count($this->configurations['global']['accepted'])
+        ) {
+            return $this->configurations['global']['accepted'];
         }
+
         return array();
     }
 
@@ -95,14 +102,26 @@ class BlockManager
     }
 
     /**
-     * @param string $type
-     * @param array  $configuration
+     * @param array $configuration
      *
-     * @return BlockManager
+     * @return $this
+     *
+     * @throws InvalidConfigurationException
      */
-    public function addConfiguration($type, $configuration)
+    public function addConfiguration($configuration)
     {
-        $this->configurations[$type] = $configuration;
+        $configurations = array();
+        foreach ($configuration as $type => $config) {
+            if (count($config)) {
+                $configurations[$type] = $config;
+            }
+        }
+
+        if (count($configurations) > 1) {
+            throw new InvalidConfigurationException("Cannot have accepted AND excluded blocks lists.");
+        }
+
+        $this->configurations['global'] = $configurations;
 
         return $this;
     }

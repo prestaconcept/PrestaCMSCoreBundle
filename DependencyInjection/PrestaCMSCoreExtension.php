@@ -63,11 +63,8 @@ class PrestaCMSCoreExtension extends Extension
         //Init block configuration
         $blockManager = $container->getDefinition('presta_cms.manager.block');
         if (isset($config['blocks']) && is_array($config['blocks'])) {
-            foreach ($config['blocks'] as $type => $blockConfiguration) {
-                if (count($blockConfiguration) > 1) {
-                    throw new InvalidConfigurationException("Cannot have accepted AND excluded blocks lists.");
-                }
-                $blockManager->addMethodCall('addConfiguration', array($type, $blockConfiguration));
+            foreach ($config['blocks'] as $blockConfiguration) {
+                $blockManager->addMethodCall('addConfiguration', array($blockConfiguration));
             }
         }
 
