@@ -13,6 +13,14 @@
     {{ parent() }}
     <script src="{{ asset('bundles/prestacmscore/admin/libs/angularjs/angular.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/prestacmscore/admin/js/page/ng-seo.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // issue 99: remove the confirmation alert when changing cms page
+            window.onbeforeunload = function() {
+                return;
+            };
+        });
+    </script>
 {% endblock %}
 
 {% block side_menu %}
