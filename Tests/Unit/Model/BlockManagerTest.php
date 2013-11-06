@@ -47,7 +47,7 @@ class BlockManagerTest extends BaseUnitTestCase
         $blockManager = new BlockManager();
         $configuration = array(
             'accepted' => array(
-                'baz',
+                'presta_cms.block.page_children',
             ),
         );
         $blockManager->addConfiguration($configuration);
@@ -55,7 +55,7 @@ class BlockManagerTest extends BaseUnitTestCase
         $expected = array(
             'global' => array(
                 'accepted' => array(
-                    'baz',
+                    'presta_cms.block.page_children',
                 ),
             ),
         );
@@ -63,10 +63,10 @@ class BlockManagerTest extends BaseUnitTestCase
 
         $configuration = array(
             'accepted' => array(
-                'baz',
+                'presta_cms.block.page_children',
             ),
             'excluded' => array(
-                'bar',
+                'presta_cms.block.faked',
             ),
         );
         try {
