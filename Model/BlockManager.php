@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
  * Block Manager
@@ -19,25 +20,57 @@ use Doctrine\Common\Collections\ArrayCollection;
 class BlockManager
 {
     /**
-     * @var ArrayCollectiion
+     * @var ArrayCollection
      */
     protected $blocks;
 
+    /**
+     * array
+     */
+    protected $configurations;
+
     public function __construct()
     {
-        $this->blocks = new ArrayCollection;
+        $this->blocks = new ArrayCollection();
     }
 
     /**
-     * @return ArrayCollectiion
+     * @return array
      */
     public function getBlocks()
     {
-        return $this->blocks;
+        $availableBlocks = $this->blocks;
+
+        if (count($this->getExcludedBlocks())) {
+            return array_diff($availableBlocks->toArray(), $this->getExcludedBlocks());
+        }
+
+        if (count($this->getAcceptedBlocks())) {
+            return array_intersect($availableBlocks->toArray(), $this->getAcceptedBlocks());
+        }
+
+        return $availableBlocks->toArray();
     }
 
     /**
-     * @param  string       $blockServiceId
+     * @return array
+     */
+    public function getExcludedBlocks()
+    {
+        return $this->configurations['global']['excluded'];
+    }
+
+    /**
+     * @return array
+     */
+    public function getAcceptedBlocks()
+    {
+        return $this->configurations['global']['accepted'];
+    }
+
+    /**
+     * @param  string $blockServiceId
+     *
      * @return BlockManager
      */
     public function addBlock($blockServiceId)
@@ -45,5 +78,36 @@ class BlockManager
         $this->blocks->add($blockServiceId);
 
         return $this;
+    }
+
+    /**
+     * @param array $configuration
+     *
+     * @return $this
+     *
+     * @throws InvalidConfigurationException
+     */
+    public function addConfiguration($configuration)
+    {
+        $initialConfiguration = array(
+            'excluded' => array(),
+            'accepted' => array(),
+        );
+
+        $this->configurations['global'] = $configuration + $initialConfiguration;
+
+        if (count($this->getExcludedBlocks()) && count($this->getAcceptedBlocks())) {
+            throw new InvalidConfigurationException("Cannot have accepted AND excluded blocks lists.");
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfigurations()
+    {
+        return $this->configurations;
     }
 }

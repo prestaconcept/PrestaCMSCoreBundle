@@ -138,6 +138,18 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('enabled')->defaultFalse()->end()
                     ->end()
                 ->end()
+                ->arrayNode('blocks')
+                    ->prototype('array')
+                        ->children()
+                            ->arrayNode('accepted')
+                                ->prototype('scalar')->end()
+                            ->end()
+                            ->arrayNode('excluded')
+                                ->prototype('scalar')->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end()
         ->end();
 

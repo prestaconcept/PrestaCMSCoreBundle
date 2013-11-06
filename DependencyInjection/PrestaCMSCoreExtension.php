@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -56,6 +57,14 @@ class PrestaCMSCoreExtension extends Extension
         if (isset($config['websites']) && is_array($config['websites'])) {
             foreach ($config['websites'] as $websiteConfiguration) {
                 $websiteManager->addMethodCall('registerWebsite', array($websiteConfiguration));
+            }
+        }
+
+        //Init block configuration
+        $blockManager = $container->getDefinition('presta_cms.manager.block');
+        if (isset($config['blocks']) && is_array($config['blocks'])) {
+            foreach ($config['blocks'] as $blockConfiguration) {
+                $blockManager->addMethodCall('addConfiguration', array($blockConfiguration));
             }
         }
 
