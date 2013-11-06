@@ -35,58 +35,37 @@ class BlockManager
     }
 
     /**
-     * @return ArrayCollection
+     * @return array
      */
     public function getBlocks()
     {
         $availableBlocks = $this->blocks;
 
         if (count($this->getExcludedBlocks())) {
-            foreach ($availableBlocks as $block) {
-                if (in_array($block, $this->getExcludedBlocks())) {
-                    $availableBlocks->removeElement($block);
-                }
-            }
+            return array_diff($availableBlocks->toArray(), $this->getExcludedBlocks());
         }
 
         if (count($this->getAcceptedBlocks())) {
-            $availableBlocks = new ArrayCollection();
-            foreach ($this->getAcceptedBlocks() as $block) {
-                $availableBlocks->add($block);
-            }
+            return array_intersect($availableBlocks->toArray(), $this->getAcceptedBlocks());
         }
 
-        return $availableBlocks;
+        return $availableBlocks->toArray();
     }
 
     /**
      * @return array
      */
-    protected function getExcludedBlocks()
+    public function getExcludedBlocks()
     {
-        if (
-            isset($this->configurations['global']['excluded'])
-            && count($this->configurations['global']['excluded'])
-        ) {
-            return $this->configurations['global']['excluded'];
-        }
-
-        return array();
+        return $this->configurations['global']['excluded'];
     }
 
     /**
      * @return array
      */
-    protected function getAcceptedBlocks()
+    public function getAcceptedBlocks()
     {
-        if (
-            isset($this->configurations['global']['accepted'])
-            && count($this->configurations['global']['accepted'])
-        ) {
-            return $this->configurations['global']['accepted'];
-        }
-
-        return array();
+        return $this->configurations['global']['accepted'];
     }
 
     /**
@@ -110,18 +89,16 @@ class BlockManager
      */
     public function addConfiguration($configuration)
     {
-        $configurations = array();
-        foreach ($configuration as $type => $config) {
-            if (count($config)) {
-                $configurations[$type] = $config;
-            }
-        }
+        $initialConfiguration = array(
+            'excluded' => array(),
+            'accepted' => array(),
+        );
 
-        if (count($configurations) > 1) {
+        $this->configurations['global'] = $configuration + $initialConfiguration;
+
+        if (count($this->getExcludedBlocks()) && count($this->getAcceptedBlocks())) {
             throw new InvalidConfigurationException("Cannot have accepted AND excluded blocks lists.");
         }
-
-        $this->configurations['global'] = $configurations;
 
         return $this;
     }

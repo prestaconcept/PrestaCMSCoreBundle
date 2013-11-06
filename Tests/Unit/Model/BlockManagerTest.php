@@ -26,7 +26,7 @@ class BlockManagerTest extends BaseUnitTestCase
     {
         $blockManager = new BlockManager();
 
-        $this->assertTrue($blockManager->getBlocks() instanceof ArrayCollection);
+        $this->assertTrue(is_array($blockManager->getBlocks()));
         $this->assertEquals(0, count($blockManager->getBlocks()));
 
         $blockManager->addBlock('presta_cms.block.simple');
@@ -35,7 +35,7 @@ class BlockManagerTest extends BaseUnitTestCase
         $this->assertEquals(2, count($blockManager->getBlocks()));
         $this->assertEquals(
             array('presta_cms.block.simple', 'presta_cms.block.page_children'),
-            $blockManager->getBlocks()->toArray()
+            $blockManager->getBlocks()
         );
     }
 
@@ -54,6 +54,7 @@ class BlockManagerTest extends BaseUnitTestCase
 
         $expected = array(
             'global' => array(
+                'excluded' => array(),
                 'accepted' => array(
                     'presta_cms.block.page_children',
                 ),
@@ -81,10 +82,11 @@ class BlockManagerTest extends BaseUnitTestCase
     }
 
     /**
-     * @test BlockManager::getExcludedBlocks()
+     * @test BlockManager::getBlocks()
      */
-    public function testGetExcludedBlocks()
+    public function testGetBlocks()
     {
+        // excluded block
         $blockManager = new BlockManager();
         $config = array(
             'excluded' => array(
@@ -96,20 +98,16 @@ class BlockManagerTest extends BaseUnitTestCase
         $blockManager->addBlock('presta_cms.block.simple');
         $blockManager->addBlock('presta_cms.block.page_children');
 
-        $this->assertEquals(1, $blockManager->getBlocks()->count());
-        $expected = 'presta_cms.block.page_children';
+        $this->assertEquals(1, count($blockManager->getBlocks()));
+        $expected = array(
+            'presta_cms.block.page_children',
+        );
         $this->assertEquals(
             $expected,
-            $blockManager->getBlocks()->first()
+            array_values($blockManager->getBlocks())
         );
-    }
 
-    /**
-     * @test BlockManager::getAcceptedBlocks()
-     */
-    public function testGetAcceptedBlocks()
-    {
-        $blockManager = new BlockManager();
+        // accepted block
         $config = array(
             'accepted' => array(
                 'presta_cms.block.simple',
@@ -117,14 +115,13 @@ class BlockManagerTest extends BaseUnitTestCase
         );
         $blockManager->addConfiguration($config);
 
-        $blockManager->addBlock('presta_cms.block.simple');
-        $blockManager->addBlock('presta_cms.block.page_children');
-
-        $this->assertEquals(1, $blockManager->getBlocks()->count());
-        $expected = 'presta_cms.block.simple';
+        $this->assertEquals(1, count($blockManager->getBlocks()));
+        $expected = array(
+            'presta_cms.block.simple',
+        );
         $this->assertEquals(
             $expected,
-            $blockManager->getBlocks()->first()
+            array_values($blockManager->getBlocks())
         );
     }
 }
