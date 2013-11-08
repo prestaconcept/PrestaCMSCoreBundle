@@ -266,20 +266,20 @@
                 <source>cms_page_tree.title</source>
                 <target>Pages</target>
             </trans-unit>
-            <trans-unit id="dashboard.block.cms.title">
-                <source>dashboard.block.cms.title</source>
+            <trans-unit id="block.dashboard.cms.title">
+                <source>block.dashboard.cms.title</source>
                 <target>CMS</target>
             </trans-unit>
-            <trans-unit id="dashboard.block.website.title">
-                <source>dashboard.block.website.title</source>
+            <trans-unit id="block.dashboard.cms.website.title">
+                <source>block.dashboard.cms.website.title</source>
                 <target>Sites</target>
             </trans-unit>
-            <trans-unit id="dashboard.block.theme.title">
-                <source>dashboard.block.theme.title</source>
+            <trans-unit id="block.dashboard.cms.theme.title">
+                <source>block.dashboard.cms.theme.title</source>
                 <target>Thèmes</target>
             </trans-unit>
-            <trans-unit id="dashboard.block.page.title">
-                <source>dashboard.block.page.title</source>
+            <trans-unit id="block.dashboard.cms.page.title">
+                <source>block.dashboard.cms.page.title</source>
                 <target>Pages</target>
             </trans-unit>
             <trans-unit id="form.label_available_locales">
