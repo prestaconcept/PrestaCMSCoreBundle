@@ -170,6 +170,14 @@ abstract class BaseBlockService extends SonataBaseBlockService
             $blockContext->getBlock()->getSettings()
         );
 
+        //Tmp : waiting for cache improvement
+        //I just unset this due to preview rendering in the backend
+        unset($settings['use_cache']);
+        unset($settings['extra_cache_keys']);
+        unset($settings['attr']);
+        unset($settings['template']);
+        unset($settings['ttl']);
+
         //        $settings += array(
         //            'block_style' => null,
         //            'title_level' => 'h2',
