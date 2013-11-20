@@ -35,12 +35,7 @@
         "doctrine/doctrine-bundle": "1.2.*",
         "doctrine/doctrine-fixtures-bundle": "2.1.*",
         "jackalope/jackalope-doctrine-dbal": "1.0.*@dev",
-        "symfony-cmf/testing": "1.0.*",
-        "behat/behat": "~2.4@stable",
-        "behat/symfony2-extension": "~1.0@stable",
-        "behat/mink-extension": "~1.1@stable",
-        "behat/mink-browserkit-driver": "~1.1@stable",
-        "behat/mink-zombie-driver": "~1.1@stable"
+        "symfony-cmf/testing": "1.0.*"
     },
     "suggest": {
         "presta/sitemap-bundle": "To generate your sitemaps",

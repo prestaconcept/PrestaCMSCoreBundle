@@ -6,15 +6,12 @@ php:
 
 env:
   - SYMFONY_VERSION=2.3.*
-  - SYMFONY_VERSION=dev-master
 
 before_script:
   - pear install pear/PHP_CodeSniffer
   - phpenv rehash
   - composer selfupdate
   - composer require symfony/symfony:${SYMFONY_VERSION}
-  - export NODE_PATH="$(pwd)/node_modules"
-  - npm install zombie@1.4.1
   - vendor/symfony-cmf/testing/bin/travis/phpcr_odm_doctrine_dbal.sh
   - vendor/symfony-cmf/testing/bin/server & PID=$!
 
@@ -22,7 +19,6 @@ before_script:
 script:
   - phpunit --coverage-text
   - phpcs --ignore=/vendor/*,/Tests/Resources/app/* --extensions=php --encoding=utf-8 --standard=PSR2 -np .
-  - vendor/bin/behat @PrestaCMSCoreBundle
 
 matrix:
   allow_failures:
