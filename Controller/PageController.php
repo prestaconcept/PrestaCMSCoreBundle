@@ -15,6 +15,7 @@ use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>

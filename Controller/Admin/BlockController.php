@@ -12,6 +12,9 @@ namespace Presta\CMSCoreBundle\Controller\Admin;
 use Presta\CMSCoreBundle\Model\Block;
 use Presta\CMSCoreBundle\Model\Zone;
 use Sonata\AdminBundle\Controller\CRUDController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
