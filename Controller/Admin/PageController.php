@@ -19,6 +19,7 @@ use Presta\CMSCoreBundle\Model\RouteManager;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\Website;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
+use Sonata\AdminBundle\Exception\ModelManagerException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
