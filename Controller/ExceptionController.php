@@ -13,12 +13,10 @@ namespace Presta\CMSCoreBundle\Controller;
 use Presta\CMSCoreBundle\Model\PageManager;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Symfony\Bundle\TwigBundle\Controller\ExceptionController as TwigExceptionController;
-use Symfony\Bundle\FrameworkBundle\Templating\TemplateReference;
 use Symfony\Component\HttpKernel\Exception\FlattenException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
