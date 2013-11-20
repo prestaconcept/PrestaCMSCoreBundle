@@ -70,7 +70,6 @@ class ExceptionController extends TwigExceptionController
     public function showAction(Request $request, FlattenException $exception, DebugLoggerInterface $logger = null, $_format = 'html')
     {
         if ($this->debug) {
-            //in debug mode just return default message
             return parent::showAction($request, $exception, $logger, $_format);
         }
 
@@ -88,7 +87,6 @@ class ExceptionController extends TwigExceptionController
             return $this->httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
         }
 
-        //If corresponding page does not exist
         return parent::showAction($request, $exception, $logger, $_format);
     }
 }
