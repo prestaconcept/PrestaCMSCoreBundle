@@ -59,6 +59,18 @@ class PrestaCMSCoreExtension extends \Twig_Extension
     }
 
     /**
+     * Extract links from a content, this is in a separate function just to unit test it
+     *
+     * @param  string $content
+     * @return array
+     */
+    public function extractLinks($content)
+    {
+        preg_match_all("/##internal#(.[^#]*)#/i", ($content), $matches, PREG_SET_ORDER);
+
+        return $matches;
+    }
+    /**
      * Parse Wysiwyg content to replace internal links
      *
      * @param  string $content
@@ -66,9 +78,8 @@ class PrestaCMSCoreExtension extends \Twig_Extension
      */
     public function parseWysiwygContent($content)
     {
-        preg_match_all("/##internal#(.*)#/i", $content, $matches, PREG_SET_ORDER);
-
-        $locale = $this->websiteManager->getCurrentWebsite()->getLocale();
+        $matches = $this->extractLinks($content);
+        $locale  = $this->websiteManager->getCurrentWebsite()->getLocale();
 
         foreach ($matches as $match) {
             $page = $this->cmfHelper->find($match[1]);
