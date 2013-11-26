@@ -50,9 +50,9 @@
 {% endif %}
 <script>
     function switchWebsite() {
-        if ($('#website_selector').val() == '') {
+        if ($('#website-selector').val() == '') {
             return;
         }
-        window.location.href = '{{ settings.url }}' + '?website=' + $('#website_selector').val();
+        window.location.href = '{{ settings.url }}' + '?website=' + $('#website-selector').val();
     }
 </script>
