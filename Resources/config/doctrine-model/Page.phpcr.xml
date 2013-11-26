@@ -27,6 +27,7 @@
         <field name="status" type="string" translated="true" nullable="false"/>
         <field name="enabled" type="boolean" translated="true" nullable="false"/>
         <field name="template" type="string" nullable="false"/>
+        <field name="lastCacheModifiedDate" type="date" nullable="false"/>
 
         <children name="children"/>
 

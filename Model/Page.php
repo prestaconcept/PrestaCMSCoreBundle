@@ -100,6 +100,9 @@ class Page extends AbstractParentModel
     public function __construct()
     {
         parent::__construct();
+
+        $this->lastCacheModifiedDate = new \DateTime();
+
         $this->routes = new ArrayCollection();
         $this->menus  = new ArrayCollection();
     }
