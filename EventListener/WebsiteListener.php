@@ -83,7 +83,9 @@ class WebsiteListener
                 if ($websiteId == null) {
                     //For the first time we load the default website
                     $websiteId = $this->websiteManager->getDefaultWebsiteId();
-                    $locale    = $this->websiteManager->getDefaultLocale();
+                }
+                if ($locale == null) {
+                    $locale = $this->websiteManager->getDefaultLocale();
                 }
             }
 
