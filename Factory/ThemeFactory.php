@@ -53,26 +53,31 @@ class ThemeFactory extends AbstractModelFactory implements ModelFactoryInterface
         $zones = array();
 
         if ($website != null) {
-            //voir pour mettre un has !
-            $themeNode = $this->getObjectManager()->find(
-                $this->modelClassName,
-                $website->getId() . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $configuration['name'] //$theme->getId()
-            );
-
-            if ($themeNode == null) {
-                //If there is no corresponding data, initialisation with default configuration
-                $this->initializeForWebsite($website, $configuration);
-            }
+            ////voir pour mettre un has !
+            //$themeNode = $this->getObjectManager()->find(
+            //    $this->modelClassName,
+            //    $website->getId() . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $configuration['name']
+            //);
+            //
+            //if ($themeNode == null) {
+            //    //If there is no corresponding data, initialisation with default configuration
+            //    $this->initializeForWebsite($website, $configuration);
+            //}
 
             $zones = array();
-            $themeNode = $this->getObjectManager()->find(
+            $themeNode = $this->getObjectManager()->findTranslation(
                 $this->modelClassName,
-                $website->getId() . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $configuration['name'] //$theme->getId()
+                $website->getId() . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $configuration['name'],
+                $website->getLocale()
             );
 
             if ($themeNode != null) {
                 foreach ($themeNode->getZones() as $zone) {
+                    foreach ($zone->getBlocks() as $block) {
+                        $this->getObjectManager()->bindTranslation($block, $website->getLocale());
+                    }
                     $zones[$zone->getName()] = $zone;
+
                 }
             }
         }
