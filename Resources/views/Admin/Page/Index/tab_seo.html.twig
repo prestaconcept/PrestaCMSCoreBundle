@@ -1,0 +1,62 @@
+{% trans_default_domain "PrestaCMSCoreBundle" %}
+{% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+<div class="tab-pane form-horizontal" id="seo_form_tab" ng-controller="SeoController"
+     ng-init="init('{{ page.urlRelative }}', '{{ page.pathComplete }}', '{{ page.urlComplete }}', {% if (page.isUrlCompleteMode) %} true {% else %} false {% endif %})">
+
+    <form id="edit_seo_form" class="form-horizontal" method="POST"
+          action="{{ path('presta_cms_page_edit_seo', {'website': websiteId, 'id': menuItemId, 'locale': page.locale}) }}">
+        <fieldset>
+            <legend>{{ 'cms_page.seo.title'|trans }}</legend>
+            <div class="sonata-ba-collapsed-fields">
+                <div class="offset1 span10">
+                    <div id="edit_seo_form_success" class="alert alert-success hide">
+                        {{ 'flash_edit_success'|trans([], 'SonataAdminBundle') }}
+                    </div>
+                    <div id="edit_seo_form_error" class="alert alert-error hide">
+                        {{ 'flash_edit_error'|trans([], 'SonataAdminBundle') }}
+                    </div>
+                </div>
+
+                {{ form_errors(form) }}
+
+                <div class="control-group" id="sonata-ba-field-container-page_url" ng-show="!isUrlCompleteMode">
+                    {{ form_label(form.urlRelative)}}
+                    {{ form_errors(form.urlRelative) }}
+                    <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+                        <input type="text" id="page_urlRelative" name="pageSeo[urlRelative]" ng-model="urlRelative" >
+                        <span class="help-block">{{ 'cms_page.form.seo.label.url_complete' | trans }} : {% verbatim %}{{ pathComplete }}{{ urlRelative | cleanUrl }}{% endverbatim %}</span>
+                    </div>
+                </div>
+
+                <div class="control-group" id="sonata-ba-field-container-page_url" ng-show="isUrlCompleteMode">
+                    {{ form_label(form.urlComplete)}}
+                    {{ form_errors(form.urlComplete) }}
+                    <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+                        <input type="text" id="page_urlComplete" name="pageSeo[urlComplete]" ng-model="urlComplete" >
+                        <span class="help-block">{{ 'cms_page.form.seo.help.url_complete' | trans }}</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+                        <label class="checkbox">
+                            <input type="checkbox" name="pageSeo[urlCompleteMode]" ng-model="isUrlCompleteMode" /> {{ 'cms_page.form.seo.label.url_complete_mode' | trans }}
+                        </label>
+                    </div>
+                </div>
+
+                {{ form_row(form.title)}}
+                {{ form_row(form.metaKeywords)}}
+                {{ form_row(form.metaDescription)}}
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <a class="btn btn-primary" onclick="CMSPage.submitTabForm('seo'); return false;">
+                        <i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans }}
+                    </a>
+                </div>
+            </div>
+        </fieldset>
+        {{ form_row(form._token) }}
+    </form>
+</div>

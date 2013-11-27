@@ -10,8 +10,8 @@
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
-use Presta\CMSCoreBundle\Form\PageCreateType;
-use Presta\CMSCoreBundle\Form\PageType;
+use Presta\CMSCoreBundle\Form\Page\CreateType;
+use Presta\CMSCoreBundle\Form\Page\SeoType;
 use Presta\CMSCoreBundle\Model\Page;
 use Presta\CMSCoreBundle\Model\MenuManager;
 use Presta\CMSCoreBundle\Model\PageManager;
@@ -104,14 +104,12 @@ class PageController extends AdminController
      * Add view parameters for page edition
      *
      * @param  array    $viewParams
-     * @param  Form     $form
      * @param  Page     $page
      *
      * @return array
      */
-    protected function addPageEditionViewParams(array $viewParams, Form $form, Page $page)
+    protected function addPageEditionViewParams(array $viewParams, Page $page)
     {
-        $viewParams['form'] = $form->createView();
         $viewParams['page'] = $page;
         $viewParams['pageFrontUrl'] = $this->getFrontUrlPreviewForPage($page);
         $viewParams['pageEditTabs'] = $this->getPageManager()->getPageType($page->getType())->getEditTabs();
@@ -147,6 +145,7 @@ class PageController extends AdminController
     /**
      * Page Edition
      *
+     * @param  Request  $request
      * @return Response
      */
     public function editAction(Request $request)
@@ -155,20 +154,40 @@ class PageController extends AdminController
         $viewParams = $this->getEditViewParams();
 
         if ($page != null) {
-            $form = $this->createForm(new PageType(), $page);
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $this->getPageManager()->update($page);
-                $this->addFlash('sonata_flash_success', 'flash_edit_success');
+            $formSeo = $this->createForm(new SeoType(), $page);
 
-                return $this->redirect($this->generateUrl('presta_cms_page_edit') . '?' . $request->getQueryString());
-            } elseif ($this->get('request')->getMethod() == 'POST') {
-                $this->addFlash('sonata_flash_error', 'flash_edit_error');
-            }
-            $viewParams = $this->addPageEditionViewParams($viewParams, $form, $page);
+            $viewParams = $this->addPageEditionViewParams($viewParams, $page);
+            $viewParams['formSeo'] = $formSeo->createView();
         }
 
         return $this->renderResponse('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
+    }
+
+    /**
+     * Edit SEO Action
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function editSEOAction(Request $request)
+    {
+        $page       = $this->getPage($request->get('id', null));
+        $viewParams = array();
+
+        if ($page != null) {
+            $form = $this->createForm(new SeoType(), $page);
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $this->getPageManager()->update($page);
+                $viewParams['success'] = 'flash_edit_success';
+            } else {
+                $viewParams['error'] = 'flash_edit_error';
+            }
+        } else {
+            $viewParams['error'] = 'flash_edit_error';
+        }
+
+        return $this->renderJson($viewParams);
     }
 
     /**
@@ -322,7 +341,7 @@ class PageController extends AdminController
     }
 
     /**
-     * Create a new page
+     * tte a new page
      *
      * @param  Request  $request
      * @return Response
@@ -334,7 +353,7 @@ class PageController extends AdminController
         $menus      = $this->getMenuManager()->getWebsiteMenus($website);
         $templates  = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
 
-        $form = $this->createForm(new PageCreateType($rootId, $menus, $templates));
+        $form = $this->createForm(new CreateType($rootId, $menus, $templates));
         $form->handleRequest($request);
 
         if ($form->isValid()) {

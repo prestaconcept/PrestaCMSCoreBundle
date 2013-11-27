@@ -1,13 +1,13 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of PrestaCMSCoreBundle
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Presta\CMSCoreBundle\Form;
+namespace Presta\CMSCoreBundle\Form\Page;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,20 +15,16 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Page Form
- *
- * @package    Presta
- * @subpackage CMSCoreBundle
- * @author     Nicolas Bastien <nbastien@prestaconcept.net>
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class PageType extends AbstractType
+class SeoType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function getName()
     {
-        return 'page';
+        return 'pageSeo';
     }
 
     /**

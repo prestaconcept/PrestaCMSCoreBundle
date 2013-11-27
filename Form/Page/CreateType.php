@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Presta\CMSCoreBundle\Form;
+namespace Presta\CMSCoreBundle\Form\Page;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormInterface;
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class PageCreateType extends AbstractType
+class CreateType extends AbstractType
 {
     /**
      * @var string

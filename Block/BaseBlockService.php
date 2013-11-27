@@ -93,17 +93,6 @@ abstract class BaseBlockService extends SonataBaseBlockService
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getCacheKeys(BlockInterface $block)
-    {
-        return array(
-            'type'       => $block->getType(),
-            'block_id'   => $block->getId()
-        );
-    }
-
-    /**
      * Returns preview image path
      *
      * @return string

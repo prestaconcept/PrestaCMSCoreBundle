@@ -13,14 +13,7 @@
     {{ parent() }}
     <script src="{{ asset('bundles/prestacmscore/admin/libs/angularjs/angular.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/prestacmscore/admin/js/page/ng-seo.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            // issue 99: remove the confirmation alert when changing cms page
-            window.onbeforeunload = function() {
-                return;
-            };
-        });
-    </script>
+    <script type="text/javascript" src="{{ asset('bundles/prestacmscore/admin/js/page/edit.js') }}"></script>
 {% endblock %}
 
 {% block side_menu %}
@@ -74,12 +67,12 @@
             {% for tab in pageEditTabs %}
                 <li class="{% if (loop.index == 1) %}active{% endif %}"><a href="#{{ ['cms-page-', tab]|join }}" data-toggle="tab">{{ ['cms_page.', tab, '.title']|join|trans }}</a></li>
             {% endfor %}
-            <li><a href="#seo" data-toggle="tab">{{ 'cms_page.seo.title'|trans }}</a></li>
+            <li><a href="#seo_form_tab" data-toggle="tab">{{ 'cms_page.seo.title'|trans }}</a></li>
             {#<li><a href="#routing" data-toggle="tab">{{ 'cms_page.url.redirect'|trans }}</a></li>#}
             {#<li><a href="#settings" data-toggle="tab">{{ 'cms_page.settings.title'|trans }}</a></li>#}
         </ul>
 
-        {% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
 
         <div class="tab-content sonata-ba-form">
             {% for tab in pageEditTabs %}
@@ -88,56 +81,11 @@
                 {{ render(controller('PrestaCMSCoreBundle:Admin/Page:renderEditTab', {'_locale': locale, 'tab': tab, 'page': page})) }}
             </div>
             {% endfor %}
-            <div class="tab-pane form-horizontal" id="seo" ng-controller="SeoController"
-                 ng-init="init('{{ page.urlRelative }}', '{{ page.pathComplete }}', '{{ page.urlComplete }}', {% if (page.isUrlCompleteMode) %} true {% else %} false {% endif %})">
+            {{ include(
+                'PrestaCMSCoreBundle:Admin/Page/Index:tab_seo.html.twig',
+                { 'form': formSeo }
+            ) }}
 
-                <form id="edit_form" class="form-horizontal" method="POST">
-                    <fieldset>
-                        <legend>{{ 'cms_page.seo.title'|trans }}</legend>
-                        <div class="sonata-ba-collapsed-fields">
-
-                            {{ form_errors(form) }}
-
-                            <div class="control-group" id="sonata-ba-field-container-page_url" ng-show="!isUrlCompleteMode">
-                                {{ form_label(form.urlRelative)}}
-                                {{ form_errors(form.urlRelative) }}
-                                <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
-                                    <input type="text" id="page_urlRelative" name="page[urlRelative]" ng-model="urlRelative" >
-                                    <span class="help-block">{{ 'cms_page.form.seo.label.url_complete' | trans }} : {% verbatim %}{{ pathComplete }}{{ urlRelative | cleanUrl }}{% endverbatim %}</span>
-                                </div>
-                            </div>
-
-                            <div class="control-group" id="sonata-ba-field-container-page_url" ng-show="isUrlCompleteMode">
-                                {{ form_label(form.urlComplete)}}
-                                {{ form_errors(form.urlComplete) }}
-                                <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
-                                    <input type="text" id="page_urlComplete" name="page[urlComplete]" ng-model="urlComplete" >
-                                    <span class="help-block">{{ 'cms_page.form.seo.help.url_complete' | trans }}</span>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="page[urlCompleteMode]" ng-model="isUrlCompleteMode" /> {{ 'cms_page.form.seo.label.url_complete_mode' | trans }}
-                                    </label>
-                                </div>
-                            </div>
-
-                            {{ form_row(form.title)}}
-                            {{ form_row(form.metaKeywords)}}
-                            {{ form_row(form.metaDescription)}}
-                        </div>
-                        <div class="control-group">
-                            <div class="controls">
-                                <a class="btn btn-primary" onclick="$('#edit_form').submit();">
-                                    <i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans }}
-                                </a>
-                            </div>
-                        </div>
-                    </fieldset>
-                    {{ form_row(form._token) }}
-                </form>
-            </div>
             {#<div class="tab-pane form-horizontal" id="routing">#}
                 {#{{ render(controller("PrestaCMSCoreBundle:Admin/Page:renderRouting", {'_locale': locale, 'page': page})) }}#}
             {#</div>#}
