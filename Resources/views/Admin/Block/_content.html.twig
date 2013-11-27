@@ -45,37 +45,36 @@
     <tr>
         {% set currentCol = 0 %}
         {% for zone in zones %}
-        {% if (currentCol == cols) %}
-        {% set currentCol = zone.cols %}
-    </tr>
-    <tr>
-        {% else %}
-            {% set currentCol = currentCol + zone.cols %}
-        {% endif %}
-        <td colspan="{{ zone.cols }}">
-            {% if (zone.name) %}
-                <div id="zone_{{ zone.name }}"
-                     class="zone_{{ zone.name }} page-zone {% if (zone.blocks|length == 0 and zone.editable == false) %}page-zone-disabled{% endif %}">
-                    <h3>{{ ['zone.name.', zone.name]|join|trans([], 'PrestaCMSCoreBundle') }}</h3>
-                    {% if ((zone.blocks|length > 0 or zone.editable == true)) %}
-                        <div class="page-zone-block-container" id="cms-zone-{{ zone.htmlId }}">
-                            {% if (zone.blocks) %}
-                                {% for block in zone.blocks %}
-                                    {% do block.setAdminMode() %}
-                                    {% include 'PrestaCMSCoreBundle:Admin/Block:_content_block.html.twig' with {'block': block}  %}
-
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                    {% if (zone.isEditable) %}
-                        <div class="zone-actions">
-                            <a class="btn action-add" zone-id="{{ zone.id }}"><i class="icon-plus"></i>&nbsp;</a>
-                        </div>
-                    {% endif %}
-                </div>
+            {% if (currentCol == cols) %}
+                {% set currentCol = zone.cols %}
+                </tr><tr>
+            {% else %}
+                {% set currentCol = currentCol + zone.cols %}
             {% endif %}
-        </td>
+            <td colspan="{{ zone.cols }}">
+                {% if (zone.name) %}
+                    <div id="zone_{{ zone.name }}"
+                         class="zone_{{ zone.name }} page-zone {% if (zone.blocks|length == 0 and zone.editable == false) %}page-zone-disabled{% endif %}">
+                        <h3>{{ ['zone.name.', zone.name]|join|trans([], 'PrestaCMSCoreBundle') }}</h3>
+                        {% if ((zone.blocks|length > 0 or zone.editable == true)) %}
+                            <div class="page-zone-block-container" id="cms-zone-{{ zone.htmlId }}">
+                                {% if (zone.blocks) %}
+                                    {% for block in zone.blocks %}
+                                        {% do block.setAdminMode() %}
+                                        {% include 'PrestaCMSCoreBundle:Admin/Block:_content_block.html.twig' with {'block': block}  %}
+
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        {% if (zone.isEditable) %}
+                            <div class="zone-actions">
+                                <a class="btn action-add" zone-id="{{ zone.id }}"><i class="icon-plus"></i>&nbsp;</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </td>
         {% endfor %}
     </tr>
 </table>
