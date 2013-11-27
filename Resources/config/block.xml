@@ -23,14 +23,15 @@
                 <argument type="service" id="translator" />
             </call>
         </service>
-
-        <service id="presta_cms.block.simple" class="%presta_cms.block.simple.class%" parent="presta_cms.block.base">
-            <tag name="sonata.block"/>
-            <tag name="presta_cms.block"/>
-
+        <service id="presta_cms.block.model.base" parent="presta_cms.block.base" abstract="true">
             <call method="setAdminPool">
                 <argument type="service" id="sonata.admin.pool" />
             </call>
+        </service>
+
+        <service id="presta_cms.block.simple" class="%presta_cms.block.simple.class%" parent="presta_cms.block.model.base">
+            <tag name="sonata.block"/>
+            <tag name="presta_cms.block"/>
         </service>
 
         <service id="presta_cms.block.page_children" class="%presta_cms.block.page_children.class%" parent="presta_cms.block.base">
@@ -42,13 +43,9 @@
             </call>
         </service>
 
-        <service id="presta_cms.block.sitemap" class="%presta_cms.block.sitemap.class%" parent="presta_cms.block.base">
+        <service id="presta_cms.block.sitemap" class="%presta_cms.block.sitemap.class%" parent="presta_cms.block.model.base">
             <tag name="sonata.block"/>
             <tag name="presta_cms.block"/>
-
-            <call method="setAdminPool">
-                <argument type="service" id="sonata.admin.pool" />
-            </call>
         </service>
 
         <service id="presta_cms.block.container" class="%presta_cms.block.container.class%" parent="presta_cms.block.base">
