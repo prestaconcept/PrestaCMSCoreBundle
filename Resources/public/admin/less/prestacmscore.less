@@ -155,33 +155,38 @@ img.sonata-ba-img-box {
         }
     }
 }
+/* Website selector */
+.website-locale {
+    a.locale {
+        width: 16px;
+        height: 16px;
+        padding: 12px 2px !important;
+        background-position: center center;
+        background-repeat: no-repeat;
+        opacity: 0.5;
 
-/* Locale */
-a.locale {
-    width: 20px;
-    height: 20px;
-    padding: 10px 2px !important;
-    margin-right: 5px;
-    background-position: center center;
-    background-repeat: no-repeat;
-}
+        &.active, &:hover {
+            opacity: 1;
+        }
+    }
 
-a.locale_fr {
-    background-image: url('/bundles/prestacmscore/admin/img/flags/fr.png');
-}
+    a.locale_fr {
+        background-image: url('/bundles/prestacmscore/admin/img/flags/fr.png');
+    }
 
-a.locale_it {
-    background-image: url('/bundles/prestacmscore/admin/img/flags/it.png');
-}
+    a.locale_it {
+        background-image: url('/bundles/prestacmscore/admin/img/flags/it.png');
+    }
 
-a.locale_nl {
-    background-image: url('/bundles/prestacmscore/admin/img/flags/nl.png');
-}
+    a.locale_nl {
+        background-image: url('/bundles/prestacmscore/admin/img/flags/nl.png');
+    }
 
-a.locale_es {
-    background-image: url('/bundles/prestacmscore/admin/img/flags/es.png');
-}
+    a.locale_es {
+        background-image: url('/bundles/prestacmscore/admin/img/flags/es.png');
+    }
 
-a.locale_en {
-    background-image: url('/bundles/prestacmscore/admin/img/flags/en.png');
+    a.locale_en {
+        background-image: url('/bundles/prestacmscore/admin/img/flags/en.png');
+    }
 }

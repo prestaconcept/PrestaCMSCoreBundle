@@ -19,10 +19,11 @@
                 <div id="website-selector" class="navbar">
                     <div class="navbar-inner">
                         <a id="website-name" class="brand" href="#">{{ website.name }}</a>
-                        <ul id="website-locale" class="nav">
+                        <ul id="website-locale" class="nav website-locale">
                             {% for locale in website.availableLocales %}
-                                <li class="locale locale_{{ locale }} {% if (settings.locale == locale) %} active{% endif %}">
-                                    <a href="{{ settings.url }}?website={{ website.id }}&locale={{ locale }}" class="locale locale_{{ locale }}"
+                                <li>
+                                    <a href="{{ settings.url }}?website={{ website.id }}&locale={{ locale }}"
+                                       class="locale locale_{{ locale }} {% if (settings.locale == locale) %} active{% endif %}"
                                        title="{{ ('locale.'~locale)|trans({}, 'PrestaCMSCoreBundle') }}"></a>
                                 </li>
                             {% endfor %}
