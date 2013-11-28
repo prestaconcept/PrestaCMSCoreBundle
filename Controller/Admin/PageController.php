@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
+use Presta\CMSCoreBundle\Form\Page\CacheType;
 use Presta\CMSCoreBundle\Form\Page\CreateType;
 use Presta\CMSCoreBundle\Form\Page\SeoType;
 use Presta\CMSCoreBundle\Model\Page;
@@ -155,9 +156,11 @@ class PageController extends AdminController
 
         if ($page != null) {
             $formSeo = $this->createForm(new SeoType(), $page);
+            $formCache = $this->createForm(new CacheType(), $page);
 
             $viewParams = $this->addPageEditionViewParams($viewParams, $page);
             $viewParams['formSeo'] = $formSeo->createView();
+            $viewParams['formCache'] = $formCache->createView();
         }
 
         return $this->renderResponse('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
@@ -176,6 +179,33 @@ class PageController extends AdminController
 
         if ($page != null) {
             $form = $this->createForm(new SeoType(), $page);
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $this->getPageManager()->update($page);
+                $viewParams['success'] = 'flash_edit_success';
+            } else {
+                $viewParams['error'] = 'flash_edit_error';
+            }
+        } else {
+            $viewParams['error'] = 'flash_edit_error';
+        }
+
+        return $this->renderJson($viewParams);
+    }
+
+    /**
+     * Edit Cache Action
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function editCacheAction(Request $request)
+    {
+        $page       = $this->getPage($request->get('id', null));
+        $viewParams = array();
+
+        if ($page != null) {
+            $form = $this->createForm(new CacheType(), $page);
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $this->getPageManager()->update($page);

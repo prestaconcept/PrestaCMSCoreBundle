@@ -32,6 +32,9 @@
     <route id="presta_cms_page_edit_seo" pattern="/cms/page/edit-seo">
         <default key="_controller">PrestaCMSCoreBundle:Admin/Page:editSEO</default>
     </route>
+    <route id="presta_cms_page_edit_cache" pattern="/cms/page/edit-cache">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Page:editCache</default>
+    </route>
     <route id="presta_cms_page_tree" pattern="/cms/page/tree">
         <default key="_controller">PrestaCMSCoreBundle:Admin/Page:renderPageTree</default>
     </route>

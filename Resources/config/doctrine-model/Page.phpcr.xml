@@ -28,6 +28,10 @@
         <field name="enabled" type="boolean" translated="true" nullable="false"/>
         <field name="template" type="string" nullable="false"/>
         <field name="lastCacheModifiedDate" type="date" nullable="false"/>
+        <field name="cachePrivate" type="boolean" nullable="false"/>
+        <field name="cacheMaxAge" type="int" nullable="false"/>
+        <field name="cacheSharedMaxAge" type="int" nullable="false"/>
+        <field name="cacheMustRevalidate" type="boolean" nullable="false"/>
 
         <children name="children"/>
 

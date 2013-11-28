@@ -97,6 +97,26 @@ class Page extends AbstractParentModel
      */
     protected $lastCacheModifiedDate;
 
+    /**
+     * @var bool
+     */
+    protected $cachePrivate = false;
+
+    /**
+     * @var int
+     */
+    protected $cacheMaxAge = 0;
+
+    /**
+     * @var int
+     */
+    protected $cacheSharedMaxAge = 0;
+
+    /**
+     * @var bool
+     */
+    protected $cacheMustRevalidate = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -420,5 +440,69 @@ class Page extends AbstractParentModel
     public function getMenuNodes()
     {
         return $this->menuNodes;
+    }
+
+    /**
+     * @param boolean $cachePrivate
+     */
+    public function setCachePrivate($cachePrivate)
+    {
+        $this->cachePrivate = $cachePrivate;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getCachePrivate()
+    {
+        return $this->cachePrivate;
+    }
+
+    /**
+     * @param int $cacheMaxAge
+     */
+    public function setCacheMaxAge($cacheMaxAge)
+    {
+        $this->cacheMaxAge = $cacheMaxAge;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCacheMaxAge()
+    {
+        return $this->cacheMaxAge;
+    }
+
+    /**
+     * @param int $cacheSharedMaxAge
+     */
+    public function setCacheSharedMaxAge($cacheSharedMaxAge)
+    {
+        $this->cacheSharedMaxAge = $cacheSharedMaxAge;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCacheSharedMaxAge()
+    {
+        return $this->cacheSharedMaxAge;
+    }
+
+    /**
+     * @param boolean $cacheMustRevalidate
+     */
+    public function setCacheMustRevalidate($cacheMustRevalidate)
+    {
+        $this->cacheMustRevalidate = $cacheMustRevalidate;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getCacheMustRevalidate()
+    {
+        return $this->cacheMustRevalidate;
     }
 }

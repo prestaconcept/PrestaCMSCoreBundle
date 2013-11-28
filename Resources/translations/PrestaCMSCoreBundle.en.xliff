@@ -486,6 +486,30 @@
                 <source>zone.name.right</source>
                 <target>Right sidebar</target>
             </trans-unit>
+            <trans-unit id="cms_page.cache.title">
+                <source>cms_page.cache.title</source>
+                <target>Cache</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.cache.label.private">
+                <source>cms_page.form.cache.label.private</source>
+                <target>Private</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.cache.label.last_cache_modified_date">
+                <source>cms_page.form.cache.label.last_cache_modified_date</source>
+                <target>Last cache modified</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.cache.label.max_age">
+                <source>cms_page.form.cache.label.max_age</source>
+                <target>Max age</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.cache.label.shared_max_age">
+                <source>cms_page.form.cache.label.shared_max_age</source>
+                <target>Shared max age</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.cache.label.must_revalidate">
+                <source>cms_page.form.cache.label.must_revalidate</source>
+                <target>Must revalidate</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
