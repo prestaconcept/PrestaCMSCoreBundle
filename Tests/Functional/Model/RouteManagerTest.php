@@ -81,9 +81,9 @@ class RouteManagerTest extends BaseFunctionalTestCase
 
         //Homepage
         $this->assertFalse($homepage->isUrlCompleteMode());
-        $this->assertEquals('/', $homepage->getUrlRelative());
+        $this->assertEquals('', $homepage->getUrlRelative());
         $this->assertEquals('/', $homepage->getPathComplete());
-        $this->assertEquals('/', $homepage->getUrlComplete());
+        $this->assertEquals('', $homepage->getUrlComplete());
 
         $page = $this->documentManager->find(null, '/website/sandbox/page/page-children');
         $page = $this->getRouteManager()->initializePageRouting($page);

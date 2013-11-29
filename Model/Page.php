@@ -322,7 +322,7 @@ class Page extends AbstractParentModel
         if (strpos($pathComplete, '/') !== 0) {
             $pathComplete = '/' . $pathComplete;
         }
-        $this->pathComplete = rtrim($pathComplete, '/');
+        $this->pathComplete = $pathComplete;
     }
 
     /**
@@ -341,7 +341,7 @@ class Page extends AbstractParentModel
         if (strpos($urlComplete, '/') !== 0) {
             $urlComplete = '/' . $urlComplete;
         }
-        $this->urlComplete = $urlComplete;
+        $this->urlComplete = rtrim($urlComplete, '/');
     }
 
     /**
