@@ -16,7 +16,8 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('' ~ theme.adminStyle) }}"></script>
+    <link rel="stylesheet" href="{{ asset('' ~ theme.adminStyle) }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/cmftreebrowser/js/themes/default/style.css') }}" />
 {% endblock %}
 
 {% block title %}
