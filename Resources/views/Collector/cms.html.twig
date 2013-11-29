@@ -28,6 +28,24 @@
                     <b>Page</b>
                     <span>{{ collector.currentPage.name }}</span>
                 </div>
+                <div class="sf-toolbar-info-piece">
+                    <b>Cache</b>
+                    <span>{% if(collector.cache.enabled) %}yes{% else %}no{% endif %}</span>
+                </div>
+                {% if(collector.cache.enabled) %}
+                <div class="sf-toolbar-info-piece">
+                    <b>{% if(collector.cache.private) %}Private{% else %}Public{% endif %}</b>
+                    <span>
+                        <strong>Max Age : </strong>{{ collector.cache.max_age }}
+                        &nbsp;-&nbsp;
+                        <strong>Shared Max Age : </strong>{{ collector.cache.shared_max_age }}
+                    </span>
+                </div>
+                <div class="sf-toolbar-info-piece">
+                    <b>Last modified</b>
+                    <span>{{ collector.cache.last_modified | date() }}</span>
+                </div>
+                {% endif %}
             {% endif %}
         </div>
     </div>
@@ -80,6 +98,36 @@
                 <th>Type</th>
                 <td>{{ collector.currentPage.type }}</td>
             </tr>
+        </table>
+
+        <h2>Cache</h2>
+        <table>
+            <tr>
+                <th>Enabled</th>
+                <td>{% if(collector.cache.enabled) %}yes{% else %}no{% endif %}</td>
+            </tr>
+            {% if(collector.cache.enabled) %}
+            <tr>
+                <th>Private</th>
+                <td>{% if(collector.cache.private) %}yes{% else %}no{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Max age</th>
+                <td>{{ collector.cache.max_age }}</td>
+            </tr>
+            <tr>
+                <th>Shared max age</th>
+                <td>{{ collector.cache.shared_max_age }}</td>
+            </tr>
+            <tr>
+                <th>Must revalidate</th>
+                <td>{% if(collector.cache.must_revalidate) %}yes{% else %}no{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Last modified</th>
+                <td>{{ collector.cache.last_modified | date() }}</td>
+            </tr>
+            {% endif %}
         </table>
     {% endif %}
 {% endblock %}

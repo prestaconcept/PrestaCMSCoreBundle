@@ -42,8 +42,11 @@ class CMSDataCollector extends DataCollector
     protected $pageManager;
 
     /**
-     * Constructor
-     *
+     * @var bool
+     */
+    protected $cacheEnabled;
+
+    /**
      * @param WebsiteManager    $websiteManager
      * @param ThemeManager      $themeManager
      * @param PageManager       $pageManager
@@ -67,7 +70,7 @@ class CMSDataCollector extends DataCollector
         $this->data = array(
             'currentWebsite'    => null,
             'currentTheme'      => null,
-            'currentPage'       => null,
+            'currentPage'       => null
         );
 
         $this->collectWebsiteData();
@@ -117,6 +120,14 @@ class CMSDataCollector extends DataCollector
                 'name'  => $currentPage->getName(),
                 'type'  => $currentPage->getType(),
             );
+            $this->data['cache'] = array(
+                'enabled' => $this->cacheEnabled,
+                'private' => $currentPage->getCachePrivate(),
+                'max_age' => $currentPage->getCacheMaxAge(),
+                'shared_max_age'    => $currentPage->getCacheSharedMaxAge(),
+                'must_revalidate'   => $currentPage->getCacheMustRevalidate(),
+                'last_modified'     => $currentPage->getLastCacheModifiedDate()
+            );
         }
     }
 
@@ -152,5 +163,21 @@ class CMSDataCollector extends DataCollector
     public function getName()
     {
         return 'presta_cms_data_collector';
+    }
+
+    /**
+     * @param boolean $cacheEnabled
+     */
+    public function setCacheEnabled($cacheEnabled)
+    {
+        $this->cacheEnabled = $cacheEnabled;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getCache()
+    {
+        return $this->data['cache'];
     }
 }

@@ -113,6 +113,9 @@
                 template="PrestaCMSCoreBundle:Collector:cms.html.twig"
                 id="presta_cms_data_collector"
             />
+            <call method="setCacheEnabled">
+                <argument>%presta_cms_core.cache.enabled%</argument>
+            </call>
         </service>
 
         <service id="presta_cms.twig.presta_cms_core_extension" class="%presta_cms.twig.presta_cms_core_extension.class%">

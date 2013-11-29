@@ -487,6 +487,11 @@ class Page extends AbstractParentModel
      */
     public function getCacheSharedMaxAge()
     {
+        if ($this->getCachePrivate()) {
+            //Share max age is only for public response
+            return 0;
+        }
+
         return $this->cacheSharedMaxAge;
     }
 
