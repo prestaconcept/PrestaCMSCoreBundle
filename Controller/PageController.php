@@ -101,22 +101,28 @@ class PageController extends Controller
     /**
      * @param  Page $contentDocument
      *
-     * @return null|Response
+     * @return Response
      */
-    protected function getCacheResponse(Page $contentDocument)
+    protected function getResponse(Page $contentDocument)
     {
-        if ($this->isCacheEnabled($contentDocument) == false) {
-            return null;
-        }
-
         $response = new Response();
-        $response->setPublic();
-        $response->setLastModified($contentDocument->getLastCacheModifiedDate());
-        if ($response->isNotModified($this->getRequest())) {
-            return $response;
+        if ($contentDocument->getCachePrivate()) {
+            $response->setPrivate();
+        } else {
+            $response->setPublic();
         }
+        if ($contentDocument->getCacheMaxAge() > 0) {
+            $response->setMaxAge($contentDocument->getCacheMaxAge());
+        }
+        if ($contentDocument->getCacheSharedMaxAge() > 0) {
+            $response->setSharedMaxAge($contentDocument->getCacheSharedMaxAge());
+        }
+        if ($contentDocument->getCacheMustRevalidate()) {
+            $response->headers->addCacheControlDirective('must-revalidate', true);
+        }
+        $response->setLastModified($contentDocument->getLastCacheModifiedDate());
 
-        return null;
+        return $response;
     }
 
     /**
@@ -133,9 +139,8 @@ class PageController extends Controller
             throw new NotFoundHttpException('Content not found');
         }
 
-        //Cache validation
-        $response = $this->getCacheResponse($contentDocument);
-        if ($response != null) {
+        $response = $this->getResponse($contentDocument);
+        if ($this->isCacheEnabled($contentDocument) && $response->isNotModified($this->getRequest())) {
             return $response;
         }
 
