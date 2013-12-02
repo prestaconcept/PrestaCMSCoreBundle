@@ -35,37 +35,48 @@ class BlockManager
     }
 
     /**
+     * @param string $zone
+     *
      * @return array
      */
-    public function getBlocks()
+    public function getBlocks($zone = 'global')
     {
-        $availableBlocks = $this->blocks;
+        if (!isset($this->configurations[$zone])) {
+            $zone = 'global';
+        }
+        $availableBlocks = $this->blocks->toArray();
 
-        if (count($this->getExcludedBlocks())) {
-            return array_diff($availableBlocks->toArray(), $this->getExcludedBlocks());
+        $excludedBlocks = $this->getExcludedBlocks($zone);
+        if (count($excludedBlocks)) {
+            $availableBlocks = array_diff($availableBlocks, $excludedBlocks);
         }
 
-        if (count($this->getAcceptedBlocks())) {
-            return array_intersect($availableBlocks->toArray(), $this->getAcceptedBlocks());
+        $acceptedBlocks = $this->getAcceptedBlocks($zone);
+        if (count($acceptedBlocks)) {
+            $availableBlocks = array_merge($availableBlocks, $acceptedBlocks);
         }
 
-        return $availableBlocks->toArray();
+        return array_unique($availableBlocks);
     }
 
     /**
+     * @param string $zone
+     *
      * @return array
      */
-    public function getExcludedBlocks()
+    public function getExcludedBlocks($zone = 'global')
     {
-        return $this->configurations['global']['excluded'];
+        return $this->configurations[$zone]['excluded'];
     }
 
     /**
+     * @param string $zone
+     *
      * @return array
      */
-    public function getAcceptedBlocks()
+    public function getAcceptedBlocks($zone = 'global')
     {
-        return $this->configurations['global']['accepted'];
+        return $this->configurations[$zone]['accepted'];
     }
 
     /**
@@ -81,24 +92,22 @@ class BlockManager
     }
 
     /**
-     * @param array $configuration
+     * @param array  $configuration
+     * @param string $zone
      *
      * @return $this
      *
      * @throws InvalidConfigurationException
      */
-    public function addConfiguration($configuration)
+    public function addConfiguration($configuration, $zone = 'global')
     {
+        $zone = (is_int($zone)) ? 'global' : $zone;
         $initialConfiguration = array(
             'excluded' => array(),
             'accepted' => array(),
         );
 
-        $this->configurations['global'] = $configuration + $initialConfiguration;
-
-        if (count($this->getExcludedBlocks()) && count($this->getAcceptedBlocks())) {
-            throw new InvalidConfigurationException("Cannot have accepted AND excluded blocks lists.");
-        }
+        $this->configurations[$zone] = $configuration + $initialConfiguration;
 
         return $this;
     }

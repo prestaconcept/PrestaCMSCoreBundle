@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
+use Presta\CMSCoreBundle\Factory\ZoneFactory;
 use Presta\CMSCoreBundle\Model\Block;
 use Presta\CMSCoreBundle\Model\Zone;
 use Sonata\AdminBundle\Controller\CRUDController;
@@ -59,13 +60,23 @@ class BlockController extends CRUDController
             return $this->create($zoneId, $blockId);
         }
 
+        /** @var ZoneFactory $zoneFactory */
+        $zoneFactory = $this->get('presta_cms.zone.factory');
+        $zone = $zoneFactory->create(
+            array(
+                'website'   => $this->getWebsiteManager()->getCurrentWebsite(),
+                'id'        => $zoneId,
+                'blocks'    => array($this->getBlockConfiguration())
+            )
+        );
+
         return $this->render(
             'PrestaCMSCoreBundle:Admin/Block:add_block.html.twig',
             array(
                 'zoneId'    => $zoneId,
                 'blockId'   => $blockId,
                 'locale'    => $this->getRequest()->get('locale'),
-                'blocks'    => $this->get('presta_cms.manager.block')->getBlocks()
+                'blocks'    => $this->get('presta_cms.manager.block')->getBlocks($zone->getName()),
             )
         );
     }
@@ -82,10 +93,7 @@ class BlockController extends CRUDController
         $website = $this->getWebsiteManager()->getCurrentWebsite();
         $zoneFactory = $this->get('presta_cms.zone.factory');
 
-        $blockConfiguration = array(
-            'position'  => null,
-            'type'      => $this->getRequest()->get('block')
-        );
+        $blockConfiguration = $this->getBlockConfiguration();
 
         if ($zoneId != null) {
             $zone = $zoneFactory->create(
@@ -175,5 +183,16 @@ class BlockController extends CRUDController
         }
 
         return new RedirectResponse($this->admin->generateUrl('list'));
+    }
+
+    /**
+     * @return array
+     */
+    protected function getBlockConfiguration()
+    {
+        return array(
+            'position'  => null,
+            'type'      => $this->getRequest()->get('block')
+        );
     }
 }

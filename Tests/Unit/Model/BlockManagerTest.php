@@ -66,19 +66,24 @@ class BlockManagerTest extends BaseUnitTestCase
             'accepted' => array(
                 'presta_cms.block.page_children',
             ),
-            'excluded' => array(
-                'presta_cms.block.faked',
+        );
+        $blockManager->addConfiguration($configuration, 'foo-zone');
+
+        $expected = array(
+            'global' => array(
+                'excluded' => array(),
+                'accepted' => array(
+                    'presta_cms.block.page_children',
+                ),
+            ),
+            'foo-zone' => array(
+                'excluded' => array(),
+                'accepted' => array(
+                    'presta_cms.block.page_children',
+                ),
             ),
         );
-        try {
-            $blockManager->addConfiguration($configuration);
-            $this->fail();
-        } catch (InvalidConfigurationException $e) {
-            $this->assertEquals(
-                'Cannot have accepted AND excluded blocks lists.',
-                $e->getMessage()
-            );
-        }
+        $this->assertEquals($expected, $blockManager->getConfigurations());
     }
 
     /**
@@ -115,9 +120,10 @@ class BlockManagerTest extends BaseUnitTestCase
         );
         $blockManager->addConfiguration($config);
 
-        $this->assertEquals(1, count($blockManager->getBlocks()));
+        $this->assertEquals(2, count($blockManager->getBlocks()));
         $expected = array(
             'presta_cms.block.simple',
+            'presta_cms.block.page_children',
         );
         $this->assertEquals(
             $expected,

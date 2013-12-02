@@ -63,8 +63,8 @@ class PrestaCMSCoreExtension extends Extension
         //Init block configuration
         $blockManager = $container->getDefinition('presta_cms.manager.block');
         if (isset($config['blocks']) && is_array($config['blocks'])) {
-            foreach ($config['blocks'] as $blockConfiguration) {
-                $blockManager->addMethodCall('addConfiguration', array($blockConfiguration));
+            foreach ($config['blocks'] as $zone => $blockConfiguration) {
+                $blockManager->addMethodCall('addConfiguration', array($blockConfiguration, $zone));
             }
         }
 
