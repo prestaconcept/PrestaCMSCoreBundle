@@ -54,7 +54,7 @@ class BlockManager
 
         $acceptedBlocks = $this->getAcceptedBlocks($type);
         if (count($acceptedBlocks)) {
-            $availableBlocks = array_merge($availableBlocks, $acceptedBlocks);
+            $availableBlocks = array_intersect($this->blocks->toArray(), $acceptedBlocks);
         }
 
         return array_unique($availableBlocks);
