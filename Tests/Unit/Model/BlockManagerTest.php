@@ -26,16 +26,16 @@ class BlockManagerTest extends BaseUnitTestCase
     {
         $blockManager = new BlockManager();
 
-        $this->assertTrue(is_array($blockManager->getBlocks()));
-        $this->assertEquals(0, count($blockManager->getBlocks()));
+        $this->assertTrue(is_array($blockManager->getBlocks(BlockManager::TYPE_GLOBAL)));
+        $this->assertEquals(0, count($blockManager->getBlocks(BlockManager::TYPE_GLOBAL)));
 
         $blockManager->addBlock('presta_cms.block.simple');
         $blockManager->addBlock('presta_cms.block.page_children');
 
-        $this->assertEquals(2, count($blockManager->getBlocks()));
+        $this->assertEquals(2, count($blockManager->getBlocks(BlockManager::TYPE_GLOBAL)));
         $this->assertEquals(
             array('presta_cms.block.simple', 'presta_cms.block.page_children'),
-            $blockManager->getBlocks()
+            $blockManager->getBlocks(BlockManager::TYPE_GLOBAL)
         );
     }
 
@@ -103,13 +103,13 @@ class BlockManagerTest extends BaseUnitTestCase
         $blockManager->addBlock('presta_cms.block.simple');
         $blockManager->addBlock('presta_cms.block.page_children');
 
-        $this->assertEquals(1, count($blockManager->getBlocks()));
+        $this->assertEquals(1, count($blockManager->getBlocks(BlockManager::TYPE_GLOBAL)));
         $expected = array(
             'presta_cms.block.page_children',
         );
         $this->assertEquals(
             $expected,
-            array_values($blockManager->getBlocks())
+            array_values($blockManager->getBlocks(BlockManager::TYPE_GLOBAL))
         );
 
         // accepted block
@@ -120,14 +120,13 @@ class BlockManagerTest extends BaseUnitTestCase
         );
         $blockManager->addConfiguration($config);
 
-        $this->assertEquals(2, count($blockManager->getBlocks()));
+        $this->assertEquals(1, count($blockManager->getBlocks(BlockManager::TYPE_GLOBAL)));
         $expected = array(
             'presta_cms.block.simple',
-            'presta_cms.block.page_children',
         );
         $this->assertEquals(
             $expected,
-            array_values($blockManager->getBlocks())
+            array_values($blockManager->getBlocks(BlockManager::TYPE_GLOBAL))
         );
     }
 }
