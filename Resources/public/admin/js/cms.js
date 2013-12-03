@@ -50,12 +50,12 @@ var CMSContent = function() {
 
             $('body').on('click', 'a.action-add', function(e) {
                 e.preventDefault();
-                CMSContent.addBlock($(this).attr('zone-id'));
+                CMSContent.addBlock($(this).attr('zone-id'), $(this).attr('type'));
             });
 
             $('body').on('click', 'a.action-container-add', function(e) {
                 e.preventDefault();
-                CMSContent.addContainerBlock($(this).attr('block-id'));
+                CMSContent.addContainerBlock($(this).attr('block-id'), $(this).attr('type'));
             });
 
             $('body').on('click', 'a.action-delete', function(e) {
@@ -103,13 +103,13 @@ var CMSContent = function() {
          * Handle block add button click
          * Load Modal
          */
-        addBlock : function (zoneId) {
+        addBlock : function (zoneId, type) {
             $('#modal-loader').show();
             $('#modal-content').html('');
             $('#modal-content').hide();
             $('#modal').modal('show');
 
-            $('#modal-content').load(this._addBlocUrl + '?zoneId=' + zoneId, function() {
+            $('#modal-content').load(this._addBlocUrl + '?zoneId=' + zoneId + '&type=' + type, function() {
                 $('#modal-content div.form-actions').remove();
                 $('#modal-loader').hide();
                 $('#modal-content').show();
@@ -120,13 +120,13 @@ var CMSContent = function() {
          * Handle block add button click
          * Load Modal
          */
-        addContainerBlock : function (blockId) {
+        addContainerBlock : function (blockId, type) {
             $('#modal-loader').show();
             $('#modal-content').html('');
             $('#modal-content').hide();
             $('#modal').modal('show');
 
-            $('#modal-content').load(this._addBlocUrl + '?blockId=' + blockId, function() {
+            $('#modal-content').load(this._addBlocUrl + '?blockId=' + blockId + '&type=' + type, function() {
                 $('#modal-content div.form-actions').remove();
                 $('#modal-loader').hide();
                 $('#modal-content').show();

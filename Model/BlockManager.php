@@ -10,7 +10,6 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
  * Block Manager
@@ -19,6 +18,8 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
  */
 class BlockManager
 {
+    const TYPE_GLOBAL = 'global';
+
     /**
      * @var ArrayCollection
      */
@@ -35,23 +36,23 @@ class BlockManager
     }
 
     /**
-     * @param string $zone
+     * @param string $type
      *
      * @return array
      */
-    public function getBlocks($zone = 'global')
+    public function getBlocks($type)
     {
-        if (!isset($this->configurations[$zone])) {
-            $zone = 'global';
+        if (!isset($this->configurations[$type])) {
+            $type = self::TYPE_GLOBAL;
         }
         $availableBlocks = $this->blocks->toArray();
 
-        $excludedBlocks = $this->getExcludedBlocks($zone);
+        $excludedBlocks = $this->getExcludedBlocks($type);
         if (count($excludedBlocks)) {
             $availableBlocks = array_diff($availableBlocks, $excludedBlocks);
         }
 
-        $acceptedBlocks = $this->getAcceptedBlocks($zone);
+        $acceptedBlocks = $this->getAcceptedBlocks($type);
         if (count($acceptedBlocks)) {
             $availableBlocks = array_merge($availableBlocks, $acceptedBlocks);
         }
@@ -60,27 +61,27 @@ class BlockManager
     }
 
     /**
-     * @param string $zone
+     * @param string $type
      *
      * @return array
      */
-    public function getExcludedBlocks($zone = 'global')
+    protected function getExcludedBlocks($type)
     {
-        return $this->configurations[$zone]['excluded'];
+        return $this->configurations[$type]['excluded'];
     }
 
     /**
-     * @param string $zone
+     * @param string $type
      *
      * @return array
      */
-    public function getAcceptedBlocks($zone = 'global')
+    protected function getAcceptedBlocks($type)
     {
-        return $this->configurations[$zone]['accepted'];
+        return $this->configurations[$type]['accepted'];
     }
 
     /**
-     * @param  string $blockServiceId
+     * @param string $blockServiceId
      *
      * @return BlockManager
      */
@@ -93,21 +94,22 @@ class BlockManager
 
     /**
      * @param array  $configuration
-     * @param string $zone
+     * @param string $type
      *
      * @return $this
-     *
-     * @throws InvalidConfigurationException
      */
-    public function addConfiguration($configuration, $zone = 'global')
+    public function addConfiguration($configuration, $type = self::TYPE_GLOBAL)
     {
-        $zone = (is_int($zone)) ? 'global' : $zone;
         $initialConfiguration = array(
             'excluded' => array(),
             'accepted' => array(),
         );
 
-        $this->configurations[$zone] = $configuration + $initialConfiguration;
+        if (!isset($this->configurations[self::TYPE_GLOBAL])) {
+            $this->configurations[self::TYPE_GLOBAL] = $initialConfiguration;
+        }
+
+        $this->configurations[$type] = $configuration + $initialConfiguration;
 
         return $this;
     }

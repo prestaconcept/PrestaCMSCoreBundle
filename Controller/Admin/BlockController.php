@@ -9,7 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
-use Presta\CMSCoreBundle\Factory\ZoneFactory;
 use Presta\CMSCoreBundle\Model\Block;
 use Presta\CMSCoreBundle\Model\Zone;
 use Sonata\AdminBundle\Controller\CRUDController;
@@ -33,7 +32,6 @@ class BlockController extends CRUDController
     /**
      * Render a block
      *
-     * @param  integer  $id
      * @return Response
      */
     public function renderAction()
@@ -48,27 +46,17 @@ class BlockController extends CRUDController
      *
      * This is called with blockId fron a container and with a zoneId from a zone
      *
-     * @param  integer  $id
      * @return Response
      */
     public function addAction()
     {
         $zoneId     = $this->getRequest()->get('zoneId');
+        $type       = $this->getRequest()->get('type');
         $blockId    = $this->getRequest()->get('blockId');
 
         if ($this->get('request')->getMethod() == 'POST') {
             return $this->create($zoneId, $blockId);
         }
-
-        /** @var ZoneFactory $zoneFactory */
-        $zoneFactory = $this->get('presta_cms.zone.factory');
-        $zone = $zoneFactory->create(
-            array(
-                'website'   => $this->getWebsiteManager()->getCurrentWebsite(),
-                'id'        => $zoneId,
-                'blocks'    => array($this->getBlockConfiguration())
-            )
-        );
 
         return $this->render(
             'PrestaCMSCoreBundle:Admin/Block:add_block.html.twig',
@@ -76,7 +64,7 @@ class BlockController extends CRUDController
                 'zoneId'    => $zoneId,
                 'blockId'   => $blockId,
                 'locale'    => $this->getRequest()->get('locale'),
-                'blocks'    => $this->get('presta_cms.manager.block')->getBlocks($zone->getName()),
+                'blocks'    => $this->get('presta_cms.manager.block')->getBlocks($type),
             )
         );
     }
@@ -93,7 +81,10 @@ class BlockController extends CRUDController
         $website = $this->getWebsiteManager()->getCurrentWebsite();
         $zoneFactory = $this->get('presta_cms.zone.factory');
 
-        $blockConfiguration = $this->getBlockConfiguration();
+        $blockConfiguration = array(
+            'position'  => null,
+            'type'      => $this->getRequest()->get('block')
+        );
 
         if ($zoneId != null) {
             $zone = $zoneFactory->create(
@@ -136,7 +127,12 @@ class BlockController extends CRUDController
     /**
      * Delete a block
      *
+     * @param int|null $id
+     *
      * @return Response
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function deleteAction($id = null)
     {
@@ -183,16 +179,5 @@ class BlockController extends CRUDController
         }
 
         return new RedirectResponse($this->admin->generateUrl('list'));
-    }
-
-    /**
-     * @return array
-     */
-    protected function getBlockConfiguration()
-    {
-        return array(
-            'position'  => null,
-            'type'      => $this->getRequest()->get('block')
-        );
     }
 }

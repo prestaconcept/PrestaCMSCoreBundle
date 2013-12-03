@@ -36,7 +36,7 @@
     {% if(block) %}
         {{ sonata_block_render(block) }}
     {% elseif(isAdminMode) %}
-        <a class="btn sonata-action-element action-container-add" block-id="{{ blockId }}">
+        <a class="btn sonata-action-element action-container-add" block-id="{{ blockId }}" type="{{ blockId|replace({'/': '', '.': '', '_': ''}) }}">
             <i class="icon-plus"></i>
         </a>
     {% endif %}
