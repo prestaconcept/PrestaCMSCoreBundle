@@ -72,8 +72,7 @@ class ExceptionController extends TwigExceptionController
         FlattenException $exception,
         DebugLoggerInterface $logger = null,
         $_format = 'html'
-    )
-    {
+    ) {
         if ($this->debug) {
             return parent::showAction($request, $exception, $logger, $_format);
         }
