@@ -75,6 +75,7 @@ class ThemeManagerTest extends BaseFunctionalTestCase
     public function testGetCurrentTheme()
     {
         $themeManager = $this->getThemeManager();
+        $themeManager->getTheme('default');
 
         $currentTheme = $themeManager->getCurrentTheme();
         $this->assertEquals('default', $currentTheme->getName());
