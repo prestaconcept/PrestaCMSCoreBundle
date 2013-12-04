@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Resources\app;
+namespace Presta\CMSCoreBundle\Tests\Resources\app;
 
 use Doctrine\ODM\PHPCR\Document\Resource;
 use \Symfony\Cmf\Component\Testing\HttpKernel\TestKernel;
