@@ -118,6 +118,14 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
         $block->setEnabled(true);
         $this->getObjectManager()->persist($block);
 
+        if (isset($blockConfiguration['children'])) {
+            foreach ($blockConfiguration['children'] as $position => $childConfiguration) {
+                $childConfiguration['website'] = $blockConfiguration['website'];
+                $childConfiguration['id'] = $block->getId() . '/' . $childConfiguration['name'];
+                $this->createBlock($childConfiguration);
+            }
+        }
+
         $website = $blockConfiguration['website'];
         foreach ($website->getAvailableLocales() as $locale) {
             if (isset($blockConfiguration['settings'][$locale])) {
@@ -126,12 +134,6 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
                 $block->setSettings($blockConfiguration['settings']);
             }
 
-            //Fail with : Notice: Undefined index: isEditable in AttributeTranslationStrategy.php line 48
-            //if (isset($blockConfiguration['children'])) {
-            //    foreach ($blockConfiguration['children'] as $position => $childConfiguration) {
-            //        $this->createBlock($childConfiguration, $block, $position, $website);
-            //    }
-            //}
             $this->getObjectManager()->bindTranslation($block, $locale);
         }
 
