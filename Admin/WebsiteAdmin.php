@@ -70,8 +70,20 @@ class WebsiteAdmin extends BaseAdmin
         $listMapper
             ->addIdentifier('name', 'text')
             ->add('theme', 'text')
-            ->add('defaultLocale', 'locale', array('template' => 'PrestaCMSCoreBundle:CRUD:list_locale.html.twig'))
-            ->add('availableLocales', 'array', array('template' => 'PrestaCMSCoreBundle:CRUD:list_array_locale.html.twig'))
+            ->add(
+                'defaultLocale',
+                'locale',
+                array(
+                    'template' => 'PrestaCMSCoreBundle:CRUD:list_locale.html.twig'
+                )
+            )
+            ->add(
+                'availableLocales',
+                'array',
+                array(
+                    'template' => 'PrestaCMSCoreBundle:CRUD:list_array_locale.html.twig',
+                )
+            )
 
             ->add('isActive', 'boolean')
             ->add('isDefault', 'boolean')
@@ -112,7 +124,14 @@ class WebsiteAdmin extends BaseAdmin
         $locale = $this->getObjectLocale();
         $formMapper
             ->with($this->trans('form_site.label_general'))
-                //->add('enabled', 'checkbox', array('attr' => array('class' => 'locale locale_' . $locale), 'required' => false))
+//                ->add(
+//                    'enabled',
+//                    'checkbox',
+//                    array(
+//                        'attr'     => array('class' => 'locale locale_' . $locale),
+//                        'required' => false,
+//                    )
+//                )
                 ->add(
                     'theme',
                     'choice',

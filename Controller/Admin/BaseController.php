@@ -60,8 +60,10 @@ abstract class BaseController extends sfController
     {
         $this->admin = $this->get('sonata.admin.pool');
 
-        $parameters['base_template'] = isset($parameters['base_template']) ? $parameters['base_template'] : $this->getBaseTemplate();
-        $parameters['admin_pool']    = $this->get('sonata.admin.pool');
+        if (!isset($parameters['base_template'])) {
+            $parameters['base_template'] = $this->getBaseTemplate();
+        }
+        $parameters['admin_pool'] = $this->get('sonata.admin.pool');
 
         return $this->container->get('templating')->renderResponse($view, $parameters, $response);
     }

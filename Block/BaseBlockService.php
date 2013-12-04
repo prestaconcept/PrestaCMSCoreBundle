@@ -291,7 +291,10 @@ abstract class BaseBlockService extends SonataBaseBlockService
                     'settings',
                     'sonata_type_immutable_array',
                     array(
-                        'keys'  => array_merge($this->getFormSettings($formMapper, $block), $this->getAdditionalFormSettings($formMapper, $block)),
+                        'keys'  => array_merge(
+                            $this->getFormSettings($formMapper, $block),
+                            $this->getAdditionalFormSettings($formMapper, $block)
+                        ),
                         'label' => $this->trans('form.label_settings')
                     )
                 )

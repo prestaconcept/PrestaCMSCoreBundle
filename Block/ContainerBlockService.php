@@ -48,8 +48,23 @@ class ContainerBlockService extends BaseBlockService
     {
         return array_merge(
             array(
-                array('title', 'text', array('required' => false, 'label' => $this->trans('form.label_title'))),
-                array('layout', 'choice', array('required' => true, 'choices' => array_combine($this->getLayouts(), $this->getLayouts()), 'label' => $this->trans('form.label_layout')))
+                array(
+                    'title',
+                    'text',
+                    array(
+                        'required' => false,
+                        'label'    => $this->trans('form.label_title'),
+                    ),
+                ),
+                array(
+                    'layout',
+                    'choice',
+                    array(
+                        'required' => true,
+                        'choices'  => array_combine($this->getLayouts(), $this->getLayouts()),
+                        'label'    => $this->trans('form.label_layout'),
+                    ),
+                ),
             ),
             parent::getFormSettings($formMapper, $block)
         );
