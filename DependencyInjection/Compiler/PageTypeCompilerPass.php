@@ -33,7 +33,7 @@ class PageTypeCompilerPass implements CompilerPassInterface
         $taggedServices = $container->findTaggedServiceIds(
             'presta_cms.page_type'
         );
-        foreach ($taggedServices as $id => $attributes) {
+        foreach (array_keys($taggedServices) as $id) {
             $definition->addMethodCall(
                 'addPageType',
                 array($id)

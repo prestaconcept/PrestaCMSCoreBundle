@@ -69,7 +69,7 @@ class LoadMenu extends BaseMenuFixture
             'children_content_path' => '/website/sandbox/page',
             'children' => array()
         );
-        $singlePages = $this->getFactory()->create($configuration);
+        $this->getFactory()->create($configuration);
 
         $manager->flush();
     }

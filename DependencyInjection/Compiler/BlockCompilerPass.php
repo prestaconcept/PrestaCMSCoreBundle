@@ -34,7 +34,7 @@ class BlockCompilerPass implements CompilerPassInterface
             'presta_cms.block'
         );
 
-        foreach ($taggedServices as $id => $attributes) {
+        foreach (array_keys($taggedServices) as $id) {
             $definition->addMethodCall(
                 'addBlock',
                 array($id)

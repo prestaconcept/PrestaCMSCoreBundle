@@ -130,7 +130,7 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
 
         //Creation des blocks
         if ($configuration['zones'] != null) {
-            foreach ($configuration['zones'] as $zoneName => $zoneConfiguration) {
+            foreach ($configuration['zones'] as $zoneConfiguration) {
                 if (!isset($zoneConfiguration['blocks']) || count($zoneConfiguration['blocks']) == 0) {
                     continue;
                 }
