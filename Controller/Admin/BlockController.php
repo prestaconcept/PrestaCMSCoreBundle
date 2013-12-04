@@ -125,14 +125,7 @@ class BlockController extends CRUDController
     }
 
     /**
-     * Delete a block
-     *
-     * @param int|null $id
-     *
-     * @return Response
-     *
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @inheritdoc
      */
     public function deleteAction($id = null)
     {

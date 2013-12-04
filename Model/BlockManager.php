@@ -42,9 +42,6 @@ class BlockManager
      */
     public function getBlocks($type)
     {
-        if (!isset($this->configurations[$type])) {
-            $type = self::TYPE_GLOBAL;
-        }
         $availableBlocks = $this->blocks->toArray();
 
         $excludedBlocks = $this->getExcludedBlocks($type);
@@ -67,6 +64,10 @@ class BlockManager
      */
     protected function getExcludedBlocks($type)
     {
+        if (!isset($this->configurations[$type])) {
+            $type = self::TYPE_GLOBAL;
+        }
+
         return $this->configurations[$type]['excluded'];
     }
 
@@ -77,6 +78,10 @@ class BlockManager
      */
     protected function getAcceptedBlocks($type)
     {
+        if (!isset($this->configurations[$type])) {
+            $type = self::TYPE_GLOBAL;
+        }
+
         return $this->configurations[$type]['accepted'];
     }
 
