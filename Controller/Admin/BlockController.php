@@ -32,7 +32,6 @@ class BlockController extends CRUDController
     /**
      * Render a block
      *
-     * @param  integer  $id
      * @return Response
      */
     public function renderAction()
@@ -47,12 +46,12 @@ class BlockController extends CRUDController
      *
      * This is called with blockId fron a container and with a zoneId from a zone
      *
-     * @param  integer  $id
      * @return Response
      */
     public function addAction()
     {
         $zoneId     = $this->getRequest()->get('zoneId');
+        $type       = $this->getRequest()->get('type');
         $blockId    = $this->getRequest()->get('blockId');
 
         if ($this->get('request')->getMethod() == 'POST') {
@@ -65,7 +64,7 @@ class BlockController extends CRUDController
                 'zoneId'    => $zoneId,
                 'blockId'   => $blockId,
                 'locale'    => $this->getRequest()->get('locale'),
-                'blocks'    => $this->get('presta_cms.manager.block')->getBlocks()
+                'blocks'    => $this->get('presta_cms.manager.block')->getBlocks($type),
             )
         );
     }
@@ -126,9 +125,7 @@ class BlockController extends CRUDController
     }
 
     /**
-     * Delete a block
-     *
-     * @return Response
+     * @inheritdoc
      */
     public function deleteAction($id = null)
     {

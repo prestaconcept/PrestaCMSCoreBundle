@@ -1,11 +1,12 @@
 {% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
 {% trans_default_domain "PrestaCMSCoreBundle" %}
 
-{% set containerId = block.id %}
+{% set container   = block %}
 {% set isAdminMode = block.isAdminMode %}
 
-{% macro render_container_block(blockId, isAdminMode) %}
-    {% set block = cmf_find(blockId) %}
+{% macro render_container_block(container, childName, isAdminMode) %}
+    {% set blockId = container.id ~ '/' ~ childName %}
+    {% set block   = cmf_find(blockId) %}
 
     {% if (isAdminMode) %}
     <div class="page-zone-block">
@@ -36,7 +37,7 @@
     {% if(block) %}
         {{ sonata_block_render(block) }}
     {% elseif(isAdminMode) %}
-        <a class="btn sonata-action-element action-container-add" block-id="{{ blockId }}">
+        <a class="btn sonata-action-element action-container-add" block-id="{{ blockId }}" type="{{ container.type }}">
             <i class="icon-plus"></i>
         </a>
     {% endif %}
@@ -49,7 +50,7 @@
 {% import _self as prestacms %}
 
 {% block block %}
-<div id="zone_{{ containerId }}" class="cms-container cms-container-{{ settings.layout }} {{ settings.class }}">
+<div id="zone_{{ container.id }}" class="cms-container cms-container-{{ settings.layout }} {{ settings.class }}">
     {% if(settings.title|length) %}
         <{{ settings.title_level }} class="cms-container-title">{{ settings.title|raw }}</{{ settings.title_level }}>
     {% endif %}
