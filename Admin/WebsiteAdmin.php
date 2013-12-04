@@ -124,25 +124,27 @@ class WebsiteAdmin extends BaseAdmin
         $locale = $this->getObjectLocale();
         $formMapper
             ->with($this->trans('form_site.label_general'))
-//                ->add(
-//                    'enabled',
-//                    'checkbox',
-//                    array(
-//                        'attr'     => array('class' => 'locale locale_' . $locale),
-//                        'required' => false,
-//                    )
-//                )
                 ->add(
                     'theme',
                     'choice',
                     array('attr' => array('class' => 'sonata-medium locale locale_' . $locale),
-                    'choices' => $this->themeManager->getAvailableThemes())
+                        'choices' => $this->themeManager->getAvailableThemes())
                 )
-                //->add('availableLocales', 'choice', array(
-                //    'choices'   => $this->availableLocales,
-                //    'expanded'  => true,
-                //    'multiple'  => true
-                //))
+                ->add(
+                    'enabled',
+                    'checkbox',
+                    array(
+                        'attr'      => array('class' => 'locale locale_' . $locale),
+                        'required'  => false,
+                        'read_only' => true,
+                    )
+                )
+                ->add('availableLocales', 'choice', array(
+                    'choices'   => array_combine($this->availableLocales, $this->availableLocales),
+                    'expanded'  => true,
+                    'multiple'  => true,
+                    'read_only' => true,
+                ))
             ->end();
     }
 
