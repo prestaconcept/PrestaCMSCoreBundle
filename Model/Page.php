@@ -513,6 +513,8 @@ class Page extends AbstractParentModel
 
     public function clearCache()
     {
+        // To clear the front cache, we just need to update the LastCacheModifiedDate of the page
+        // Front cache validation noticed that cache should be recomputed
         $this->lastCacheModifiedDate = new \DateTime();
     }
 }
