@@ -282,6 +282,8 @@ class PageController extends AdminController
     /**
      * Clear page cache
      *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     *
      * @return Response
      */
     public function clearCacheAction()
@@ -293,10 +295,7 @@ class PageController extends AdminController
             throw new NotFoundHttpException();
         }
 
-        //To clear the front cache, we just need to update the LastCacheModifiedDate of the page
-        //Front cache validation noticed that cache should be recomputed
-        $page->setLastCacheModifiedDate(new \DateTime());
-        $this->getPageManager()->update($page);
+        $this->getPageManager()->clearCache($page);
 
         $this->addFlash('sonata_flash_success', 'flash_edit_success');
 

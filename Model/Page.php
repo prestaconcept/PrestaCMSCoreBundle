@@ -510,4 +510,9 @@ class Page extends AbstractParentModel
     {
         return $this->cacheMustRevalidate;
     }
+
+    public function clearCache()
+    {
+        $this->lastCacheModifiedDate = new \DateTime();
+    }
 }

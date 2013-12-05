@@ -226,4 +226,13 @@ class PageManager
 
         return $pages;
     }
+
+    /**
+     * @param Page $page
+     */
+    public function clearCache(Page $page)
+    {
+        $page->clearCache();
+        $this->update($page);
+    }
 }
