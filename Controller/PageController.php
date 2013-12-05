@@ -11,9 +11,6 @@ namespace Presta\CMSCoreBundle\Controller;
 
 use Presta\CMSCoreBundle\Model\Page;
 use Presta\CMSCoreBundle\Model\PageManager;
-use Presta\CMSCoreBundle\Model\ThemeManager;
-use Presta\CMSCoreBundle\Model\WebsiteManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -21,24 +18,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  * @author Alain Flaus <aflaus@prestaconcept.net>
  */
-class PageController extends Controller
+class PageController extends AbstractController
 {
-    /**
-     * @return WebsiteManager
-     */
-    protected function getWebsiteManager()
-    {
-        return $this->get('presta_cms.manager.website');
-    }
-
-    /**
-     * @return ThemeManager
-     */
-    protected function getThemeManager()
-    {
-        return $this->get('presta_cms.manager.theme');
-    }
-
     /**
      * @return PageManager
      */
@@ -52,7 +33,7 @@ class PageController extends Controller
      */
     protected function initSEO(Page $contentDocument)
     {
-        $this->get('sonata.seo.page')
+        $this->getSeoManager()
             ->setTitle($contentDocument->getTitle())
             ->addMeta('name', 'keywords', $contentDocument->getMetaKeywords())
             ->addMeta('name', 'description', $contentDocument->getMetaDescription());
@@ -65,16 +46,9 @@ class PageController extends Controller
      */
     protected function getViewParams(Page $contentDocument)
     {
-        $website    = $this->getWebsiteManager()->getCurrentWebsite();
-        $theme      = $this->getThemeManager()->getTheme($website->getTheme(), $website);
+        $viewParams = $this->getBaseViewParams();
+        $viewParams['page'] = $contentDocument;
 
-        $viewParams = array(
-            'base_template'     => $theme->getTemplate(),
-            'website'           => $website,
-            'websiteManager'    => $this->getWebsiteManager(),
-            'theme'             => $theme,
-            'page'              => $contentDocument
-        );
         $pageManager = $this->getPageManager();
         $pageManager->setCurrentPage($contentDocument);
         $pageType = $pageManager->getPageType($contentDocument->getType());
