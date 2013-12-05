@@ -1,0 +1,6 @@
+{% if admin.hasroute('clear_cache') %}
+    <a href="{{ admin.generateObjectUrl('clear_cache', object) }}" class="btn btn-small btn-success" title="{{ 'button.website.clear_cache.tooltip' | trans([], 'PrestaCMSCoreBundle') }}">
+        <i class="icon-refresh"></i>
+        {{ 'button.website.clear_cache' | trans([], 'PrestaCMSCoreBundle') }}
+    </a>
+{% endif %}

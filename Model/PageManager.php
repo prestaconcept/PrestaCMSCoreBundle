@@ -205,7 +205,7 @@ class PageManager
 
     /**
      * @param  Website $website
-     * @return array
+     * @return Page[]
      */
     public function getPagesForWebsite(Website $website)
     {

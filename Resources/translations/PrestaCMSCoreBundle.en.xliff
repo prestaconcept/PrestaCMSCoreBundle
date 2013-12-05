@@ -142,6 +142,14 @@
                 <source>button.block.delete.tooltip</source>
                 <target>Delete block content</target>
             </trans-unit>
+            <trans-unit id="button.website.clear_cache">
+                <source>button.website.clear_cache</source>
+                <target>Clear cache</target>
+            </trans-unit>
+            <trans-unit id="button.website.clear_cache.tooltip">
+                <source>button.website.clear_cache.tooltip</source>
+                <target>Clear cache to see your modification on front</target>
+            </trans-unit>
             <trans-unit id="cms_page.add.title">
                 <source>cms_page.add.title</source>
                 <target>Add a page</target>
