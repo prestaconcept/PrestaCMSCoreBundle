@@ -16,7 +16,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Presta\CMSCoreBundle\Model\ThemeManager;
-use Presta\CMSCoreBundle\Admin\BaseAdmin;
 
 /**
  * Admin definition for the Site class
@@ -59,6 +58,15 @@ class WebsiteAdmin extends BaseAdmin
         $collection->remove('create');
         $collection->remove('delete');
 
+        $collection->add(
+            'clear_cache',
+            $this->getRouterIdParameter() . '/clear_cache',
+            array(),
+            array(
+                'id' => '.+',
+            )
+        );
+
         parent::configureRoutes($collection);
     }
 
@@ -84,6 +92,9 @@ class WebsiteAdmin extends BaseAdmin
                         'show'   => array(),
                         'edit'   => array(),
                         'delete' => array(),
+                        'clearCache' => array(
+                            'template' => 'PrestaCMSCoreBundle:CRUD:list__action_clearCache.html.twig',
+                        ),
                     )
                 )
             );

@@ -205,7 +205,7 @@ class PageManager
 
     /**
      * @param  Website $website
-     * @return array
+     * @return Page[]
      */
     public function getPagesForWebsite(Website $website)
     {
@@ -225,5 +225,26 @@ class PageManager
         }
 
         return $pages;
+    }
+
+    /**
+     * @param Page $page
+     */
+    public function clearCache(Page $page)
+    {
+        $page->clearCache();
+        $this->update($page);
+    }
+
+    /**
+     * @param Website $website
+     */
+    public function clearCacheForWebsite(Website $website)
+    {
+        $pages = $this->getPagesForWebsite($website);
+
+        foreach ($pages as $page) {
+            $this->clearCache($page);
+        }
     }
 }

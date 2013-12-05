@@ -282,6 +282,8 @@ class PageController extends AdminController
     /**
      * Clear page cache
      *
+     * @throws NotFoundHttpException
+     *
      * @return Response
      */
     public function clearCacheAction()
@@ -290,13 +292,15 @@ class PageController extends AdminController
         $page   = $this->getPageManager()->getPageById($pageId);
 
         if ($page == null) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException(sprintf("Unable to find the page with id %s", $pageId));
         }
 
-        //To clear the front cache, we just need to update the LastCacheModifiedDate of the page
-        //Front cache validation noticed that cache should be recomputed
-        $page->setLastCacheModifiedDate(new \DateTime());
-        $this->getPageManager()->update($page);
+        try {
+            $this->getPageManager()->clearCache($page);
+            $this->addFlash('sonata_flash_success', 'flash_edit_success');
+        } catch (\Exception $e) {
+            $this->addFlash('sonata_flash_error', 'flash_edit_error');
+        }
 
         $this->addFlash('sonata_flash_success', 'flash_edit_success');
 
