@@ -9,10 +9,11 @@
  */
 namespace Presta\CMSCoreBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * This base controller handle the loading of all the data needed by PrestaCMS layout
@@ -64,5 +65,18 @@ abstract class AbstractController extends Controller
             'websiteManager'    => $this->getWebsiteManager(),
             'theme'             => $theme
         );
+    }
+
+    /**
+     * Wrapper for base render method to add all the necessary view params needed to render the theme layout
+     *
+     * @param  string   $view
+     * @param  array    $parameters
+     * @param  Response $response
+     * @return Response
+     */
+    protected function renderResponse($view, array $parameters = array(), Response $response = null)
+    {
+        return $this->render($view, array_merge($parameters, $this->getBaseViewParams()), $response);
     }
 }
