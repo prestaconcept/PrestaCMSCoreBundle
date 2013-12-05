@@ -22,7 +22,7 @@ use Sonata\SeoBundle\Seo\SeoPageInterface;
  *
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class AbstractController extends Controller
+abstract class AbstractController extends Controller
 {
     /**
      * @return WebsiteManager
