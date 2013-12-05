@@ -112,7 +112,7 @@
             </trans-unit>
             <trans-unit id="button.page.clear_cache.tooltip">
                 <source>button.page.clear_cache.tooltip</source>
-                <target>Vider le cache afin que vos modification soient visibles sur le front</target>
+                <target>Vider le cache afin que vos modifications soient visibles sur le front</target>
             </trans-unit>
             <trans-unit id="button.page.preview">
                 <source>button.page.preview</source>
@@ -152,7 +152,7 @@
             </trans-unit>
             <trans-unit id="button.website.clear_cache.tooltip">
                 <source>button.website.clear_cache.tooltip</source>
-                <target>Vider le cache afin que vos modification soient visibles sur le front</target>
+                <target>Vider le cache afin que vos modifications soient visibles sur le front</target>
             </trans-unit>
             <trans-unit id="cms_page.add.title">
                 <source>cms_page.add.title</source>
