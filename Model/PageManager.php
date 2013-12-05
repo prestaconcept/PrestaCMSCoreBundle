@@ -235,4 +235,16 @@ class PageManager
         $page->clearCache();
         $this->update($page);
     }
+
+    /**
+     * @param Website $website
+     */
+    public function clearCacheForWebsite(Website $website)
+    {
+        $pages = $this->getPagesForWebsite($website);
+
+        foreach ($pages as $page) {
+            $this->clearCache($page);
+        }
+    }
 }

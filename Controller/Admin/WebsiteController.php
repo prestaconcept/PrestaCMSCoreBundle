@@ -25,7 +25,7 @@ class WebsiteController extends CRUDController
     /**
      * @return RedirectResponse
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function clearCacheAction()
     {
@@ -33,14 +33,10 @@ class WebsiteController extends CRUDController
         $website   = $this->admin->getObject($websiteId);
 
         if (!$website instanceof Website) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException(sprintf("unable to find the website with id : %s", $websiteId));
         }
 
-        $pages = $this->getPageManager()->getPagesForWebsite($website);
-
-        foreach ($pages as $page) {
-            $this->getPageManager()->clearCache($page);
-        }
+        $this->getPageManager()->clearCacheForWebsite($website);
 
         $this->addFlash('sonata_flash_success', 'flash_edit_success');
 
