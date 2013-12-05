@@ -282,7 +282,7 @@ class PageController extends AdminController
     /**
      * Clear page cache
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      *
      * @return Response
      */
@@ -292,10 +292,15 @@ class PageController extends AdminController
         $page   = $this->getPageManager()->getPageById($pageId);
 
         if ($page == null) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException(sprintf("Unable to find the page with id %s", $pageId));
         }
 
-        $this->getPageManager()->clearCache($page);
+        try {
+            $this->getPageManager()->clearCache($page);
+            $this->addFlash('sonata_flash_success', 'flash_edit_success');
+        } catch (\Exception $e) {
+            $this->addFlash('sonata_flash_error', 'flash_edit_error');
+        }
 
         $this->addFlash('sonata_flash_success', 'flash_edit_success');
 

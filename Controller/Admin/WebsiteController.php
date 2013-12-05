@@ -36,9 +36,12 @@ class WebsiteController extends CRUDController
             throw new NotFoundHttpException(sprintf("unable to find the website with id : %s", $websiteId));
         }
 
-        $this->getPageManager()->clearCacheForWebsite($website);
-
-        $this->addFlash('sonata_flash_success', 'flash_edit_success');
+        try {
+            $this->getPageManager()->clearCacheForWebsite($website);
+            $this->addFlash('sonata_flash_success', 'flash_edit_success');
+        } catch (\Exception $e) {
+            $this->addFlash('sonata_flash_error', 'flash_edit_error');
+        }
 
         return new RedirectResponse(
             $this->admin->generateUrl('list', $this->admin->getFilterParameters())
