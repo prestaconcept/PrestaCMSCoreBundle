@@ -302,8 +302,6 @@ class PageController extends AdminController
             $this->addFlash('sonata_flash_error', 'flash_edit_error');
         }
 
-        $this->addFlash('sonata_flash_success', 'flash_edit_success');
-
         return $this->redirect($this->getRequest()->headers->get('referer'));
     }
 
