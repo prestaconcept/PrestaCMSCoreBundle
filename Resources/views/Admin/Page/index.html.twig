@@ -70,7 +70,7 @@
             <li><a href="#seo_form_tab" data-toggle="tab">{{ 'cms_page.seo.title'|trans }}</a></li>
             {#<li><a href="#routing" data-toggle="tab">{{ 'cms_page.url.redirect'|trans }}</a></li>#}
             <li><a href="#cache_form_tab" data-toggle="tab">{{ 'cms_page.cache.title'|trans }}</a></li>
-            {#<li><a href="#settings" data-toggle="tab">{{ 'cms_page.settings.title'|trans }}</a></li>#}
+            <li><a href="#settings_form_tab" data-toggle="tab">{{ 'cms_page.settings.title'|trans }}</a></li>
         </ul>
 
 
@@ -89,6 +89,10 @@
             {{ include(
                 'PrestaCMSCoreBundle:Admin/Page/Index:_cache.html.twig',
                 { 'form': formCache }
+            ) }}
+            {{ include(
+                'PrestaCMSCoreBundle:Admin/Page/Index:_settings.html.twig',
+                { 'form': formSettings }
             ) }}
 
             {#<div class="tab-pane form-horizontal" id="routing">#}

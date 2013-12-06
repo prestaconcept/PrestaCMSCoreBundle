@@ -53,6 +53,18 @@ class Page extends AbstractParentModel
     protected $urlCompleteMode;
 
     /**
+     * This is not store in database, it's used to pass data form the form to the menu
+     * @var string
+     */
+    protected $menuNodeLabel;
+
+    /**
+     * This is not store in database, it's used to pass data form the form to the menu
+     * @var string
+     */
+    protected $menuNodeId;
+
+    /**
      * @var string $metaKeywords
      */
     protected $metaKeywords;
@@ -366,6 +378,38 @@ class Page extends AbstractParentModel
     public function isUrlCompleteMode()
     {
         return (bool) $this->urlCompleteMode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMenuNodeLabel()
+    {
+        return $this->menuNodeLabel;
+    }
+
+    /**
+     * @param string $menuLabel
+     */
+    public function setMenuNodeLabel($menuNodeLabel)
+    {
+        $this->menuNodeLabel = $menuNodeLabel;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMenuNodeId()
+    {
+        return $this->menuNodeId;
+    }
+
+    /**
+     * @param string $menuId
+     */
+    public function setMenuNodeId($menuNodeId)
+    {
+        $this->menuNodeId = $menuNodeId;
     }
 
     /**

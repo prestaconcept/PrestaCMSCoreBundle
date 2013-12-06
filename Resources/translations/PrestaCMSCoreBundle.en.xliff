@@ -518,6 +518,10 @@
                 <source>cms_page.form.cache.label.must_revalidate</source>
                 <target>Must revalidate</target>
             </trans-unit>
+            <trans-unit id="cms_page.form.settings.label.menu_label">
+                <source>cms_page.form.settings.label.menu_label</source>
+                <target>Menu label</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
