@@ -20,6 +20,16 @@ use Symfony\Component\Form\FormInterface;
 class SettingsType extends AbstractType
 {
     /**
+     * @var array
+     */
+    protected $templates;
+
+    public function __construct($templates)
+    {
+        $this->templates = $templates;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getName()
@@ -52,6 +62,10 @@ class SettingsType extends AbstractType
     {
         $builder
             ->add('menuNodeLabel', 'text', array('label' => 'cms_page.form.settings.label.menu_label'))
+            ->add('template', 'choice', array(
+                'label'     => 'cms_page.form.settings.label.template',
+                'choices'   => $this->templates
+            ))
             ->add('menuNodeId', 'hidden');
     }
 }
