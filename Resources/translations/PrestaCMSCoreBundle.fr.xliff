@@ -560,6 +560,10 @@
                 <source>cms_page.form.settings.label.menu_label</source>
                 <target>Libellé du menu</target>
             </trans-unit>
+            <trans-unit id="cms_page.form.settings.label.template">
+                <source>cms_page.form.settings.label.template</source>
+                <target>Template</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

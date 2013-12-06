@@ -160,9 +160,12 @@ class PageController extends AdminController
         $viewParams = $this->getEditViewParams();
 
         if ($page != null) {
+            $website    = $this->getWebsiteManager()->getCurrentWebsite();
+            $templates  = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
+
             $formSeo = $this->createForm(new SeoType(), $page);
             $formCache = $this->createForm(new CacheType(), $page);
-            $formSettings = $this->createForm(new SettingsType(), $page);
+            $formSettings = $this->createForm(new SettingsType($templates), $page);
 
             $viewParams = $this->addPageEditionViewParams($viewParams, $page);
             $viewParams['formSeo'] = $formSeo->createView();
@@ -239,7 +242,10 @@ class PageController extends AdminController
         $viewParams = array();
 
         if ($page != null) {
-            $form = $this->createForm(new SettingsType(), $page);
+            $website    = $this->getWebsiteManager()->getCurrentWebsite();
+            $templates  = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
+
+            $form = $this->createForm(new SettingsType($templates), $page);
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $this->getPageManager()->update($page);
