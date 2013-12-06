@@ -106,8 +106,8 @@ class MenuManager
      */
     public function updatePageMenu(Page $page)
     {
-        $menuNode = $this->getDocumentManager()->find(null, $page->getMenuId());
-        $menuNode->setLabel($page->getMenuLabel());
+        $menuNode = $this->getDocumentManager()->find(null, $page->getMenuNodeId());
+        $menuNode->setLabel($page->getMenuNodeLabel());
         $this->getDocumentManager()->persist($menuNode);
         $this->getDocumentManager()->flush();
     }
@@ -124,8 +124,8 @@ class MenuManager
     {
         $menuNode = $this->getDocumentManager()->find(null, $menuNodeId);
 
-        $page->setMenuId($menuNodeId);
-        $page->setMenuLabel($menuNode->getLabel());
+        $page->setMenuNodeId($menuNodeId);
+        $page->setMenuNodeLabel($menuNode->getLabel());
 
         return $page;
     }

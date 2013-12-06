@@ -56,13 +56,13 @@ class Page extends AbstractParentModel
      * This is not store in database, it's used to pass data form the form to the menu
      * @var string
      */
-    protected $menuLabel;
+    protected $menuNodeLabel;
 
     /**
      * This is not store in database, it's used to pass data form the form to the menu
      * @var string
      */
-    protected $menuId;
+    protected $menuNodeId;
 
     /**
      * @var string $metaKeywords
@@ -383,33 +383,33 @@ class Page extends AbstractParentModel
     /**
      * @return string
      */
-    public function getMenuLabel()
+    public function getMenuNodeLabel()
     {
-        return $this->menuLabel;
+        return $this->menuNodeLabel;
     }
 
     /**
      * @param string $menuLabel
      */
-    public function setMenuLabel($menuLabel)
+    public function setMenuNodeLabel($menuNodeLabel)
     {
-        $this->menuLabel = $menuLabel;
+        $this->menuNodeLabel = $menuNodeLabel;
     }
 
     /**
      * @return string
      */
-    public function getMenuId()
+    public function getMenuNodeId()
     {
-        return $this->menuId;
+        return $this->menuNodeId;
     }
 
     /**
      * @param string $menuId
      */
-    public function setMenuId($menuId)
+    public function setMenuNodeId($menuNodeId)
     {
-        $this->menuId = $menuId;
+        $this->menuNodeId = $menuNodeId;
     }
 
     /**
