@@ -11,6 +11,7 @@ namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 use Presta\CMSCoreBundle\Form\Page\CacheType;
+use Presta\CMSCoreBundle\Form\Page\SettingsType;
 use Presta\CMSCoreBundle\Form\Page\CreateType;
 use Presta\CMSCoreBundle\Form\Page\SeoType;
 use Presta\CMSCoreBundle\Model\Page;
@@ -133,12 +134,16 @@ class PageController extends AdminController
         $locale         = $this->getRequest()->get('locale', null);
         $pageManager    = $this->getPageManager();
         $routeManager   = $this->getRouteManager();
+        $menuManager    = $this->getMenuManager();
 
         $page = $pageManager->getPageForMenu($menuNodeId, $locale);
 
         //Initialize routing data
         $routeManager->setBaseUrl($this->getWebsiteManager()->getBaseUrlForLocale($locale));
         $routeManager->initializePageRouting($page);
+
+        // initialize the menu data
+        $menuManager->initializePageMenu($page, $menuNodeId);
 
         return $page;
     }
@@ -157,10 +162,12 @@ class PageController extends AdminController
         if ($page != null) {
             $formSeo = $this->createForm(new SeoType(), $page);
             $formCache = $this->createForm(new CacheType(), $page);
+            $formSettings = $this->createForm(new SettingsType(), $page);
 
             $viewParams = $this->addPageEditionViewParams($viewParams, $page);
             $viewParams['formSeo'] = $formSeo->createView();
             $viewParams['formCache'] = $formCache->createView();
+            $viewParams['formSettings'] = $formSettings->createView();
         }
 
         return $this->renderResponse('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
@@ -206,6 +213,33 @@ class PageController extends AdminController
 
         if ($page != null) {
             $form = $this->createForm(new CacheType(), $page);
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $this->getPageManager()->update($page);
+                $viewParams['success'] = 'flash_edit_success';
+            } else {
+                $viewParams['error'] = 'flash_edit_error';
+            }
+        } else {
+            $viewParams['error'] = 'flash_edit_error';
+        }
+
+        return $this->renderJson($viewParams);
+    }
+
+    /**
+     * Edit Settings Action
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function editSettingsAction(Request $request)
+    {
+        $page       = $this->getPage($request->get('id', null));
+        $viewParams = array();
+
+        if ($page != null) {
+            $form = $this->createForm(new SettingsType(), $page);
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $this->getPageManager()->update($page);

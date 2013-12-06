@@ -1,0 +1,35 @@
+{% trans_default_domain "PrestaCMSCoreBundle" %}
+{% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+<div class="tab-pane form-horizontal" id="settings_form_tab">
+
+    <form id="edit_settings_form" class="form-horizontal" method="POST"
+          action="{{ path('presta_cms_page_edit_settings', {'website': websiteId, 'id': menuItemId, 'locale': page.locale}) }}">
+        <fieldset>
+            <legend>{{ 'cms_page.settings.title'|trans }}</legend>
+            <div class="sonata-ba-collapsed-fields">
+                <div class="offset1 span10">
+                    <div id="edit_settings_form_success" class="alert alert-success hide">
+                        {{ 'flash_edit_success'|trans([], 'SonataAdminBundle') }}
+                    </div>
+                    <div id="edit_settings_form_error" class="alert alert-error hide">
+                        {{ 'flash_edit_error'|trans([], 'SonataAdminBundle') }}
+                    </div>
+                </div>
+
+                {{ form_errors(form) }}
+
+                {{ form_row(form.menuLabel)}}
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <a class="btn btn-primary" onclick="CMSPage.submitTabForm('settings'); return false;">
+                        <i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans }}
+                    </a>
+                </div>
+            </div>
+        </fieldset>
+        {{ form_row(form.menuId)}}
+        {{ form_row(form._token) }}
+    </form>
+</div>
