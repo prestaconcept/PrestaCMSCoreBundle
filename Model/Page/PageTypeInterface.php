@@ -44,11 +44,11 @@ interface PageTypeInterface
      *
      * @param  string $tab
      * @param  Page   $page
-     * @param  string $menuItemId
+     * @param  string $menuNodeId
      *
      * @return array
      */
-    public function getEditTabData($tab, Page $page, $menuItemId);
+    public function getEditTabData($tab, Page $page, $menuNodeId);
 
     /**
      * Return $tab template

@@ -79,7 +79,7 @@ class PageTypeCMSPage implements PageTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getEditTabData($tab, Page $page, $menuItemId)
+    public function getEditTabData($tab, Page $page, $menuNodeId)
     {
         switch ($tab) {
             case self::TAB_CONTENT:
@@ -97,7 +97,7 @@ class PageTypeCMSPage implements PageTypeInterface
                 return array(
                     'page'       => $page,
                     'form'       => $this->formFactory->create(new PageDescriptionType(), $page)->createView(),
-                    'menuItemId' => $menuItemId,
+                    'menuItemId' => $menuNodeId,
                 );
                 break;
             default:

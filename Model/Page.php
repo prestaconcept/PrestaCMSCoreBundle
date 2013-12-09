@@ -142,7 +142,7 @@ class Page extends AbstractParentModel
     /**
      * @var bool
      */
-    protected $descriptionEnabled = true;
+    protected $descriptionEnabled = false;
 
     public function __construct()
     {

@@ -295,14 +295,14 @@ class PageController extends AdminController
      *
      * @param  string   $tab
      * @param  Page     $page
-     * @param  string   $menuItemId
+     * @param  string   $menuNodeId
      *
      * @return Response
      */
-    public function renderEditTabAction($tab, Page $page, $menuItemId)
+    public function renderEditTabAction($tab, Page $page, $menuNodeId)
     {
         $pageType   = $this->getPageManager()->getPageType($page->getType());
-        $viewParams = $pageType->getEditTabData($tab, $page, $menuItemId);
+        $viewParams = $pageType->getEditTabData($tab, $page, $menuNodeId);
 
         return $this->renderResponse($pageType->getEditTabTemplate($tab), $viewParams);
     }
