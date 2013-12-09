@@ -280,8 +280,7 @@ class PageController extends AdminController
             } else {
                 $viewParams['error'] = 'flash_edit_error';
             }
-        }
-        else {
+        } else {
             $viewParams['error'] = 'flash_edit_error';
         }
 
