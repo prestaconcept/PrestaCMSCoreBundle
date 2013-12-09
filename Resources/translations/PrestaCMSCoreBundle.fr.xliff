@@ -443,6 +443,10 @@
                 <source>presta_cms.block.page_children</source>
                 <target>Page palier</target>
             </trans-unit>
+            <trans-unit id="presta_cms.block.page_children.link">
+                <source>presta_cms.block.page_children.link</source>
+                <target>En savoir plus</target>
+            </trans-unit>
             <trans-unit id="presta_cms.block.simple">
                 <source>presta_cms.block.simple</source>
                 <target>Bloc Editeur Basique</target>

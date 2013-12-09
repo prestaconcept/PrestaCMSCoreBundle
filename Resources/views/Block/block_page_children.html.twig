@@ -1,4 +1,5 @@
 {% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
+{% trans_default_domain "PrestaCMSCoreBundle" %}
 
 {% block block %}
     {% if (settings.title|length) %}
@@ -19,7 +20,7 @@
                 <p>{{ child.descriptionContent }}</p>
                 <p>
                     <a href="{% if (block.isAdminMode) %}#{% else %}{{ path(child) }}{% endif %}">
-                        Learn more
+                        {{ 'presta_cms.block.page_children.link' | trans() }}
                     </a>
                 </p>
             </li>
