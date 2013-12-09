@@ -63,10 +63,18 @@ abstract class BaseModelBlockService extends BaseBlockService
     {
         $formSettings = array();
         foreach ($this->getModelFields() as $fieldName => $adminCode) {
-            $formSettings[$fieldName] = array($this->getModelBuilder($formMapper, $fieldName, $adminCode), null, array());
+            $formSettings[$fieldName] = array(
+                $this->getModelBuilder($formMapper, $fieldName, $adminCode),
+                null,
+                array()
+            );
         }
         foreach ($this->getContentModelFields() as $fieldName => $adminCode) {
-            $formSettings[$fieldName] = array($this->getContentBrowserField($formMapper, $block, $fieldName, $adminCode), null, array());
+            $formSettings[$fieldName] = array(
+                $this->getContentBrowserField($formMapper, $block, $fieldName, $adminCode),
+                null,
+                array()
+            );
         }
 
         return $formSettings + parent::getAdditionalFormSettings($formMapper, $block);
@@ -91,7 +99,10 @@ abstract class BaseModelBlockService extends BaseBlockService
         $modelAdmin = $this->getModelAdmin($adminCode);
 
         // simulate an association ...
-        $fieldDescription = $modelAdmin->getModelManager()->getNewFieldDescriptionInstance($modelAdmin->getClass(), $fieldName);
+        $fieldDescription = $modelAdmin->getModelManager()->getNewFieldDescriptionInstance(
+            $modelAdmin->getClass(),
+            $fieldName
+        );
         $fieldDescription->setAssociationAdmin($modelAdmin);
         $fieldDescription->setAdmin($formMapper->getAdmin());
         $fieldDescription->setOption('edit', 'list');
@@ -127,7 +138,11 @@ abstract class BaseModelBlockService extends BaseBlockService
 
                 // if model is not already load, do it
                 if (!$model instanceof $modelClass) {
-                    $model = $modelAdmin->getModelManager()->find($modelAdmin->getClass(), $model, $block->getLocale());
+                    $model = $modelAdmin->getModelManager()->find(
+                        $modelAdmin->getClass(),
+                        $model,
+                        $block->getLocale()
+                    );
                 }
             }
             $block->setSetting($fieldName, $model);
@@ -140,7 +155,11 @@ abstract class BaseModelBlockService extends BaseBlockService
 
                 // if model is not already load, do it
                 if (!$model instanceof $modelClass) {
-                    $model = $modelAdmin->getModelManager()->getDocumentManager()->findTranslation($modelAdmin->getClass(), $model, $block->getLocale());
+                    $model = $modelAdmin->getModelManager()->getDocumentManager()->findTranslation(
+                        $modelAdmin->getClass(),
+                        $model,
+                        $block->getLocale()
+                    );
                 }
             }
             $block->setSetting($fieldName, $model);
@@ -156,7 +175,7 @@ abstract class BaseModelBlockService extends BaseBlockService
     protected function flattenBlock(BlockInterface $block)
     {
         $modelFields = array_merge($this->getModelFields(), $this->getContentModelFields());
-        foreach ($modelFields as $fieldName => $adminCode) {
+        foreach (array_keys($modelFields) as $fieldName) {
             $block->setSetting(
                 $fieldName,
                 is_object($block->getSetting($fieldName)) ? (string)$block->getSetting($fieldName)->getId() : ''

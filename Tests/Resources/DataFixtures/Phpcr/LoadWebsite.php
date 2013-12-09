@@ -33,7 +33,7 @@ class LoadWebsite extends BaseWebsiteFixture
         // Create the path in the repository
         NodeHelper::createPath($session, $basePath);
 
-        $website = $this->getFactory()->create(
+        $this->getFactory()->create(
             array(
                 'path' => $basePath . DIRECTORY_SEPARATOR . 'sandbox',
                 'name' => 'sandbox',

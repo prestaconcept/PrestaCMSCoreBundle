@@ -36,9 +36,12 @@ class BlockController extends CRUDController
      */
     public function renderAction()
     {
-        $id = $this->getRequest()->get('id');
-
-        return $this->render('PrestaCMSCoreBundle:Admin/Block:render_block.html.twig', array('block' => $this->admin->getObject($id)));
+        return $this->render(
+            'PrestaCMSCoreBundle:Admin/Block:render_block.html.twig',
+            array(
+                'block' => $this->admin->getObject($this->getRequest()->get('id')),
+            )
+        );
     }
 
     /**
