@@ -38,6 +38,9 @@
     <route id="presta_cms_page_edit_settings" pattern="/cms/page/edit-settings">
         <default key="_controller">PrestaCMSCoreBundle:Admin/Page:editSettings</default>
     </route>
+    <route id="presta_cms_page_edit_description" pattern="/cms/page/edit-description">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Page:editDescription</default>
+    </route>
     <route id="presta_cms_page_tree" pattern="/cms/page/tree">
         <default key="_controller">PrestaCMSCoreBundle:Admin/Page:renderPageTree</default>
     </route>

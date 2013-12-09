@@ -13,13 +13,17 @@
 
     <ul class="cms-block-page-children-container">
         {% for child in cmf_children(settings.page) %}
-            {%  if child.title is defined %}
+            {% if child.descriptionEnabled is defined and child.descriptionEnabled == true %}
             <li>
-                <h3>{{ child.title }}</h3>
-                <p>{{ child.description }}</p>
-                <p><a href="{% if (block.isAdminMode) %}#{% else %}{{ path(child) }}{% endif %}">{{ child.title }}</a></p>
+                <h3>{{ child.descriptionTitle }}</h3>
+                <p>{{ child.descriptionContent }}</p>
+                <p>
+                    <a href="{% if (block.isAdminMode) %}#{% else %}{{ path(child) }}{% endif %}">
+                        {{ child.descriptionTitle }}
+                    </a>
+                </p>
             </li>
-            {%  endif %}
+            {% endif %}
         {% endfor %}
     </ul>
 {% endblock %}

@@ -526,6 +526,22 @@
                 <source>cms_page.form.settings.label.template</source>
                 <target>Template</target>
             </trans-unit>
+            <trans-unit id="cms_page.description.title">
+                <source>cms_page.description.title</source>
+                <target>Description</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.description.label.title">
+                <source>cms_page.form.description.label.title</source>
+                <target>Title</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.description.label.content">
+                <source>cms_page.form.description.label.content</source>
+                <target>Content</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.description.label.enabled">
+                <source>cms_page.form.description.label.enabled</source>
+                <target>Enable</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -1,0 +1,29 @@
+{% trans_default_domain "PrestaCMSCoreBundle" %}
+{% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+<div class="tab-pane form-horizontal" id="description_form_tab">
+    <form id="edit_description_form" class="form-horizontal" method="POST"
+          action="{{ path('presta_cms_page_edit_description', {'id': menuItemId, 'locale': page.locale}) }}">
+        <fieldset>
+            <legend>{{ 'cms_page.description.title'|trans }}</legend>
+
+            <div class="sonata-ba-collapsed-fields">
+                {{ form_errors(form) }}
+
+                {{ form_row(form.descriptionTitle)}}
+                {{ form_row(form.descriptionContent)}}
+                {{ form_row(form.descriptionEnabled)}}
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <a class="btn btn-primary" onclick="CMSPage.submitTabForm('description'); return false;">
+                        <i class="icon-ok icon-white"></i>&nbsp;{{ 'button.save'|trans }}
+                    </a>
+                </div>
+            </div>
+
+        </fieldset>
+        {{ form_row(form._token) }}
+    </form>
+</div>

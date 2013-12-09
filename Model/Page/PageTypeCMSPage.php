@@ -9,9 +9,11 @@
  */
 namespace Presta\CMSCoreBundle\Model\Page;
 
+use Presta\CMSCoreBundle\Form\Page\PageDescriptionType;
 use Presta\CMSCoreBundle\Model\Page;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
+use Symfony\Component\Form\FormFactory;
 
 /**
  * Base page type for CMS
@@ -20,8 +22,9 @@ use Presta\CMSCoreBundle\Model\WebsiteManager;
  */
 class PageTypeCMSPage implements PageTypeInterface
 {
-    const TAB_CONTENT = 'content';
-    const SERVICE_ID  = 'presta_cms.page_type.cms_page';
+    const TAB_CONTENT     = 'content';
+    const TAB_DESCRIPTION = 'description';
+    const SERVICE_ID      = 'presta_cms.page_type.cms_page';
 
     /**
      * @var WebsiteManager
@@ -33,10 +36,16 @@ class PageTypeCMSPage implements PageTypeInterface
      */
     protected $themeManager;
 
-    public function __construct(WebsiteManager $websiteManager, ThemeManager $themeManager)
+    /**
+     * @var FormFactory
+     */
+    protected $formFactory;
+
+    public function __construct(WebsiteManager $websiteManager, ThemeManager $themeManager, FormFactory $formFactory)
     {
         $this->websiteManager = $websiteManager;
         $this->themeManager   = $themeManager;
+        $this->formFactory    = $formFactory;
     }
 
     /**
@@ -57,17 +66,20 @@ class PageTypeCMSPage implements PageTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getEditTabs()
+    public function getEditTabs(Page $page)
     {
-        return array (
-            'cms_page' => 'content'
-        );
+        $tabs = array('content');
+        if ($page->getParent() instanceof Page) {
+            $tabs = array_merge($tabs, array('description'));
+        }
+
+        return $tabs;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getEditTabData($tab, Page $page)
+    public function getEditTabData($tab, Page $page, $menuItemId)
     {
         switch ($tab) {
             case self::TAB_CONTENT:
@@ -79,6 +91,13 @@ class PageTypeCMSPage implements PageTypeInterface
                     'locale'   => $page->getLocale(),
                     'website'  => $website,
                     'websiteId' => ($website) ? $website->getId() : null
+                );
+                break;
+            case self::TAB_DESCRIPTION:
+                return array(
+                    'page'       => $page,
+                    'form'       => $this->formFactory->create(new PageDescriptionType(), $page)->createView(),
+                    'menuItemId' => $menuItemId,
                 );
                 break;
             default:
@@ -93,7 +112,7 @@ class PageTypeCMSPage implements PageTypeInterface
      */
     public function getEditTabTemplate($tab)
     {
-        return 'PrestaCMSCoreBundle:Admin/Page/CMSPage:tab_content.html.twig';
+        return 'PrestaCMSCoreBundle:Admin/Page/CMSPage:tab_' . $tab . '.html.twig';
     }
 
     /**

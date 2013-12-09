@@ -129,6 +129,21 @@ class Page extends AbstractParentModel
      */
     protected $cacheMustRevalidate = false;
 
+    /**
+     * @var string
+     */
+    protected $descriptionTitle;
+
+    /**
+     * @var string
+     */
+    protected $descriptionContent;
+
+    /**
+     * @var bool
+     */
+    protected $descriptionEnabled = true;
+
     public function __construct()
     {
         parent::__construct();
@@ -562,5 +577,53 @@ class Page extends AbstractParentModel
     public function clearCache()
     {
         $this->lastCacheModifiedDate = new \DateTime();
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionTitle()
+    {
+        return $this->descriptionTitle;
+    }
+
+    /**
+     * @param string $descriptionTitle
+     */
+    public function setDescriptionTitle($descriptionTitle)
+    {
+        $this->descriptionTitle = $descriptionTitle;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionContent()
+    {
+        return $this->descriptionContent;
+    }
+
+    /**
+     * @param string $descriptionContent
+     */
+    public function setDescriptionContent($descriptionContent)
+    {
+        $this->descriptionContent = $descriptionContent;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getDescriptionEnabled()
+    {
+        return $this->descriptionEnabled;
+    }
+
+    /**
+     * @param boolean $descriptionEnabled
+     */
+    public function setDescriptionEnabled($descriptionEnabled)
+    {
+        $this->descriptionEnabled = $descriptionEnabled;
     }
 }
