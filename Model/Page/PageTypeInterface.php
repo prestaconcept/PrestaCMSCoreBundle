@@ -33,18 +33,22 @@ interface PageTypeInterface
     /**
      * Returns type specific tabs for page edition
      *
+     * @param Page $page
+     *
      * @return array
      */
-    public function getEditTabs();
+    public function getEditTabs(Page $page);
 
     /**
      * Return all data needed to render $tab
      *
      * @param  string $tab
      * @param  Page   $page
+     * @param  string $menuNodeId
+     *
      * @return array
      */
-    public function getEditTabData($tab, Page $page);
+    public function getEditTabData($tab, Page $page, $menuNodeId);
 
     /**
      * Return $tab template

@@ -1,4 +1,5 @@
 {% extends 'PrestaCMSCoreBundle:Block:base_block.html.twig' %}
+{% trans_default_domain "PrestaCMSCoreBundle" %}
 
 {% block block %}
     {% if (settings.title|length) %}
@@ -13,13 +14,17 @@
 
     <ul class="cms-block-page-children-container">
         {% for child in cmf_children(settings.page) %}
-            {%  if child.title is defined %}
+            {% if child.descriptionEnabled is defined and child.descriptionEnabled == true %}
             <li>
-                <h3>{{ child.title }}</h3>
-                <p>{{ child.description }}</p>
-                <p><a href="{% if (block.isAdminMode) %}#{% else %}{{ path(child) }}{% endif %}">{{ child.title }}</a></p>
+                <h3>{{ child.descriptionTitle }}</h3>
+                <p>{{ child.descriptionContent }}</p>
+                <p>
+                    <a href="{% if (block.isAdminMode) %}#{% else %}{{ path(child) }}{% endif %}">
+                        {{ 'presta_cms.block.page_children.link' | trans() }}
+                    </a>
+                </p>
             </li>
-            {%  endif %}
+            {% endif %}
         {% endfor %}
     </ul>
 {% endblock %}

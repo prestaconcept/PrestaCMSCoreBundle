@@ -13,6 +13,7 @@ use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 use Presta\CMSCoreBundle\Form\Page\CacheType;
 use Presta\CMSCoreBundle\Form\Page\SettingsType;
 use Presta\CMSCoreBundle\Form\Page\CreateType;
+use Presta\CMSCoreBundle\Form\Page\PageDescriptionType;
 use Presta\CMSCoreBundle\Form\Page\SeoType;
 use Presta\CMSCoreBundle\Model\Page;
 use Presta\CMSCoreBundle\Model\MenuManager;
@@ -114,7 +115,7 @@ class PageController extends AdminController
     {
         $viewParams['page'] = $page;
         $viewParams['pageFrontUrl'] = $this->getFrontUrlPreviewForPage($page);
-        $viewParams['pageEditTabs'] = $this->getPageManager()->getPageType($page->getType())->getEditTabs();
+        $viewParams['pageEditTabs'] = $this->getPageManager()->getPageType($page->getType())->getEditTabs($page);
 
         return $viewParams;
     }
@@ -261,18 +262,46 @@ class PageController extends AdminController
     }
 
     /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function editDescriptionAction(Request $request)
+    {
+        $page       = $this->getPage($request->get('id', null));
+        $viewParams = array();
+
+        if (null !== $page) {
+            $form = $this->createForm(new PageDescriptionType(), $page);
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $this->getPageManager()->update($page);
+                $viewParams['success'] = 'flash_edit_success';
+            } else {
+                $viewParams['error'] = 'flash_edit_error';
+            }
+        } else {
+            $viewParams['error'] = 'flash_edit_error';
+        }
+
+        return $this->renderJson($viewParams);
+    }
+
+    /**
      * Return a specific page edit tab
      *
      * Action rendered in main edit template
      *
      * @param  string   $tab
      * @param  Page     $page
+     * @param  string   $menuNodeId
+     *
      * @return Response
      */
-    public function renderEditTabAction($tab, Page $page)
+    public function renderEditTabAction($tab, Page $page, $menuNodeId)
     {
         $pageType   = $this->getPageManager()->getPageType($page->getType());
-        $viewParams = $pageType->getEditTabData($tab, $page);
+        $viewParams = $pageType->getEditTabData($tab, $page, $menuNodeId);
 
         return $this->renderResponse($pageType->getEditTabTemplate($tab), $viewParams);
     }

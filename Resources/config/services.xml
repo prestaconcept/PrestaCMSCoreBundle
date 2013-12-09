@@ -27,6 +27,7 @@
         <service id="presta_cms.page_type.cms_page" class="%presta_cms.page_type.cms_page.class%">
             <argument type="service" id="presta_cms.manager.website" />
             <argument type="service" id="presta_cms.manager.theme" />
+            <argument type="service" id="form.factory" />
             <tag name="presta_cms.page_type" />
         </service>
 

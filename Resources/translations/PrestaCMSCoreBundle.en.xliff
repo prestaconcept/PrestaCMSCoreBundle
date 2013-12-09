@@ -430,6 +430,10 @@
                 <source>presta_cms.block.page_children</source>
                 <target>Landing page</target>
             </trans-unit>
+            <trans-unit id="presta_cms.block.page_children.link">
+                <source>presta_cms.block.page_children.link</source>
+                <target>More</target>
+            </trans-unit>
             <trans-unit id="presta_cms.block.simple">
                 <source>presta_cms.block.simple</source>
                 <target>Simple editor</target>
@@ -525,6 +529,22 @@
             <trans-unit id="cms_page.form.settings.label.template">
                 <source>cms_page.form.settings.label.template</source>
                 <target>Template</target>
+            </trans-unit>
+            <trans-unit id="cms_page.description.title">
+                <source>cms_page.description.title</source>
+                <target>Description</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.description.label.title">
+                <source>cms_page.form.description.label.title</source>
+                <target>Title</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.description.label.content">
+                <source>cms_page.form.description.label.content</source>
+                <target>Content</target>
+            </trans-unit>
+            <trans-unit id="cms_page.form.description.label.enabled">
+                <source>cms_page.form.description.label.enabled</source>
+                <target>Enable</target>
             </trans-unit>
         </body>
     </file>
