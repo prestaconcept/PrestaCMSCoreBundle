@@ -32,7 +32,7 @@
         <field name="cacheMaxAge" type="int" nullable="false"/>
         <field name="cacheSharedMaxAge" type="int" nullable="false"/>
         <field name="cacheMustRevalidate" type="boolean" nullable="false"/>
-        <field name="descriptionTitle" type="string" translated="true" nullable="false"/>
+        <field name="descriptionTitle" type="string" translated="true" nullable="true"/>
         <field name="descriptionContent" type="string" translated="true" nullable="true"/>
         <field name="descriptionEnabled" type="boolean" translated="true" nullable="false"/>
 
