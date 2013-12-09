@@ -28,6 +28,8 @@ class AppKernel extends TestKernel
                 new \Symfony\Cmf\Bundle\BlockBundle\CmfBlockBundle(),
 
                 new \Presta\CMSCoreBundle\PrestaCMSCoreBundle(),
+
+                new \Sonata\CoreBundle\SonataCoreBundle(),
             )
         );
     }
