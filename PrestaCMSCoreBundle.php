@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle;
 
 use Doctrine\Bundle\PHPCRBundle\DependencyInjection\Compiler\DoctrinePhpcrMappingsPass;
+use Presta\CMSCoreBundle\DependencyInjection\Compiler\GlobalVariablesCompilerPass;
 use Presta\CMSCoreBundle\DependencyInjection\Compiler\PageTypeCompilerPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -32,6 +33,7 @@ class PrestaCMSCoreBundle extends Bundle
 
         $container->addCompilerPass(new BlockCompilerPass());
         $container->addCompilerPass(new PageTypeCompilerPass());
+        $container->addCompilerPass(new GlobalVariablesCompilerPass());
 
         if (class_exists('Doctrine\Bundle\PHPCRBundle\DependencyInjection\Compiler\DoctrinePhpcrMappingsPass')) {
             $container->addCompilerPass(
