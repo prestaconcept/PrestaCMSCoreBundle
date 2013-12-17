@@ -67,7 +67,7 @@
                                 {% endif %}
                             </div>
                         {% endif %}
-                        {% if (zone.isEditable) %}
+                        {% if (zone.isEditable and is_granted("ROLE_ADMIN_CMS_PAGE_STRUCTURE")) %}
                             <div class="zone-actions">
                                 <a class="btn action-add" zone-id="{{ zone.id }}" type="{{ zone.name }}"><i class="icon-plus"></i>&nbsp;</a>
                             </div>

@@ -16,6 +16,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Presta\CMSCoreBundle\Model\ThemeManager;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Admin definition for the Site class
@@ -185,5 +186,32 @@ class WebsiteAdmin extends BaseAdmin
                 $menu->setCurrentUri($this->generateObjectUrl('edit', $object, array('locale' => $locale)));
             }
         }
+    }
+
+    /**
+     * @return SecurityContextInterface
+     */
+    protected function getSecurityContext()
+    {
+        return $this->configurationPool->getContainer()->get('security.context');
+    }
+
+    /**
+     * @param string $name
+     * @param object $object
+     *
+     * @return bool
+     */
+    public function isGranted($name, $object = null)
+    {
+        if ($name === 'EDIT') {
+            return $this->getSecurityContext()->isGranted('ROLE_ADMIN_CMS_WEBSITE_EDIT');
+        }
+
+        if ($name === 'CLEAR_CACHE') {
+            return $this->getSecurityContext()->isGranted('ROLE_ADMIN_CMS_CACHE_CLEAR');
+        }
+
+        return parent::isGranted($name, $object);
     }
 }

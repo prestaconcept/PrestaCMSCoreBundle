@@ -13,10 +13,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Block\BlockServiceManagerInterface;
-use Presta\CMSCoreBundle\Admin\BaseAdmin;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Theme;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Presta\CMSCoreBundle\Model\ThemeManager;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Admin definition for the Block class
@@ -149,5 +149,25 @@ class BlockAdmin extends BaseAdmin
     {
         $service = $this->blockManager->get($object);
         $service->prePersist($object);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isGranted($name, $object = null)
+    {
+        if ($name === 'EDIT') {
+            return $this->getSecurityContext()->isGranted('ROLE_ADMIN_CMS_PAGE_EDIT');
+        }
+
+        return parent::isGranted($name, $object);
+    }
+
+    /**
+     * @return SecurityContextInterface
+     */
+    protected function getSecurityContext()
+    {
+        return $this->configurationPool->getContainer()->get('security.context');
     }
 }

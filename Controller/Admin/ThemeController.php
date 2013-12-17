@@ -12,6 +12,9 @@ namespace Presta\CMSCoreBundle\Controller\Admin;
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Presta\CMSCoreBundle\Model\ThemeManager;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Theme administration controller
@@ -37,6 +40,14 @@ class ThemeController extends AdminController
     }
 
     /**
+     * @return SecurityContextInterface
+     */
+    protected function getSecurityContext()
+    {
+        return $this->get('security.context');
+    }
+
+    /**
      * Theme listing
      *
      * @return Response
@@ -52,10 +63,18 @@ class ThemeController extends AdminController
     /**
      * Theme administration
      *
+     * @param string $name
+     *
+     * @throws AccessDeniedException
+     *
      * @return Response
      */
     public function editAction($name)
     {
+        if (!$this->getSecurityContext()->isGranted('ROLE_ADMIN_CMS_THEME_EDIT')) {
+            throw new AccessDeniedException();
+        }
+
         $website    = $this->getWebsiteManager()->getCurrentWebsite();
         $viewParams = array(
             'website'   => $website,

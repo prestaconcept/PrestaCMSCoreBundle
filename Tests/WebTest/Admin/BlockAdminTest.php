@@ -17,15 +17,6 @@ use Presta\CMSCoreBundle\Tests\Functional\BaseFunctionalTestCase;
 class BlockAdminTest extends BaseFunctionalTestCase
 {
     /**
-     * {@inheritdoc}
-     */
-    public function setUp()
-    {
-        parent::setUp();
-        $this->client = $this->createClient();
-    }
-
-    /**
      * Admin edition test case for Simple block
      */
     public function testBlockSimpleEdit()
