@@ -106,6 +106,10 @@ class MenuManager
      */
     public function updatePageMenu(Page $page)
     {
+        if (!$page->hasMenuData()) {
+            return;
+        }
+
         $menuNode = $this->getDocumentManager()->find(null, $page->getMenuNodeId());
         $menuNode->setLabel($page->getMenuNodeLabel());
         $this->getDocumentManager()->persist($menuNode);
