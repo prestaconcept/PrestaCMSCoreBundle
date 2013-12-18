@@ -626,4 +626,14 @@ class Page extends AbstractParentModel
     {
         $this->descriptionEnabled = $descriptionEnabled;
     }
+
+    /**
+     * Check if the page has menu data, used when update the menus in EventListener
+     *
+     * @return bool
+     */
+    public function hasMenuData()
+    {
+        return isset($this->menuNodeId) && isset($this->menuNodeLabel);
+    }
 }
