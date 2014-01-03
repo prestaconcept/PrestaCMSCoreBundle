@@ -9,6 +9,7 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
+use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\Collection;
 use Knp\Menu\NodeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -143,6 +144,16 @@ class Page extends AbstractParentModel
      * @var bool
      */
     protected $descriptionEnabled = false;
+
+    /**
+     * @var int
+     */
+    protected $descriptionMediaId;
+
+    /**
+     * @var Media
+     */
+    protected $descriptionMedia;
 
     public function __construct()
     {
@@ -625,6 +636,43 @@ class Page extends AbstractParentModel
     public function setDescriptionEnabled($descriptionEnabled)
     {
         $this->descriptionEnabled = $descriptionEnabled;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDescriptionMediaId()
+    {
+        return $this->descriptionMediaId;
+    }
+
+    /**
+     * @param int $descriptionMediaId
+     */
+    public function setDescriptionMediaId($descriptionMediaId)
+    {
+        $this->descriptionMediaId = $descriptionMediaId;
+    }
+
+    /**
+     * @return Media
+     */
+    public function getDescriptionMedia()
+    {
+        return $this->descriptionMedia;
+    }
+
+    /**
+     * @param Media $descriptionMedia
+     */
+    public function setDescriptionMedia($descriptionMedia)
+    {
+        $this->descriptionMedia = $descriptionMedia;
+        if ($descriptionMedia !== null) {
+            $this->setDescriptionMediaId($descriptionMedia->getId());
+        } else {
+            $this->setDescriptionMediaId(null);
+        }
     }
 
     /**

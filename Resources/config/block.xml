@@ -41,6 +41,9 @@
             <call method="setPageManager">
                 <argument type="service" id="presta_cms.manager.page" />
             </call>
+            <call method="setRegistry">
+                <argument type="service" id="doctrine" />
+            </call>
         </service>
 
         <service id="presta_cms.block.sitemap" class="%presta_cms.block.sitemap.class%" parent="presta_cms.block.model.base">

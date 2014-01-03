@@ -23,6 +23,7 @@ use Presta\CMSCoreBundle\Model\RouteManager;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\Website;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
+use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Exception\ModelManagerException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Form;
@@ -227,7 +228,10 @@ class PageController extends AdminController
      */
     public function editDescriptionAction(Request $request)
     {
-        return $this->handleFormTab($request, new PageDescriptionType());
+        /** @var Pool $pool */
+        $pool = $this->get('sonata.admin.pool');
+
+        return $this->handleFormTab($request, new PageDescriptionType($pool));
     }
 
     /**
@@ -271,7 +275,9 @@ class PageController extends AdminController
     public function renderEditTabAction($tab, Page $page, $menuNodeId)
     {
         $pageType   = $this->getPageManager()->getPageType($page->getType());
-        $viewParams = $pageType->getEditTabData($tab, $page, $menuNodeId);
+        /** @var Pool $pool */
+        $pool       = $this->get('sonata.admin.pool');
+        $viewParams = $pageType->getEditTabData($tab, $page, $menuNodeId, $pool);
 
         return $this->renderResponse($pageType->getEditTabTemplate($tab), $viewParams);
     }

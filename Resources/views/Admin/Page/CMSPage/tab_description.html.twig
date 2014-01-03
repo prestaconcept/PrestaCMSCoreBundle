@@ -1,5 +1,5 @@
 {% trans_default_domain "PrestaCMSCoreBundle" %}
-{% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+{% form_theme form 'SonataDoctrinePHPCRAdminBundle:Form:form_admin_fields.html.twig' %}
 
 <div class="tab-pane form-horizontal" id="description_form_tab">
     <form id="edit_description_form" class="form-horizontal" method="POST"
@@ -11,6 +11,7 @@
                 {{ form_errors(form) }}
 
                 {{ form_row(form.descriptionTitle)}}
+                {{ form_row(form.descriptionMedia)}}
                 {{ form_row(form.descriptionContent)}}
                 {{ form_row(form.descriptionEnabled)}}
             </div>

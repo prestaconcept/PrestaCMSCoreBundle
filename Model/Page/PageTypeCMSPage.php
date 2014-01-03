@@ -13,6 +13,7 @@ use Presta\CMSCoreBundle\Form\Page\PageDescriptionType;
 use Presta\CMSCoreBundle\Model\Page;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Symfony\Component\Form\FormFactory;
 
 /**
@@ -79,7 +80,7 @@ class PageTypeCMSPage implements PageTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getEditTabData($tab, Page $page, $menuNodeId)
+    public function getEditTabData($tab, Page $page, $menuNodeId, $pool)
     {
         switch ($tab) {
             case self::TAB_CONTENT:
@@ -94,9 +95,19 @@ class PageTypeCMSPage implements PageTypeInterface
                 );
                 break;
             case self::TAB_DESCRIPTION:
+                /** @var AdminInterface $mediaAdmin */
+                $mediaAdmin = $pool->getAdminByAdminCode('sonata.media.admin.media');
+                $media      = $mediaAdmin->getModelManager()->find(
+                    $mediaAdmin->getClass(),
+                    $page->getDescriptionMediaId()
+                );
+                if (null !== $media) {
+                    $page->setDescriptionMedia($media);
+                }
+
                 return array(
                     'page'       => $page,
-                    'form'       => $this->formFactory->create(new PageDescriptionType(), $page)->createView(),
+                    'form'       => $this->formFactory->create(new PageDescriptionType($pool), $page)->createView(),
                     'menuItemId' => $menuNodeId,
                 );
                 break;

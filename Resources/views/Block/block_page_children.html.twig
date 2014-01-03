@@ -13,18 +13,19 @@
     {% endif %}
 
     <ul class="cms-block-page-children-container">
-        {% for child in cmf_children(settings.page) %}
-            {% if child.descriptionEnabled is defined and child.descriptionEnabled == true %}
+        {% for childPage in settings.childrenPages %}
             <li>
-                <h3>{{ child.descriptionTitle }}</h3>
-                <p>{{ child.descriptionContent }}</p>
+                <h3>{{ childPage.descriptionTitle }}</h3>
+                {% if childPage.descriptionMedia is defined %}
+                    {% thumbnail childPage.descriptionMedia, 'step_page' %}
+                {% endif %}
+                <p>{{ childPage.descriptionContent }}</p>
                 <p>
-                    <a href="{% if (block.isAdminMode) %}#{% else %}{{ path(child) }}{% endif %}">
+                    <a href="{% if (block.isAdminMode) %}#{% else %}{{ path(childPage) }}{% endif %}">
                         {{ 'presta_cms.block.page_children.link' | trans() }}
                     </a>
                 </p>
             </li>
-            {% endif %}
         {% endfor %}
     </ul>
 {% endblock %}

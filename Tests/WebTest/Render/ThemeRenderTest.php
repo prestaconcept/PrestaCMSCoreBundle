@@ -30,7 +30,7 @@ class ThemeRenderTest extends BaseFunctionalTestCase
      */
     public function testBlockRender()
     {
-        $urls = array('/', '/page-children', '/page-children/block-simple', '/page-children/block-sitemap');
+        $urls = array('/', '/page-children/block-simple', '/page-children/block-sitemap');
 
         foreach ($urls as $url) {
             $crawler = $this->client->request('GET', $url);

@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Model\Page;
 
 use Presta\CMSCoreBundle\Model\Page;
+use Sonata\AdminBundle\Admin\Pool;
 
 /**
  * Page type interface
@@ -45,10 +46,11 @@ interface PageTypeInterface
      * @param  string $tab
      * @param  Page   $page
      * @param  string $menuNodeId
+     * @param  Pool   $pool
      *
      * @return array
      */
-    public function getEditTabData($tab, Page $page, $menuNodeId);
+    public function getEditTabData($tab, Page $page, $menuNodeId, $pool);
 
     /**
      * Return $tab template

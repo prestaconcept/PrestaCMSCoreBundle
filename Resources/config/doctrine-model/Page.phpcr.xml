@@ -35,12 +35,12 @@
         <field name="descriptionTitle" type="string" translated="true" nullable="true"/>
         <field name="descriptionContent" type="string" translated="true" nullable="true"/>
         <field name="descriptionEnabled" type="boolean" translated="true" nullable="false"/>
+        <field name="descriptionMediaId" type="int" nullable="true"/>
 
         <children name="children"/>
 
         <referrers name="routes" referring-document="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route" referenced-by="content" cascade="persist"/>
         <referrers name="menuNodes" referring-document="Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode" referenced-by="content" cascade="persist"/>
-
     </mapped-superclass>
 
 </doctrine-mapping>
