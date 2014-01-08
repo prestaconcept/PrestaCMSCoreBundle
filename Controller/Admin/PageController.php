@@ -457,24 +457,26 @@ class PageController extends AdminController
         $form = $this->createForm(new CreateType($rootId, $menus, $templates));
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $urlParams = $this->create(
-                $website,
-                $form->get('root')->getData(),
-                $form->get('title')->getData(),
-                $form->get('template')->getData()
-            );
-            $urlParams['_locale'] = $request->getLocale();
+        if ($request->isMethod('POST')) {
+            if ($form->isValid()) {
+                $urlParams = $this->create(
+                    $website,
+                    $form->get('root')->getData(),
+                    $form->get('title')->getData(),
+                    $form->get('template')->getData()
+                );
+                $urlParams['_locale'] = $request->getLocale();
 
-            $this->addFlash('sonata_flash_success', 'flash_edit_success');
+                $this->addFlash('sonata_flash_success', 'flash_edit_success');
 
-            if ($this->isXmlHttpRequest()) {
-                $redirectUrl = $this->generateUrl('presta_cms_page_edit', $urlParams);
+                if ($this->isXmlHttpRequest()) {
+                    $redirectUrl = $this->generateUrl('presta_cms_page_edit', $urlParams);
 
-                return $this->renderJson(array('result' => 'ok', 'action' => 'refresh', 'location' => $redirectUrl));
+                    return $this->renderJson(array('result' => 'ok', 'action' => 'refresh', 'location' => $redirectUrl));
+                }
+            } else {
+                $this->addFlash('sonata_flash_error', 'flash_edit_error');
             }
-        } else {
-            $this->addFlash('sonata_flash_error', 'flash_edit_error');
         }
 
         return $this->renderResponse(
