@@ -23,6 +23,7 @@ use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\Website;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Sonata\AdminBundle\Exception\ModelManagerException;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -181,84 +182,39 @@ class PageController extends AdminController
      * Edit SEO Action
      *
      * @param  Request  $request
+     *
      * @return Response
      */
     public function editSEOAction(Request $request)
     {
-        $page       = $this->getPage($request->get('id', null));
-        $viewParams = array();
-
-        if ($page != null) {
-            $form = $this->createForm(new SeoType(), $page);
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $this->getPageManager()->update($page);
-                $viewParams['success'] = 'flash_edit_success';
-            } else {
-                $viewParams['error'] = 'flash_edit_error';
-            }
-        } else {
-            $viewParams['error'] = 'flash_edit_error';
-        }
-
-        return $this->renderJson($viewParams);
+        return $this->getRenderEditTab($request, new SeoType());
     }
 
     /**
      * Edit Cache Action
      *
      * @param  Request  $request
+     *
      * @return Response
      */
     public function editCacheAction(Request $request)
     {
-        $page       = $this->getPage($request->get('id', null));
-        $viewParams = array();
-
-        if ($page != null) {
-            $form = $this->createForm(new CacheType(), $page);
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $this->getPageManager()->update($page);
-                $viewParams['success'] = 'flash_edit_success';
-            } else {
-                $viewParams['error'] = 'flash_edit_error';
-            }
-        } else {
-            $viewParams['error'] = 'flash_edit_error';
-        }
-
-        return $this->renderJson($viewParams);
+        return $this->getRenderEditTab($request, new CacheType());
     }
 
     /**
      * Edit Settings Action
      *
      * @param  Request  $request
+     *
      * @return Response
      */
     public function editSettingsAction(Request $request)
     {
-        $page       = $this->getPage($request->get('id', null));
-        $viewParams = array();
+        $website   = $this->getWebsiteManager()->getCurrentWebsite();
+        $templates = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
 
-        if ($page != null) {
-            $website    = $this->getWebsiteManager()->getCurrentWebsite();
-            $templates  = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
-
-            $form = $this->createForm(new SettingsType($templates), $page);
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $this->getPageManager()->update($page);
-                $viewParams['success'] = 'flash_edit_success';
-            } else {
-                $viewParams['error'] = 'flash_edit_error';
-            }
-        } else {
-            $viewParams['error'] = 'flash_edit_error';
-        }
-
-        return $this->renderJson($viewParams);
+        return $this->getRenderEditTab($request, new SettingsType($templates));
     }
 
     /**
@@ -268,11 +224,22 @@ class PageController extends AdminController
      */
     public function editDescriptionAction(Request $request)
     {
+        return $this->getRenderEditTab($request, new PageDescriptionType());
+    }
+
+    /**
+     * @param Request      $request
+     * @param AbstractType $type
+     *
+     * @return Response
+     */
+    protected function getRenderEditTab(Request $request, AbstractType $type)
+    {
         $page       = $this->getPage($request->get('id', null));
         $viewParams = array();
 
         if (null !== $page) {
-            $form = $this->createForm(new PageDescriptionType(), $page);
+            $form = $this->createForm($type, $page);
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $this->getPageManager()->update($page);
