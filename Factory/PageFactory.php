@@ -182,8 +182,14 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
             $parent = $parent->getContent();
         }
 
+        $id = 0;
+        foreach ($parent->getChildren() as $child) {
+            list($currentId) = sscanf($child->getId(), $parent->getId() . "/page-%s");
+            $id = ($currentId > $id) ? $currentId : $id;
+        }
+
         $configuration['parent'] = $parent;
-        $configuration['name']   = 'page-' . (count($parent->getChildren()) + 1);
+        $configuration['name']   = 'page-' . ($id + 1);
 
         return $configuration;
     }
