@@ -187,7 +187,7 @@ class PageController extends AdminController
      */
     public function editSEOAction(Request $request)
     {
-        return $this->getRenderEditTab($request, new SeoType());
+        return $this->handleFormTab($request, new SeoType());
     }
 
     /**
@@ -199,7 +199,7 @@ class PageController extends AdminController
      */
     public function editCacheAction(Request $request)
     {
-        return $this->getRenderEditTab($request, new CacheType());
+        return $this->handleFormTab($request, new CacheType());
     }
 
     /**
@@ -214,7 +214,7 @@ class PageController extends AdminController
         $website   = $this->getWebsiteManager()->getCurrentWebsite();
         $templates = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
 
-        return $this->getRenderEditTab($request, new SettingsType($templates));
+        return $this->handleFormTab($request, new SettingsType($templates));
     }
 
     /**
@@ -224,7 +224,7 @@ class PageController extends AdminController
      */
     public function editDescriptionAction(Request $request)
     {
-        return $this->getRenderEditTab($request, new PageDescriptionType());
+        return $this->handleFormTab($request, new PageDescriptionType());
     }
 
     /**
@@ -233,7 +233,7 @@ class PageController extends AdminController
      *
      * @return Response
      */
-    protected function getRenderEditTab(Request $request, AbstractType $type)
+    protected function handleFormTab(Request $request, AbstractType $type)
     {
         $page       = $this->getPage($request->get('id', null));
         $viewParams = array();
