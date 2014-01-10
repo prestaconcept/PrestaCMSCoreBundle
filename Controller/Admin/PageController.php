@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
+use Presta\CMSCoreBundle\EventListener\WebsiteListener;
 use Presta\CMSCoreBundle\Form\Page\CacheType;
 use Presta\CMSCoreBundle\Form\Page\SettingsType;
 use Presta\CMSCoreBundle\Form\Page\CreateType;
@@ -87,7 +88,7 @@ class PageController extends AdminController
         $viewParams = array(
             'websiteId'     => null,
             'menuItemId'    => $request->get('id', null),
-            'locale'        => $request->get('locale', null),
+            'locale'        => null,
             '_locale'       => $request->get('_locale'),
             'page'          => null
         );
@@ -124,8 +125,9 @@ class PageController extends AdminController
     /**
      * Return Page initialized for edition
      *
-     * @param  integer $menuNodeId
-     * @return Page
+     * @param string $menuNodeId
+     *
+     * @return null|Page
      */
     protected function getPage($menuNodeId)
     {
@@ -133,15 +135,16 @@ class PageController extends AdminController
             return null;
         }
 
-        $locale         = $this->getRequest()->get('locale', null);
         $pageManager    = $this->getPageManager();
         $routeManager   = $this->getRouteManager();
         $menuManager    = $this->getMenuManager();
+        $websiteManager = $this->getWebsiteManager();
 
-        $page = $pageManager->getPageForMenu($menuNodeId, $locale);
+        $locale = $websiteManager->getCurrentWebsite()->getLocale();
+        $page   = $pageManager->getPageForMenu($menuNodeId, $locale);
 
         //Initialize routing data
-        $routeManager->setBaseUrl($this->getWebsiteManager()->getBaseUrlForLocale($locale));
+        $routeManager->setBaseUrl($websiteManager->getBaseUrlForLocale($locale));
         $routeManager->initializePageRouting($page);
 
         // initialize the menu data
@@ -158,11 +161,11 @@ class PageController extends AdminController
      */
     public function editAction(Request $request)
     {
+        $website    = $this->getWebsiteManager()->getCurrentWebsite();
         $page       = $this->getPage($request->get('id', null));
         $viewParams = $this->getEditViewParams();
 
         if ($page != null) {
-            $website    = $this->getWebsiteManager()->getCurrentWebsite();
             $templates  = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
 
             $formSeo = $this->createForm(new SeoType(), $page);
@@ -302,9 +305,11 @@ class PageController extends AdminController
      */
     public function renderPageTreeAction(Request $request)
     {
-        $root       = $request->query->get('root');
+        $website = $this->getWebsiteManager()->getCurrentWebsite();
+
+        $root   = $website->getMenuRoot();
         //$selected   = $request->query->get('selected') ?: $root;
-        $locale     = $request->query->get('locale');
+        $locale = $website->getLocale();
 
         //$selected is set to null cause it trigger the "select_node.jstree" event and reload the page
         $selected   = null;
