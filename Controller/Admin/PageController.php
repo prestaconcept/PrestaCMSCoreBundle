@@ -86,7 +86,7 @@ class PageController extends AdminController
         $viewParams = array(
             'websiteId'     => null,
             'menuItemId'    => $request->get('id', null),
-            'locale'        => $request->get('locale', null),
+            'locale'        => $this->get('session')->get('presta_cms.locale'),
             '_locale'       => $request->get('_locale'),
             'page'          => null
         );
@@ -335,9 +335,10 @@ class PageController extends AdminController
      */
     public function renderPageTreeAction(Request $request)
     {
-        $root       = $request->query->get('root');
+        $session = $this->get('session');
+        $root       = $session->get('presta_cms.website') . '/menu';
         //$selected   = $request->query->get('selected') ?: $root;
-        $locale     = $request->query->get('locale');
+        $locale     = $session->get('presta_cms.locale');
 
         //$selected is set to null cause it trigger the "select_node.jstree" event and reload the page
         $selected   = null;

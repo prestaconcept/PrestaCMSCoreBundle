@@ -58,4 +58,8 @@
     </route>
     <import resource="@FOSJsRoutingBundle/Resources/config/routing/routing.xml" />
     <import resource="." type="cmf_tree" />
+    <!-- websites -->
+    <route id="presta_cms_website_switch" pattern="/cms/website/switch">
+        <default key="_controller">PrestaCMSCoreBundle:Website:switchWebsite</default>
+    </route>
 </routes>
