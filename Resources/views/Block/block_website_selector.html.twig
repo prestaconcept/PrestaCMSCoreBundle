@@ -22,7 +22,7 @@
                         <ul id="website-locale" class="nav website-locale">
                             {% for locale in website.availableLocales %}
                                 <li>
-                                    <a href="{{ settings.url }}?website={{ website.id }}&locale={{ locale }}"
+                                    <a href="{{ path('presta_cms_website_switch') }}?website={{ website.id }}&locale={{ locale }}"
                                        class="locale locale_{{ locale }} {% if (settings.locale == locale) %} active{% endif %}"
                                        title="{{ ('locale.'~locale)|trans({}, 'PrestaCMSCoreBundle') }}"></a>
                                 </li>
@@ -54,6 +54,6 @@
         if ($('#website-selector').val() == '') {
             return;
         }
-        window.location.href = '{{ settings.url }}' + '?website=' + $('#website-selector').val();
+        window.location.href = '{{ path('presta_cms_website_switch') }}' + '?website=' + $('#website-selector').val();
     }
 </script>
