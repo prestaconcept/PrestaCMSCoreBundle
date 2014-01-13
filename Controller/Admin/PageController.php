@@ -10,6 +10,7 @@
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
+use Presta\CMSCoreBundle\EventListener\WebsiteListener;
 use Presta\CMSCoreBundle\Form\Page\CacheType;
 use Presta\CMSCoreBundle\Form\Page\SettingsType;
 use Presta\CMSCoreBundle\Form\Page\CreateType;
@@ -87,7 +88,7 @@ class PageController extends AdminController
         $viewParams = array(
             'websiteId'     => null,
             'menuItemId'    => $request->get('id', null),
-            'locale'        => $this->get('session')->get('presta_cms.locale'),
+            'locale'        => $this->get('session')->get(WebsiteListener::SESSION_LOCALE_FIELD),
             '_locale'       => $request->get('_locale'),
             'page'          => null
         );
@@ -303,9 +304,9 @@ class PageController extends AdminController
     public function renderPageTreeAction(Request $request)
     {
         $session = $this->get('session');
-        $root       = $session->get('presta_cms.website') . '/menu';
+        $root       = $session->get(WebsiteListener::SESSION_WEBSITE_FIELD) . '/menu';
         //$selected   = $request->query->get('selected') ?: $root;
-        $locale     = $session->get('presta_cms.locale');
+        $locale     = $session->get(WebsiteListener::SESSION_LOCALE_FIELD);
 
         //$selected is set to null cause it trigger the "select_node.jstree" event and reload the page
         $selected   = null;
