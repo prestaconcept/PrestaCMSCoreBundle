@@ -59,6 +59,10 @@ class WebsiteListener
     {
         $request = $event->getRequest();
 
+        //Load website based on user last choice
+        $websiteId = $this->session->get(self::SESSION_WEBSITE_FIELD);
+        $locale    = $this->session->get(self::SESSION_LOCALE_FIELD);
+
         if (strpos($request->getPathInfo(), '/_wdt') === 0
             || strpos($request->getPathInfo(), '/robots.txt') === 0 || strpos($request->getPathInfo(), '/css') === 0
             || strpos($request->getPathInfo(), '/js') === 0) {
@@ -71,26 +75,16 @@ class WebsiteListener
                 //Website is already loaded : this listener is triggered by every subrequests like {% render url() %}
                 return;
             }
+
             //Administration
-            $websiteId  = $request->get('website', null);
-            $locale     = $request->get('locale', null);
-
             if ($websiteId == null) {
-                //Load website based on user last choice
-                $websiteId = $this->session->get(self::SESSION_WEBSITE_FIELD);
-                $locale    = $this->session->get(self::SESSION_LOCALE_FIELD);
-
-                if ($websiteId == null) {
-                    //For the first time we load the default website
-                    $websiteId = $this->websiteManager->getDefaultWebsiteId();
-                }
-                if ($locale == null) {
-                    $locale = $this->websiteManager->getDefaultLocale();
-                }
+                //For the first time we load the default website
+                $websiteId = $this->websiteManager->getDefaultWebsiteId();
             }
-
+            if ($locale === null) {
+                $locale = $this->websiteManager->getDefaultLocale();
+            }
             $website = $this->websiteManager->loadWebsiteById($websiteId, $locale, $this->environment);
-
             if ($website != null) {
                 $this->session->set(self::SESSION_WEBSITE_FIELD, $website->getId());
                 $this->session->set(self::SESSION_LOCALE_FIELD, $website->getLocale());
@@ -99,7 +93,9 @@ class WebsiteListener
             //Front case
             //Load current website
             $website = $this->websiteManager->loadWebsiteByHost($request->getHost());
-
+            if ($locale !== null) {
+                $website->setLocale($locale);
+            }
             if ($website != null) {
                 $request->setLocale($website->getLocale());
                 $request->attributes->set('_locale', $website->getLocale());
