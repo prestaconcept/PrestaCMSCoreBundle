@@ -21,9 +21,6 @@ use Presta\CMSCoreBundle\Model\WebsiteManager;
  */
 class WebsiteListener
 {
-    const SESSION_WEBSITE_FIELD = 'presta_cms.website';
-    const SESSION_LOCALE_FIELD  = 'presta_cms.locale';
-
     /**
      * @var WebsiteManager
      */
@@ -35,19 +32,13 @@ class WebsiteListener
     protected $environment;
 
     /**
-     * @var Session
-     */
-    protected $session;
-
-    /**
      * @param WebsiteManager $websiteManager
      * @param Kernel         $kernel
      */
-    public function __construct(WebsiteManager $websiteManager, Kernel $kernel, Session $session)
+    public function __construct(WebsiteManager $websiteManager, Kernel $kernel)
     {
         $this->websiteManager = $websiteManager;
         $this->environment    = $kernel->getEnvironment();
-        $this->session        = $session;
     }
 
     /**
@@ -67,39 +58,13 @@ class WebsiteListener
         }
 
         if (strpos($request->getPathInfo(), '/admin') === 0) {
-            if ($this->websiteManager->getCurrentWebsite() != null) {
-                //Website is already loaded : this listener is triggered by every subrequests like {% render url() %}
-                return;
-            }
             //Administration
-            $websiteId  = $request->get('website', null);
-            $locale     = $request->get('locale', null);
-
-            if ($websiteId == null) {
-                //Load website based on user last choice
-                $websiteId = $this->session->get(self::SESSION_WEBSITE_FIELD);
-                $locale    = $this->session->get(self::SESSION_LOCALE_FIELD);
-
-                if ($websiteId == null) {
-                    //For the first time we load the default website
-                    $websiteId = $this->websiteManager->getDefaultWebsiteId();
-                }
-                if ($locale == null) {
-                    $locale = $this->websiteManager->getDefaultLocale();
-                }
-            }
-
-            $website = $this->websiteManager->loadWebsiteById($websiteId, $locale, $this->environment);
-
-            if ($website != null) {
-                $this->session->set(self::SESSION_WEBSITE_FIELD, $website->getId());
-                $this->session->set(self::SESSION_LOCALE_FIELD, $website->getLocale());
-            }
+            //Load current website for admin
+            $this->websiteManager->loadCurrentWebsiteForAdmin();
         } else {
             //Front case
             //Load current website
             $website = $this->websiteManager->loadWebsiteByHost($request->getHost());
-
             if ($website != null) {
                 $request->setLocale($website->getLocale());
                 $request->attributes->set('_locale', $website->getLocale());

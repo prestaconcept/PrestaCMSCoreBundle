@@ -10,8 +10,8 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Sonata\AdminBundle\Model\ModelManagerInterface;
-use Presta\CMSCoreBundle\Model\Website;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\EventListener\RouterListener;
 
 /**
@@ -69,15 +69,26 @@ class WebsiteManager
     protected $currentEnvironment;
 
     /**
+     * @var Session
+     */
+    protected $session;
+
+    /**
      * @var array
      */
     protected $hosts;
+
+    const SESSION_WEBSITE_FIELD = 'presta_cms.website';
+    const SESSION_LOCALE_FIELD  = 'presta_cms.locale';
 
     public function __construct()
     {
         $this->websites = null;
         $this->currentWebsite = null;
-        $this->currentEnvironment = null;
+        // temporary default current environment = prod to render the preview url
+        // without the current environment, we cannot have a correct preview url
+        // will be fix by: https://github.com/prestaconcept/PrestaCMSCoreBundle/issues/140
+        $this->currentEnvironment = 'prod';
         $this->hosts = array();
     }
 
@@ -127,6 +138,14 @@ class WebsiteManager
     public function getMenuProvider()
     {
         return $this->menuProvider;
+    }
+
+    /**
+     * @param Session $session
+     */
+    public function setSession($session)
+    {
+        $this->session = $session;
     }
 
     /**
@@ -196,6 +215,48 @@ class WebsiteManager
         $this->routeProvider->setPrefix($website->getRoutePrefix());
         $this->routeListener->setPrefix($website->getRoutePrefix());
         $this->menuProvider->setMenuRoot($website->getMenuRoot());
+    }
+
+    /**
+     * Load the current website for admin.
+     * Admin uses the session to store the current website locale and id.
+     * This is not wanted for the front.
+     *
+     * @return Website
+     */
+    public function loadCurrentWebsiteForAdmin()
+    {
+        $website = $this->getCurrentWebsite();
+        if ($website !== null) {
+            return $website;
+        }
+        $websiteId = $this->session->get(self::SESSION_WEBSITE_FIELD);
+        if ($websiteId == null) {
+            //For the first time we load the default website
+            $websiteId = $this->getDefaultWebsiteId();
+        }
+
+        $locale = $this->session->get(self::SESSION_LOCALE_FIELD);
+        if ($locale === null) {
+            $locale = $this->getDefaultLocale();
+        }
+
+        $website = $this->loadWebsiteById($websiteId, $locale, $this->getCurrentEnvironment());
+        if ($website != null) {
+            $this->setCurrentWebsiteForAdmin($website->getId(), $website->getLocale());
+        }
+
+        return $website;
+    }
+
+    /**
+     * @param string $id
+     * @param string $locale
+     */
+    public function setCurrentWebsiteForAdmin($id, $locale)
+    {
+        $this->session->set(self::SESSION_WEBSITE_FIELD, $id);
+        $this->session->set(self::SESSION_LOCALE_FIELD, $locale);
     }
 
     /**
@@ -283,6 +344,8 @@ class WebsiteManager
     /**
      * Load a website based by host
      *
+     * For the front
+     *
      * @param  string  $host
      * @return Website
      */
@@ -316,6 +379,8 @@ class WebsiteManager
 
     /**
      * Load current website based on its id and locale
+     *
+     * For the admin
      *
      * @param  int          $websiteId
      * @param  string       $locale

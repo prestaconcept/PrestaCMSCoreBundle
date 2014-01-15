@@ -17,7 +17,7 @@
                 &nbsp;{{ 'cms_page_tree.title'|trans }}
             </h4>
 
-            {% render url('presta_cms_page_tree', {'root': websiteId~"/menu", 'selected': '/' ~ menuItemId, 'locale': locale }) %}
+            {% render url('presta_cms_page_tree', {'root': websiteId~"/menu", 'selected': '/' ~ menuItemId }) %}
 
             <script type="text/javascript">
                 $(document).ready(function() {
@@ -27,7 +27,7 @@
                         if ((data.rslt.obj.attr("rel") == 'Presta_CMSCoreBundle_Doctrine_Phpcr_MenuNode')
                             && data.rslt.obj.attr("id") != '{{ menuItemId }}'
                         ) {
-                            var routing_defaults = {'locale': '{{ locale }}', '_locale': '{{ _locale }}', 'website': '{{ websiteId}}' };
+                            var routing_defaults = { '_locale': '{{ _locale }}' };
                             routing_defaults["id"] = data.rslt.obj.attr("url_safe_id");
                             window.location = Routing.generate('presta_cms_page_edit', routing_defaults);
                         }

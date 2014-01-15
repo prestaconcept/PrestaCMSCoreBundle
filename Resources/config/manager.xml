@@ -27,6 +27,9 @@
             <call method="setMenuProvider">
                 <argument type="service" id="cmf_menu.provider" />
             </call>
+            <call method="setSession">
+                <argument type="service" id="session" />
+            </call>
         </service>
 
         <service id="presta_cms.manager.theme" class="%presta_cms.manager.theme.class%">
