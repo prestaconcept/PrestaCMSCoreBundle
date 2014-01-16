@@ -50,7 +50,7 @@
                 <img src="{{ asset(theme.screenshot) }}" class="sonata-ba-img-box" />
             </td>
             <td class="sonata-ba-list-field sonata-ba-list-field-text">
-                {% if is_granted("ROLE_ADMIN_THEME_EDIT") %}
+                {% if is_granted("ROLE_ADMIN_CMS_THEME_EDIT") %}
                     <a href="{{ path("presta_cms_theme_edit", {name: theme.name}) }}">{{ theme.name }}</a>
                 {% else %}
                     {{ theme.name }}
