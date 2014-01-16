@@ -61,17 +61,4 @@ class PageRenderTest extends BaseFunctionalTestCase
 
         $this->assertCount(1, $crawler->filter('html:contains("Container example")'));
     }
-
-    /**
-     * @test PageChildrenBlock
-     */
-    public function testPageChildrenBlockRendering()
-    {
-        $crawler = $this->client->request('GET', '/page-children');
-        $res = $this->client->getResponse();
-        $this->assertEquals(200, $res->getStatusCode());
-
-        $this->assertCount(1, $crawler->filter('html:contains("This is a page children block")'));
-        $this->assertCount(1, $crawler->filter('html:contains("this is just a example of a list of children page")'));
-    }
 }

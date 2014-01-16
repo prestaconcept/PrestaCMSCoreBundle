@@ -9,11 +9,13 @@
  */
 namespace Presta\CMSCoreBundle\Block;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use Presta\CMSCoreBundle\Block\BaseBlockService;
+use Presta\CMSCoreBundle\Model\Page;
+use Presta\CMSCoreBundle\Model\PageManager;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Model\BlockInterface;
-
-use Presta\CMSCoreBundle\Block\BaseBlockService;
-use Presta\CMSCoreBundle\Model\PageManager;
+use Sonata\AdminBundle\Admin;
 
 /**
  * Block Page children, display a list of page children with description and a link
@@ -33,6 +35,11 @@ class PageChildrenBlockService extends BaseBlockService
     protected $pageManager;
 
     /**
+     * @var Registry
+     */
+    protected $registry;
+
+    /**
      * @param PageManager $pageManager
      */
     public function setPageManager($pageManager)
@@ -41,14 +48,37 @@ class PageChildrenBlockService extends BaseBlockService
     }
 
     /**
+     * @param Registry $registry
+     */
+    public function setRegistry($registry)
+    {
+        $this->registry = $registry;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getDefaultSettings()
     {
+        $page          = $this->pageManager->getCurrentPage();
+        $repository    = $this->registry->getRepository('ApplicationSonataMediaBundle:Media');
+        $childrenPages = array();
+        foreach ($page->getChildren() as $child) {
+            /** @var Page $child */
+            if ($child->getDescriptionEnabled()) {
+                if ($child->getDescriptionMediaId() !== null) {
+                    $media = $repository->find($child->getDescriptionMediaId());
+                    $child->setDescriptionMedia($media);
+                }
+                $childrenPages[] = $child;
+            }
+        }
+
         return array(
-            'title'   => $this->trans('block.default.title'),
-            'content' => $this->trans('block.default.content'),
-            'page'    => $this->pageManager->getCurrentPage()
+            'title'         => $this->trans('block.default.title'),
+            'content'       => $this->trans('block.default.content'),
+            'page'          => $page,
+            'childrenPages' => $childrenPages,
         );
     }
 

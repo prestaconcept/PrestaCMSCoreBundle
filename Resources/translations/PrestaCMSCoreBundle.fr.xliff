@@ -576,6 +576,10 @@
                 <source>cms_page.form.description.label.title </source>
                 <target>Titre</target>
             </trans-unit>
+            <trans-unit id="cms_page.form.description.label.media">
+                <source>cms_page.form.description.label.media</source>
+                <target>Photo</target>
+            </trans-unit>
             <trans-unit id="cms_page.form.description.label.content">
                 <source>cms_page.form.description.label.content</source>
                 <target>Contenu</target>

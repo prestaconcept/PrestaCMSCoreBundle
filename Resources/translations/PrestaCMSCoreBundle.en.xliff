@@ -538,6 +538,10 @@
                 <source>cms_page.form.description.label.title</source>
                 <target>Title</target>
             </trans-unit>
+            <trans-unit id="cms_page.form.description.label.media">
+                <source>cms_page.form.description.label.media</source>
+                <target>Picture</target>
+            </trans-unit>
             <trans-unit id="cms_page.form.description.label.content">
                 <source>cms_page.form.description.label.content</source>
                 <target>Content</target>
