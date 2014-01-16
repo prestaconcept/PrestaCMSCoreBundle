@@ -13,8 +13,10 @@ use Presta\CMSCoreBundle\Model\Block;
 use Presta\CMSCoreBundle\Model\Zone;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
@@ -27,6 +29,14 @@ class BlockController extends CRUDController
     protected function getWebsiteManager()
     {
         return $this->get('presta_cms.manager.website');
+    }
+
+    /**
+     * @return SecurityContextInterface
+     */
+    protected function getSecurityContext()
+    {
+        return $this->get('security.context');
     }
 
     /**
@@ -49,10 +59,16 @@ class BlockController extends CRUDController
      *
      * This is called with blockId fron a container and with a zoneId from a zone
      *
+     * @throws AccessDeniedException
+     *
      * @return Response
      */
     public function addAction()
     {
+        if (!$this->getSecurityContext()->isGranted('ROLE_ADMIN_CMS_PAGE_STRUCTURE')) {
+            throw new AccessDeniedException();
+        }
+
         $zoneId     = $this->getRequest()->get('zoneId');
         $type       = $this->getRequest()->get('type');
         $blockId    = $this->getRequest()->get('blockId');
@@ -132,6 +148,10 @@ class BlockController extends CRUDController
      */
     public function deleteAction($id = null)
     {
+        if (!$this->getSecurityContext()->isGranted('ROLE_ADMIN_CMS_PAGE_STRUCTURE')) {
+            throw new AccessDeniedException();
+        }
+
         if ($this->get('request')->getMethod() == 'POST') {
             $id     = $this->getRequest()->get('id');
             $block  = $this->admin->getObject($id);

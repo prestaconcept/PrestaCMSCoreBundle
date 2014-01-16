@@ -23,6 +23,10 @@
                 $(document).ready(function() {
                     $('#tree').unbind('select_node.jstree');
 
+                    {% if not is_granted("ROLE_ADMIN_CMS_PAGE_MOVE") %}
+                        $('#tree').unbind('move_node.jstree');
+                    {% endif %}
+
                     $('#tree').bind("select_node.jstree", function (event, data) {
                         if ((data.rslt.obj.attr("rel") == 'Presta_CMSCoreBundle_Doctrine_Phpcr_MenuNode')
                             && data.rslt.obj.attr("id") != '{{ menuItemId }}'
@@ -37,6 +41,12 @@
                             e.stopImmediatePropagation();
                             return false;
                         }
+                        {% if not is_granted("ROLE_ADMIN_CMS_PAGE_MOVE") %}
+                            if (data.plugin === "dnd") {
+                                e.stopImmediatePropagation();
+                                return false;
+                            }
+                        {% endif %}
                     });
                 });
             </script>

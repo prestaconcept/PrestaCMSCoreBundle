@@ -30,6 +30,8 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Page administration controller
@@ -76,6 +78,14 @@ class PageController extends AdminController
     protected function getMenuManager()
     {
         return $this->get('presta_cms.manager.menu');
+    }
+
+    /**
+     * @return SecurityContextInterface
+     */
+    protected function getSecurityContext()
+    {
+        return $this->get('security.context');
     }
 
     /**
@@ -329,12 +339,17 @@ class PageController extends AdminController
     /**
      * Clear page cache
      *
+     * @throws AccessDeniedException
      * @throws NotFoundHttpException
      *
      * @return Response
      */
     public function clearCacheAction()
     {
+        if (!$this->getSecurityContext()->isGranted('ROLE_ADMIN_CMS_CACHE_CLEAR')) {
+            throw new AccessDeniedException();
+        }
+
         $pageId = $this->getRequest()->get('id', null);
         $page   = $this->getPageManager()->getPageById($pageId);
 
@@ -355,10 +370,17 @@ class PageController extends AdminController
     /**
      * Delete a page
      *
+     * @throws AccessDeniedException
+     * @throws NotFoundHttpException
+     *
      * @return Response
      */
     public function deleteAction()
     {
+        if (!$this->getSecurityContext()->isGranted('ROLE_ADMIN_CMS_PAGE_DELETE')) {
+            throw new AccessDeniedException();
+        }
+
         $page = $this->getPageManager()->getPageById($this->getRequest()->get('id', null));
         if ($page == null) {
             throw new NotFoundHttpException();
@@ -422,11 +444,18 @@ class PageController extends AdminController
     /**
      * tte a new page
      *
-     * @param  Request  $request
+     * @param  Request $request
+     *
+     * @throws AccessDeniedException
+     *
      * @return Response
      */
     public function addAction(Request $request)
     {
+        if (!$this->getSecurityContext()->isGranted('ROLE_ADMIN_CMS_PAGE_ADD')) {
+            throw new AccessDeniedException();
+        }
+
         $rootId     = $request->get('rootId', null);
         $website    = $this->getWebsiteManager()->getCurrentWebsite();
         $menus      = $this->getMenuManager()->getWebsiteMenus($website);

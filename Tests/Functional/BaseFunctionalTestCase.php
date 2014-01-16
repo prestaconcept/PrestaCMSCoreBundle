@@ -12,8 +12,8 @@ namespace Presta\CMSCoreBundle\Tests\Functional;
 use Doctrine\ODM\PHPCR\DocumentManager;
 use Presta\CMSCoreBundle\Factory\ModelFactoryInterface;
 use Symfony\Cmf\Component\Testing\Functional\BaseTestCase as CmfBaseFunctionalTestCase;
-use Presta\CMSCoreBundle\Doctrine\Phpcr\Website;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Bundle\FrameworkBundle\Client;
 
 require __DIR__ . '/../Resources/app/AppKernel.php';
 
@@ -39,6 +39,11 @@ class BaseFunctionalTestCase extends CmfBaseFunctionalTestCase
     protected $documentManager;
 
     /**
+     * @var Client
+     */
+    protected $client;
+
+    /**
      * {@inherit}
      */
     protected static function createKernel(array $options = array())
@@ -56,6 +61,14 @@ class BaseFunctionalTestCase extends CmfBaseFunctionalTestCase
 
         //Initialize current website
         $this->container->get('presta_cms.manager.website')->loadWebsiteById('/website/sandbox', 'en', 'dev');
+
+        $this->client = $this->createClient(
+            array(),
+            array(
+                'PHP_AUTH_USER' => 'admin',
+                'PHP_AUTH_PW'   => 'adminpass',
+            )
+        );
     }
 
     /**

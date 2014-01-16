@@ -37,26 +37,34 @@
 {%block actions %}
     {% if (page) %}
     <div class="sonata-actions subnav">
-        <a class="btn btn-tooltip action-add-page" data-placement="top"
-           root-id="{{ menuItemId }}"
-           data-toggle="tooltip" title="{{ 'button.page.add_subpage.tooltip'|trans }}">
-            <i class="icon-plus"></i>
-        </a>
-        <a class="btn btn-tooltip" href="{{ path('presta_cms_page_delete', {'id': page.id}) }}"
-           data-toggle="tooltip" title="{{ 'button.page.delete.tooltip'|trans }}">
-            <i class="icon-trash"></i>
-            {#&nbsp;{{ 'button.page.delete'|trans }}#}
-        </a>
+        {% if is_granted("ROLE_ADMIN_CMS_PAGE_ADD") %}
+            <a class="btn btn-tooltip action-add-page" data-placement="top"
+               root-id="{{ menuItemId }}"
+               data-toggle="tooltip" title="{{ 'button.page.add_subpage.tooltip'|trans }}">
+                <i class="icon-plus"></i>
+            </a>
+        {% endif %}
+
+        {% if is_granted("ROLE_ADMIN_CMS_PAGE_DELETE") %}
+            <a class="btn btn-tooltip" href="{{ path('presta_cms_page_delete', {'id': page.id}) }}"
+               data-toggle="tooltip" title="{{ 'button.page.delete.tooltip'|trans }}">
+                <i class="icon-trash"></i>
+                {#&nbsp;{{ 'button.page.delete'|trans }}#}
+            </a>
+        {% endif %}
+
         <a class="btn btn-tooltip" target="_blank" href="{{ pageFrontUrl }}"
            data-toggle="tooltip" data-placement="left" title="{{ 'button.page.preview.tooltip'|trans }}">
             <i class="icon-eye-open"></i>
             {#&nbsp;{{ 'button.page.preview'|trans }}#}
         </a>
-        <a class="btn btn-success btn-tooltip" href="{{ path('presta_cms_page_clear_cache', {'id': page.id}) }}"
-           data-toggle="tooltip" data-placement="left" title="{{ 'button.page.clear_cache.tooltip'|trans }}">
-            <i class="icon-refresh"></i>
-            {#&nbsp;{{ 'button.page.clear_cache'|trans }}#}
-        </a>
+        {% if is_granted('ROLE_ADMIN_CMS_CACHE_CLEAR') %}
+            <a class="btn btn-success btn-tooltip" href="{{ path('presta_cms_page_clear_cache', {'id': page.id}) }}"
+               data-toggle="tooltip" data-placement="left" title="{{ 'button.page.clear_cache.tooltip'|trans }}">
+                <i class="icon-refresh"></i>
+                {#&nbsp;{{ 'button.page.clear_cache'|trans }}#}
+            </a>
+        {% endif %}
     </div>
     {% endif %}
 {% endblock %}
@@ -67,7 +75,11 @@
             {% for tab in pageEditTabs %}
                 <li class="{% if (loop.index == 1) %}active{% endif %}"><a href="#{{ ['cms-page-', tab]|join }}" data-toggle="tab">{{ ['cms_page.', tab, '.title']|join|trans }}</a></li>
             {% endfor %}
-            <li><a href="#seo_form_tab" data-toggle="tab">{{ 'cms_page.seo.title'|trans }}</a></li>
+            {% if is_granted('ROLE_ADMIN_CMS_SEO') %}
+                <li>
+                    <a href="#seo_form_tab" data-toggle="tab">{{ 'cms_page.seo.title'|trans }}</a>
+                </li>
+            {% endif %}
             {#<li><a href="#routing" data-toggle="tab">{{ 'cms_page.url.redirect'|trans }}</a></li>#}
             <li><a href="#cache_form_tab" data-toggle="tab">{{ 'cms_page.cache.title'|trans }}</a></li>
             <li><a href="#settings_form_tab" data-toggle="tab">{{ 'cms_page.settings.title'|trans }}</a></li>
@@ -82,10 +94,14 @@
                 {{ render(controller('PrestaCMSCoreBundle:Admin/Page:renderEditTab', {'_locale': locale, 'tab': tab, 'page': page, 'menuNodeId': menuItemId})) }}
             </div>
             {% endfor %}
-            {{ include(
-                'PrestaCMSCoreBundle:Admin/Page/Index:tab_seo.html.twig',
-                { 'form': formSeo }
-            ) }}
+
+            {% if is_granted('ROLE_ADMIN_CMS_SEO') %}
+                {{ include(
+                    'PrestaCMSCoreBundle:Admin/Page/Index:tab_seo.html.twig',
+                    { 'form': formSeo }
+                ) }}
+            {% endif %}
+
             {{ include(
                 'PrestaCMSCoreBundle:Admin/Page/Index:_cache.html.twig',
                 { 'form': formCache }

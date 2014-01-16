@@ -14,6 +14,7 @@ use Presta\CMSCoreBundle\Model\Website;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Website administration controller, handle with Sonata
@@ -23,12 +24,17 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class WebsiteController extends CRUDController
 {
     /**
-     * @return RedirectResponse
-     *
+     * @throws AccessDeniedException
      * @throws NotFoundHttpException
+     *
+     * @return RedirectResponse
      */
     public function clearCacheAction()
     {
+        if (!$this->admin->isGranted('CLEAR_CACHE')) {
+            throw new AccessDeniedException();
+        }
+
         $websiteId = $this->getRequest()->get('id', null);
         $website   = $this->admin->getObject($websiteId);
 
