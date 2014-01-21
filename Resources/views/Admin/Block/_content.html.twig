@@ -33,7 +33,8 @@
             "{{ path('presta_cms_block_render', { 'locale': locale }) }}",
             "{{ path('presta_cms_block_add', { 'locale': locale }) }}",
             "{{ path('presta_cms_block_delete') }}",
-            "{{ path('presta_cms_page_add') }}"
+            "{{ path('presta_cms_page_add') }}",
+            "{{ path('presta_cms_zone_sort_blocks') }}"
         );
     {% endif %}
     }
@@ -57,12 +58,11 @@
                          class="zone_{{ zone.name }} page-zone {% if (zone.blocks|length == 0 and zone.editable == false) %}page-zone-disabled{% endif %}">
                         <h3>{{ ['zone.name.', zone.name]|join|trans([], 'PrestaCMSCoreBundle') }}</h3>
                         {% if ((zone.blocks|length > 0 or zone.editable == true)) %}
-                            <div class="page-zone-block-container" id="cms-zone-{{ zone.htmlId }}">
+                            <div class="page-zone-block-container" id="cms-zone-{{ zone.htmlId }}" zone-id="{{ zone.id }}">
                                 {% if (zone.blocks) %}
                                     {% for block in zone.blocks %}
                                         {% do block.setAdminMode() %}
                                         {% include 'PrestaCMSCoreBundle:Admin/Block:_content_block.html.twig' with {'block': block}  %}
-
                                     {% endfor %}
                                 {% endif %}
                             </div>

@@ -1,6 +1,6 @@
 {% trans_default_domain "PrestaCMSCoreBundle" %}
 
-<div class="page-zone-block">
+<div class="page-zone-block" block-id="{{ block.id }}">
     <h4>{{ ['block.title.', block.type]|join|trans([], 'PrestaCMSCoreBundle') }}</h4>
 
     <div class="block-actions">

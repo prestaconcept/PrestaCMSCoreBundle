@@ -11,6 +11,7 @@
         <parameter key="presta_cms.manager.route.class">Presta\CMSCoreBundle\Model\RouteManager</parameter>
         <parameter key="presta_cms.manager.block.class">Presta\CMSCoreBundle\Model\BlockManager</parameter>
         <parameter key="presta_cms.manager.menu.class">Presta\CMSCoreBundle\Model\MenuManager</parameter>
+        <parameter key="presta_cms.manager.zone.class">Presta\CMSCoreBundle\Model\ZoneManager</parameter>
     </parameters>
 
     <services>
@@ -57,6 +58,12 @@
 
         <service id="presta_cms.manager.menu" class="%presta_cms.manager.menu.class%">
             <argument type="service" id="sonata.admin.manager.doctrine_phpcr" />
+        </service>
+
+        <service id="presta_cms.manager.zone" class="%presta_cms.manager.zone.class%">
+            <call method="setModelManager">
+                <argument type="service" id="sonata.admin.manager.doctrine_phpcr" />
+            </call>
         </service>
     </services>
 </container>
