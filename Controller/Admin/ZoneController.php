@@ -18,6 +18,14 @@ use Symfony\Component\HttpFoundation\Response;
 class ZoneController extends BaseController
 {
     /**
+     * @return ZoneManager
+     */
+    protected function getZoneManager()
+    {
+        return $this->get('presta_cms.manager.zone');
+    }
+
+    /**
      * @param  Request $request
      *
      * @return Response
@@ -37,13 +45,5 @@ class ZoneController extends BaseController
         }
 
         return $this->renderJson($viewParams);
-    }
-
-    /**
-     * @return ZoneManager
-     */
-    protected function getZoneManager()
-    {
-        return $this->get('presta_cms.manager.zone');
     }
 }

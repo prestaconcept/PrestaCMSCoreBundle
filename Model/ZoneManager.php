@@ -48,9 +48,9 @@ class ZoneManager
         $originBlocks = $zone->getBlocks();
         $sortedBlocks = new ArrayCollection();
         foreach ($blockIds as $blockId) {
-            $name = $this->getBlockName($blockId);
-            if ($originBlocks->get($name) !== null) {
-                $sortedBlocks->add($originBlocks->get($name));
+            $blockName = $originBlocks->get($this->extractBlockNameFromId($blockId));
+            if ($blockName !== null) {
+                $sortedBlocks->add($blockName);
             }
         }
         $zone->setBlocks($sortedBlocks);
@@ -60,14 +60,16 @@ class ZoneManager
     }
 
     /**
+     * Extract the name of the block's id
+     *
      * @param string $blockId
      *
      * @return string
      */
-    protected function getBlockName($blockId)
+    protected function extractBlockNameFromId($blockId)
     {
-        $blockIdExploded = explode('/', $blockId);
+        $pos = strrpos($blockId, "/");
 
-        return $blockIdExploded[count($blockIdExploded) - 1];
+        return substr($blockId, $pos + 1, strlen($blockId) - $pos);
     }
 }
