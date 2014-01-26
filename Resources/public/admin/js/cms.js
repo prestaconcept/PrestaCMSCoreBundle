@@ -8,19 +8,19 @@
 var CMSContent = function() {
     
     /**
-     * Url for bloc edition
+     * Url for block edition
      */
-    var _editBlocUrl;
+    var _editBlockUrl;
 
     /**
-     * Url for bloc addition
+     * Url for block addition
      */
-    var _addBlocUrl;
+    var _addBlockUrl;
 
     /**
-     * Url for bloc deletion
+     * Url for block deletion
      */
-    var _deleteBlocUrl;
+    var _deleteBlockUrl;
     
     /**
      * Url for block rendering
@@ -32,17 +32,23 @@ var CMSContent = function() {
      */
     var _addPageUrl;
 
+    /**
+     * Url for blocks sorting
+     */
+    var _sortBlocksUrl;
+
     return {
         /**
          * Initialisation
          */
-        init : function (editBlocUrl, renderBlockUrl, addBlockUrl, deleteBlockUrl, addPageUrl) {
-            this._editBlocUrl       = editBlocUrl;
-            this._renderBlockUrl    = renderBlockUrl;
-            this._addBlocUrl        = addBlockUrl;
-            this._deleteBlocUrl     = deleteBlockUrl;
-            this._addPageUrl        = addPageUrl;
-            
+        init : function (editBlocUrl, renderBlockUrl, addBlockUrl, deleteBlockUrl, addPageUrl, sortBlocksUrl) {
+            this._editBlockUrl   = editBlocUrl;
+            this._renderBlockUrl = renderBlockUrl;
+            this._addBlockUrl    = addBlockUrl;
+            this._deleteBlockUrl = deleteBlockUrl;
+            this._addPageUrl     = addPageUrl;
+            this._sortBlocksUrl  = sortBlocksUrl;
+
             $('body').on('click', 'a.action-edit', function(e) {
                 e.preventDefault();
                 CMSContent.editBlock($(this).attr('block-id'));
@@ -68,10 +74,19 @@ var CMSContent = function() {
                 CMSContent.addPage($(this).attr('root-id'));
             });
 
-            // $( ".page-zone-block-container" ).sortable(
-            //     { cursor: "move" }
-            // );
-            // $( ".page-zone-block-container" ).disableSelection();
+            $('.page-zone-block-container').sortable({
+                cursor: 'move',
+                handle: 'h4',
+                update: function(e, ui) {
+                    var zone = $(ui.item.parent());
+                    var blockIds = [];
+                    $.each(zone.children(), function (i, block) {
+                        blockIds.push($(block).attr('block-id'));
+                    });
+                    CMSContent.sortBlocks(zone.attr('zone-id'), blockIds);
+                    zone.effect("highlight", {}, 3000);
+                }
+            });
         },
 
         /**
@@ -91,7 +106,7 @@ var CMSContent = function() {
             $('#modal-content').hide();
             $('#modal').modal('show');
             
-            $('#modal-content').load(this._editBlocUrl + '&id=' + blockId, function() {
+            $('#modal-content').load(this._editBlockUrl + '&id=' + blockId, function() {
                 $('#modal-content div.form-actions').remove();
                 $('#modal-loader').hide();
                 $('#modal-content').show();
@@ -109,11 +124,28 @@ var CMSContent = function() {
             $('#modal-content').hide();
             $('#modal').modal('show');
 
-            $('#modal-content').load(this._addBlocUrl + '?zoneId=' + zoneId + '&type=' + type, function() {
+            $('#modal-content').load(this._addBlockUrl + '?zoneId=' + zoneId + '&type=' + type, function() {
                 $('#modal-content div.form-actions').remove();
                 $('#modal-loader').hide();
                 $('#modal-content').show();
             });
+        },
+
+        /**
+         * Zone blocks sorting
+         */
+        sortBlocks : function (zoneId, blockIds) {
+            $.ajax({
+                url: this._sortBlocksUrl + '?id=' + zoneId,
+                type: "POST",
+                data: { blockIds: blockIds },
+                success: function (data) {
+                    $('#content_error .alert').hide()
+                    if (data.error != undefined) {
+                        $('#content_error').show();
+                    }
+                }
+            })
         },
 
         /**
@@ -126,7 +158,7 @@ var CMSContent = function() {
             $('#modal-content').hide();
             $('#modal').modal('show');
 
-            $('#modal-content').load(this._addBlocUrl + '?blockId=' + blockId + '&type=' + type, function() {
+            $('#modal-content').load(this._addBlockUrl + '?blockId=' + blockId + '&type=' + type, function() {
                 $('#modal-content div.form-actions').remove();
                 $('#modal-loader').hide();
                 $('#modal-content').show();
@@ -140,7 +172,7 @@ var CMSContent = function() {
         deleteBlock : function (blockId, message) {
             if (confirm('Do you really want to delete : ' + message)) {
                 $.ajax({
-                    url: this._deleteBlocUrl + '?id=' + blockId,
+                    url: this._deleteBlockUrl + '?id=' + blockId,
                     type: "POST",
                     data: {}
                 }).done(function( html ) {

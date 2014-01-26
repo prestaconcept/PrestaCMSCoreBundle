@@ -62,4 +62,8 @@
     <route id="presta_cms_website_switch" pattern="/cms/website/switch">
         <default key="_controller">PrestaCMSCoreBundle:Website:switchWebsite</default>
     </route>
+    <!-- zones -->
+    <route id="presta_cms_zone_sort_blocks" pattern="/cms/zone/sort-blocks">
+        <default key="_controller">PrestaCMSCoreBundle:Admin/Zone:sortBlocks</default>
+    </route>
 </routes>
