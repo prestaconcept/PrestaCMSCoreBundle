@@ -17,8 +17,12 @@ before_script:
 
 
 script:
-  - phpunit --coverage-text
+  - phpunit --coverage-clover=coverage.clover
   - phpcs --ignore=/vendor/*,/Tests/Resources/app/* --extensions=php --encoding=utf-8 --standard=PSR2 -np .
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 
 matrix:
   allow_failures:
