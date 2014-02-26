@@ -366,11 +366,6 @@
                 <source>form.label_route_label</source>
                 <target>Route</target>
             </trans-unit>
-
-            <trans-unit id="form_site.label_general">
-                <source>form_site.label_general</source>
-                <target>Général</target>
-            </trans-unit>
             <trans-unit id="list.label_theme">
                 <source>list.label_theme</source>
                 <target>Théme</target>
@@ -583,6 +578,18 @@
             <trans-unit id="cms_page.form.description.label.enabled">
                 <source>cms_page.form.description.label.enabled</source>
                 <target>Afficher</target>
+            </trans-unit>
+            <trans-unit id="website.form.fieldset.general">
+                <source>website.form.fieldset.general</source>
+                <target>Général</target>
+            </trans-unit>
+            <trans-unit id="website.form.fieldset.menu">
+                <source>website.form.fieldset.menu</source>
+                <target>Menu</target>
+            </trans-unit>
+            <trans-unit id="website.form.menu.label.main_menu">
+                <source>website.form.menu.label.main_menu</source>
+                <target>Menu principal</target>
             </trans-unit>
         </body>
     </file>
