@@ -2,12 +2,11 @@
 
 {{ sonata_block_render({
     'type': 'presta_cms.block.website.selector',
-    'settings': {'website_id' : websiteId, 'locale' : locale, 'url' : path('presta_cms_page_edit'), 'with_fieldset': false }
+    'settings': {'website_id' : websitePageRoot, 'locale' : locale, 'url' : path('presta_cms_page_edit'), 'with_fieldset': false }
 }) }}
 
 <fieldset class="cms_page_tree">
-    {#<legend>{{ 'cms_page_tree.title'|trans({}, 'PrestaCMSCoreBundle') }}</legend>#}
-    {%  if (websiteId|length > 0) %}
+    {%  if (websitePageRoot|length > 0) %}
         <div id="page-tree-container" class="control-group">
             <h4>
                 <a class="btn btn-tooltip btn-small action-add-page" data-placement="right"
@@ -17,7 +16,7 @@
                 &nbsp;{{ 'cms_page_tree.title'|trans }}
             </h4>
 
-            {% render url('presta_cms_page_tree', {'root': websiteId~"/menu", 'selected': '/' ~ menuItemId }) %}
+            {% render url('presta_cms_page_tree', {'root': websitePageRoot, 'selected': '/' ~ menuItemId }) %}
 
             <script type="text/javascript">
                 $(document).ready(function() {

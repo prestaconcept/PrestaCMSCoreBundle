@@ -10,7 +10,6 @@
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
-use Presta\CMSCoreBundle\EventListener\WebsiteListener;
 use Presta\CMSCoreBundle\Form\Page\CacheType;
 use Presta\CMSCoreBundle\Form\Page\SettingsType;
 use Presta\CMSCoreBundle\Form\Page\CreateType;
@@ -26,7 +25,6 @@ use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Exception\ModelManagerException;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -110,6 +108,7 @@ class PageController extends AdminController
             $theme = $this->getThemeManager()->getTheme($website->getTheme());
             $viewParams['websiteId'] = $website->getId();
             $viewParams['locale']    = $website->getLocale();
+            $viewParams['websitePageRoot'] = $website->getPageRoot();
             $viewParams['theme']     = $theme;
         }
 
@@ -323,7 +322,7 @@ class PageController extends AdminController
     {
         $website = $this->getWebsiteManager()->getCurrentWebsite();
 
-        $root   = $website->getMenuRoot();
+        $root   = $website->getPageRoot();
         //$selected   = $request->query->get('selected') ?: $root;
         $locale = $website->getLocale();
 
