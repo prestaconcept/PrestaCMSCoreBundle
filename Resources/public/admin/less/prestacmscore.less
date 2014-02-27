@@ -195,3 +195,28 @@ img.sonata-ba-img-box {
         background-image: url('/bundles/prestacmscore/admin/img/flags/en.png');
     }
 }
+.jstree {
+
+    &.jstree-default.jstree-focused {
+        background: @jstreeNavigationBackground;
+    }
+    > ul > li > a, > ul > li > a:hover,
+    > ul > li > a.jstree-hovered, > ul > li > a.jstree-hovered:hover {
+        color: @jstreeNavigationColor;
+        background: @jstreeNavigationBackground;
+        padding: 5px 5px;
+        width: 100%;
+        font-size: 13px;
+    }
+
+    a, .jstree-hovered, .jstree-clicked {
+
+        border: none;
+        &:hover {
+            padding: 0px;
+            background: transparent;
+            border: none;
+            font-weight: bold;
+        }
+    }
+}
