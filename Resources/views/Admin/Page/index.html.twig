@@ -97,7 +97,7 @@
 
             {% if is_granted('ROLE_ADMIN_CMS_SEO') %}
                 {{ include(
-                    'PrestaCMSCoreBundle:Admin/Page/Index:tab_seo.html.twig',
+                    'PrestaCMSCoreBundle:Admin/Page/Index:_seo.html.twig',
                     { 'form': formSeo }
                 ) }}
             {% endif %}

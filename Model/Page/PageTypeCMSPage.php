@@ -122,7 +122,7 @@ class PageTypeCMSPage implements PageTypeInterface
      */
     public function getEditTabTemplate($tab)
     {
-        return 'PrestaCMSCoreBundle:Admin/Page/CMSPage:tab_' . $tab . '.html.twig';
+        return 'PrestaCMSCoreBundle:Admin/Page/CMSPage:_' . $tab . '.html.twig';
     }
 
     /**
