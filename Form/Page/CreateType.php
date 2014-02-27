@@ -71,7 +71,7 @@ class CreateType extends AbstractType
             ->add(
                 'title',
                 null,
-                array('label' => 'cms_page.form.page.label.title', 'mapped' => false, 'required' => false)
+                array('label' => 'cms_page.form.seo.label.title', 'mapped' => false, 'required' => false)
             )
             ->add(
                 'template',
