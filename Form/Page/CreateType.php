@@ -27,17 +27,11 @@ class CreateType extends AbstractType
     /**
      * @var array
      */
-    protected $menus;
-
-    /**
-     * @var array
-     */
     protected $templates;
 
-    public function __construct($rootId, $menus, $templates)
+    public function __construct($rootId, $templates)
     {
         $this->rootId    = $rootId;
-        $this->menus     = $menus;
         $this->templates = $templates;
     }
 
@@ -72,27 +66,12 @@ class CreateType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //Root id is set if we are adding a child to an existing page
-        if ($this->rootId == null) {
-            $builder->add(
-                'root',
-                'choice',
-                array(
-                    'mapped'   => false,
-                    'label'    => 'cms_page.form.page.label.root',
-                    'choices'  => $this->menus,
-                    'required' => true
-                )
-            );
-        } else {
-            $builder->add('root', 'hidden', array('mapped' => false, 'data' => $this->rootId));
-        }
-
         $builder
+            ->add('rootId', 'hidden', array('mapped' => false, 'data' => $this->rootId))
             ->add(
                 'title',
                 null,
-                array('label' => 'cms_page.form.menu.label.title', 'mapped' => false, 'required' => false)
+                array('label' => 'cms_page.form.page.label.title', 'mapped' => false, 'required' => false)
             )
             ->add(
                 'template',

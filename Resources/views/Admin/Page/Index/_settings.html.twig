@@ -4,9 +4,8 @@
 <div class="tab-pane form-horizontal" id="settings_form_tab">
 
     <form id="edit_settings_form" class="form-horizontal" method="POST"
-          action="{{ path('presta_cms_page_edit_settings', {'website': websiteId, 'id': menuItemId, 'locale': page.locale}) }}">
+          action="{{ path('presta_cms_page_edit_settings', {'website': website.id, 'id': page.id, 'locale': page.locale}) }}">
         <fieldset>
-            <legend>{{ 'cms_page.settings.title'|trans }}</legend>
             <div class="sonata-ba-collapsed-fields">
                 <div class="offset1 span10">
                     <div id="edit_settings_form_success" class="alert alert-success hide">
@@ -19,8 +18,6 @@
 
                 {{ form_errors(form) }}
 
-                {{ form_row(form.menuNodeLabel)}}
-
                 {{ form_row(form.template)}}
             </div>
             <div class="control-group">
@@ -31,7 +28,6 @@
                 </div>
             </div>
         </fieldset>
-        {{ form_row(form.menuNodeId)}}
         {{ form_row(form._token) }}
     </form>
 </div>

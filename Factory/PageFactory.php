@@ -158,13 +158,13 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
      * Create configuration for page construction
      *
      * @param Website $website
-     * @param string  $parent
+     * @param string  $parentId
      * @param string  $title
      * @param string  $template
      *
      * @return array
      */
-    public function getConfiguration(Website $website, $parent, $title, $template)
+    public function getConfiguration(Website $website, $parentId, $title, $template)
     {
         $configuration = array(
             'website'   => $website,
@@ -173,23 +173,12 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
             'template'  => $template
         );
 
-        $parent = $this->getObjectManager()->find(null, $parent);
-
-        if ($parent instanceof Menu) {
-            //add a page under a menu means page is under website content root
-            $parent = $this->getObjectManager()->find(null, $website->getPageRoot());
-        } else {
-            $parent = $parent->getContent();
+        if ($parentId === null) {
+            $parentId = $website->getPageRoot();
         }
 
-        $id = 0;
-        foreach ($parent->getChildren() as $child) {
-            list($currentId) = sscanf($child->getId(), $parent->getId() . "/page-%s");
-            $id = ($currentId > $id) ? $currentId : $id;
-        }
-
-        $configuration['parent'] = $parent;
-        $configuration['name']   = 'page-' . ($id + 1);
+        $configuration['parent'] = $this->getObjectManager()->find(null, $parentId);
+        $configuration['name']   = uniqid('page-');
 
         return $configuration;
     }
