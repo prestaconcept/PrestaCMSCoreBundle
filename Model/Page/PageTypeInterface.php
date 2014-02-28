@@ -49,7 +49,7 @@ interface PageTypeInterface
      *
      * @return array
      */
-    public function getEditTabData($tab, Page $page, $pool);
+    public function getEditTabData($tab, Page $page, Pool $pool);
 
     /**
      * Return $tab template

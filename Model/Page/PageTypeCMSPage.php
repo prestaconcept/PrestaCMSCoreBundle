@@ -14,6 +14,7 @@ use Presta\CMSCoreBundle\Model\Page;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Admin\Pool;
 use Symfony\Component\Form\FormFactory;
 
 /**
@@ -80,7 +81,7 @@ class PageTypeCMSPage implements PageTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getEditTabData($tab, Page $page, $pool)
+    public function getEditTabData($tab, Page $page, Pool $pool)
     {
         switch ($tab) {
             case self::TAB_CONTENT:
