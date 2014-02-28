@@ -39,7 +39,7 @@
     <div class="sonata-actions subnav">
         {% if is_granted("ROLE_ADMIN_CMS_PAGE_ADD") %}
             <a class="btn btn-tooltip action-add-page" data-placement="top"
-               root-id="{{ page.id }}"
+               parent-id="{{ page.id }}"
                data-toggle="tooltip" title="{{ 'button.page.add_subpage.tooltip'|trans }}">
                 <i class="icon-plus"></i>
             </a>

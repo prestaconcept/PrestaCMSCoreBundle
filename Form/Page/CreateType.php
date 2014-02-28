@@ -22,16 +22,16 @@ class CreateType extends AbstractType
     /**
      * @var string
      */
-    protected $rootId;
+    protected $parentId;
 
     /**
      * @var array
      */
     protected $templates;
 
-    public function __construct($rootId, $templates)
+    public function __construct($parentId, $templates)
     {
-        $this->rootId    = $rootId;
+        $this->parentId  = $parentId;
         $this->templates = $templates;
     }
 
@@ -67,7 +67,7 @@ class CreateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('rootId', 'hidden', array('mapped' => false, 'data' => $this->rootId))
+            ->add('parentId', 'hidden', array('mapped' => false, 'data' => $this->parentId))
             ->add(
                 'title',
                 null,

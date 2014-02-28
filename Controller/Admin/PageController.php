@@ -429,16 +429,16 @@ class PageController extends AdminController
         /** @var Website $website */
         $website    = $this->getWebsiteManager()->getCurrentWebsite();
         $templates  = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
+        $parentId   = $request->get('parentId', null);
 
-        $rootId = $request->get('rootId', null);
-        $form = $this->createForm(new CreateType($rootId, $templates));
+        $form = $this->createForm(new CreateType($parentId, $templates));
         $form->handleRequest($request);
 
         if ($request->isMethod('POST')) {
             if ($form->isValid()) {
                 $urlParams = $this->create(
                     $website,
-                    $form->get('rootId')->getData(),
+                    $form->get('parentId')->getData(),
                     $form->get('title')->getData(),
                     $form->get('template')->getData()
                 );
@@ -458,7 +458,7 @@ class PageController extends AdminController
 
         return $this->renderResponse(
             'PrestaCMSCoreBundle:Admin/Page:add.html.twig',
-            array('form' => $form->createView(), 'rootId' => $rootId)
+            array('form' => $form->createView(), 'parentId' => $parentId)
         );
     }
 
@@ -466,17 +466,17 @@ class PageController extends AdminController
      * Handle page, menu and routes creation
      *
      * @param Website   $website
-     * @param string    $rootId
+     * @param string    $parentId
      * @param string    $title
      * @param string    $template
      *
      * @return array
      */
-    protected function create(Website $website, $rootId, $title, $template)
+    protected function create(Website $website, $parentId, $title, $template)
     {
         //Create Page
         $page = $this->get('presta_cms.page.factory')->create(
-            $this->get('presta_cms.page.factory')->getConfiguration($website, $rootId, $title, $template)
+            $this->get('presta_cms.page.factory')->getConfiguration($website, $parentId, $title, $template)
         );
 
         //Create Routes
