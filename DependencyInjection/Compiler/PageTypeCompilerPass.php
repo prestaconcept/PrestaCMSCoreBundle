@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 class PageTypeCompilerPass implements CompilerPassInterface
 {
     /**
-     * {@inherited}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {

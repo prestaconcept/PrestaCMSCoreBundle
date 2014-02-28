@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 class BlockCompilerPass implements CompilerPassInterface
 {
     /**
-     * {@inherited}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
