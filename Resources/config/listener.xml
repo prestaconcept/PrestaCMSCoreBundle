@@ -19,7 +19,6 @@
         <service id="presta_cms.listener.page.operation" class="%presta_cms.listener.page.operation.class%">
             <argument type="service" id="sonata.admin.manager.doctrine_phpcr" />
             <argument type="service" id="presta_cms.manager.route" />
-            <argument type="service" id="presta_cms.manager.menu" />
             <tag name="kernel.event_listener" event="presta_cms.page.creation" method="onPageCreation" />
             <tag name="kernel.event_listener" event="presta_cms.page.update" method="onPageUpdate" />
             <tag name="kernel.event_listener" event="presta_cms.page.deletion" method="onPageDeletion" />

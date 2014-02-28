@@ -167,7 +167,7 @@ class PageController extends AdminController
     /**
      * Edit SEO Action
      *
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      */
@@ -179,7 +179,7 @@ class PageController extends AdminController
     /**
      * Edit Cache Action
      *
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      */
@@ -191,7 +191,7 @@ class PageController extends AdminController
     /**
      * Edit Settings Action
      *
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      */
@@ -248,8 +248,8 @@ class PageController extends AdminController
      *
      * Action rendered in main edit template
      *
-     * @param  string   $tab
-     * @param  Page     $page
+     * @param string $tab
+     * @param Page   $page
      *
      * @return Response
      */
@@ -415,7 +415,7 @@ class PageController extends AdminController
     /**
      * tte a new page
      *
-     * @param  Request $request
+     * @param Request $request
      *
      * @throws AccessDeniedException
      *
@@ -449,7 +449,9 @@ class PageController extends AdminController
                 if ($this->isXmlHttpRequest()) {
                     $redirectUrl = $this->generateUrl('presta_cms_page_edit', $urlParams);
 
-                    return $this->renderJson(array('result' => 'ok', 'action' => 'refresh', 'location' => $redirectUrl));
+                    return $this->renderJson(
+                        array('result' => 'ok', 'action' => 'refresh', 'location' => $redirectUrl)
+                    );
                 }
             } else {
                 $this->addFlash('sonata_flash_error', 'flash_edit_error');
@@ -465,10 +467,10 @@ class PageController extends AdminController
     /**
      * Handle page, menu and routes creation
      *
-     * @param Website   $website
-     * @param string    $parentId
-     * @param string    $title
-     * @param string    $template
+     * @param Website $website
+     * @param string  $parentId
+     * @param string  $title
+     * @param string  $template
      *
      * @return array
      */

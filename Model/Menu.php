@@ -29,6 +29,6 @@ class Menu extends CmfMenuModel
      */
     public function __toString()
     {
-        return (string)$this->getLabel();
+        return (string) $this->getLabel();
     }
 }

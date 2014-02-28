@@ -10,7 +10,6 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Presta\CMSCoreBundle\Factory\ModelFactoryInterface;
-use Presta\CMSCoreBundle\Model\Theme;
 
 /**
  * Manage themes configuration
@@ -95,7 +94,7 @@ class ThemeManager
     /**
      * Return all themes declared in configuration
      *
-     * @rturn array
+     * @return array
      */
     public function getAvailableThemes()
     {

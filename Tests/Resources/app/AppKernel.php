@@ -1,6 +1,5 @@
 <?php
 
-use Doctrine\ODM\PHPCR\Document\Resource;
 use Symfony\Cmf\Component\Testing\HttpKernel\TestKernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 

@@ -170,7 +170,7 @@ class BlockController extends CRUDController
     /**
      * Create a new block
      *
-     * @param  Block    $block
+     * @param Block $block
      *
      * @return Response
      */

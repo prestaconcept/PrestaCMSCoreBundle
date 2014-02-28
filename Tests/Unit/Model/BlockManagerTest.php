@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,8 +11,6 @@ namespace Presta\CMSCoreBundle\Tests\Unit\Model;
 
 use Presta\CMSCoreBundle\Tests\Unit\BaseUnitTestCase;
 use Presta\CMSCoreBundle\Model\BlockManager;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>

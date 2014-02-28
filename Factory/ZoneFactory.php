@@ -79,7 +79,7 @@ class ZoneFactory extends AbstractModelFactory implements ModelFactoryInterface
     /**
      * Create a block
      *
-     * @param  array    $blockConfiguration
+     * @param array $blockConfiguration
      *
      * @return Block
      */

@@ -27,7 +27,10 @@ class Block extends BlockModel implements TranslatableInterface
     {
         foreach ($this->getSettings() as $value) {
             if (is_array($value)) {
-                $context->addViolationAt('settings', 'A multidimensional array is not allowed, only use key-value pairs.');
+                $context->addViolationAt(
+                    'settings',
+                    'A multidimensional array is not allowed, only use key-value pairs.'
+                );
             }
         }
     }

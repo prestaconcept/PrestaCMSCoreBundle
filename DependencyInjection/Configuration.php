@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the Presta Bundle project.
+ * This file is part of the PrestaCMSCoreBundle
  *
- * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ * (c) PrestaConcept <www.prestaconcept.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,12 +13,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * This is the class that validates and merges configuration from your app/config files
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
- *
- * @package    PrestaCMS
- * @subpackage CoreBundle
  * @author     Nicolas Bastien <nbastien@prestaconcept.net>
  */
 class Configuration implements ConfigurationInterface
@@ -114,7 +108,9 @@ class Configuration implements ConfigurationInterface
                                                         ->prototype('array')
                                                             ->children()
                                                                 ->scalarNode('name')->defaultValue('')->end()
-                                                                ->scalarNode('type')->defaultValue('presta_cms.block')->end()
+                                                                ->scalarNode('type')
+                                                                    ->defaultValue('presta_cms.block')
+                                                                ->end()
                                                                 ->scalarNode('editable')->defaultValue(false)->end()
                                                                 ->scalarNode('deletable')->defaultValue(false)->end()
                                                                 ->scalarNode('position')->defaultValue(10)->end()

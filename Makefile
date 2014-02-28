@@ -9,3 +9,6 @@ test:
 
 coverage:
 	phpunit --coverage-text
+
+cs-fixer:
+	php-cs-fixer fix .

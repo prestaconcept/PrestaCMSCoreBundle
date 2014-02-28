@@ -3,7 +3,6 @@ Presta CMS Core Bundle
 
 [![Build Status](https://secure.travis-ci.org/prestaconcept/PrestaCMSCoreBundle.png?branch=master)](http://travis-ci.org/prestaconcept/PrestaCMSCoreBundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/prestaconcept/PrestaCMSCoreBundle/badges/quality-score.png?s=e8a6a531cba293704ef33e10027f2e1396165e79)](https://scrutinizer-ci.com/g/prestaconcept/PrestaCMSCoreBundle/)
-
 [![Latest Stable Version](https://poser.pugx.org/presta/cms-core-bundle/v/stable.png)](https://packagist.org/packages/presta/cms-core-bundle)
 [![Total Downloads](https://poser.pugx.org/presta/cms-core-bundle/downloads.png)](https://packagist.org/packages/presta/cms-core-bundle)
 
@@ -11,46 +10,42 @@ Presta CMS Core Bundle
 [![knpbundles.com](http://knpbundles.com/prestaconcept/PrestaCMSCoreBundle/badge)](http://knpbundles.com/prestaconcept/PrestaCMSCoreBundle)
 
 
-**[WIP] We are working on the 1.0.0 release it depends on Symfony CMF release which is not stable yet**
-
+## Overview ##
 
 PrestaCMSCoreBundle is a Symfony2 content management bundle based on [SymfonyCMF][1].
 
 
 :speech_balloon: If you want to have some informations about the projet progression you can register to our [google group][3]
 
-#Overview #
 
-For a ready to use demonstration of PrestaCMS you should check the [prestacms-sandox available on github][2].
+## Issue tracker ##
+
+:clipboard: Issues are managed in [prestaconcept/open-source-management](https://github.com/prestaconcept/open-source-management) to centralize our open source activity.
+
+## Demonstration ##
+
+For a ready to use demonstration of this bundle you should check the [prestacms-sandox available on github][2].
 
 Sandbox is also deployed for a live demonstration :
 
 -   [Frontend site][5]
 -   [Administration Site][6]
 
-## Requirements
-
-* Symfony 2.2.x
-* See also the `require` section of [composer.json](composer.json)
-
-
 ## Features: ##
 
-* Multiple website
+* Multiple websites
 * Custom theming
 * Custom pages
 * Advanced block system
 * Multilangue
 
-## Screenshot ##
-
-### Page Edition ###
-
-![Page edition](https://raw.github.com/prestaconcept/PrestaCMSCoreBundle/master/Resources/docs/assets/backend-page-edit.png)
-
 ## Documentation ##
 
 :book: Documentation is available on [prestaconcept.github.io][4]
+
+ - **[Developer Guide](http://prestaconcept.github.io/presta-cms-core/developer-guide/index.html)**
+ - **[User Guide](http://prestaconcept.github.io/presta-cms-core/user-guide/index.html)**
+ - **[Theme Guide](http://prestaconcept.github.io/presta-cms-core/theming-guide/index.html)**
 
 ## Ask for help ##
 

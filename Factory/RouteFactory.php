@@ -96,9 +96,9 @@ class RouteFactory extends AbstractModelFactory implements ModelFactoryInterface
     /**
      * Create configuration for route construction
      *
-     * @param Website   $website
-     * @param Page      $page
-     * @param string    $locale
+     * @param Website $website
+     * @param Page    $page
+     * @param string  $locale
      *
      * @return array
      */

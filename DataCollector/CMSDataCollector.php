@@ -47,9 +47,9 @@ class CMSDataCollector extends DataCollector
     protected $cacheEnabled;
 
     /**
-     * @param WebsiteManager    $websiteManager
-     * @param ThemeManager      $themeManager
-     * @param PageManager       $pageManager
+     * @param WebsiteManager $websiteManager
+     * @param ThemeManager   $themeManager
+     * @param PageManager    $pageManager
      */
     public function __construct(WebsiteManager $websiteManager, ThemeManager $themeManager, PageManager $pageManager)
     {
@@ -61,9 +61,9 @@ class CMSDataCollector extends DataCollector
     /**
      * Collect data
      *
-     * @param  Request      $request
-     * @param  Response     $response
-     * @param  \Exception   $exception
+     * @param Request    $request
+     * @param Response   $response
+     * @param \Exception $exception
      */
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {

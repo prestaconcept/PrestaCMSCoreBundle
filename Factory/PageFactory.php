@@ -10,7 +10,6 @@
 namespace Presta\CMSCoreBundle\Factory;
 
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
-use Presta\CMSCoreBundle\Model\Menu;
 use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
 use Presta\CMSCoreBundle\Model\Website;
 
