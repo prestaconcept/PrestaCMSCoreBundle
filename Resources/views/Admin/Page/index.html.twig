@@ -39,7 +39,7 @@
     <div class="sonata-actions subnav">
         {% if is_granted("ROLE_ADMIN_CMS_PAGE_ADD") %}
             <a class="btn btn-tooltip action-add-page" data-placement="top"
-               root-id="{{ menuItemId }}"
+               parent-id="{{ page.id }}"
                data-toggle="tooltip" title="{{ 'button.page.add_subpage.tooltip'|trans }}">
                 <i class="icon-plus"></i>
             </a>
@@ -90,14 +90,14 @@
         <div class="tab-content sonata-ba-form">
             {% for tab in pageEditTabs %}
             <div class="tab-pane form-horizontal {% if (loop.index == 1) %}active{% endif %}" id="{{ ['cms-page-', tab]|join }}">
-                {#{% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'_locale': locale, 'tab': tab, 'page': page} %}#}
-                {{ render(controller('PrestaCMSCoreBundle:Admin/Page:renderEditTab', {'_locale': locale, 'tab': tab, 'page': page, 'menuNodeId': menuItemId})) }}
+                {#{% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'_locale': website.locale, 'tab': tab, 'page': page} %}#}
+                {{ render(controller('PrestaCMSCoreBundle:Admin/Page:renderEditTab', {'_locale': website.locale, 'tab': tab, 'page': page})) }}
             </div>
             {% endfor %}
 
             {% if is_granted('ROLE_ADMIN_CMS_SEO') %}
                 {{ include(
-                    'PrestaCMSCoreBundle:Admin/Page/Index:tab_seo.html.twig',
+                    'PrestaCMSCoreBundle:Admin/Page/Index:_seo.html.twig',
                     { 'form': formSeo }
                 ) }}
             {% endif %}

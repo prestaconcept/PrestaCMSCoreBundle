@@ -52,32 +52,6 @@ class PageManager
     }
 
     /**
-     * Load a page corresponding to a menu node
-     *
-     * @param  string $menuNodeId
-     * @param  string $locale
-     * @return Page
-     */
-    public function getPageForMenu($menuNodeId, $locale)
-    {
-        $menuNode = $this->getDocumentManager()->findTranslation(null, $menuNodeId, $locale);
-        $page     = $menuNode->getContent();
-
-        //Translation is not propagated to the children
-        //Should be corrected by https://github.com/doctrine/phpcr-odm/pull/237
-        //but not working now : 14/03/2013 in administration as locale is not necessary the request one
-        foreach ($page->getZones() as $zone) {
-            foreach ($zone->getBlocks() as $block) {
-                $this->getDocumentManager()->bindTranslation($block, $locale);
-            }
-        }
-
-        $this->setCurrentPage($page);
-
-        return $page;
-    }
-
-    /**
      * Create a page
      *
      * @param Page $page
@@ -173,11 +147,16 @@ class PageManager
     /**
      * Get a Page by id
      *
-     * @param  $id
+     * @param  string $id
+     * @param  string locale
      * @return Page
      */
-    public function getPageById($id)
+    public function getPageById($id, $locale = null)
     {
+        if ($locale != null) {
+            return $this->getDocumentManager()->findTranslation(null, $id, $locale);
+        }
+
         return $this->getDocumentManager()->find(null, $id);
     }
 

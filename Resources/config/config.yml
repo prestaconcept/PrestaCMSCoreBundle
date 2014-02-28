@@ -91,7 +91,7 @@ sonata_doctrine_phpcr_admin:
         Presta\CMSCoreBundle\Doctrine\Phpcr\Page:
             valid_children:
                 - Presta\CMSCoreBundle\Doctrine\Phpcr\Page
-            image: '/bundles/prestacmscore/admin/img/1x1.png'
+            image: '/bundles/cmftreebrowser/images/document.png'
         Presta\CMSCoreBundle\Doctrine\Phpcr\Menu:
             valid_children:
                 - Presta\CMSCoreBundle\Doctrine\Phpcr\MenuNode

@@ -10,7 +10,6 @@
 namespace Presta\CMSCoreBundle\Controller\Admin;
 
 use Presta\CMSCoreBundle\Controller\Admin\BaseController as AdminController;
-use Presta\CMSCoreBundle\EventListener\WebsiteListener;
 use Presta\CMSCoreBundle\Form\Page\CacheType;
 use Presta\CMSCoreBundle\Form\Page\SettingsType;
 use Presta\CMSCoreBundle\Form\Page\CreateType;
@@ -26,7 +25,6 @@ use Presta\CMSCoreBundle\Model\WebsiteManager;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Exception\ModelManagerException;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -97,9 +95,7 @@ class PageController extends AdminController
     {
         $request = $this->getRequest();
         $viewParams = array(
-            'websiteId'     => null,
-            'menuItemId'    => $request->get('id', null),
-            'locale'        => null,
+            'pageId'        => $request->get('id', null),
             '_locale'       => $request->get('_locale'),
             'page'          => null
         );
@@ -108,27 +104,9 @@ class PageController extends AdminController
 
         if ($website != null) {
             $theme = $this->getThemeManager()->getTheme($website->getTheme());
-            $viewParams['websiteId'] = $website->getId();
-            $viewParams['locale']    = $website->getLocale();
-            $viewParams['theme']     = $theme;
+            $viewParams['theme']   = $theme;
+            $viewParams['website'] = $website;
         }
-
-        return $viewParams;
-    }
-
-    /**
-     * Add view parameters for page edition
-     *
-     * @param  array    $viewParams
-     * @param  Page     $page
-     *
-     * @return array
-     */
-    protected function addPageEditionViewParams(array $viewParams, Page $page)
-    {
-        $viewParams['page'] = $page;
-        $viewParams['pageFrontUrl'] = $this->getFrontUrlPreviewForPage($page);
-        $viewParams['pageEditTabs'] = $this->getPageManager()->getPageType($page->getType())->getEditTabs($page);
 
         return $viewParams;
     }
@@ -136,30 +114,25 @@ class PageController extends AdminController
     /**
      * Return Page initialized for edition
      *
-     * @param string $menuNodeId
+     * @param string $id
      *
-     * @return null|Page
+     * @return Page
      */
-    protected function getPage($menuNodeId)
+    protected function getPage($id)
     {
-        if ($menuNodeId == null) {
-            return null;
-        }
-
-        $pageManager    = $this->getPageManager();
-        $routeManager   = $this->getRouteManager();
-        $menuManager    = $this->getMenuManager();
         $websiteManager = $this->getWebsiteManager();
 
         $locale = $websiteManager->getCurrentWebsite()->getLocale();
-        $page   = $pageManager->getPageForMenu($menuNodeId, $locale);
+        $page   = $this->getPageManager()->getPageById($id, $locale);
+
+        if ($page == null) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+        }
 
         //Initialize routing data
+        $routeManager = $this->getRouteManager();
         $routeManager->setBaseUrl($websiteManager->getBaseUrlForLocale($locale));
         $routeManager->initializePageRouting($page);
-
-        // initialize the menu data
-        $menuManager->initializePageMenu($page, $menuNodeId);
 
         return $page;
     }
@@ -172,21 +145,20 @@ class PageController extends AdminController
      */
     public function editAction(Request $request)
     {
-        $website    = $this->getWebsiteManager()->getCurrentWebsite();
-        $page       = $this->getPage($request->get('id', null));
+        $id         = $request->get('id', null);
         $viewParams = $this->getEditViewParams();
 
-        if ($page != null) {
+        if ($id != null) {
+            $page       = $this->getPage($id);
+            $website    = $this->getWebsiteManager()->getCurrentWebsite();
             $templates  = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
 
-            $formSeo = $this->createForm(new SeoType(), $page);
-            $formCache = $this->createForm(new CacheType(), $page);
-            $formSettings = $this->createForm(new SettingsType($templates), $page);
-
-            $viewParams = $this->addPageEditionViewParams($viewParams, $page);
-            $viewParams['formSeo'] = $formSeo->createView();
-            $viewParams['formCache'] = $formCache->createView();
-            $viewParams['formSettings'] = $formSettings->createView();
+            $viewParams['page'] = $page;
+            $viewParams['pageFrontUrl'] = $this->getFrontUrlPreviewForPage($page);
+            $viewParams['pageEditTabs'] = $this->getPageManager()->getPageType($page->getType())->getEditTabs($page);
+            $viewParams['formSeo']      = $this->createForm(new SeoType(), $page)->createView();
+            $viewParams['formCache']    = $this->createForm(new CacheType(), $page)->createView();
+            $viewParams['formSettings'] = $this->createForm(new SettingsType($templates), $page)->createView();
         }
 
         return $this->renderResponse('PrestaCMSCoreBundle:Admin/Page:index.html.twig', $viewParams);
@@ -278,16 +250,15 @@ class PageController extends AdminController
      *
      * @param  string   $tab
      * @param  Page     $page
-     * @param  string   $menuNodeId
      *
      * @return Response
      */
-    public function renderEditTabAction($tab, Page $page, $menuNodeId)
+    public function renderEditTabAction($tab, Page $page)
     {
         $pageType   = $this->getPageManager()->getPageType($page->getType());
         /** @var Pool $pool */
         $pool       = $this->get('sonata.admin.pool');
-        $viewParams = $pageType->getEditTabData($tab, $page, $menuNodeId, $pool);
+        $viewParams = $pageType->getEditTabData($tab, $page, $pool);
 
         return $this->renderResponse($pageType->getEditTabTemplate($tab), $viewParams);
     }
@@ -323,7 +294,7 @@ class PageController extends AdminController
     {
         $website = $this->getWebsiteManager()->getCurrentWebsite();
 
-        $root   = $website->getMenuRoot();
+        $root   = $website->getPageRoot();
         //$selected   = $request->query->get('selected') ?: $root;
         $locale = $website->getLocale();
 
@@ -455,20 +426,19 @@ class PageController extends AdminController
         if (!$this->getSecurityContext()->isGranted('ROLE_ADMIN_CMS_PAGE_ADD')) {
             throw new AccessDeniedException();
         }
-
-        $rootId     = $request->get('rootId', null);
+        /** @var Website $website */
         $website    = $this->getWebsiteManager()->getCurrentWebsite();
-        $menus      = $this->getMenuManager()->getWebsiteMenus($website);
         $templates  = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
+        $parentId   = $request->get('parentId', null);
 
-        $form = $this->createForm(new CreateType($rootId, $menus, $templates));
+        $form = $this->createForm(new CreateType($parentId, $templates));
         $form->handleRequest($request);
 
         if ($request->isMethod('POST')) {
             if ($form->isValid()) {
                 $urlParams = $this->create(
                     $website,
-                    $form->get('root')->getData(),
+                    $form->get('parentId')->getData(),
                     $form->get('title')->getData(),
                     $form->get('template')->getData()
                 );
@@ -488,7 +458,7 @@ class PageController extends AdminController
 
         return $this->renderResponse(
             'PrestaCMSCoreBundle:Admin/Page:add.html.twig',
-            array('form' => $form->createView(), 'rootId' => $rootId)
+            array('form' => $form->createView(), 'parentId' => $parentId)
         );
     }
 
@@ -496,17 +466,17 @@ class PageController extends AdminController
      * Handle page, menu and routes creation
      *
      * @param Website   $website
-     * @param string    $root
+     * @param string    $parentId
      * @param string    $title
      * @param string    $template
      *
      * @return array
      */
-    protected function create(Website $website, $root, $title, $template)
+    protected function create(Website $website, $parentId, $title, $template)
     {
         //Create Page
         $page = $this->get('presta_cms.page.factory')->create(
-            $this->get('presta_cms.page.factory')->getConfiguration($website, $root, $title, $template)
+            $this->get('presta_cms.page.factory')->getConfiguration($website, $parentId, $title, $template)
         );
 
         //Create Routes
@@ -516,14 +486,9 @@ class PageController extends AdminController
             );
         }
 
-        //Create MenuNode
-        $menuNode = $this->get('presta_cms.menu.factory')->create(
-            $this->get('presta_cms.menu.factory')->getConfiguration($page, $root)
-        );
-
         $this->get('presta_cms.page.factory')->flush();
 
-        return array('website' => $website->getId(), 'locale'  => $website->getLocale(), 'id' => $menuNode->getId());
+        return array('website' => $website->getId(), 'locale'  => $website->getLocale(), 'id' => $page->getId());
     }
 
     /**

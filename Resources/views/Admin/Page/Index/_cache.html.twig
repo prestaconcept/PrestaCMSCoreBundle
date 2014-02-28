@@ -4,9 +4,8 @@
 <div class="tab-pane form-horizontal" id="cache_form_tab">
 
     <form id="edit_cache_form" class="form-horizontal" method="POST"
-          action="{{ path('presta_cms_page_edit_cache', {'website': websiteId, 'id': menuItemId, 'locale': page.locale}) }}">
+          action="{{ path('presta_cms_page_edit_cache', {'website': website.id, 'id': page.id, 'locale': page.locale}) }}">
         <fieldset>
-            <legend>{{ 'cms_page.cache.title'|trans }}</legend>
             <div class="sonata-ba-collapsed-fields">
                 <div class="offset1 span10">
                     <div id="edit_cache_form_success" class="alert alert-success hide">

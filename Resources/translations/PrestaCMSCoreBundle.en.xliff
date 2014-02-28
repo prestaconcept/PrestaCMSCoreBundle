@@ -258,6 +258,14 @@
                 <source>cms_page.form.menu.label.parent</source>
                 <target>Parent</target>
             </trans-unit>
+            <trans-unit id="cms_page.delete.confirmation">
+                <source>cms_page.delete.confirmation</source>
+                <target>Are you sur that you want to delete those pages ?</target>
+            </trans-unit>
+            <trans-unit id="cms_page.delete.data_to_be_deleted">
+                <source>cms_page.delete.data_to_be_deleted</source>
+                <target>This pages will be deleted :</target>
+            </trans-unit>
             <trans-unit id="cms_page_tree.title">
                 <source>cms_page_tree.title</source>
                 <target>Pages</target>
@@ -521,10 +529,6 @@
             <trans-unit id="cms_page.form.cache.label.must_revalidate">
                 <source>cms_page.form.cache.label.must_revalidate</source>
                 <target>Must revalidate</target>
-            </trans-unit>
-            <trans-unit id="cms_page.form.settings.label.menu_label">
-                <source>cms_page.form.settings.label.menu_label</source>
-                <target>Menu label</target>
             </trans-unit>
             <trans-unit id="cms_page.form.settings.label.template">
                 <source>cms_page.form.settings.label.template</source>

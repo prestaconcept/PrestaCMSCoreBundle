@@ -3,10 +3,8 @@
 
 <div class="tab-pane form-horizontal" id="description_form_tab">
     <form id="edit_description_form" class="form-horizontal" method="POST"
-          action="{{ path('presta_cms_page_edit_description', {'id': menuItemId, 'locale': page.locale}) }}">
+          action="{{ path('presta_cms_page_edit_description', {'id': page.id, 'locale': page.locale}) }}">
         <fieldset>
-            <legend>{{ 'cms_page.description.title'|trans }}</legend>
-
             <div class="sonata-ba-collapsed-fields">
                 {{ form_errors(form) }}
 

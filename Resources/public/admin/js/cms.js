@@ -71,7 +71,7 @@ var CMSContent = function() {
 
             $('body').on('click', 'a.action-add-page', function(e) {
                 e.preventDefault();
-                CMSContent.addPage($(this).attr('root-id'));
+                CMSContent.addPage($(this).attr('parent-id'));
             });
 
             $('.page-zone-block-container').sortable({
@@ -200,15 +200,15 @@ var CMSContent = function() {
         /**
          * Add a new page
          */
-        addPage: function (rootId) {
+        addPage: function (parentId) {
             $('#modal-loader').show();
             $('#modal-content').html('');
             $('#modal-content').hide();
             $('#modal').modal('show');
 
             var url = this._addPageUrl;
-            if (rootId != undefined) {
-                url += '?rootId=' + rootId;
+            if (parentId != undefined) {
+                url += '?parentId=' + parentId;
             }
 
             $('#modal-content').load(url, function() {

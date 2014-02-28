@@ -5,9 +5,8 @@
      ng-init="init('{{ page.urlRelative }}', '{{ page.pathComplete }}', '{{ page.urlComplete }}', {% if (page.isUrlCompleteMode) %} true {% else %} false {% endif %})">
 
     <form id="edit_seo_form" class="form-horizontal" method="POST"
-          action="{{ path('presta_cms_page_edit_seo', {'website': websiteId, 'id': menuItemId, 'locale': page.locale}) }}">
+          action="{{ path('presta_cms_page_edit_seo', {'website': website.id, 'id': page.id, 'locale': page.locale}) }}">
         <fieldset>
-            <legend>{{ 'cms_page.seo.title'|trans }}</legend>
             <div class="sonata-ba-collapsed-fields">
                 <div class="offset1 span10">
                     <div id="edit_seo_form_success" class="alert alert-success hide">

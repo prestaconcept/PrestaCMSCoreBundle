@@ -98,39 +98,4 @@ class MenuManager
 
         return $menuNode;
     }
-
-    /**
-     * Update the menu of a page
-     *
-     * @param Page $page
-     */
-    public function updatePageMenu(Page $page)
-    {
-        if (!$page->hasMenuData()) {
-            return;
-        }
-
-        $menuNode = $this->getDocumentManager()->find(null, $page->getMenuNodeId());
-        $menuNode->setLabel($page->getMenuNodeLabel());
-        $this->getDocumentManager()->persist($menuNode);
-        $this->getDocumentManager()->flush();
-    }
-
-    /**
-     * Initialize page menu data
-     *
-     * @param Page $page
-     * @param string $menuNodeId
-     *
-     * @return Page
-     */
-    public function initializePageMenu(Page $page, $menuNodeId)
-    {
-        $menuNode = $this->getDocumentManager()->find(null, $menuNodeId);
-
-        $page->setMenuNodeId($menuNodeId);
-        $page->setMenuNodeLabel($menuNode->getLabel());
-
-        return $page;
-    }
 }

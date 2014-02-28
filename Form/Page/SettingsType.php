@@ -61,11 +61,9 @@ class SettingsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('menuNodeLabel', 'text', array('label' => 'cms_page.form.settings.label.menu_label'))
             ->add('template', 'choice', array(
                 'label'     => 'cms_page.form.settings.label.template',
                 'choices'   => $this->templates
-            ))
-            ->add('menuNodeId', 'hidden');
+            ));
     }
 }

@@ -62,9 +62,6 @@ class PageOperationListener
 
         // update page routing (manage redirect route)
         $this->routeManager->updatePageRouting($page);
-
-        // update page menu
-        $this->menuManager->updatePageMenu($page);
     }
 
     /**
