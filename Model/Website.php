@@ -11,6 +11,9 @@ namespace Presta\CMSCoreBundle\Model;
 
 use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 
+/**
+ * @author Nicolas Bastien <nbastien@prestaconcept.net>
+ */
 class Website extends AbstractModel implements TranslatableInterface
 {
     /**
@@ -24,6 +27,12 @@ class Website extends AbstractModel implements TranslatableInterface
     protected $theme;
 
     /**
+     * Attribute use to render website main menu in admin
+     * @var array
+     */
+    protected $mainMenuChildren;
+
+    /**
      * @var array $availableLocales
      */
     protected $availableLocales;
@@ -31,6 +40,7 @@ class Website extends AbstractModel implements TranslatableInterface
     public function __construct()
     {
         $this->availableLocales = array();
+        $this->mainMenuChildren = null;
     }
 
     /**
@@ -79,5 +89,34 @@ class Website extends AbstractModel implements TranslatableInterface
     public function getAvailableLocales()
     {
         return $this->availableLocales;
+    }
+
+    /**
+     * @return array
+     * @throws \BadMethodCallException
+     */
+    public function getMainMenuChildren()
+    {
+        if ($this->mainMenuChildren === null) {
+            throw new \BadMethodCallException();
+        }
+
+        return $this->mainMenuChildren;
+    }
+
+    /**
+     * @param array $mainMenuChildren
+     */
+    public function setMainMenuChildren(array $mainMenuChildren)
+    {
+        $this->mainMenuChildren = $mainMenuChildren;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMainMenuRootPath()
+    {
+        return $this->getMenuRoot() . '/main';
     }
 }

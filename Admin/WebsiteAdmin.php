@@ -15,6 +15,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Presta\CMSCoreBundle\Model\MenuManager;
 use Presta\CMSCoreBundle\Model\ThemeManager;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
@@ -47,6 +48,14 @@ class WebsiteAdmin extends BaseAdmin
     public function setThemeManager(ThemeManager $themeManager)
     {
         $this->themeManager = $themeManager;
+    }
+
+    /**
+     * @param MenuManager $menuManager
+     */
+    public function setMenuManager(MenuManager $menuManager)
+    {
+        $this->menuManager = $menuManager;
     }
 
     /**
@@ -133,9 +142,11 @@ class WebsiteAdmin extends BaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $locale = $this->getObjectLocale();
+        $subject    = $this->getSubject();
+        $locale     = $this->getObjectLocale();
+
         $formMapper
-            ->with($this->trans('form_site.label_general'))
+            ->with($this->trans('website.form.fieldset.general'))
                 ->add(
                     'theme',
                     'choice',
@@ -158,6 +169,29 @@ class WebsiteAdmin extends BaseAdmin
                     'read_only' => true,
                 ))
             ->end();
+
+        if ($subject->getId() != null) {
+            $formMapper
+                ->with($this->trans('website.form.fieldset.menu'))
+                    ->add('mainMenuChildren', 'doctrine_phpcr_odm_tree_manager', array(
+                        'root'              => $subject->getMainMenuRootPath(),
+                        'label'             => 'website.form.menu.label.main_menu',
+                    ))
+                ->end()
+            ;
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getObject($id)
+    {
+        $object = parent::getObject($id);
+
+        $object->setMainMenuChildren($this->menuManager->getWebsiteMainMenu($object)->getChildren());
+
+        return $object;
     }
 
     /**

@@ -32,6 +32,10 @@
             <call method="setThemeManager">
                 <argument type="service" id="presta_cms.manager.theme" />
             </call>
+
+            <call method="setMenuManager">
+                <argument type="service" id="presta_cms.manager.menu" />
+            </call>
         </service>
 
         <service id="presta_cms.admin.page" class="%presta_cms.admin.page.class%">

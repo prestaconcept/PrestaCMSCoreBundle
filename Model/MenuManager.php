@@ -98,4 +98,15 @@ class MenuManager
 
         return $menuNode;
     }
+
+    /**
+     * Return current website main menu
+     *
+     * @param  Website $website
+     * @return array $menus
+     */
+    public function getWebsiteMainMenu(Website $website)
+    {
+        return $this->getDocumentManager()->find(null, $website->getMainMenuRootPath());
+    }
 }
