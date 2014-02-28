@@ -143,7 +143,6 @@ class WebsiteAdmin extends BaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $subject    = $this->getSubject();
-        $isNew      = $subject->getId() ? false : true;
         $locale     = $this->getObjectLocale();
 
         $formMapper
@@ -171,7 +170,7 @@ class WebsiteAdmin extends BaseAdmin
                 ))
             ->end();
 
-        if (false === $isNew) {
+        if ($subject->getId() != null) {
             $formMapper
                 ->with($this->trans('website.form.fieldset.menu'))
                     ->add('mainMenuChildren', 'doctrine_phpcr_odm_tree_manager', array(
