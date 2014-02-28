@@ -10,12 +10,10 @@
 namespace Presta\CMSCoreBundle\Block;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Presta\CMSCoreBundle\Block\BaseBlockService;
 use Presta\CMSCoreBundle\Model\Page;
 use Presta\CMSCoreBundle\Model\PageManager;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Model\BlockInterface;
-use Sonata\AdminBundle\Admin;
 
 /**
  * Block Page children, display a list of page children with description and a link

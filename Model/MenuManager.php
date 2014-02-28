@@ -10,7 +10,6 @@
 namespace Presta\CMSCoreBundle\Model;
 
 use Sonata\AdminBundle\Model\ModelManagerInterface;
-use Presta\CMSCoreBundle\Model\MenuNode;
 
 /**
  * Menu Manager

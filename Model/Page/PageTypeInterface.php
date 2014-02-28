@@ -43,9 +43,9 @@ interface PageTypeInterface
     /**
      * Return all data needed to render $tab
      *
-     * @param  string $tab
-     * @param  Page   $page
-     * @param  Pool   $pool
+     * @param string $tab
+     * @param Page   $page
+     * @param Pool   $pool
      *
      * @return array
      */

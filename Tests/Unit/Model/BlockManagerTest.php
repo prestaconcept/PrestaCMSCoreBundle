@@ -11,8 +11,6 @@ namespace Presta\CMSCoreBundle\Tests\Unit\Model;
 
 use Presta\CMSCoreBundle\Tests\Unit\BaseUnitTestCase;
 use Presta\CMSCoreBundle\Model\BlockManager;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>

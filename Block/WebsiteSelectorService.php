@@ -13,7 +13,6 @@ use Sonata\BlockBundle\Block\BlockContextInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
-use Presta\CMSCoreBundle\Block\BaseBlockService;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**

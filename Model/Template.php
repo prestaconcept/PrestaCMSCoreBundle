@@ -9,8 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
-use Presta\CMSCoreBundle\Model\Zone;
-
 /**
  * Template Model
  *
@@ -49,7 +47,7 @@ class Template
      */
     public function __toString()
     {
-        return (string)$this->getName();
+        return (string) $this->getName();
     }
 
     /**

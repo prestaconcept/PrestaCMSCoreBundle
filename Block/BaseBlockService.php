@@ -171,7 +171,6 @@ abstract class BaseBlockService extends SonataBaseBlockService
         //            'block_style' => null,
         //            'title_level' => 'h2',
         //        );
-
         return $settings;
     }
 

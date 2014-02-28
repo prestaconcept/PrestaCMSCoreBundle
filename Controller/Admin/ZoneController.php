@@ -26,7 +26,7 @@ class ZoneController extends BaseController
     }
 
     /**
-     * @param  Request $request
+     * @param Request $request
      *
      * @return Response
      */

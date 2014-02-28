@@ -59,8 +59,8 @@ abstract class AbstractParentModel extends AbstractModel
      *
      * @param $child
      * @param string $key the collection index name to use in the
-     *      child collection. if not set, the child will simply be appended at
-     *      the end
+     *                    child collection. if not set, the child will simply be appended at
+     *                    the end
      *
      * @return boolean
      */

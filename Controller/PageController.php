@@ -40,7 +40,7 @@ class PageController extends AbstractController
     }
 
     /**
-     * @param  Page $contentDocument
+     * @param Page $contentDocument
      *
      * @return array
      */
@@ -60,7 +60,7 @@ class PageController extends AbstractController
     }
 
     /**
-     * @param  Page $contentDocument
+     * @param Page $contentDocument
      *
      * @return bool
      */
@@ -73,7 +73,7 @@ class PageController extends AbstractController
     }
 
     /**
-     * @param  Page $contentDocument
+     * @param Page $contentDocument
      *
      * @return Response
      */

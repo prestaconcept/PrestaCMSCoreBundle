@@ -7,7 +7,6 @@ use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Theme;
 use Presta\CMSCoreBundle\Model\Website;
 use PHPCR\Util\NodeHelper;
-use Presta\CMSCoreBundle\Factory\ZoneFactory;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>

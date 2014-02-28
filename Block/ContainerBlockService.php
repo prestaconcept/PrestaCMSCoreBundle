@@ -11,7 +11,6 @@ namespace Presta\CMSCoreBundle\Block;
 
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Model\BlockInterface;
-use Presta\CMSCoreBundle\Block\BaseBlockService;
 
 /**
  * Container block

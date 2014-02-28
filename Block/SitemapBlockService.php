@@ -12,8 +12,6 @@ namespace Presta\CMSCoreBundle\Block;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Model\BlockInterface;
 
-use Presta\CMSCoreBundle\Block\BaseModelBlockService;
-
 /**
  * Sitemap block can make a simple menu or complete sitemap
  *

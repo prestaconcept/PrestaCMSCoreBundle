@@ -13,8 +13,6 @@ namespace Presta\CMSCoreBundle\Block;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Model\BlockInterface;
 
-use Presta\CMSCoreBundle\Block\BaseModelBlockService;
-
 /**
  * Simple block with a title and content
  *

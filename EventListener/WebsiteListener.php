@@ -10,7 +10,6 @@
 namespace Presta\CMSCoreBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Kernel;
 use Presta\CMSCoreBundle\Model\WebsiteManager;
 

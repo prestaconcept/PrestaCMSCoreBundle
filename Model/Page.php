@@ -13,7 +13,6 @@ use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\Collection;
 use Knp\Menu\NodeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use Presta\CMSCoreBundle\Model\Zone;
 use Symfony\Component\Routing\Route;
 
 /**
@@ -337,7 +336,7 @@ class Page extends AbstractParentModel
      */
     public function getPathComplete()
     {
-        return (string)$this->pathComplete;
+        return (string) $this->pathComplete;
     }
 
     /**
@@ -356,7 +355,7 @@ class Page extends AbstractParentModel
      */
     public function getUrlRelative()
     {
-        return (string)$this->urlRelative;
+        return (string) $this->urlRelative;
     }
 
     /**
@@ -375,7 +374,7 @@ class Page extends AbstractParentModel
      */
     public function getUrlComplete()
     {
-        return (string)$this->urlComplete;
+        return (string) $this->urlComplete;
     }
 
     /**
