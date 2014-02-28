@@ -199,7 +199,10 @@ class RouteManager
     protected function moveRoute(Route $oldRoute, $newRoutePath)
     {
         //Check if redirect already exists
-        $oldRedirect = $this->getDocumentManager()->find('Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute', $newRoutePath);
+        $oldRedirect = $this->getDocumentManager()->find(
+            'Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute',
+            $newRoutePath
+        );
         if ($oldRedirect != null) {
             $this->getDocumentManager()->remove($oldRedirect);
             $this->getDocumentManager()->flush();
@@ -312,7 +315,8 @@ class RouteManager
      */
     protected function generateRedirects(array $urls)
     {
-        //Not working : right now DoctrineDBAL Client throws an exception cause it considers that there is node duplication
+        //Not working : right now DoctrineDBAL Client throws an exception
+        //cause it considers that there is node duplication
         //DocumentManager::clear does not solve the problem
         return;
 

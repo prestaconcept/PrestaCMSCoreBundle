@@ -449,7 +449,9 @@ class PageController extends AdminController
                 if ($this->isXmlHttpRequest()) {
                     $redirectUrl = $this->generateUrl('presta_cms_page_edit', $urlParams);
 
-                    return $this->renderJson(array('result' => 'ok', 'action' => 'refresh', 'location' => $redirectUrl));
+                    return $this->renderJson(
+                        array('result' => 'ok', 'action' => 'refresh', 'location' => $redirectUrl)
+                    );
                 }
             } else {
                 $this->addFlash('sonata_flash_error', 'flash_edit_error');

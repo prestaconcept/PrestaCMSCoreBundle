@@ -36,11 +36,12 @@ class PrestaCMSCoreBundle extends Bundle
         $container->addCompilerPass(new GlobalVariablesCompilerPass());
 
         if (class_exists('Doctrine\Bundle\PHPCRBundle\DependencyInjection\Compiler\DoctrinePhpcrMappingsPass')) {
+            $configFolderPath = $this->getPath() . '/Resources/config/';
             $container->addCompilerPass(
                 DoctrinePhpcrMappingsPass::createXmlMappingDriver(
                     array(
-                        realpath($this->getPath() . '/Resources/config/doctrine-model') => 'Presta\CMSCoreBundle\Model',
-                        realpath($this->getPath() . '/Resources/config/doctrine-phpcr') => 'Presta\CMSCoreBundle\Doctrine\Phpcr',
+                        realpath($configFolderPath . 'doctrine-model') => 'Presta\CMSCoreBundle\Model',
+                        realpath($configFolderPath . 'doctrine-phpcr') => 'Presta\CMSCoreBundle\Doctrine\Phpcr',
                     ),
                     array('cmf_content.manager_name')
                 )

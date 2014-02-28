@@ -34,16 +34,10 @@ class PageOperationListener
      */
     protected $routeManager;
 
-    /**
-     * @var MenuManager
-     */
-    protected $menuManager;
-
-    public function __construct(ModelManagerInterface $modelManager, RouteManager $routeManager, MenuManager $menuManager)
+    public function __construct(ModelManagerInterface $modelManager, RouteManager $routeManager)
     {
         $this->documentManager  = $modelManager->getDocumentManager();
         $this->routeManager     = $routeManager;
-        $this->menuManager      = $menuManager;
     }
 
     /**
