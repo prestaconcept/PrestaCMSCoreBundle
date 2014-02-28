@@ -34,7 +34,8 @@ class RouteManagerTest extends BaseFunctionalTestCase
     /**
      * Allow us to test protected/private method from RouteManager
      *
-     * @param  string            $name
+     * @param string $name
+     * 
      * @return \ReflectionMethod
      */
     protected function getRouterManagerMethodByName($name)
