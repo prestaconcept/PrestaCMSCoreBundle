@@ -85,14 +85,26 @@ class PageTypeCMSPage implements PageTypeInterface
     {
         switch ($tab) {
             case self::TAB_CONTENT:
-                $draft = $page;
                 $website = $this->websiteManager->getCurrentWebsite();
 
+                $template = $this->themeManager
+                    ->getTheme($website->getTheme())
+                    ->getPageTemplate($page->getTemplate());
+
+                foreach ($template->getZones() as $zone) {
+                    if ($page->hasZone($zone)) {
+                        continue;
+                    }
+
+                    $zone->setId($page->getId() . '/' . $zone->getName());
+
+                    $page->addZone($zone);
+                }
+
                 return array(
-                    'page' 	   => $draft,
+                    'page'     => $page,
                     'locale'   => $page->getLocale(),
-                    'website'  => $website,
-                    'websiteId' => ($website) ? $website->getId() : null
+                    'website'  => $website
                 );
                 break;
             case self::TAB_DESCRIPTION:

@@ -213,13 +213,23 @@ class Page extends AbstractParentModel
     }
 
     /**
-     * Add a zone and initialize its id
+     * Add a zone
      *
      * @param Zone $zone
      */
     public function addZone(Zone $zone)
     {
         $this->children->set($zone->getName(), $zone);
+    }
+
+    /**
+     * @param Zone $zone
+     *
+     * @return bool
+     */
+    public function hasZone(Zone $zone)
+    {
+        return $this->children->containsKey($zone->getName());
     }
 
     /**
