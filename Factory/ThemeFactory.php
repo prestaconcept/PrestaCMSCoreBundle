@@ -7,7 +7,6 @@ use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Theme;
 use Presta\CMSCoreBundle\Model\Website;
 use PHPCR\Util\NodeHelper;
-use Presta\CMSCoreBundle\Factory\ZoneFactory;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
@@ -53,17 +52,6 @@ class ThemeFactory extends AbstractModelFactory implements ModelFactoryInterface
         $zones = array();
 
         if ($website != null) {
-            ////voir pour mettre un has !
-            //$themeNode = $this->getObjectManager()->find(
-            //    $this->modelClassName,
-            //    $website->getId() . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $configuration['name']
-            //);
-            //
-            //if ($themeNode == null) {
-            //    //If there is no corresponding data, initialisation with default configuration
-            //    $this->initializeForWebsite($website, $configuration);
-            //}
-
             $zones = array();
             $themeNode = $this->getObjectManager()->findTranslation(
                 $this->modelClassName,
@@ -96,6 +84,16 @@ class ThemeFactory extends AbstractModelFactory implements ModelFactoryInterface
 
         foreach ($configuration['page_template'] as $templateName => $templateConfiguration) {
             $template = new Template($templateName, $templateConfiguration['path']);
+
+            $zones = array();
+
+            foreach ($templateConfiguration["zones"] as $zoneName => $zoneConfiguration) {
+                $zone = new Zone($zoneName);
+                $zone->setConfiguration($zoneConfiguration);
+                $zones[$zoneName] = $zone;
+            }
+
+            $template->setZones($zones);
             $theme->addPageTemplate($template);
         }
 

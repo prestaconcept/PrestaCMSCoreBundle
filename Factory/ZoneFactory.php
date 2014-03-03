@@ -10,7 +10,7 @@
 namespace Presta\CMSCoreBundle\Factory;
 
 use Presta\CMSCoreBundle\Model\Block;
-use Presta\CMSCoreBundle\Model\Zone;
+use Presta\CMSCoreBundle\Doctrine\Phpcr\Zone;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
