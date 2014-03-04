@@ -83,9 +83,10 @@ class WebsiteManager
 
     public function __construct()
     {
-        $this->websites         = null;
-        $this->currentWebsite   = null;
-        $this->hosts            = array();
+        $this->websites             = null;
+        $this->currentWebsite       = null;
+        $this->currentEnvironment   = null;
+        $this->hosts                = array();
     }
 
     /**
