@@ -83,13 +83,10 @@ class WebsiteManager
 
     public function __construct()
     {
-        $this->websites = null;
-        $this->currentWebsite = null;
-        // temporary default current environment = prod to render the preview url
-        // without the current environment, we cannot have a correct preview url
-        // will be fix by: https://github.com/prestaconcept/PrestaCMSCoreBundle/issues/140
-        $this->currentEnvironment = 'prod';
-        $this->hosts = array();
+        $this->websites             = null;
+        $this->currentWebsite       = null;
+        $this->currentEnvironment   = null;
+        $this->hosts                = array();
     }
 
     /**

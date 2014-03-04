@@ -12,6 +12,7 @@
         <parameter key="presta_cms.manager.block.class">Presta\CMSCoreBundle\Model\BlockManager</parameter>
         <parameter key="presta_cms.manager.menu.class">Presta\CMSCoreBundle\Model\MenuManager</parameter>
         <parameter key="presta_cms.manager.zone.class">Presta\CMSCoreBundle\Model\ZoneManager</parameter>
+        <parameter key="presta_cms.environment">prod</parameter>
     </parameters>
 
     <services>
@@ -30,6 +31,9 @@
             </call>
             <call method="setSession">
                 <argument type="service" id="session" />
+            </call>
+            <call method="setCurrentEnvironment">
+                <argument>%presta_cms.environment%</argument>
             </call>
         </service>
 

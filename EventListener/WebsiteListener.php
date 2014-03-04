@@ -26,18 +26,11 @@ class WebsiteListener
     protected $websiteManager;
 
     /**
-     * @var string
-     */
-    protected $environment;
-
-    /**
      * @param WebsiteManager $websiteManager
-     * @param Kernel         $kernel
      */
-    public function __construct(WebsiteManager $websiteManager, Kernel $kernel)
+    public function __construct(WebsiteManager $websiteManager)
     {
         $this->websiteManager = $websiteManager;
-        $this->environment    = $kernel->getEnvironment();
     }
 
     /**
