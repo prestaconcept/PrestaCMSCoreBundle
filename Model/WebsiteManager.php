@@ -222,11 +222,11 @@ class WebsiteManager
      * Admin uses the session to store the current website locale and id.
      * This is not wanted for the front.
      *
-     * @param string $prestaEnvironment
+     * @param string $prestaCMSEnvironment
      *
      * @return Website
      */
-    public function loadCurrentWebsiteForAdmin($prestaEnvironment)
+    public function loadCurrentWebsiteForAdmin($prestaCMSEnvironment)
     {
         $website = $this->getCurrentWebsite();
         if ($website !== null) {
@@ -243,7 +243,7 @@ class WebsiteManager
             $locale = $this->getDefaultLocale();
         }
 
-        $website = $this->loadWebsiteById($websiteId, $locale, $prestaEnvironment);
+        $website = $this->loadWebsiteById($websiteId, $locale, $prestaCMSEnvironment);
         if ($website != null) {
             $this->setCurrentWebsiteForAdmin($website->getId(), $website->getLocale());
         }

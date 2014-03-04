@@ -28,16 +28,16 @@ class WebsiteListener
     /**
      * @var string
      */
-    protected $prestaEnvironment;
+    protected $prestaCMSEnvironment;
 
     /**
      * @param WebsiteManager    $websiteManager
-     * @param string            $prestaEnvironment
+     * @param string            $prestaCMSEnvironment
      */
-    public function __construct(WebsiteManager $websiteManager, $prestaEnvironment)
+    public function __construct(WebsiteManager $websiteManager, $prestaCMSEnvironment)
     {
         $this->websiteManager       = $websiteManager;
-        $this->prestaEnvironment    = $prestaEnvironment;
+        $this->prestaCMSEnvironment = $prestaCMSEnvironment;
     }
 
     /**
@@ -59,7 +59,7 @@ class WebsiteListener
         if (strpos($request->getPathInfo(), '/admin') === 0) {
             //Administration
             //Load current website for admin
-            $this->websiteManager->loadCurrentWebsiteForAdmin($this->prestaEnvironment);
+            $this->websiteManager->loadCurrentWebsiteForAdmin($this->prestaCMSEnvironment);
         } else {
             //Front case
             //Load current website
