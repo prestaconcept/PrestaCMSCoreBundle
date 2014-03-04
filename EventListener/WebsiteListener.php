@@ -26,18 +26,11 @@ class WebsiteListener
     protected $websiteManager;
 
     /**
-     * @var string
+     * @param WebsiteManager $websiteManager
      */
-    protected $prestaCMSEnvironment;
-
-    /**
-     * @param WebsiteManager    $websiteManager
-     * @param string            $prestaCMSEnvironment
-     */
-    public function __construct(WebsiteManager $websiteManager, $prestaCMSEnvironment)
+    public function __construct(WebsiteManager $websiteManager)
     {
-        $this->websiteManager       = $websiteManager;
-        $this->prestaCMSEnvironment = $prestaCMSEnvironment;
+        $this->websiteManager = $websiteManager;
     }
 
     /**
@@ -59,7 +52,7 @@ class WebsiteListener
         if (strpos($request->getPathInfo(), '/admin') === 0) {
             //Administration
             //Load current website for admin
-            $this->websiteManager->loadCurrentWebsiteForAdmin($this->prestaCMSEnvironment);
+            $this->websiteManager->loadCurrentWebsiteForAdmin();
         } else {
             //Front case
             //Load current website

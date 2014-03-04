@@ -83,13 +83,9 @@ class WebsiteManager
 
     public function __construct()
     {
-        $this->websites = null;
-        $this->currentWebsite = null;
-        // temporary default current environment = prod to render the preview url
-        // without the current environment, we cannot have a correct preview url
-        // will be fix by: https://github.com/prestaconcept/PrestaCMSCoreBundle/issues/140
-        $this->currentEnvironment = 'prod';
-        $this->hosts = array();
+        $this->websites         = null;
+        $this->currentWebsite   = null;
+        $this->hosts            = array();
     }
 
     /**
@@ -222,11 +218,9 @@ class WebsiteManager
      * Admin uses the session to store the current website locale and id.
      * This is not wanted for the front.
      *
-     * @param string $prestaCMSEnvironment
-     *
      * @return Website
      */
-    public function loadCurrentWebsiteForAdmin($prestaCMSEnvironment)
+    public function loadCurrentWebsiteForAdmin()
     {
         $website = $this->getCurrentWebsite();
         if ($website !== null) {
@@ -243,7 +237,7 @@ class WebsiteManager
             $locale = $this->getDefaultLocale();
         }
 
-        $website = $this->loadWebsiteById($websiteId, $locale, $prestaCMSEnvironment);
+        $website = $this->loadWebsiteById($websiteId, $locale, $this->getCurrentEnvironment());
         if ($website != null) {
             $this->setCurrentWebsiteForAdmin($website->getId(), $website->getLocale());
         }
