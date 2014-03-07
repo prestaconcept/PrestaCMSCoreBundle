@@ -12,6 +12,7 @@ namespace Presta\CMSCoreBundle\Factory;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
 use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
 use Presta\CMSCoreBundle\Model\Website;
+use Symfony\Cmf\Bundle\CoreBundle\Slugifier\SlugifierInterface;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
@@ -29,11 +30,24 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
     protected $zoneFactory;
 
     /**
+     * @var SlugifierInterface
+     */
+    protected $slugifier;
+
+    /**
      * @param ZoneFactory $zoneFactory
      */
     public function setZoneFactory($zoneFactory)
     {
         $this->zoneFactory = $zoneFactory;
+    }
+
+    /**
+     * @param SlugifierInterface $slugifier
+     */
+    public function setSlugifier(SlugifierInterface $slugifier)
+    {
+        $this->slugifier = $slugifier;
     }
 
     /**
@@ -85,11 +99,11 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
     protected function configureBlock(array $block)
     {
         $block += array(
-            'name'         => null,
-            'editable'  => false,
-            'deletable' => false,
-            'settings'     => array(),
-            'children'     => array()
+            'name'          => null,
+            'editable'      => false,
+            'deletable'     => false,
+            'settings'      => array(),
+            'children'      => array()
         );
         if (!is_array($block['settings'])) {
             $block['settings'] = array();
@@ -177,7 +191,11 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
         }
 
         $configuration['parent'] = $this->getObjectManager()->find(null, $parentId);
-        $configuration['name']   = uniqid('page-');
+
+        $configuration['name'] = $this->slugifier->slugify($title);
+        if (strlen($configuration['name']) == 0) {
+            $configuration['name'] = uniqid('page-');
+        }
 
         return $configuration;
     }
