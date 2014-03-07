@@ -16,6 +16,7 @@
         <parameter key="presta_cms.data_collector.class">Presta\CMSCoreBundle\DataCollector\CMSDataCollector</parameter>
         <parameter key="presta_cms.twig.presta_cms_core_extension.class">Presta\CMSCoreBundle\Twig\Extension\PrestaCMSCoreExtension</parameter>
         <parameter key="presta_cms.twig.global.class">Presta\CMSCoreBundle\Twig\GlobalVariables</parameter>
+        <parameter key="presta_cms.slugifer.class">Symfony\Cmf\Bundle\CoreBundle\Slugifier\CallbackSlugifier</parameter>
     </parameters>
 
     <services>
@@ -79,6 +80,9 @@
             <call method="setZoneFactory">
                 <argument type="service" id="presta_cms.zone.factory" />
             </call>
+            <call method="setSlugifier">
+                <argument type="service" id="presta_cms.slugifier" />
+            </call>
         </service>
 
         <service id="presta_cms.route.factory" class="%presta_cms.route.factory.class%">
@@ -131,6 +135,10 @@
             <argument type="service" id="presta_cms.manager.website"/>
             <argument type="service" id="presta_cms.manager.theme"/>
             <argument type="service" id="presta_cms.manager.page"/>
+        </service>
+
+        <service id="presta_cms.slugifier" class="%presta_cms.slugifer.class%">
+            <argument>Ferrandini\Urlizer::urlize</argument>
         </service>
     </services>
 </container>

@@ -29,11 +29,24 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
     protected $zoneFactory;
 
     /**
+     * @var Urlizer
+     */
+    protected $slugifer;
+
+    /**
      * @param ZoneFactory $zoneFactory
      */
     public function setZoneFactory($zoneFactory)
     {
         $this->zoneFactory = $zoneFactory;
+    }
+
+    /**
+     * @param Urlizer $slugifer
+     */
+    public function setSlugifier($slugifer)
+    {
+        $this->slugifier = $slugifer;
     }
 
     /**
@@ -85,11 +98,11 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
     protected function configureBlock(array $block)
     {
         $block += array(
-            'name'         => null,
-            'editable'  => false,
-            'deletable' => false,
-            'settings'     => array(),
-            'children'     => array()
+            'name'          => null,
+            'editable'      => false,
+            'deletable'     => false,
+            'settings'      => array(),
+            'children'      => array()
         );
         if (!is_array($block['settings'])) {
             $block['settings'] = array();
@@ -177,7 +190,7 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
         }
 
         $configuration['parent'] = $this->getObjectManager()->find(null, $parentId);
-        $configuration['name']   = uniqid('page-');
+        $configuration['name']   = (is_null($title)) ? uniqid('page-') : $this->slugifier->slugify($title);
 
         return $configuration;
     }
