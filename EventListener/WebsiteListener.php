@@ -49,7 +49,7 @@ class WebsiteListener
             return;
         }
 
-        if (strpos($request->getPathInfo(), '/admin') === 0) {
+        if (strpos($request->getPathInfo(), '/admin') === 0 || $request->get('admin_mode', false) === true) {
             //Administration
             //Load current website for admin
             $this->websiteManager->loadCurrentWebsiteForAdmin();
