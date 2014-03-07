@@ -113,7 +113,7 @@ class RouteFactory extends AbstractModelFactory implements ModelFactoryInterface
 
         $parentPage = $page->getParent();
         if ($parentPage instanceof Page) {
-            $parent = $this->routeManager->getRouteForPage($parentPage);
+            $parent = $this->routeManager->getRouteForPage($parentPage, $locale);
         } else {
             //if page is not a child, its routing is under website root node
             $website->setLocale($locale);
