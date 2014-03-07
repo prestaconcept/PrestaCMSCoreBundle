@@ -12,6 +12,7 @@ namespace Presta\CMSCoreBundle\Factory;
 use Presta\CMSCoreBundle\Doctrine\Phpcr\Page;
 use Presta\CMSCoreBundle\Model\Page\PageTypeCMSPage;
 use Presta\CMSCoreBundle\Model\Website;
+use Symfony\Cmf\Bundle\CoreBundle\Slugifier\SlugifierInterface;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
@@ -29,9 +30,9 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
     protected $zoneFactory;
 
     /**
-     * @var Urlizer
+     * @var SlugifierInterface
      */
-    protected $slugifer;
+    protected $slugifier;
 
     /**
      * @param ZoneFactory $zoneFactory
@@ -42,11 +43,11 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
     }
 
     /**
-     * @param Urlizer $slugifer
+     * @param SlugifierInterface $slugifier
      */
-    public function setSlugifier($slugifer)
+    public function setSlugifier(SlugifierInterface $slugifier)
     {
-        $this->slugifier = $slugifer;
+        $this->slugifier = $slugifier;
     }
 
     /**
