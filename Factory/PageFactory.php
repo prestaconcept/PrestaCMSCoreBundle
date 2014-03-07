@@ -191,7 +191,11 @@ class PageFactory extends AbstractModelFactory implements ModelFactoryInterface
         }
 
         $configuration['parent'] = $this->getObjectManager()->find(null, $parentId);
-        $configuration['name']   = (is_null($title)) ? uniqid('page-') : $this->slugifier->slugify($title);
+
+        $configuration['name'] = $this->slugifier->slugify($title);
+        if (strlen($configuration['name']) == 0) {
+            $configuration['name'] = uniqid('page-');
+        }
 
         return $configuration;
     }
