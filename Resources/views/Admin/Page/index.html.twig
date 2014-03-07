@@ -91,7 +91,7 @@
             {% for tab in pageEditTabs %}
             <div class="tab-pane form-horizontal {% if (loop.index == 1) %}active{% endif %}" id="{{ ['cms-page-', tab]|join }}">
                 {#{% render "PrestaCMSCoreBundle:Admin/Page:renderEditTab" with {'_locale': website.locale, 'tab': tab, 'page': page} %}#}
-                {{ render(controller('PrestaCMSCoreBundle:Admin/Page:renderEditTab', {'_locale': website.locale, 'tab': tab, 'page': page})) }}
+                {{ render(controller('PrestaCMSCoreBundle:Admin/Page:renderEditTab', {'_locale': website.locale, 'tab': tab, 'page': page, 'admin_mode': true})) }}
             </div>
             {% endfor %}
 
