@@ -9,17 +9,14 @@
  */
 namespace Presta\CMSCoreBundle\Model;
 
-use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
+use Sonata\TranslationBundle\Traits\Translatable;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class Website extends AbstractModel implements TranslatableInterface
+class Website extends AbstractModel
 {
-    /**
-     * @var string $locale
-     */
-    protected $locale;
+    use Translatable;
 
     /**
      * @var string $theme
@@ -41,22 +38,6 @@ class Website extends AbstractModel implements TranslatableInterface
     {
         $this->availableLocales = array();
         $this->mainMenuChildren = null;
-    }
-
-    /**
-     * @param string $locale
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLocale()
-    {
-        return $this->locale;
     }
 
     /**
