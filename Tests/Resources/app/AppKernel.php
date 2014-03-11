@@ -17,6 +17,7 @@ class AppKernel extends TestKernel
         $this->addBundles(
             array(
                 new \Sonata\SeoBundle\SonataSeoBundle(),
+                new Sonata\TranslationBundle\SonataTranslationBundle(),
 
                 // CMF bundles
                 new \Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
