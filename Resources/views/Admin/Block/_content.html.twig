@@ -29,8 +29,8 @@
     function CMSContentInit() {
     {% if (website) %}
         CMSContent.init(
-            "{{ path('presta_cms_block_edit', { 'locale': website.locale, 'website': website.id }) }}",
-            "{{ path('presta_cms_block_render', { 'locale': website.locale }) }}",
+            "{{ path('presta_cms_block_edit', { 'tl': website.locale, 'website': website.id }) }}",
+            "{{ path('presta_cms_block_render', { 'tl': website.locale }) }}",
             "{{ path('presta_cms_block_add', { 'locale': website.locale }) }}",
             "{{ path('presta_cms_block_delete') }}",
             "{{ path('presta_cms_page_add') }}",

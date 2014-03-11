@@ -9,8 +9,6 @@
  */
 namespace Presta\CMSCoreBundle\Admin;
 
-use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -35,6 +33,11 @@ class WebsiteAdmin extends BaseAdmin
      * @var ThemeManager
      */
     protected $themeManager;
+
+    /**
+     * @var MenuManager
+     */
+    protected $menuManager;
 
     /**
      * @param array $availableLocales
@@ -91,23 +94,12 @@ class WebsiteAdmin extends BaseAdmin
             ->addIdentifier('name', 'text')
             ->add('theme', 'text')
             ->add(
-                'defaultLocale',
-                'locale',
-                array(
-                    'template' => 'PrestaCMSCoreBundle:CRUD:list_locale.html.twig'
-                )
-            )
-            ->add(
                 'availableLocales',
                 'array',
                 array(
                     'template' => 'PrestaCMSCoreBundle:CRUD:list_array_locale.html.twig',
                 )
             )
-
-            ->add('isActive', 'boolean')
-            ->add('isDefault', 'boolean')
-
             ->add(
                 '_action',
                 'actions',
@@ -131,10 +123,7 @@ class WebsiteAdmin extends BaseAdmin
     {
         $showMapper
             ->add('name', null, array())
-            ->add('theme', null, array())
-            ->add('default', 'boolean', array())
-            ->add('active', 'boolean', array())
-            ->add('defaultLocale', null, array());
+            ->add('theme', null, array());
     }
 
     /**
@@ -145,24 +134,14 @@ class WebsiteAdmin extends BaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $subject    = $this->getSubject();
-        $locale     = $this->getObjectLocale();
 
         $formMapper
             ->with($this->trans('website.form.fieldset.general'))
                 ->add(
                     'theme',
                     'choice',
-                    array('attr' => array('class' => 'sonata-medium locale locale_' . $locale),
+                    array('attr' => array('class' => 'sonata-medium locale'),
                         'choices' => $this->themeManager->getAvailableThemes())
-                )
-                ->add(
-                    'enabled',
-                    'checkbox',
-                    array(
-                        'attr'      => array('class' => 'locale locale_' . $locale),
-                        'required'  => false,
-                        'read_only' => true,
-                    )
                 )
                 ->add('availableLocales', 'choice', array(
                     'choices'   => array_combine($this->availableLocales, $this->availableLocales),
@@ -194,34 +173,6 @@ class WebsiteAdmin extends BaseAdmin
         $object->setMainMenuChildren($this->menuManager->getWebsiteMainMenu($object)->getChildren());
 
         return $object;
-    }
-
-    /**
-     * Allow to select locale to edit in side menu
-     *
-     * @param MenuItemInterface $menu
-     * @param string            $action
-     * @param AdminInterface    $childAdmin
-     */
-    protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
-    {
-        $object = $this->getSubject();
-        if (!in_array($action, array('edit')) || is_null($this->getUrlsafeIdentifier($object))) {
-            return;
-        }
-
-        foreach ($object->getAvailableLocales() as $locale) {
-            $menuItem = $menu->addChild(
-                $this->trans($locale),
-                array('uri' => $this->generateObjectUrl('edit', $object, array('locale' => $locale)))
-            );
-            $menuItem->setAttribute('class', 'locale locale_' . $locale);
-
-            // select current edited locale item in menu
-            if ($object->getLocale() == $locale) {
-                $menu->setCurrentUri($this->generateObjectUrl('edit', $object, array('locale' => $locale)));
-            }
-        }
     }
 
     /**

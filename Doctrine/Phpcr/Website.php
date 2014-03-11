@@ -10,11 +10,12 @@
 namespace Presta\CMSCoreBundle\Doctrine\Phpcr;
 
 use Presta\CMSCoreBundle\Model\Website as WebsiteModel;
+use Sonata\TranslationBundle\Model\Phpcr\TranslatableInterface;
 
 /**
  * @author Nicolas Bastien <nbastien@prestaconcept.net>
  */
-class Website extends WebsiteModel
+class Website extends WebsiteModel implements TranslatableInterface
 {
     const WEBSITE_PREFIX    = 'website';
     const THEME_PREFIX      = 'theme';

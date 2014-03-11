@@ -9,6 +9,12 @@ sonata_admin:
         blocks:
             - { position: right, type: presta_cms.block.dashboard.cms }
 
+sonata_translation:
+    locales: [fr, en]
+    default_locale: fr
+    phpcr:
+        enabled: true
+
 presta_cms_core:
     default_website: /website/sandbox
     default_locale: en

@@ -106,6 +106,10 @@ class MenuManager
      */
     public function getWebsiteMainMenu(Website $website)
     {
-        return $this->getDocumentManager()->find(null, $website->getMainMenuRootPath());
+        return $this->getDocumentManager()->findTranslation(
+            null,
+            $website->getMainMenuRootPath(),
+            $website->getLocale()
+        );
     }
 }
