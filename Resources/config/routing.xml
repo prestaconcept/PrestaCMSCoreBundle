@@ -9,11 +9,11 @@
     <route id="presta_cms_theme_edit" pattern="/cms/theme/edit/{name}">
         <default key="_controller">PrestaCMSCoreBundle:Admin/Theme:edit</default>
     </route>
-    <route id="presta_cms_block_edit" pattern="/cms/block/edit/{locale}">
+    <route id="presta_cms_block_edit" pattern="/cms/block/edit/{tl}">
         <default key="_controller">PrestaCMSCoreBundle:Admin/Block:edit</default>
         <default key="_sonata_admin">presta_cms.admin.block</default>
     </route>
-    <route id="presta_cms_block_render" pattern="/cms/block/render/{locale}">
+    <route id="presta_cms_block_render" pattern="/cms/block/render/{tl}">
         <default key="_controller">PrestaCMSCoreBundle:Admin/Block:render</default>
         <default key="_sonata_admin">presta_cms.admin.block</default>
     </route>
