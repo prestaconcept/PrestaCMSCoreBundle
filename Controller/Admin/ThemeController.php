@@ -78,8 +78,6 @@ class ThemeController extends AdminController
         $website    = $this->getWebsiteManager()->getCurrentWebsite();
         $viewParams = array(
             'website'   => $website,
-            'websiteId' => ($website) ? $website->getId() : null,
-            'locale'    => ($website) ? $website->getLocale() : null,
             'theme'     => $this->getThemeManager()->getTheme($name, $website)
         );
 
