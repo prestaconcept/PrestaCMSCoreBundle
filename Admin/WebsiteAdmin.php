@@ -35,6 +35,11 @@ class WebsiteAdmin extends BaseAdmin
     protected $themeManager;
 
     /**
+     * @var MenuManager
+     */
+    protected $menuManager;
+
+    /**
      * @param array $availableLocales
      */
     public function setAvailableLocales($availableLocales)
@@ -89,23 +94,12 @@ class WebsiteAdmin extends BaseAdmin
             ->addIdentifier('name', 'text')
             ->add('theme', 'text')
             ->add(
-                'defaultLocale',
-                'locale',
-                array(
-                    'template' => 'PrestaCMSCoreBundle:CRUD:list_locale.html.twig'
-                )
-            )
-            ->add(
                 'availableLocales',
                 'array',
                 array(
                     'template' => 'PrestaCMSCoreBundle:CRUD:list_array_locale.html.twig',
                 )
             )
-
-            ->add('isActive', 'boolean')
-            ->add('isDefault', 'boolean')
-
             ->add(
                 '_action',
                 'actions',
@@ -129,10 +123,7 @@ class WebsiteAdmin extends BaseAdmin
     {
         $showMapper
             ->add('name', null, array())
-            ->add('theme', null, array())
-            ->add('default', 'boolean', array())
-            ->add('active', 'boolean', array())
-            ->add('defaultLocale', null, array());
+            ->add('theme', null, array());
     }
 
     /**
@@ -151,15 +142,6 @@ class WebsiteAdmin extends BaseAdmin
                     'choice',
                     array('attr' => array('class' => 'sonata-medium locale'),
                         'choices' => $this->themeManager->getAvailableThemes())
-                )
-                ->add(
-                    'enabled',
-                    'checkbox',
-                    array(
-                        'attr'      => array('class' => 'locale'),
-                        'required'  => false,
-                        'read_only' => true,
-                    )
                 )
                 ->add('availableLocales', 'choice', array(
                     'choices'   => array_combine($this->availableLocales, $this->availableLocales),
