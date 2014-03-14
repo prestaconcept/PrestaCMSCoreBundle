@@ -23,6 +23,7 @@ security:
 
         ROLE_ADMIN_CMS_THEME:
             - ROLE_ADMIN_CMS_THEME_EDIT
+            - ROLE_ADMIN_CMS_THEME_STRUCTURE
             - ROLE_ADMIN_CMS_THEME_ACCESS
 
         ROLE_ADMIN_CMS_SEO:
@@ -32,6 +33,8 @@ security:
         ROLE_ADMIN_CACHE_CLEAR:
             - ROLE_ADMIN_CMS_ACCESS
         ROLE_ADMIN_THEME_EDIT:
+            - ROLE_ADMIN_CMS_ACCESS
+        ROLE_ADMIN_CMS_THEME_STRUCTURE:
             - ROLE_ADMIN_CMS_ACCESS
         ROLE_ADMIN_CMS_PAGE_ADD:
             - ROLE_ADMIN_CMS_ACCESS
