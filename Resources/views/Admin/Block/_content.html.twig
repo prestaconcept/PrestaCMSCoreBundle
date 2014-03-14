@@ -1,4 +1,12 @@
 {% trans_default_domain "PrestaCMSCoreBundle" %}
+{% if origin == 'page' %}
+    {% set isGrantedStructure = is_granted("ROLE_ADMIN_CMS_PAGE_STRUCTURE") %}
+{% elseif origin == 'theme' %}
+    {% set isGrantedStructure = is_granted("ROLE_ADMIN_CMS_THEME_STRUCTURE") %}
+{% else %}
+    {% set isGrantedStructure = false %}
+{% endif %}
+
 <div id="modal" class="modal modal-large hide">
     {#<div class="modal-header">#}
         {#<h3 id="modal-title">{{ 'modal.edit.block.title'|trans({}, 'PrestaCMSCoreBundle') }}</h3>#}
@@ -67,7 +75,7 @@
                                 {% endif %}
                             </div>
                         {% endif %}
-                        {% if (zone.isEditable and is_granted("ROLE_ADMIN_CMS_PAGE_STRUCTURE")) %}
+                        {% if (zone.isEditable and isGrantedStructure) %}
                             <div class="zone-actions">
                                 <a class="btn action-add" zone-id="{{ zone.id }}" type="{{ zone.name }}"><i class="icon-plus"></i>&nbsp;</a>
                             </div>
