@@ -213,6 +213,10 @@ var CMSContent = function() {
 
             $('#modal-content').load(url, function() {
                 $('#modal-content div.form-actions').remove();
+                $('#modal-content form').on('submit', function(e) {
+                    e.preventDefault();
+                    CMSContent.submitModalForm();
+                });
                 $('#modal-loader').hide();
                 $('#modal-content').show();
             });
