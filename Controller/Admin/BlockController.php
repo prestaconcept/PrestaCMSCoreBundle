@@ -32,6 +32,14 @@ class BlockController extends CRUDController
     }
 
     /**
+     * @return PageManager
+     */
+    protected function getPageManager()
+    {
+        return $this->get('presta_cms.manager.page');
+    }
+
+    /**
      * @return SecurityContextInterface
      */
     protected function getSecurityContext()
@@ -123,6 +131,16 @@ class BlockController extends CRUDController
 
         $zoneFactory->flush();
         $block->setAdminMode();
+
+        /* Determine the zone containing this block */
+        $parent = $block->getParentDocument();
+        while ($parent instanceof Block) {
+            $parent = $parent->getParentDocument();
+        }
+
+        /* Use the containing page as current page */
+        $parentPage = $parent->getParent();
+        $this->getPageManager()->setCurrentPage($parentPage);
 
         if ($this->isXmlHttpRequest()) {
             return $this->renderJson(
