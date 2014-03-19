@@ -52,7 +52,7 @@ class Website extends WebsiteModel implements TranslatableInterface
      */
     public function getRoutePrefix()
     {
-        return $this->getPath() . DIRECTORY_SEPARATOR . self::ROUTE_PREFIX . DIRECTORY_SEPARATOR . $this->getLocale();
+        return $this->getPath() . '/' . self::ROUTE_PREFIX . '/' . $this->getLocale();
     }
 
     /**
@@ -60,7 +60,7 @@ class Website extends WebsiteModel implements TranslatableInterface
      */
     public function getMenuRoot()
     {
-        return $this->getPath() . DIRECTORY_SEPARATOR . self::MENU_PREFIX;
+        return $this->getPath() . '/' . self::MENU_PREFIX;
     }
 
     /**
@@ -68,6 +68,6 @@ class Website extends WebsiteModel implements TranslatableInterface
      */
     public function getPageRoot()
     {
-        return $this->getPath() . DIRECTORY_SEPARATOR . self::PAGE_PREFIX;
+        return $this->getPath() . '/' . self::PAGE_PREFIX;
     }
 }

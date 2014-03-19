@@ -28,14 +28,14 @@ class LoadWebsite extends BaseWebsiteFixture
     {
         // Get the base path name to use from the configuration
         $session = $manager->getPhpcrSession();
-        $basePath = DIRECTORY_SEPARATOR . Website::WEBSITE_PREFIX;
+        $basePath = '/' . Website::WEBSITE_PREFIX;
 
         // Create the path in the repository
         NodeHelper::createPath($session, $basePath);
 
         $this->getFactory()->create(
             array(
-                'path' => $basePath . DIRECTORY_SEPARATOR . 'sandbox',
+                'path' => $basePath . '/' . 'sandbox',
                 'name' => 'sandbox',
                 'available_locales' => array('fr', 'en'),
                 'default_locale' => 'fr',

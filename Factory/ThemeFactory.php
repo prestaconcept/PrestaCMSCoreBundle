@@ -55,7 +55,7 @@ class ThemeFactory extends AbstractModelFactory implements ModelFactoryInterface
             $zones = array();
             $themeNode = $this->getObjectManager()->findTranslation(
                 $this->modelClassName,
-                $website->getId() . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $configuration['name'],
+                $website->getId() . '/' . 'theme' . '/' . $configuration['name'],
                 $website->getLocale()
             );
 
