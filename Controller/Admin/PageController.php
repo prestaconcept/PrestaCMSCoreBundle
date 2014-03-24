@@ -129,6 +129,8 @@ class PageController extends AdminController
             throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
         }
 
+        $this->getPageManager()->setCurrentPage($page);
+
         //Initialize routing data
         $routeManager = $this->getRouteManager();
         $routeManager->setBaseUrl($websiteManager->getBaseUrlForLocale($locale));
