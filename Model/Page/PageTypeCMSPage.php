@@ -91,20 +91,30 @@ class PageTypeCMSPage implements PageTypeInterface
                     ->getTheme($website->getTheme())
                     ->getPageTemplate($page->getTemplate());
 
+                /* Build a list of page zones in the ordering of the page template */
+                $pageZones = $page->getZones();
+                $pageZonesOrdered = array();
                 foreach ($template->getZones() as $zone) {
                     if ($page->hasZone($zone)) {
-                        continue;
+                        $pageZone = $pageZones[$zone->getName()];
+
+                        /* Add template configuration details that are not persisted in the page */
+                        $pageZone->setCols($zone->getCols());
+                        $pageZone->setRows($zone->getRows());
+                    } else {
+                        $pageZone = $zone;
+                        $pageZone->setId($page->getId() . '/' . $zone->getName());
+                        $page->addZone($pageZone);
                     }
 
-                    $zone->setId($page->getId() . '/' . $zone->getName());
-
-                    $page->addZone($zone);
+                    $pageZonesOrdered[] = $pageZone;
                 }
 
                 return array(
-                    'page'     => $page,
-                    'locale'   => $page->getLocale(),
-                    'website'  => $website
+                    'page'               => $page,
+                    'page_zones_ordered' => $pageZonesOrdered,
+                    'locale'             => $page->getLocale(),
+                    'website'            => $website
                 );
                 break;
             case self::TAB_DESCRIPTION:

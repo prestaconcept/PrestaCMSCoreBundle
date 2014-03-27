@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="control-group">
-                {% set zones = page.zones %}
+                {% set zones = page_zones_ordered %}
                 {% set cols  = 12 %}
                 {% include 'PrestaCMSCoreBundle:Admin/Block:_content.html.twig' with {'origin': 'page'}  %}
             </div>
