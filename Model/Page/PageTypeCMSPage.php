@@ -85,59 +85,69 @@ class PageTypeCMSPage implements PageTypeInterface
     {
         switch ($tab) {
             case self::TAB_CONTENT:
-                $website = $this->websiteManager->getCurrentWebsite();
-
-                $template = $this->themeManager
-                    ->getTheme($website->getTheme())
-                    ->getPageTemplate($page->getTemplate());
-
-                /* Build a list of page zones in the ordering of the page template */
-                $pageZones = $page->getZones();
-                $pageZonesOrdered = array();
-                foreach ($template->getZones() as $zone) {
-                    if ($page->hasZone($zone)) {
-                        $pageZone = $pageZones[$zone->getName()];
-
-                        /* Add template configuration details that are not persisted in the page */
-                        $pageZone->setCols($zone->getCols());
-                        $pageZone->setRows($zone->getRows());
-                    } else {
-                        $pageZone = $zone;
-                        $pageZone->setId($page->getId() . '/' . $zone->getName());
-                        $page->addZone($pageZone);
-                    }
-
-                    $pageZonesOrdered[] = $pageZone;
-                }
-
-                return array(
-                    'page'               => $page,
-                    'page_zones_ordered' => $pageZonesOrdered,
-                    'locale'             => $page->getLocale(),
-                    'website'            => $website
-                );
+                return $this->getEditTabContentData($page, $pool);
                 break;
             case self::TAB_DESCRIPTION:
-                /** @var AdminInterface $mediaAdmin */
-                $mediaAdmin = $pool->getAdminByAdminCode('sonata.media.admin.media');
-                $media      = $mediaAdmin->getModelManager()->find(
-                    $mediaAdmin->getClass(),
-                    $page->getDescriptionMediaId()
-                );
-                if (null !== $media) {
-                    $page->setDescriptionMedia($media);
-                }
-
-                return array(
-                    'page'       => $page,
-                    'form'       => $this->formFactory->create(new PageDescriptionType($pool), $page)->createView()
-                );
+                return $this->getEditTabDescriptionData($page, $pool);
                 break;
             default:
                 break;
         }
 
         return array();
+    }
+
+    private function getEditTabContentData(Page $page, Pool $pool)
+    {
+        $website = $this->websiteManager->getCurrentWebsite();
+
+        $template = $this->themeManager
+            ->getTheme($website->getTheme())
+            ->getPageTemplate($page->getTemplate());
+
+        /* Build a list of page zones in the ordering of the page template */
+        $pageZones = $page->getZones();
+        $zones = array();
+        foreach ($template->getZones() as $templateZone) {
+            if ($page->hasZone($templateZone)) {
+                $pageZone = $pageZones[$templateZone->getName()];
+
+                /* Add template configuration details that are not persisted in the page */
+                $pageZone->setCols($templateZone->getCols());
+                $pageZone->setRows($templateZone->getRows());
+            } else {
+                $pageZone = $templateZone;
+                $pageZone->setId($page->getId() . '/' . $templateZone->getName());
+                $page->addZone($pageZone);
+            }
+
+            $zones[] = $pageZone;
+        }
+
+        return array(
+            'page'     => $page,
+            'zones'    => $zones,
+            'locale'   => $page->getLocale(),
+            'website'  => $website
+        );
+    }
+
+    private function getEditTabDescriptionData(Page $page, Pool $pool)
+    {
+        /** @var AdminInterface $mediaAdmin */
+        $mediaAdmin = $pool->getAdminByAdminCode('sonata.media.admin.media');
+        $media      = $mediaAdmin->getModelManager()->find(
+            $mediaAdmin->getClass(),
+            $page->getDescriptionMediaId()
+        );
+        if (null !== $media) {
+            $page->setDescriptionMedia($media);
+        }
+
+        return array(
+            'page'       => $page,
+            'form'       => $this->formFactory->create(new PageDescriptionType($pool), $page)->createView()
+        );
     }
 
     /**
