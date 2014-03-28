@@ -97,7 +97,15 @@ class PageTypeCMSPage implements PageTypeInterface
         return array();
     }
 
-    private function getEditTabContentData(Page $page, Pool $pool)
+    /**
+     * Returns data for the content tab when editing pages of this type
+     *
+     * @param Page $page
+     * @param Pool $pool
+     *
+     * @return array
+     */
+    protected function getEditTabContentData(Page $page, Pool $pool)
     {
         $website = $this->websiteManager->getCurrentWebsite();
 
@@ -132,7 +140,15 @@ class PageTypeCMSPage implements PageTypeInterface
         );
     }
 
-    private function getEditTabDescriptionData(Page $page, Pool $pool)
+    /**
+     * Returns data for the description tab when editing pages of this type
+     *
+     * @param Page $page
+     * @param Pool $pool
+     *
+     * @return array
+     */
+    protected function getEditTabDescriptionData(Page $page, Pool $pool)
     {
         /** @var AdminInterface $mediaAdmin */
         $mediaAdmin = $pool->getAdminByAdminCode('sonata.media.admin.media');
