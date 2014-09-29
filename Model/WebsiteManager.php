@@ -414,6 +414,12 @@ class WebsiteManager
             return false;
         }
 
-        return 'http://' . $configuration[$locale]['host'];
+        if (isset($configuration[$locale]['scheme']) && 'https' === $configuration[$locale]['scheme']) {
+            $scheme = 'https';
+        } else {
+            $scheme = 'http';
+        }
+
+        return $scheme . '://' . $configuration[$locale]['host'];
     }
 }
