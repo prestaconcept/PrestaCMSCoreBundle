@@ -73,7 +73,13 @@ class ThemeFactory extends AbstractModelFactory implements ModelFactoryInterface
         foreach ($configuration['zones'] as $zoneConfiguration) {
 
             if (!isset($zones[$zoneConfiguration['name']])) {
-                $zone = new Zone($zoneConfiguration['name']);
+                if (isset($themeNode) && $themeNode != null) {
+                    $zoneConfiguration['parent'] = $themeNode;
+                    $zoneConfiguration['website'] = $website;
+                    $zone = $this->zoneFactory->create($zoneConfiguration);
+                } else {
+                    $zone = new Zone($zoneConfiguration['name']);
+                }
             } else {
                 $zone = $zones[$zoneConfiguration['name']];
             }

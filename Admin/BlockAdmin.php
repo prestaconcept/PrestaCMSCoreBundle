@@ -86,7 +86,7 @@ class BlockAdmin extends BaseAdmin
         $service = $this->blockManager->get($block);
 
         $website = $this->getWebsiteManager()->getCurrentWebsite();
-        $currentTheme = $this->getThemeManager()->getTheme($website->getTheme());
+        $currentTheme = $this->getThemeManager()->getTheme($website->getTheme(), $website);
 
         if ($currentTheme instanceof Theme) {
             $service->setBlockStyles($currentTheme->getBlockStyles());

@@ -96,12 +96,17 @@ class ThemeManager
      *
      * @return array
      */
-    public function getAvailableThemes()
+    public function getAvailableThemes(Website $website)
     {
         if (!is_array($this->themes)) {
             $this->themes = array();
             foreach ($this->themesConfiguration as $configuration) {
-                $this->themes[$configuration['name']] = $this->getThemeFactory()->create($configuration);
+                $name = $configuration['name'];
+
+                $configuration = $this->getThemeConfiguration($name);
+                $configuration['website'] = $website;
+
+                $this->themes[$name] = $this->getThemeFactory()->create($configuration);
             }
         }
 
@@ -126,7 +131,7 @@ class ThemeManager
      * @param  Website $website
      * @return Theme
      */
-    public function getTheme($name, Website $website = null)
+    public function getTheme($name, Website $website)
     {
         if (!$this->hasTheme($name)) {
             return false;

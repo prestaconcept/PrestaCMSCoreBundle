@@ -54,9 +54,10 @@ class ThemeController extends AdminController
      */
     public function listAction()
     {
+        $website = $this->getWebsiteManager()->getCurrentWebsite();
         return $this->renderResponse(
             'PrestaCMSCoreBundle:Admin/Theme:list.html.twig',
-            array('themes' => $this->getThemeManager()->getAvailableThemes())
+            array('themes' => $this->getThemeManager()->getAvailableThemes($website))
         );
     }
 
