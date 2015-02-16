@@ -430,7 +430,7 @@ class PageController extends AdminController
         }
         /** @var Website $website */
         $website    = $this->getWebsiteManager()->getCurrentWebsite();
-        $templates  = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
+        $templates  = $this->getThemeManager()->getTheme($website->getTheme(), $website)->getPageTemplates();
         $parentId   = $request->get('parentId', null);
 
         $form = $this->createForm(new CreateType($parentId, $templates));
