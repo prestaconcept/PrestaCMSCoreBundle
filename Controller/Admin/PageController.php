@@ -506,7 +506,9 @@ class PageController extends AdminController
 
         $jsCode = 'var WYSIWYG_INTERNAL_PAGES = [';
         foreach ($pages as $page) {
-            $jsCode .= '["' . $page->getTitle() . '", "##internal#' . $page->getId() . '#"],';
+            if ($page instanceof Page) {
+                $jsCode .= '["' . $page->getTitle() . '", "##internal#' . $page->getId() . '#"],';
+            }
         }
         $jsCode .= '];';
 
