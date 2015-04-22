@@ -26,7 +26,7 @@
         "symfony-cmf/routing-bundle": "1.1.*",
         "symfony-cmf/tree-browser-bundle": "1.0.*",
 
-        "sonata-project/doctrine-phpcr-admin-bundle": "1.0.*",
+        "sonata-project/doctrine-phpcr-admin-bundle": "~1.0",
         "sonata-project/seo-bundle": "1.1.*",
         "sonata-project/translation-bundle": "1.*",
         "leafo/lessphp":"~0.3",
