@@ -103,7 +103,7 @@ class PageController extends AdminController
         $website = $this->getWebsiteManager()->getCurrentWebsite();
 
         if ($website != null) {
-            $theme = $this->getThemeManager()->getTheme($website->getTheme());
+            $theme = $this->getThemeManager()->getTheme($website->getTheme(), $website);
             $viewParams['theme']   = $theme;
             $viewParams['website'] = $website;
         }
@@ -153,7 +153,7 @@ class PageController extends AdminController
         if ($id != null) {
             $page       = $this->getPage($id);
             $website    = $this->getWebsiteManager()->getCurrentWebsite();
-            $templates  = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
+            $templates  = $this->getThemeManager()->getTheme($website->getTheme(), $website)->getPageTemplates();
 
             $viewParams['page'] = $page;
             $viewParams['pageFrontUrl'] = $this->getFrontUrlPreviewForPage($page);
@@ -200,7 +200,7 @@ class PageController extends AdminController
     public function editSettingsAction(Request $request)
     {
         $website   = $this->getWebsiteManager()->getCurrentWebsite();
-        $templates = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
+        $templates = $this->getThemeManager()->getTheme($website->getTheme(), $website)->getPageTemplates();
 
         return $this->handleFormTab($request, new SettingsType($templates));
     }
@@ -430,7 +430,7 @@ class PageController extends AdminController
         }
         /** @var Website $website */
         $website    = $this->getWebsiteManager()->getCurrentWebsite();
-        $templates  = $this->getThemeManager()->getTheme($website->getTheme())->getPageTemplates();
+        $templates  = $this->getThemeManager()->getTheme($website->getTheme(), $website)->getPageTemplates();
         $parentId   = $request->get('parentId', null);
 
         $form = $this->createForm(new CreateType($parentId, $templates));

@@ -40,6 +40,7 @@ class Configuration implements ConfigurationInterface
                                         ->children()
                                             ->scalarNode('locale')->end()
                                             ->scalarNode('host')->end()
+                                            ->scalarNode('scheme')->end()
                                         ->end()
                                     ->end()
                                 ->end()

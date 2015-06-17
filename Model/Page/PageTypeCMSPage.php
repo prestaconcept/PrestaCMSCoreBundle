@@ -110,7 +110,7 @@ class PageTypeCMSPage implements PageTypeInterface
         $website = $this->websiteManager->getCurrentWebsite();
 
         $template = $this->themeManager
-            ->getTheme($website->getTheme())
+            ->getTheme($website->getTheme(), $website)
             ->getPageTemplate($page->getTemplate());
 
         /* Build a list of page zones in the ordering of the page template */
